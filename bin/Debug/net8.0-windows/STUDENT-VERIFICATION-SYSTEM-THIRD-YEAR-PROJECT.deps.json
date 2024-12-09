@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT/1.0.0": {
+        "runtime": {
+          "STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
