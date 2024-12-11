@@ -3,10 +3,245 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT"
+        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Dashboard" 
+        MinHeight="600" MinWidth="1100"
+        WindowStartupLocation="CenterScreen"
+         WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown"
+         >
+    <Border CornerRadius="10" >
 
-    </Grid>
+        <!--This is for the border radius or corner radius of the window-->
+
+        <Border CornerRadius="10"
+              BorderBrush="#3D7E35"
+              BorderThickness="2"
+               >
+
+
+
+            <Border.Background>
+                <SolidColorBrush Color="#F4F5F6"/>
+
+            </Border.Background>
+
+            <Grid>
+
+                <Grid.RowDefinitions>
+
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+
+                <Border Grid.Row="0"
+                        Background="#3D7E35"
+                        Margin="0,0,0,0"
+                        CornerRadius="5,5,0,0"
+                        Effect="{StaticResource dropShadow}">
+
+
+
+                </Border>
+                <Grid Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+
+
+
+
+
+                    <!-- Sidebar -->
+
+
+                    <Border Grid.Column="0"
+                            Background="White"
+                            BorderBrush="#3D7E35"
+                            BorderThickness="0.5"
+                            Padding="10" Margin="0,0,2,0"
+                            CornerRadius="0,0,0,10"
+                            Effect="{StaticResource dropShadow}">
+
+                        <!--The panel that holds the buttons-->
+                        <StackPanel>
+
+                            <!--The border for the profile -->
+                            <Border Width="80" Height="80" Background="White" BorderThickness="4" CornerRadius="40" Margin="0,6,0,0">
+
+                                <!--The ellipse that shapes the image to circle-->
+                                <Ellipse>
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/LogoUm.png"/>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+
+
+
+                            </Border>
+
+                            <!--Textblock for the name of admin-->
+
+                            <!--Buttons in the sidebar-->
+
+                            <!--Dashboard-->
+                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="0,50,0,5"
+                                    Cursor="Hand" Width="160">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Menu" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Dashboard"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!--Professors-->
+
+                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                 Cursor="Hand" Width="160">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Professors" FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+                            <Button x:Name="Inventory" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                Cursor="Hand" Width="160">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="School" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Programs" FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+
+                            <!--Sales-->
+
+                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                    Cursor="Hand" Width="160">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Domain" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Departments"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+                            <!--Analytics-->
+
+
+                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                 Cursor="Hand" Width="160">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Bookshelf" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Subjects"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+                            <!--Employee-->
+                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                     Cursor="Hand" Width="160">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="AccountSupervisor" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Staffs"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                               Cursor="Hand" Width="160">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="BookEducation" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Students"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+
+                            <!--Logout-->
+
+                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                                  Cursor="Hand" Width="160" >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Logout"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
+
+
+
+                        </StackPanel>
+                    </Border>
+
+
+
+
+                    <!-- Main Content Area -->
+                    <Border Grid.Column="1"
+                            Background="White"
+                            Margin="8"
+                            CornerRadius="4"
+                            >
+
+
+                        <!--Name of the MainContentArea where the user control will appear-->
+                        <ContentControl x:Name="MainContentArea">
+
+
+
+                        </ContentControl>
+
+                    </Border>
+
+                </Grid>
+
+
+
+                <!--This is for header row which in the row 0-->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+
+
+                        <!--Column for the logo picture-->
+                        <ColumnDefinition/>
+                        <!--Column for Minimize-->
+                        <ColumnDefinition Width="35"/>
+                        <!--Column for maximize-->
+                        <ColumnDefinition Width="35"/>
+                        <!--Column for Close-->
+
+                        <ColumnDefinition Width="35"/>
+
+
+
+                    </Grid.ColumnDefinitions>
+
+
+
+
+                 
+
+
+
+
+
+
+                </Grid>
+
+
+            </Grid>
+
+
+
+
+
+        </Border>
+    </Border>
 </Window>
