@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
         public MainWindow()
         {
             InitializeComponent();
+            MainContentArea.Content = new DashboardOverview();
+
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -27,6 +30,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
             {
                 DragMove();
             }
+        }
+
+
+        private void DashboardOverview_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new DashboardOverview();
+        }
+
+        private void ProfessorBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new Professors();
+
         }
     }
 }

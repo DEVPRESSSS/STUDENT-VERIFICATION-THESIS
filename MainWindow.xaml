@@ -92,8 +92,8 @@
                             <!--Buttons in the sidebar-->
 
                             <!--Dashboard-->
-                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="0,50,0,5"
-                                    Cursor="Hand" Width="160">
+                            <Button x:Name="DashboardOverview" Style="{StaticResource menuButton}"  Foreground="White" Margin="0,50,0,5"
+                                    Cursor="Hand" Width="160" Click="DashboardOverview_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Menu" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Dashboard"  FontFamily="Roboto"/>
@@ -102,8 +102,8 @@
 
                             <!--Professors-->
 
-                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                 Cursor="Hand" Width="160">
+                            <Button x:Name="ProfessorBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                 Cursor="Hand" Width="160" Click="ProfessorBtn_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="AccountCircle" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Professors" FontFamily="Roboto"/>
@@ -168,8 +168,8 @@
                             <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
                                                   Cursor="Hand" Width="160" >
                                 <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Logout"  FontFamily="Roboto"/>
+                                    <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Settings"  FontFamily="Roboto"/>
                                 </StackPanel>
                             </Button>
 
