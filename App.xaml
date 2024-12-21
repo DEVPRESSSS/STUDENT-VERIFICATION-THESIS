@@ -83,7 +83,7 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#3D7E35"/>
+                    <Setter Property="Background" Value="#4CAF50"/>
                     <Setter Property="Foreground" Value="#ffffff"/>
                 </Trigger>
             </Style.Triggers>
@@ -94,7 +94,7 @@
         <!-- Menu Button template-->
         <Style x:Key="menuButton" TargetType="Button">
             <Setter Property="Background" Value="#3D7E35"/>
-            <Setter Property="Foreground" Value="#313638"/>
+            <Setter Property="Foreground" Value="#3D7E32"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="Margin" Value="15 3"/>
@@ -476,8 +476,8 @@
         <!--Button Style in windows style-->
 
         <Style x:Key="MinimizeButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="White" />
-            <Setter Property="Foreground" Value="#313638" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#ffff" />
             <Setter Property="FontSize" Value="13" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="BorderThickness" Value="0" />
@@ -509,5 +509,14 @@
             <Setter Property="Width" Value="12" />
             <Setter Property="Height" Value="12" />
         </Style>
+        
+        
+        
+        
+        
+        
+        
+        
+        
     </Application.Resources>
 </Application>

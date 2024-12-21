@@ -16,9 +16,9 @@
 
             <!--Professor Table-->
             <Border 
-         Background="White"
-         Margin="10,67,10,10"
-         CornerRadius="4">
+                 Background="White"
+                 Margin="10,47,10,10"
+                 CornerRadius="4">
 
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}">
                     <DataGrid.Columns>
@@ -67,22 +67,30 @@
 
 
 
-            <Border.Background>
 
-                <!--Background Image-->
-                <ImageBrush Stretch="Fill" ImageSource="pack://application:,,,/Resources/UmPicture.png"/>
-
-            </Border.Background>
 
         </Border>
 
+
+
+        <!--Search textbox-->
+
         <TextBox x:Name="UsernameXZ" Style="{StaticResource TextBoxes}"
            Width="100"
-           Margin="0,10,10,0"
+           Margin="0,10,62,0"
            BorderBrush="Gray"
            Background="White" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right"
          
            />
+
+
+        <!--Add button-->
+
+        <Button Style="{StaticResource SubmitButton}" 
+                Margin="0,10,10,0" Width="47"
+                BorderThickness="0"
+                Content="Add" Height="25" VerticalAlignment="Top"
+                />
 
 
     </Grid>

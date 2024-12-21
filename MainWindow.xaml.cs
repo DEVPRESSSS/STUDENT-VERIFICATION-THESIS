@@ -43,5 +43,41 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
             MainContentArea.Content = new Professors();
 
         }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            //Confirmation if the user want to exit
+
+            MessageBoxResult dr = MessageBox.Show("Are you sure want to exit??", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(dr == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown(0);
+            }
+        }
+
+        private void Maximize_Click(object sender, RoutedEventArgs e)
+        {
+            //Normal and maximize logic
+
+            if(WindowState == WindowState.Normal)
+            {
+
+              WindowState=   WindowState.Maximized;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+
+
+            WindowState= WindowState.Minimized;
+        }
     }
 }
