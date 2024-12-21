@@ -68,7 +68,7 @@
 
                         
                         <!--Minimize button-->
-                        <Button x:Name="Minimize" Grid.Column="0"
+                        <Button x:Name="Minimize" Grid.Column="0" Click="Minimize_Click"
                             Style="{StaticResource MinimizeButtonStyle}"
 
  >
@@ -87,7 +87,7 @@
                         
                         <!--Maximize button-->
 
-                        <Button x:Name="Maximize" Grid.Column="1"
+                        <Button x:Name="Maximize" Grid.Column="1" Click="Maximize_Click"
                            Style="{StaticResource MinimizeButtonStyle}"
 >
 

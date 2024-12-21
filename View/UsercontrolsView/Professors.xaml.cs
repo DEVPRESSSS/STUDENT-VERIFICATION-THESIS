@@ -24,5 +24,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
         {
             InitializeComponent();
         }
+
+        private void UsernameXZ_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void UsernameXZ_GotFocus(object sender, RoutedEventArgs e)
+        {
+            UsernameXZ.Text = "";
+        }
     }
 }

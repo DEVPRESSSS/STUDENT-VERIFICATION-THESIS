@@ -77,9 +77,15 @@
 
         <TextBox x:Name="UsernameXZ" Style="{StaticResource TextBoxes}"
            Width="100"
-           Margin="0,10,62,0"
-           BorderBrush="Gray"
-           Background="White" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right"
+           Margin="0,10,80,0"
+           BorderBrush="#3D7E35"
+           Background="White" 
+           Height="25"
+           Text="Search here...."
+           TextChanged="UsernameXZ_TextChanged"
+          GotFocus="UsernameXZ_GotFocus"
+           VerticalAlignment="Top" 
+           HorizontalAlignment="Right"
          
            />
 
@@ -87,10 +93,43 @@
         <!--Add button-->
 
         <Button Style="{StaticResource SubmitButton}" 
-                Margin="0,10,10,0" Width="47"
-                BorderThickness="0"
-                Content="Add" Height="25" VerticalAlignment="Top"
-                />
+            Margin="0,10,10,0" Width="56"
+            BorderThickness="0"
+            Height="25" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock FontFamily="Roboto" VerticalAlignment="Center"/>
+                <Icon:PackIconMaterial Kind="Plus" 
+                               Width="12" 
+                               Height="12" 
+                               VerticalAlignment="Center" 
+                               Margin="5,0,0,0"/>
+            </StackPanel>
+        </Button>
+
+
+
+
+        <!--Export button-->
+        <ComboBox  x:Name="ComboCat" 
+                       Style="{StaticResource ComboBoxStyle}"
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Top" 
+                       Width="97" Height="23"
+                        Foreground="#3D7E35"
+                        Margin="10,10,0,0"
+                        BorderThickness="0,0,0,1"
+                        BorderBrush="Gray"
+                        SelectedIndex="0">
+
+
+            <ComboBoxItem Content="---Export---" IsEnabled="True"/>
+
+            <ComboBoxItem Content="PDF" />
+            <ComboBoxItem Content="Excel" />
+
+        </ComboBox>
+
+
 
 
     </Grid>
