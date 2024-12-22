@@ -67,3 +67,5 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\DashboardOverview.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Professors.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Professors.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\AddProfessorForm.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\AddProfessorForm.baml

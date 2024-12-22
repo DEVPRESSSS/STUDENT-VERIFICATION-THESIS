@@ -537,8 +537,8 @@
                                           Grid.Column="2"
                                           Focusable="False"
                                           IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                          Background="Transparent" 
-                                          BorderBrush="Transparent" 
+                                          Background="White" 
+                                          BorderBrush="White" 
                                           BorderThickness="0"
                                           Margin="0,0,6,0"
                                           HorizontalAlignment="Right">
@@ -568,7 +568,28 @@
         </Style>
 
 
-
+        <!-- Custom ComboBox Style -->
+        <Style TargetType="ComboBox" x:Key="MultiSelectComboBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <!-- Display the selected items in the ComboBox -->
+                            <TextBlock Text="{TemplateBinding Tag}" VerticalAlignment="Center" Padding="5" />
+                            <!-- Popup for dropdown -->
+                            <Popup Name="Popup" IsOpen="{TemplateBinding IsDropDownOpen}" StaysOpen="False"
+                                   Placement="Bottom" PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+                                <Border BorderBrush="Gray" BorderThickness="1" Background="White">
+                                    <ScrollViewer>
+                                        <ItemsPresenter />
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
 
     </Application.Resources>
