@@ -54,7 +54,13 @@
 
                         <Grid.ColumnDefinitions>
 
+                            <!--Notification bell button-->
+                            
+                            
+                            
                             <!--Minimize button-->
+                            <ColumnDefinition/>
+                            
                             <ColumnDefinition/>
 
                             <!--Maximize button-->
@@ -65,10 +71,30 @@
 
                         </Grid.ColumnDefinitions>
 
+                        <!--Bell button-->
+                        <Button x:Name="Notif"
+                           Style="{StaticResource MinimizeButtonStyle}" Margin="-46,0,46,0"
 
-                        
+>
+                            <Icon:PackIconMaterial 
+                            x:Name="BellIcon"
+                            Kind="Bell" 
+                            Grid.Column="0"
+                            Height="16" RenderTransformOrigin="0.803,0.533"
+                            Width="16"
+                            Style="{StaticResource WindowControlIcon}"
+                            Cursor="Hand"
+                            />
+
+
+                        </Button>
+
+
+
+
+
                         <!--Minimize button-->
-                        <Button x:Name="Minimize" Grid.Column="0" Click="Minimize_Click"
+                        <Button x:Name="Minimize" Grid.Column="1" Click="Minimize_Click"
                             Style="{StaticResource MinimizeButtonStyle}"
 
  >
@@ -87,14 +113,14 @@
                         
                         <!--Maximize button-->
 
-                        <Button x:Name="Maximize" Grid.Column="1" Click="Maximize_Click"
+                        <Button x:Name="Maximize" Grid.Column="2" Click="Maximize_Click"
                            Style="{StaticResource MinimizeButtonStyle}"
 >
 
                                     <Icon:PackIconMaterial 
                                       x:Name="MaximizeWindow"
                                       Kind="WindowMaximize" 
-                                      Grid.Column="1"
+                                      Grid.Column="2"
                                       Height="10" RenderTransformOrigin="0.803,0.533"
                                       Width="12"
                                      Style="{StaticResource WindowControlIcon}"
@@ -203,7 +229,7 @@
 
 
 
-                            <!--Sales-->
+                            <!--Departments-->
 
                             <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
                                     Cursor="Hand" Width="160">
@@ -213,11 +239,10 @@
                                 </StackPanel>
                             </Button>
 
-                            <!--Analytics-->
+                            <!--Subjects-->
 
-
-                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                 Cursor="Hand" Width="160">
+                            <Button x:Name="Subjects" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                 Cursor="Hand" Width="160" Click="Subjects_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Bookshelf" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Subjects"  FontFamily="Roboto"/>
@@ -225,7 +250,7 @@
                             </Button>
 
 
-                            <!--Employee-->
+                            <!--Staffs-->
                             <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
                                      Cursor="Hand" Width="160">
                                 <StackPanel Orientation="Horizontal">
@@ -234,9 +259,9 @@
                                 </StackPanel>
                             </Button>
 
-
-                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                               Cursor="Hand" Width="160">
+                            <!--Students-->
+                            <Button x:Name="StudentsBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                               Cursor="Hand" Width="160" Click="StudentsBtn_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="BookEducation" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Students"  FontFamily="Roboto"/>

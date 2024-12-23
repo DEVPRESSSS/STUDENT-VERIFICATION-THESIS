@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\App.xaml
-5-671003408
+9200818490
 
-8887432673
+121855587795
 236-1680472434
-MainWindow.xaml;View\PopUpForms\AddProfessorForm.xaml;View\UsercontrolsView\DashboardOverview.xaml;View\UsercontrolsView\Professors.xaml;View\WindowsFormView\LoginForm.xaml;
+MainWindow.xaml;View\PopUpForms\AddProfessorForm.xaml;View\UsercontrolsView\DashboardOverview.xaml;View\UsercontrolsView\Professors.xaml;View\UsercontrolsView\Programs.xaml;View\UsercontrolsView\Staff.xaml;View\UsercontrolsView\Students.xaml;View\UsercontrolsView\Subjects.xaml;View\WindowsFormView\LoginForm.xaml;
 
 False
 

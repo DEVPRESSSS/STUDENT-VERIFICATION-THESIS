@@ -79,5 +79,21 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
 
             WindowState= WindowState.Minimized;
         }
+
+     
+
+        private void Subjects_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new Subjects();
+
+        }
+
+     
+
+        private void StudentsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new Students();
+
+        }
     }
 }

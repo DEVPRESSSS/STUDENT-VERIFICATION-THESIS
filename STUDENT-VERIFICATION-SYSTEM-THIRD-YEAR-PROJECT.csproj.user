@@ -16,6 +16,18 @@
     <Compile Update="View\UsercontrolsView\Professors.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UsercontrolsView\Programs.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UsercontrolsView\Staff.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UsercontrolsView\Students.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UsercontrolsView\Subjects.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\WindowsFormView\LoginForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +43,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Professors.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\Programs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\Staff.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\Students.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\Subjects.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WindowsFormView\LoginForm.xaml">
