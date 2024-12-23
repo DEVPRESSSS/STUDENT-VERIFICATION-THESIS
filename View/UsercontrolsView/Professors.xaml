@@ -75,13 +75,12 @@
 
         <!--Search textbox-->
 
-        <TextBox x:Name="UsernameXZ" Style="{StaticResource TextBoxes}"
+        <TextBox x:Name="UsernameXZ"
            Width="100"
            Margin="0,10,80,0"
            BorderBrush="#3D7E35"
            Background="White" 
            Height="25"
-           Text="Search here...."
            TextChanged="UsernameXZ_TextChanged"
           GotFocus="UsernameXZ_GotFocus"
            VerticalAlignment="Top" 
@@ -99,10 +98,10 @@
             VerticalAlignment="Top"
             Click="Button_Click">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock FontFamily="Roboto" VerticalAlignment="Center"/>
+                <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
                 <Icon:PackIconMaterial Kind="Plus" 
-                               Width="12" 
-                               Height="12" 
+                               Width="10" 
+                               Height="10" 
                                VerticalAlignment="Center" 
                                Margin="5,0,0,0"/>
             </StackPanel>
@@ -115,8 +114,7 @@
         <ComboBox  x:Name="ComboCat" 
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Top" 
-                       Width="97" Height="23"
-                        Foreground="#3D7E35"
+                        Width="97" Height="23"
                         Margin="10,12,0,0"
                         BorderThickness="0,0,0,1"
                         BorderBrush="Gray"
@@ -138,14 +136,14 @@
         <!--Import button-->
 
         <Button Style="{StaticResource SubmitButton}" 
-            Margin="120,10,0,0" Width="56"
+            Margin="120,10,0,0" Width="65"
             BorderThickness="0"
             Height="25" VerticalAlignment="Top" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="Import" FontFamily="Roboto" VerticalAlignment="Center"/>
-                <Icon:PackIconMaterial Kind="Import" 
-                               Width="12" 
-                               Height="12" 
+                <Icon:PackIconMaterial Kind="File" 
+                               Width="10" 
+                               Height="10" 
                                VerticalAlignment="Center" 
                                Margin="5,0,0,0"/>
             </StackPanel>

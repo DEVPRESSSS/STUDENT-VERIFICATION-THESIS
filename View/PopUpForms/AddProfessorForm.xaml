@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms"
+        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="AddProfessorForm" 
+        Title="Add Professor" 
         Height="450" 
         Width="700"
         WindowStartupLocation="CenterScreen"
@@ -136,8 +136,6 @@
 
 
         <!--Button Insert-->
-
-
         <Button Style="{StaticResource SubmitButton}" 
                 Margin="0,382,41,33"
                 Width="622"
@@ -146,5 +144,28 @@
                 BorderThickness="0"/>
 
 
+
+
+        <!--Button btnClose -->
+
+
+
+
+        <Button x:Name="CloseBtn" Width="20" 
+                Margin="672,3,8,426" 
+                Style="{StaticResource MinimizeButtonStyle}"
+                Click="CloseBtn_Click">
+
+
+            <Icon:PackIconMaterial 
+                            x:Name="CloseWindow"
+                            Kind="WindowClose" 
+                            Height="10"
+                            Width="12"
+                             Foreground="Black"
+                             Style="{StaticResource WindowControlIcon}"
+                            Cursor="Hand" VerticalAlignment="Top" 
+                        />
+        </Button>
     </Grid>
 </Window>
