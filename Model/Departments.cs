@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 {
-    class Departments
+    public class Departments
     {
+
+        [Key] 
+        public int DepartmentID { get; set; }
+        public string? Name { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
     }
 }

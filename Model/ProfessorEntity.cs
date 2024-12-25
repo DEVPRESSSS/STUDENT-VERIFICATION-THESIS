@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 {
-    public class Professors
+    public class ProfessorsEntity
     {
 
 
@@ -28,5 +28,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [ForeignKey("DepartmentID")]
         public Departments? Departments { get; set; }
+
+
+
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
     }
 }

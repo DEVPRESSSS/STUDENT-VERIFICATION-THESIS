@@ -1,4 +1,5 @@
-﻿using System;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
     /// </summary>
     public partial class LoginForm : Window
     {
-        public LoginForm()
-        {
-            InitializeComponent();
-        }
+        private readonly ApplicationDbContext _context;
+       public LoginForm() : this(new ApplicationDbContext()) // Replace with a valid instance if applicable
+{
+
+
+}
+
+   // Keep your parameterized constructor
+    public LoginForm(ApplicationDbContext context)
+    {
+        InitializeComponent();
+        _context = context;
+    }
+
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -42,7 +53,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            MainWindow dash = new MainWindow();
+            MainWindow dash = new MainWindow(_context);
             dash.Show();
 
             this.Hide();

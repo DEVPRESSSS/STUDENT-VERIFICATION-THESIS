@@ -1,4 +1,6 @@
-﻿using System;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
     /// </summary>
     public partial class AddProfessorForm : Window
     {
-        public AddProfessorForm()
+        public AddProfessorForm(ApplicationDbContext context)
         {
             InitializeComponent();
+            DataContext = new ProfessorViewModel(context);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

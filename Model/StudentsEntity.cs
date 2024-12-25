@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,28 +10,37 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 {
     public class StudentsEntity
     {
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] // Prevent auto-generation
+        public string StudentID { get; set; } = string.Empty; // Ensure non-null values
 
         public string? Name { get; set; }
+
         public int Age { get; set; }
+
+        [Required]
         public long IDnumber { get; set; }
-        public int Contact { get; set; }
+
+        [Required]
+        public long Contact { get; set; }
+
         public string? Gmail { get; set; }
+
         public string? Address { get; set; }
 
-        public int ProgramID { get; set; }
+        [Required]
+        public string ProgramID { get; set; } = string.Empty;
 
         [ForeignKey("ProgramID")]
         public ProgramEntity? Program { get; set; }
 
-
-
-        public int YearID { get; set; }
-
+        [Required]
+        public string YearID { get; set; } = string.Empty;
 
         [ForeignKey("YearID")]
         public Year? YearLevel { get; set; }
 
-
+        [Required]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }

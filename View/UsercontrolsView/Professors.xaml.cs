@@ -1,4 +1,6 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +23,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
     /// </summary>
     public partial class Professors : UserControl
     {
-        public Professors()
+        private readonly ApplicationDbContext _context;
+        public Professors(ApplicationDbContext context)
         {
             InitializeComponent();
+            _context = context;
+
+            DataContext= new ProfessorViewModel(context);
         }
 
         private void UsernameXZ_TextChanged(object sender, TextChangedEventArgs e)
@@ -39,7 +45,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            AddProfessorForm s = new AddProfessorForm();
+            AddProfessorForm s = new AddProfessorForm(_context);
             s.ShowDialog();
         }
     }

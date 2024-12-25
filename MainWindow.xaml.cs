@@ -1,4 +1,5 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,11 +18,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private readonly ApplicationDbContext _context;
+        public MainWindow(ApplicationDbContext context)
         {
             InitializeComponent();
             MainContentArea.Content = new DashboardOverview();
-
+            _context= context;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -40,7 +42,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
 
         private void ProfessorBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainContentArea.Content = new Professors();
+            MainContentArea.Content = new Professors(_context);
 
         }
 

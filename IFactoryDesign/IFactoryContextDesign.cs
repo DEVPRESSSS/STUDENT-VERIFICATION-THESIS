@@ -23,7 +23,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.IFactoryDesign
 
             // Configure DbContext options
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("DevConnection"));
 
             return new ApplicationDbContext(optionsBuilder.Options);
         }
