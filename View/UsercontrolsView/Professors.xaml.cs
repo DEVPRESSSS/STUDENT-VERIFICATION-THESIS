@@ -48,5 +48,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
             AddProfessorForm s = new AddProfessorForm(_context);
             s.ShowDialog();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            UpdateProfessor updateProfessor = new UpdateProfessor(_context)
+            {
+                DataContext = this.DataContext // Pass the ViewModel
+            };
+            updateProfessor.ShowDialog();
+
+        }
     }
 }

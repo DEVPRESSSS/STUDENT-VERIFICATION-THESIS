@@ -21,10 +21,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
     /// </summary>
     public partial class AddProfessorForm : Window
     {
+        private readonly ApplicationDbContext _context;
+
         public AddProfessorForm(ApplicationDbContext context)
         {
             InitializeComponent();
-            DataContext = new ProfessorViewModel(context);
+            _context= context;
+            this.DataContext = new ProfessorViewModel(_context);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

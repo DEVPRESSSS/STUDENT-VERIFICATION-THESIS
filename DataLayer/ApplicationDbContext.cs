@@ -29,6 +29,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         }
         public DbSet<ProfessorsEntity> Professors { get; set; }
         public DbSet<StudentsEntity> Students { get; set; }
+        public DbSet<Departments> Departments { get; set; }
       //  public DbSet<Year> Year { get; set; }
         //public DbSet<Role> Role { get; set; }
        // public DbSet<ProgramEntity> Programs { get; set; }

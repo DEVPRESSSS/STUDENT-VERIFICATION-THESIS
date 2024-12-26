@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ProfessorViewModel}"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ProfessorViewModel}"
         mc:Ignorable="d"
         Title="Add Professor" 
         Height="450" 
@@ -15,6 +15,7 @@
         ResizeMode="NoResize"
         >
     <Grid>
+      
 
         <Border CornerRadius="10" Background="White" BorderBrush="#3D7E35" BorderThickness="2">
 
@@ -33,7 +34,9 @@
 
         <!--Professor Name-->
         <TextBox 
-                 Width="150" Margin="37,94,513,331"/>
+                 Width="150" Margin="37,94,513,331"
+               Text="{Binding Name, Mode=TwoWay}"
+            />
 
         <!--Gmail label-->
         <Label Content="*Gmail"
@@ -42,7 +45,8 @@
         <!--Gmail textbox-->
         <TextBox 
             Width="150" 
-            Margin="37,156,513,269"/>
+            Margin="37,156,513,269"
+            Text="{Binding Email, Mode=TwoWay}"/>
 
 
         <!--Phone Lable-->
@@ -52,7 +56,8 @@
 
         <!--Phone textbox-->
         <TextBox 
-            Width="150" Margin="241,94,309,331"/>
+            Width="150" Margin="241,94,309,331"
+            Text="{Binding Age, Mode=TwoWay}"/>
 
         <!--Address label-->
         <Label Content="*Address"
@@ -62,10 +67,17 @@
         <!--Address textbox-->
         <TextBox 
             Width="150"
-            Margin="241,156,309,269"/>
+            Margin="241,156,309,269"
+            Text="{Binding Address, Mode=TwoWay}"
+            />
 
 
-        <ComboBox Margin="457,94,41,331"/>
+        <ComboBox Margin="457,94,41,331"
+                   ItemsSource="{Binding DepartmentCollection}"
+                   DisplayMemberPath="Name" 
+                   SelectedValuePath="DepartmentID"
+                   SelectedValue="{Binding SelectedDepartmentID, Mode=TwoWay}"
+                  />
 
 
         <Label Content="*Departments" 

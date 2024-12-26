@@ -10,6 +10,9 @@
     <Compile Update="View\PopUpForms\AddProfessorForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\UpdateProfessor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UsercontrolsView\DashboardOverview.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -37,6 +40,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\AddProfessorForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\UpdateProfessor.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\DashboardOverview.xaml">

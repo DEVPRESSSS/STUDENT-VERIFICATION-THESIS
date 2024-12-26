@@ -25,35 +25,41 @@
                           CellStyle="{DynamicResource DataGridCellStyle1}" 
                           x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
                           ItemsSource="{Binding ProfessorsCollection}"
-                          SelectedItem="{Binding Selected_professor}">
+                          SelectedItem="{Binding Selected_professor}"
+                          AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="ProfessorID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ProfessorID}"/>
-                        <DataGridTemplateColumn Header="Name"  CanUserResize="False" IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                            <TextBlock Text="{Binding CreatedAt }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                        </Border>
 
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <!--     <DataGridTemplateColumn Header="Name"  CanUserResize="False" IsReadOnly="True" Width="*">
+                           <DataGridTemplateColumn.CellTemplate>
+                               <DataTemplate>
+                                   <StackPanel Orientation="Horizontal">
+                                       <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
+                                           <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                       </Border>
+
+                                   </StackPanel>
+                               </DataTemplate>
+                           </DataGridTemplateColumn.CellTemplate>
+                       </DataGridTemplateColumn>  -->
+
+                     
+                        
+                     
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTextColumn Header="Address" CanUserResize="False" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Department" CanUserResize="False" Binding="{Binding Department}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Subjects" CanUserResize="False" Binding="{Binding Subjects}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Department" CanUserResize="False" Binding="{Binding Departments.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource gridEditButton}" >
+                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1" >
                                             <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                         <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
