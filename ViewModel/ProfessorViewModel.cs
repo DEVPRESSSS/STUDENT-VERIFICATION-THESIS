@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -50,6 +51,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             DepartmentCollection = new ObservableCollection<Departments>();
             AddProfessorrsCommand = new RelayCommand(async _ => await AddProfessorAsync(), _ => CanExecuteAddStudent());
             UpdateProfessorrsCommand = new RelayCommand(async _ => await UpdateProfessorAsync(), _ => Selected_professor != null);
+            DeleteProfessorrsCommand = new RelayCommand(async _ => await DeleteProfessorAsync(), _ => Selected_professor != null);
             LoadProfessorrsCommand = new RelayCommand(async _ => await LoadProfessorAsync());
             LoadProfessorrsCommand.Execute (null);
 
@@ -81,17 +83,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 _selected_professor = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Selected_professor));
             }
         }
 
 
         //Department ID
 
-        private int _selectedDepartmentID;
+        private string _selectedDepartmentID;
 
 
-        public int SelectedDepartmentID
+        public string SelectedDepartmentID
         {
 
             get => _selectedDepartmentID;
@@ -207,7 +209,51 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+        
+        
+        
+        
+        //Delete method
+        private async  Task DeleteProfessorAsync()
+        {
 
+            MessageBoxResult confirmation = MessageBox.Show("Are you sure want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (confirmation == MessageBoxResult.Yes)
+            {
+
+                try
+                {
+
+                    if (Selected_professor != null)
+                    {
+
+                        _context.Professors.Remove(Selected_professor);
+
+                        await _context.SaveChangesAsync();
+
+                        ProfessorsCollection.Remove(Selected_professor);
+
+                        MessageBox.Show("Professor record deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    }
+
+                }
+                catch (Exception e)
+                {
+
+                    MessageBox.Show($"Error:{e}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+
+                }
+            }
+
+
+
+
+          
+
+        }
 
 
 
@@ -267,7 +313,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 ProfessorsCollection.Add(professor);
             }
-           // OnPropertyChanged(nameof(ProfessorsCollection));
+            OnPropertyChanged(nameof(ProfessorsCollection));
 
 
         }
@@ -278,7 +324,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         public async Task AddProfessorAsync()
         {
-            string profkey = $"PROF-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+           string profkey = $"PROF-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
             try
             {
@@ -302,9 +348,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 _context.Professors.Add(newProfessor);
                 await _context.SaveChangesAsync();
 
+
                 ProfessorsCollection.Add(newProfessor);
 
                 await LoadProfessorAsync();
+
 
                 MessageBox.Show("Professor added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -341,6 +389,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+  
 
 
 

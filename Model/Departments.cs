@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,8 +11,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
     public class Departments
     {
 
-        [Key] 
-        public int DepartmentID { get; set; }
+        [Key]
+        public string? DepartmentID { get; set; }
+
+
+        [Required]
         public string? Name { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

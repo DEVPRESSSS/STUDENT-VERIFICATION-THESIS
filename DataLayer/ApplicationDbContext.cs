@@ -27,14 +27,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
                 optionsBuilder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=umdb;Trusted_Connection=True;TrustServerCertificate=True;");
             }
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Define a unique index for the Name property in Departments
+            modelBuilder.Entity<Departments>()
+                .HasIndex(d => d.Name)
+                .IsUnique();
+
+
+            modelBuilder.Entity<ProfessorsEntity>()
+                .HasIndex(p => new { p.Name, p.Email })
+                .IsUnique();
+        }
+
+
+
+
         public DbSet<ProfessorsEntity> Professors { get; set; }
         public DbSet<StudentsEntity> Students { get; set; }
         public DbSet<Departments> Departments { get; set; }
-      //  public DbSet<Year> Year { get; set; }
-        //public DbSet<Role> Role { get; set; }
+       // public DbSet<Year> Year { get; set; }
+       // public DbSet<Role> Role { get; set; }
        // public DbSet<ProgramEntity> Programs { get; set; }
 
-       // public DbSet<StaffsEntity> Staffs { get; set; }
+       //public DbSet<StaffsEntity> Staffs { get; set; }
 
 
 

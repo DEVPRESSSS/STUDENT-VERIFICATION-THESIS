@@ -13,7 +13,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
     {
 
         [Key]
-        public int StaffID { get; set; }
+        public string? StaffID { get; set; }
         public string? Name { get; set; }
         public string? Email { get; set; }
         public int Contact { get; set; }

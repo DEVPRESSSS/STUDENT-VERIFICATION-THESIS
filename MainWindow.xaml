@@ -231,8 +231,8 @@
 
                             <!--Departments-->
 
-                            <Button Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                    Cursor="Hand" Width="160">
+                            <Button x:Name="DepartmentBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                    Cursor="Hand" Width="160" Click="DepartmentBtn_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="Domain" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Departments"  FontFamily="Roboto"/>

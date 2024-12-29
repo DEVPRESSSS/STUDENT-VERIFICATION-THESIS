@@ -14,17 +14,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [Key]
         public string? ProfessorID { get; set; }
+        [Required]
+
         public string?  Name { get; set; }
+
+        [Required]
+
         public int Age { get; set; }
+
+        [Required]
         public string? Email { get; set; }
+
+        [Required]
         public string? Address { get; set; }
         public string? ProfilePath { get; set; }
 
 
         //Foreign key
 
-        public int DepartmentID { get; set; }
-
+        public string? DepartmentID { get; set; }    
 
         [ForeignKey("DepartmentID")]
         public Departments? Departments { get; set; }

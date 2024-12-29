@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView.DepartmentsUsercontrol"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DepartmentViewModel}"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border CornerRadius="4" >
+
+
+
+
+            <!--Department Table-->
+            <Border 
+                 Background="White"
+                 Margin="10,52,10,10" 
+                 CornerRadius="4">
+
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                  CellStyle="{DynamicResource DataGridCellStyle1}" 
+                  x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                  ItemsSource="{Binding DepartmentsCollection}"
+                  SelectedItem="{Binding Selected_departments,Mode=TwoWay}"
+                  AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="DepartmentID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding DepartmentID}"/>
+                        <DataGridTextColumn Header="Name of Department" CanUserResize="False"  Binding="{Binding Name,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+
+                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="EditBtn" Style="{StaticResource gridEditButton}" Click="EditBtn_Click" >
+                                            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
+                                          Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteDepartmentCommand}"                                          >
+                                            <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+
+
+            </Border>
+
+
+
+
+
+
+        </Border>
+
+
+
+        <!--Search textbox-->
+
+        <TextBox x:Name="UsernameXZ"
+           Width="100"
+           Margin="0,10,80,0"
+           BorderBrush="#3D7E35"
+           Background="White" 
+           Height="25"
+           VerticalAlignment="Top" 
+           HorizontalAlignment="Right"
+ 
+           />
+
+
+    
+        <!--Add button-->
+
+        <Button Style="{StaticResource SubmitButton}" 
+            Margin="0,10,10,0" Width="56"
+            BorderThickness="0"
+            Height="25" 
+            VerticalAlignment="Top"
+             Click="Button_Click"
+         >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
+                <Icon:PackIconMaterial Kind="Plus" 
+                           Width="10" 
+                           Height="10" 
+                           VerticalAlignment="Center" 
+                           Margin="5,0,0,0"/>
+            </StackPanel>
+        </Button>
+
+
+        <!--Export button-->
+        <ComboBox  x:Name="ComboCat" 
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Top" 
+                Width="97" Height="23"
+                Margin="10,12,0,0"
+                BorderThickness="0,0,0,1"
+                BorderBrush="Gray"
+                SelectedIndex="0">
+
+
+            <ComboBoxItem Content="---Export---" IsEnabled="True"/>
+
+            <ComboBoxItem Content="PDF" />
+            <ComboBoxItem Content="Excel" />
+
+        </ComboBox>
+
+
+        <!-- GroupBox -->
+
+
+        <!--Name textbox -->
+
+        <!--Button Insert-->
+
+        <!--Import button-->
+
+        <Button Style="{StaticResource SubmitButton}" 
+            Margin="120,10,0,0" Width="65"
+            BorderThickness="0"
+            Height="25" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="Import" FontFamily="Roboto" VerticalAlignment="Center"/>
+                <Icon:PackIconMaterial Kind="File" 
+                       Width="10" 
+                       Height="10" 
+                       VerticalAlignment="Center" 
+                       Margin="5,0,0,0"/>
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

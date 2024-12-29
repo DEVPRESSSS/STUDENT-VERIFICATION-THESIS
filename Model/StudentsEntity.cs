@@ -14,6 +14,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [DatabaseGenerated(DatabaseGeneratedOption.None)] // Prevent auto-generation
         public string StudentID { get; set; } = string.Empty; // Ensure non-null values
 
+        [Required]
         public string? Name { get; set; }
 
         public int Age { get; set; }
@@ -24,9 +25,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [Required]
         public long Contact { get; set; }
 
+        [Required]
         public string? Gmail { get; set; }
 
+        [Required]
+
         public string? Address { get; set; }
+
+
+        public string? Picture { get; set; }
 
         [Required]
         public string ProgramID { get; set; } = string.Empty;

@@ -11,7 +11,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
     {
 
         [Key]
-        public int RoleID { get; set; }
+        public string? RoleID { get; set; }
         public string? Name { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

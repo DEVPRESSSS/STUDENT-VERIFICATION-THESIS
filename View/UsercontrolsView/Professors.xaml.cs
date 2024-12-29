@@ -29,7 +29,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
             InitializeComponent();
             _context = context;
 
-            DataContext= new ProfessorViewModel(context);
+            this.DataContext= new ProfessorViewModel(context);
         }
 
         private void UsernameXZ_TextChanged(object sender, TextChangedEventArgs e)
@@ -53,7 +53,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
         {
             UpdateProfessor updateProfessor = new UpdateProfessor(_context)
             {
-                DataContext = this.DataContext // Pass the ViewModel
+                DataContext = this.DataContext 
             };
             updateProfessor.ShowDialog();
 

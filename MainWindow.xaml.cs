@@ -97,5 +97,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
             MainContentArea.Content = new Students();
 
         }
+
+        private void DepartmentBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new DepartmentsUsercontrol(_context);
+
+        }
     }
 }

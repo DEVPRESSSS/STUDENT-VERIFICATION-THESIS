@@ -25,7 +25,7 @@
                           CellStyle="{DynamicResource DataGridCellStyle1}" 
                           x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
                           ItemsSource="{Binding ProfessorsCollection}"
-                          SelectedItem="{Binding Selected_professor}"
+                          SelectedItem="{Binding Selected_professor,Mode=TwoWay}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
@@ -44,13 +44,11 @@
                            </DataGridTemplateColumn.CellTemplate>
                        </DataGridTemplateColumn>  -->
 
-                     
-                        
-                     
+
+
+
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-
                         <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
-
                         <DataGridTextColumn Header="Address" CanUserResize="False" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Department" CanUserResize="False" Binding="{Binding Departments.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt}" IsReadOnly="True" Width="*"/>
@@ -62,7 +60,8 @@
                                         <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1" >
                                             <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteProfessorrsCommand}">
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>
