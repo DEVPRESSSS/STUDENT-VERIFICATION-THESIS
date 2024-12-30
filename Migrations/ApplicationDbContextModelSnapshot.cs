@@ -58,7 +58,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("DepartmentID")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Email")
@@ -82,15 +81,293 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.ToTable("Professors");
                 });
 
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProgramEntity", b =>
+                {
+                    b.Property<string>("ProgramID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Acronym")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProgramID");
+
+                    b.ToTable("Programs");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Role", b =>
+                {
+                    b.Property<string>("RoleID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("RoleID");
+
+                    b.ToTable("Role");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ScheduleOfSubjects", b =>
+                {
+                    b.Property<string>("SchedID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SubjectID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Time")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SchedID");
+
+                    b.HasIndex("SubjectID");
+
+                    b.ToTable("ScheduleOfSubjects");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StaffsEntity", b =>
+                {
+                    b.Property<string>("StaffID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Contact")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StaffID");
+
+                    b.HasIndex("RoleID");
+
+                    b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StudentsEntity", b =>
+                {
+                    b.Property<string>("StudentID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<long>("Contact")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Gmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("IDnumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProgramID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SubjectsEntitySubjectID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("YearID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("StudentID");
+
+                    b.HasIndex("ProgramID");
+
+                    b.HasIndex("SubjectsEntitySubjectID");
+
+                    b.HasIndex("YearID");
+
+                    b.ToTable("Students");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", b =>
+                {
+                    b.Property<string>("SubjectID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CourseCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfessorID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ProgramID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SubjectName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Units")
+                        .HasColumnType("int");
+
+                    b.HasKey("SubjectID");
+
+                    b.HasIndex("ProfessorID");
+
+                    b.HasIndex("ProgramID");
+
+                    b.ToTable("Subjects");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Year", b =>
+                {
+                    b.Property<string>("YearID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("YearID");
+
+                    b.ToTable("Year");
+                });
+
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProfessorsEntity", b =>
                 {
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Departments", "Departments")
                         .WithMany()
-                        .HasForeignKey("DepartmentID")
+                        .HasForeignKey("DepartmentID");
+
+                    b.Navigation("Departments");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ScheduleOfSubjects", b =>
+                {
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", "Subject")
+                        .WithMany("Schedules")
+                        .HasForeignKey("SubjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Departments");
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StaffsEntity", b =>
+                {
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StudentsEntity", b =>
+                {
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProgramEntity", "Program")
+                        .WithMany()
+                        .HasForeignKey("ProgramID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", null)
+                        .WithMany("Students")
+                        .HasForeignKey("SubjectsEntitySubjectID");
+
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Year", "YearLevel")
+                        .WithMany()
+                        .HasForeignKey("YearID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Program");
+
+                    b.Navigation("YearLevel");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", b =>
+                {
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProfessorsEntity", "Professors")
+                        .WithMany()
+                        .HasForeignKey("ProfessorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProgramEntity", "Program")
+                        .WithMany()
+                        .HasForeignKey("ProgramID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Professors");
+
+                    b.Navigation("Program");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", b =>
+                {
+                    b.Navigation("Schedules");
+
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

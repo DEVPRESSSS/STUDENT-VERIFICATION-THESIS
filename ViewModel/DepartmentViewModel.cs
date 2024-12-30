@@ -135,6 +135,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
            await _context.SaveChangesAsync();
 
+
+            DepartmentsCollection.Add(obj);
             //Application.Current.Dispatcher.Invoke(() => DepartmentsCollection.Add(obj));
             //wait LoadDepartmentsAsync();
             OnPropertyChanged(nameof(DepartmentsCollection));
@@ -229,5 +231,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        
     }
 }

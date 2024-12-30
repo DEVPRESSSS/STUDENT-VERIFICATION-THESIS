@@ -4,11 +4,12 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\App.b
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\MainWindow.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\AddDepartment.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\AddProfessorForm.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateDepartment.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateProfessor.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\DashboardOverview.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\DepartmentsUsercontrol.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Professors.g.cs
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Programs.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\ProgramsUsercontrol.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Staff.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Students.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Subjects.g.cs
@@ -16,6 +17,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\App.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT_MarkupCompile.cache
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT_MarkupCompile.lref
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\ProgramsUsercontrol.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.exe
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.deps.json
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.runtimeconfig.json
@@ -192,11 +194,11 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\runti
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\MainWindow.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\AddDepartment.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\AddProfessorForm.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateDepartment.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateProfessor.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\DashboardOverview.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\DepartmentsUsercontrol.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Professors.baml
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Programs.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Staff.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Students.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Subjects.baml
@@ -212,5 +214,3 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\refin
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.pdb
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.genruntimeconfig.cache
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\ref\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.dll
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateDepartment.g.cs
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateDepartment.baml

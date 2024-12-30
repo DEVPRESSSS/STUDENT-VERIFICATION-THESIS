@@ -44,7 +44,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+           
             AddProfessorForm s = new AddProfessorForm(_context);
             s.ShowDialog();
         }

@@ -219,8 +219,9 @@
                             </Button>
 
 
-                            <Button x:Name="Inventory" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                Cursor="Hand" Width="160">
+                            <Button x:Name="ProgamBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                Cursor="Hand" Width="160"
+                                Click="ProgamBtn_Click_1">
                                 <StackPanel Orientation="Horizontal">
                                     <Icon:PackIconMaterial Kind="School" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Programs" FontFamily="Roboto"/>
