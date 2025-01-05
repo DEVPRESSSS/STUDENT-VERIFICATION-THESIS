@@ -116,33 +116,41 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 return;
             }
-
-
-            string ID = $"DEPARTMENT-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
-
-            var obj = new Departments
+            try
             {
-                DepartmentID = ID,
-                Name = Name,
-                CreatedAt= DateTime.Now,
+
+                string ID = $"DEPARTMENT-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                var obj = new Departments
+                {
+                    DepartmentID = ID,
+                    Name = Name,
+                    CreatedAt = DateTime.Now,
 
 
-            };
-
-          
-
-           _context.Departments.Add(obj);
-
-           await _context.SaveChangesAsync();
+                };
 
 
-            DepartmentsCollection.Add(obj);
-            //Application.Current.Dispatcher.Invoke(() => DepartmentsCollection.Add(obj));
-            //wait LoadDepartmentsAsync();
-            OnPropertyChanged(nameof(DepartmentsCollection));
+
+                _context.Departments.Add(obj);
+
+                await _context.SaveChangesAsync();
+                DepartmentsCollection.Add(obj);
+                OnPropertyChanged(nameof(DepartmentsCollection));
 
 
-            MessageBox.Show("Department added success","Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Department added success", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
+            catch(Exception ex)
+            {
+
+
+                MessageBox.Show($"Department name is already exist{ex}!", "Error", MessageBoxButton.OK, MessageBoxImage.Error                           );
+
+
+            }
+
 
 
 

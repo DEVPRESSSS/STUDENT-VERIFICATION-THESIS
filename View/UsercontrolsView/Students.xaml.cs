@@ -1,4 +1,5 @@
-﻿using System;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
         public Students()
         {
             InitializeComponent();
+        }
+
+        private void AddSubjects_Click(object sender, RoutedEventArgs e)
+        {
+             
         }
     }
 }

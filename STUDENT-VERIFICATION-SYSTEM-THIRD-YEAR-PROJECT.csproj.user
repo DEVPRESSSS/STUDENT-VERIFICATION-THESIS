@@ -13,6 +13,12 @@
     <Compile Update="View\PopUpForms\AddProfessorForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\AddProgram.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\AddSubjects.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\UpdateDepartment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +58,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\AddProfessorForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\AddProgram.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\AddSubjects.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\UpdateDepartment.xaml">

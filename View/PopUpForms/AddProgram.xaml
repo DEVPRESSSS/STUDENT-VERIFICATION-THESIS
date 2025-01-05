@@ -1,0 +1,61 @@
+﻿<Window x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms.AddProgram"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ProgramsViewModel}"
+        mc:Ignorable="d"
+        Title="AddProgram"       Height="250" Width="400"
+         WindowStartupLocation="CenterScreen"
+         WindowStyle="None"
+         Background="Transparent"
+         AllowsTransparency="True"
+         ResizeMode="NoResize">
+    <Grid>
+        <Border CornerRadius="10" Background="White" BorderBrush="Gray" BorderThickness="2">
+
+  
+
+
+
+        </Border>
+
+        <!--Name-->
+        <TextBox Margin="40,56,28,164" Height="30"
+            Text="{Binding Name, Mode=TwoWay}" 
+         />
+
+
+        <!--Insert button-->
+        <Button Style="{StaticResource SubmitButton}" 
+              Margin="36,156,0,64"
+              Width="336"
+              Content="Insert"
+              Height="30"
+              BorderThickness="0"
+              HorizontalAlignment="Left"
+              Command="{Binding AddProgramCommand}"/>
+
+
+        <!--Button btnClose -->
+        <Button x:Name="CloseBtn" Width="20" Height="20"
+          Style="{StaticResource MinimizeButtonStyle}"
+           Margin="370,10,10,220"
+           Click="CloseBtn_Click">
+
+
+            <Icon:PackIconMaterial 
+                  x:Name="CloseWindow"
+                  Kind="WindowClose" 
+                  Height="10"
+                  Width="12"
+                   Foreground="Black"
+                   Style="{StaticResource WindowControlIcon}"
+                  Cursor="Hand" VerticalAlignment="Top" 
+              />
+        </Button>
+        <TextBox Margin="40,110,28,110" Height="30"
+            Text="{Binding Acronym, Mode=TwoWay}" 
+         />
+    </Grid>
+</Window>

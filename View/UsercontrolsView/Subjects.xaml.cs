@@ -1,4 +1,8 @@
-﻿using System;
+﻿
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +24,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
     /// </summary>
     public partial class Subjects : UserControl
     {
-        public Subjects()
+        private readonly ApplicationDbContext _context;
+
+        public Subjects(ApplicationDbContext context)
         {
             InitializeComponent();
+            _context = context;
+
+            this.DataContext = new SubjectsViewModel(_context);
+        }
+
+        private void AddSubjects_Click(object sender, RoutedEventArgs e)
+        {
+            AddSubjects obj = new AddSubjects(_context);
+            obj.ShowDialog();
         }
     }
 }

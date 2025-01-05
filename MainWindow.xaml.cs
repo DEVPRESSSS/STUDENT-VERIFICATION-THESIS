@@ -86,7 +86,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
 
         private void Subjects_Click(object sender, RoutedEventArgs e)
         {
-            MainContentArea.Content = new Subjects();
+            MainContentArea.Content = new Subjects(_context);
 
         }
 

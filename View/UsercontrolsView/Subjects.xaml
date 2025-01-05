@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:vm="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -17,28 +17,24 @@
                Background="White"
                CornerRadius="4" Margin="0,50,0,0">
 
-                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}">
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                           ItemsSource="{Binding SubjectCollection}"
+                         SelectedItem="{Binding Selected_subjects,Mode=TwoWay}"
+                         AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Subjects No" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CashierID}"/>
-                        <DataGridTemplateColumn Header="Name" CanUserResize="False" IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                            <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                        </Border>
+                        <DataGridTextColumn Header="SubjectsID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding SubjectID}"/>
 
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Course Code" CanUserResize="False"  Binding="{Binding Username}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding SubjectName}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTextColumn Header="Units" CanUserResize="False" Binding="{Binding FirstName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Year level" CanUserResize="False" Binding="{Binding LastName}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Semester" CanUserResize="False" Binding="{Binding CreatedAt}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Acronym" CanUserResize="False" Binding="{Binding CourseCode}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Unit" CanUserResize="False" Binding="{Binding Units}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Description" CanUserResize="False" Binding="{Binding Description}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Professor" CanUserResize="False" Binding="{Binding Professors.Name}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
@@ -86,11 +82,12 @@
 
         <!--Add button-->
 
-        <Button Style="{StaticResource SubmitButton}" 
+        <Button x:Name="AddSubjects" Style="{StaticResource SubmitButton}" 
               Margin="0,10,10,0" Width="56"
               BorderThickness="0"
               Height="25" 
               VerticalAlignment="Top"
+                Click="AddSubjects_Click"
               >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>

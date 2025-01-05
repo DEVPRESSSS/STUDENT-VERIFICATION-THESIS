@@ -86,11 +86,12 @@
 
         <!--Add button-->
 
-        <Button Style="{StaticResource SubmitButton}" 
+        <Button x:Name="AddSubjects" Style="{StaticResource SubmitButton}" 
              Margin="0,10,10,0" Width="56"
              BorderThickness="0"
              Height="25" 
              VerticalAlignment="Top"
+             Click="AddSubjects_Click"
              >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>

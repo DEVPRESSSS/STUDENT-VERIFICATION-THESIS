@@ -40,6 +40,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public ProfessorsEntity? Professors  { get; set; }
 
         // Navigation property for many-to-many relationship with StudentsEntity
+
         public ICollection<StudentsEntity>? Students { get; set; }
 
 

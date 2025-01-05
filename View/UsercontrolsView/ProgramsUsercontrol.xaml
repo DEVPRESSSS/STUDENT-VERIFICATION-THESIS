@@ -10,7 +10,7 @@
         <!--Programs Table-->
         <Border 
           Background="White"
-          Margin="10,102,10,10" 
+          Margin="10,53,10,10" 
           CornerRadius="4">
 
             <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
@@ -31,7 +31,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="EditBtn" Style="{StaticResource gridEditButton}"  >
+                                    <Button x:Name="EditBtn" Style="{StaticResource gridEditButton}" Click="EditBtn_Click"
+                                            >
                                         <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>
                                     <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
@@ -81,7 +82,8 @@
              BorderThickness="0"
              Height="25" 
              VerticalAlignment="Top" 
-             Command="{Binding AddProgramCommand}"
+             Click="Button_Click"
+                
              >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
@@ -127,28 +129,5 @@
                 Margin="5,0,0,0"/>
             </StackPanel>
         </Button>
-        
-        <TextBox x:Name="UsernameXZ_Copy"
-            Width="100"
-            Margin="0,54,690,0"
-            BorderBrush="#3D7E35"
-            Background="White" 
-            Height="24"
-            VerticalAlignment="Top" 
-            Text="{Binding Acronym}"
-            HorizontalAlignment="Right"
- 
-            />
-        <TextBox x:Name="UsernameXZ_Copy1"
-            Width="100"
-            Margin="0,54,564,0"
-            BorderBrush="#3D7E35"
-            Background="White" 
-            Height="25"
-            Text="{Binding Name}"
-            VerticalAlignment="Top" 
-            HorizontalAlignment="Right"
- 
-            />
     </Grid>
 </UserControl>

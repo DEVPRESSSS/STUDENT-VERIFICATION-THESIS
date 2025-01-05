@@ -1,4 +1,5 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,24 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
             InitializeComponent();
             _context = context;
             DataContext = new ProgramsViewModel(_context);
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+          
+        
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AddProgram obj = new AddProgram(_context)
+            {
+
+                DataContext = DataContext
+            };
+
+            obj.ShowDialog();
         }
     }
 }

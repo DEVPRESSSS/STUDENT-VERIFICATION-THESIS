@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ha9qxuU9Op/D5hSi6s0KZDTb/xZeWGgVSoYnRtyLW69F8IsvM0KNT0QjywkIiblROjGIEqD1uG+gR0u1DLt4Zw==",
+  "dgSpecHash": "9DYv435EqDsBo9H6uJWwaWzZOhlpRWb96ZiKLq30nLyv4GKixk0ivLGDriPfAKvdt48fD/9MUnLlQ03OgCSbQw==",
   "success": true,
   "projectFilePath": "D:\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.csproj",
   "expectedPackageFiles": [
@@ -45,6 +45,8 @@
     "C:\\Users\\xmont\\.nuget\\packages\\mahapps.metro.iconpacks.vaadinicons\\5.1.0\\mahapps.metro.iconpacks.vaadinicons.5.1.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\mahapps.metro.iconpacks.weathericons\\5.1.0\\mahapps.metro.iconpacks.weathericons.5.1.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\mahapps.metro.iconpacks.zondicons\\5.1.0\\mahapps.metro.iconpacks.zondicons.5.1.0.nupkg.sha512",
+    "C:\\Users\\xmont\\.nuget\\packages\\materialdesigncolors\\3.1.0\\materialdesigncolors.3.1.0.nupkg.sha512",
+    "C:\\Users\\xmont\\.nuget\\packages\\materialdesignthemes\\5.1.0\\materialdesignthemes.5.1.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\microsoft.build.framework\\17.8.3\\microsoft.build.framework.17.8.3.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\microsoft.build.locator\\1.7.8\\microsoft.build.locator.1.7.8.nupkg.sha512",
@@ -92,6 +94,7 @@
     "C:\\Users\\xmont\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\xmont\\.nuget\\packages\\microsoft.xaml.behaviors.wpf\\1.1.39\\microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
