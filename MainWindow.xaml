@@ -3,12 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
         Title="Dashboard" 
-        MinHeight="600" MinWidth="1100"
+        Height="650" Width="1120"
         WindowStartupLocation="CenterScreen"
-         WindowStyle="None"
+        WindowStyle="None"
+        ResizeMode="CanResize"
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown"
@@ -38,8 +39,8 @@
                 </Grid.RowDefinitions>
 
 
-           
-                
+
+
                 <!-- Green border in row 0-->
                 <Border Grid.Row="0"
                         Background="#3D7E35"
@@ -50,17 +51,21 @@
 
                     <!--Grid for borderstyle design-->
                     <Grid Grid.Row="0" Width="200" HorizontalAlignment="Right">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
 
 
                         <Grid.ColumnDefinitions>
 
                             <!--Notification bell button-->
-                            
-                            
-                            
+
+
+
                             <!--Minimize button-->
                             <ColumnDefinition/>
-                            
+
                             <ColumnDefinition/>
 
                             <!--Maximize button-->
@@ -73,7 +78,7 @@
 
                         <!--Bell button-->
                         <Button x:Name="Notif"
-                           Style="{StaticResource MinimizeButtonStyle}" Margin="-46,0,46,0"
+                           Style="{StaticResource MinimizeButtonStyle}" Margin="-46,0,46,0" Grid.RowSpan="2"
 
 >
                             <Icon:PackIconMaterial 
@@ -95,7 +100,7 @@
 
                         <!--Minimize button-->
                         <Button x:Name="Minimize" Grid.Column="1" Click="Minimize_Click"
-                            Style="{StaticResource MinimizeButtonStyle}"
+                            Style="{StaticResource MinimizeButtonStyle}" Grid.RowSpan="2"
 
  >
                             <Icon:PackIconMaterial 
@@ -110,14 +115,14 @@
 
 
                         </Button>
-                        
+
                         <!--Maximize button-->
 
                         <Button x:Name="Maximize" Grid.Column="2" Click="Maximize_Click"
-                           Style="{StaticResource MinimizeButtonStyle}"
+                           Style="{StaticResource MinimizeButtonStyle}" Grid.RowSpan="2"
 >
 
-                                    <Icon:PackIconMaterial 
+                            <Icon:PackIconMaterial 
                                       x:Name="MaximizeWindow"
                                       Kind="WindowMaximize" 
                                       Grid.Column="2"
@@ -133,7 +138,7 @@
                         <!--Button btnClose -->
 
                         <Button x:Name="Close" Grid.Column="3" Click="Close_Click"
-                           Style="{StaticResource MinimizeButtonStyle}"
+                           Style="{StaticResource MinimizeButtonStyle}" Grid.RowSpan="2"
 >
 
                             <Icon:PackIconMaterial 
@@ -152,8 +157,8 @@
                     </Grid>
 
                 </Border>
-                
-                
+
+
                 <!--Grid for row 1 -->
                 <Grid Grid.Row="1">
 
@@ -269,6 +274,15 @@
                                 </StackPanel>
                             </Button>
 
+                            <Button x:Name="Grades" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                Cursor="Hand" Width="160" Click="Grades_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Star" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Grades"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
 
 
                             <!--Logout-->
@@ -280,6 +294,18 @@
                                     <TextBlock Text="Settings"  FontFamily="Roboto"/>
                                 </StackPanel>
                             </Button>
+
+
+
+                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                                  Cursor="Hand" Width="160"  Click="Button_Click"
+                                        >
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Log Out"  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
 
 
 
@@ -334,7 +360,7 @@
 
 
 
-                 
+
 
 
 

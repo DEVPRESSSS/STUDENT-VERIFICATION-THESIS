@@ -1,5 +1,6 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -94,7 +95,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
 
         private void StudentsBtn_Click(object sender, RoutedEventArgs e)
         {
-            MainContentArea.Content = new Students();
+            MainContentArea.Content = new Students(_context);
 
         }
 
@@ -108,6 +109,27 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
         private void ProgamBtn_Click_1(object sender, RoutedEventArgs e)
         {
             MainContentArea.Content = new ProgramsUsercontrol(_context);
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            MessageBoxResult dr = MessageBox.Show("Are you sure want to log out?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dr == MessageBoxResult.Yes)
+            {
+
+                LoginForm test= new LoginForm();
+
+                test.Show();
+
+                this.Hide();
+            }
+        }
+
+        private void Grades_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

@@ -16,6 +16,9 @@
     <Compile Update="View\PopUpForms\AddProgram.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\AddStudent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\AddSubjects.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -23,6 +26,15 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\UpdateProfessor.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\UpdateProgram.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\UpdateStudent.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\UpdateSubject.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\DashboardOverview.xaml.cs">
@@ -46,6 +58,12 @@
     <Compile Update="View\UsercontrolsView\Subjects.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\WindowsFormView\ChangePassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\WindowsFormView\ForgotPassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\WindowsFormView\LoginForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -63,6 +81,9 @@
     <Page Update="View\PopUpForms\AddProgram.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\PopUpForms\AddStudent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\PopUpForms\AddSubjects.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -70,6 +91,15 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\UpdateProfessor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\UpdateProgram.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\UpdateStudent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\UpdateSubject.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\DashboardOverview.xaml">
@@ -91,6 +121,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Subjects.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\WindowsFormView\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\WindowsFormView\ForgotPassword.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WindowsFormView\LoginForm.xaml">

@@ -17,6 +17,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [Required]
         public string? Name { get; set; }
 
+        [Required]
+
         public int Age { get; set; }
 
         [Required]
@@ -29,7 +31,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public string? Gmail { get; set; }
 
         [Required]
-
         public string? Address { get; set; }
 
 

@@ -39,6 +39,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [ForeignKey("ProfessorID")]
         public ProfessorsEntity? Professors  { get; set; }
 
+
+        [Required]
+
+        public string? YearID { get; set; }
+
+        [ForeignKey("YearID")]
+        public Year ? Year { get; set; }
+
         // Navigation property for many-to-many relationship with StudentsEntity
 
         public ICollection<StudentsEntity>? Students { get; set; }

@@ -29,14 +29,28 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
         public Subjects(ApplicationDbContext context)
         {
             InitializeComponent();
-            _context = context;
+            _context =context;
 
-            this.DataContext = new SubjectsViewModel(_context);
+            DataContext = new SubjectsViewModel(_context);
         }
 
         private void AddSubjects_Click(object sender, RoutedEventArgs e)
         {
-            AddSubjects obj = new AddSubjects(_context);
+            AddSubjects obj = new AddSubjects(_context)
+            {
+                DataContext= this.DataContext
+
+            };
+            obj.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateSubject obj = new UpdateSubject(_context)
+            {
+                DataContext = this.DataContext
+
+            };
             obj.ShowDialog();
         }
     }

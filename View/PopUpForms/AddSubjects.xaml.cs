@@ -29,7 +29,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         }
 
-        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+      
+
+        private void Close_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

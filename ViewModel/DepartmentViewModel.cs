@@ -101,62 +101,73 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 _name = value;
 
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Name));
             }
 
         }
 
-        
+
         //Insert Method 
         private async Task AddDepartmentAsync()
         {
-            if (string.IsNullOrEmpty(_name))
+            if (string.IsNullOrEmpty(Name))
             {
                 MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-
                 return;
             }
+
             try
             {
+                // Check if the department name already exists
+                var existingDepartment = await _context.Departments
+                    .FirstOrDefaultAsync(d => d.Name == Name);
 
+                if (existingDepartment != null)
+                {
+                    MessageBox.Show($"Department name '{Name}' already exists. Please use a different name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Clear();
+                    return;
+                }
+
+                // Generate a unique Department ID
                 string ID = $"DEPARTMENT-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
+                // Create a new Department object
                 var obj = new Departments
                 {
                     DepartmentID = ID,
                     Name = Name,
                     CreatedAt = DateTime.Now,
-
-
                 };
 
-
-
+                // Add the department to the database
                 _context.Departments.Add(obj);
-
                 await _context.SaveChangesAsync();
+
+                // Update the ObservableCollection only after saving to the database
                 DepartmentsCollection.Add(obj);
-                OnPropertyChanged(nameof(DepartmentsCollection));
 
+                MessageBox.Show("Department added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                MessageBox.Show("Department added success", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                Clear();
             }
-
-            catch(Exception ex)
+            catch (Exception ex)
             {
-
-
-                MessageBox.Show($"Department name is already exist{ex}!", "Error", MessageBoxButton.OK, MessageBoxImage.Error                           );
-
-
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
 
+
+        //Clear 
+
+        private void Clear()
+        {
+            Name = string.Empty;
 
 
         }
-
-           //Update Department
+        //Update Department
         private async Task UpdateDepartmentAsync()
         {
 
@@ -173,9 +184,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
             try
             {
+                
+
+                var existingDepartment = await _context.Departments
+                .FirstOrDefaultAsync(d => d.Name == Name);
+
+                if (existingDepartment != null)
+                {
+                    MessageBox.Show($"Department name '{Name}' already exists. Please use a different name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Clear();
+                    return;
+                }
 
 
-                existing_departments.Name= Selected_departments.Name;
+                existing_departments.Name= Name;
 
                 _context.Departments.Update(existing_departments);
 

@@ -1,10 +1,11 @@
 ﻿<Application x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Classic" 
              StartupUri="View/WindowsFormView/LoginForm.xaml">
     <Application.Resources>
-
+            <!-- Add Material Design Resource Dictionary -->
+            
 
         <!-- Textboxes template-->
         <Style x:Key="TextBoxes" TargetType="TextBox">
@@ -29,8 +30,32 @@
         </Style>
 
 
+            <!-- Textboxes template-->
+            <Style x:Key="TextBoxesForm" TargetType="TextBox">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Padding" Value="5,0,5,0"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="1"
+                        CornerRadius="7">
+                                <ScrollViewer x:Name="PART_ContentHost"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-        <!--Password box-->
+
+
+
+                <!--Password box-->
         <Style x:Key="PasswordBoxes" TargetType="PasswordBox">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Height" Value="25"/>
@@ -55,8 +80,8 @@
 
 
 
-        <!--Submit button template-->
-        <Style x:Key="SubmitButton" TargetType="Button">
+          <!--Submit button template-->
+          <Style x:Key="SubmitButton" TargetType="Button">
             <Setter Property="Background" Value="#3D7E35"/>
             <Setter Property="Foreground" Value="#ffff"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -72,7 +97,7 @@
                         <Border Background="{TemplateBinding Background}" 
                                  BorderBrush="{TemplateBinding BorderBrush}" 
                                  BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="6">
+                            CornerRadius="7">
                             <ContentPresenter VerticalAlignment="Center" 
                                   HorizontalAlignment="Center"
  
@@ -87,11 +112,83 @@
                     <Setter Property="Foreground" Value="#ffffff"/>
                 </Trigger>
             </Style.Triggers>
+          </Style>
+
+
+
+
+        <!--Submit button template-->
+        <Style x:Key="ClearButton" TargetType="Button">
+            <Setter Property="Background" Value="#FFFF"/>
+            <Setter Property="Foreground" Value="#4CAF50"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="15 3"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                   CornerRadius="7">
+                            <ContentPresenter VerticalAlignment="Center" 
+                         HorizontalAlignment="Center"
+ 
+                            ContentSource="Content"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#4CAF50"/>
+                    <Setter Property="Foreground" Value="#ffffff"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
 
 
-        <!-- Menu Button template-->
+        <!--Submit button template-->
+            <Style x:Key="Automation" TargetType="Button">
+                <Setter Property="Background" Value="#3D7E35"/>
+                <Setter Property="Foreground" Value="#ffff"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Height" Value="25"/>
+                <Setter Property="Width" Value="300"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="Margin" Value="15 3"/>
+                <Setter Property="FontSize" Value="10"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                           BorderBrush="{TemplateBinding BorderBrush}" 
+                           BorderThickness="{TemplateBinding BorderThickness}"
+                      CornerRadius="6">
+                                <ContentPresenter VerticalAlignment="Center" 
+                            HorizontalAlignment="Center"
+ 
+                               ContentSource="Content"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#ffffff"/>
+                        <Setter Property="Foreground" Value="#3D7E35"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+            <!-- Menu Button template-->
         <Style x:Key="menuButton" TargetType="Button">
             <Setter Property="Background" Value="#3D7E35"/>
             <Setter Property="Foreground" Value="#3D7E32"/>
@@ -140,6 +237,10 @@
                     ShadowDepth="5"
                     Opacity="0.5"
                     Color="LightGray"/>
+
+
+        <DropShadowEffect x:Key="formShadow"
+            Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
 
 
         <!--#region DataGrid Style-->
@@ -514,85 +615,7 @@
 
 
 
-        <!--Combobox-->
-        <Style x:Key="ComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Padding" Value="5,0,5,0"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <Border x:Name="ComboBoxBorder" 
-                            Background="{TemplateBinding Background}" 
-                            BorderBrush="#3D7E35" 
-                            BorderThickness="0,0,0,1" 
-                            CornerRadius="2">
-                                <Grid>
-                                    <ContentPresenter Margin="5,0,25,0"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
-                                              Content="{TemplateBinding SelectionBoxItem}"/>
-                                    <ToggleButton x:Name="DropDownToggle" 
-                                          Grid.Column="2"
-                                          Focusable="False"
-                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                          Background="White" 
-                                          BorderBrush="White" 
-                                          BorderThickness="0"
-                                          Margin="0,0,6,0"
-                                          HorizontalAlignment="Right">
-                                        <Path x:Name="Arrow" 
-                                      Data="M 0 0 L 4 4 L 8 0 Z" 
-                                      Fill="Gray"
-                                      HorizontalAlignment="Center" 
-                                      VerticalAlignment="Center"/>
-                                    </ToggleButton>
-                                </Grid>
-                            </Border>
-
-                            <Popup x:Name="PART_Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}">
-                                <Border Background="White" 
-                                BorderBrush="Transparent" 
-                                BorderThickness="1"
-                                CornerRadius="6">
-                                    <ScrollViewer>
-                                        <ItemsPresenter/>
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-
-        <!-- Custom ComboBox Style -->
-        <Style TargetType="ComboBox" x:Key="MultiSelectComboBox">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ComboBox">
-                        <Grid>
-                            <!-- Display the selected items in the ComboBox -->
-                            <TextBlock Text="{TemplateBinding Tag}" VerticalAlignment="Center" Padding="5" />
-                            <!-- Popup for dropdown -->
-                            <Popup Name="Popup" IsOpen="{TemplateBinding IsDropDownOpen}" StaysOpen="False"
-                                   Placement="Bottom" PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                                <Border BorderBrush="Gray" BorderThickness="1" Background="White">
-                                    <ScrollViewer>
-                                        <ItemsPresenter />
-                                    </ScrollViewer>
-                                </Border>
-                            </Popup>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
+   
 
     </Application.Resources>
 </Application>

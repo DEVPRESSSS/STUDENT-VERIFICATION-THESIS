@@ -1,6 +1,9 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,14 +24,41 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
     /// </summary>
     public partial class Students : UserControl
     {
-        public Students()
+        private readonly ApplicationDbContext _context;
+        public Students(ApplicationDbContext context)
         {
             InitializeComponent();
+            _context = context;
+     
+            DataContext = new StudentViewModel(context);
         }
 
-        private void AddSubjects_Click(object sender, RoutedEventArgs e)
+     
+
+
+        private void new_Click(object sender, RoutedEventArgs e)
         {
-             
+            AddStudent obj = new AddStudent(_context)
+            {
+
+               DataContext = this.DataContext
+
+            };
+
+            obj.ShowDialog();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateStudent obj = new UpdateStudent(_context)
+            {
+
+                DataContext = this.DataContext
+
+            };
+
+            obj.ShowDialog();
         }
     }
+    
 }
