@@ -130,6 +130,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
 
         private void Grades_Click(object sender, RoutedEventArgs e)
         {
+            MainContentArea.Content = new GradesUsercontrol(_context);
 
         }
     }

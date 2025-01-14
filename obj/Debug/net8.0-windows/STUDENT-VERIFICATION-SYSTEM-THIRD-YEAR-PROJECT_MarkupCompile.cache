@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\App.xaml
-211464142173
+23-2011362697
 
-58-1487626391
+62-657344747
 275-591260994
-MainWindow.xaml;View\PopUpForms\AddDepartment.xaml;View\PopUpForms\AddProfessorForm.xaml;View\PopUpForms\AddProgram.xaml;View\PopUpForms\AddStudent.xaml;View\PopUpForms\AddSubjects.xaml;View\PopUpForms\UpdateDepartment.xaml;View\PopUpForms\UpdateProfessor.xaml;View\PopUpForms\UpdateProgram.xaml;View\PopUpForms\UpdateStudent.xaml;View\PopUpForms\UpdateSubject.xaml;View\UsercontrolsView\DashboardOverview.xaml;View\UsercontrolsView\DepartmentsUsercontrol.xaml;View\UsercontrolsView\Professors.xaml;View\UsercontrolsView\ProgramsUsercontrol.xaml;View\UsercontrolsView\Staff.xaml;View\UsercontrolsView\Students.xaml;View\UsercontrolsView\Subjects.xaml;View\WindowsFormView\ChangePassword.xaml;View\WindowsFormView\ForgotPassword.xaml;View\WindowsFormView\LoginForm.xaml;
+MainWindow.xaml;View\PopUpForms\AddDepartment.xaml;View\PopUpForms\AddGrade.xaml;View\PopUpForms\AddProfessorForm.xaml;View\PopUpForms\AddProgram.xaml;View\PopUpForms\AddStudent.xaml;View\PopUpForms\AddSubjects.xaml;View\PopUpForms\UpdateDepartment.xaml;View\PopUpForms\UpdateProfessor.xaml;View\PopUpForms\UpdateProgram.xaml;View\PopUpForms\UpdateStudent.xaml;View\PopUpForms\UpdateSubject.xaml;View\UsercontrolsView\DashboardOverview.xaml;View\UsercontrolsView\DepartmentsUsercontrol.xaml;View\UsercontrolsView\GradesUsercontrol.xaml;View\UsercontrolsView\Professors.xaml;View\UsercontrolsView\ProgramsUsercontrol.xaml;View\UsercontrolsView\Staff.xaml;View\UsercontrolsView\Students.xaml;View\UsercontrolsView\Subjects.xaml;View\WindowsFormView\ChangePassword.xaml;View\WindowsFormView\ForgotPassword.xaml;View\WindowsFormView\LoginForm.xaml;
 
 False
 

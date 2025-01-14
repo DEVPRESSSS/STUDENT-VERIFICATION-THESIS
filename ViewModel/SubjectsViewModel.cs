@@ -36,6 +36,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand LoadSubjectCommand { get; }
         public ICommand ClearCommand { get; }
 
+        public string SubjectID { get; set; }
+        public string SubjectNames { get; set; }
+        public decimal? GradeValue { get; set; }
+
 
         public SubjectsViewModel(ApplicationDbContext context)
         {

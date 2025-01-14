@@ -1,4 +1,5 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
@@ -56,6 +57,22 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
                 DataContext = this.DataContext
 
             };
+
+            obj.ShowDialog();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+           
+
+            AddGrade obj = new AddGrade(_context)
+            {
+
+                DataContext = this.DataContext
+
+            };
+
 
             obj.ShowDialog();
         }

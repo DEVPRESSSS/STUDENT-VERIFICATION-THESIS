@@ -11,7 +11,6 @@
 
 
 
-            <!--Professor Table-->
             <Border 
               Background="White"
               CornerRadius="4" Margin="0,50,0,0">
@@ -25,10 +24,10 @@
                           >
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Student No" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
+                        <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
 
-                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="100"/>
-                        <DataGridTextColumn Header="Age" CanUserResize="False"  Binding="{Binding Age}" IsReadOnly="True" Width="100"/>
+                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Age" CanUserResize="False"  Binding="{Binding Age}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTextColumn Header="ID number" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Address" CanUserResize="False" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
@@ -37,7 +36,19 @@
                         <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
+                        <DataGridTemplateColumn Header="Grade" CanUserResize="False" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1">
+                                            <Icon:PackIconMaterial Kind="Trophy" Style="{StaticResource gridButtonIcon}" />
+                                        </Button>
+                                    
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -59,7 +70,6 @@
 
 
             </Border>
-
 
 
 

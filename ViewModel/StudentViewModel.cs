@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 using System.ComponentModel.DataAnnotations;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
@@ -22,6 +23,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<StudentsEntity> StudentsCollection { get; private set; }
         public ObservableCollection<ProgramEntity> ProgramsCollection { get; private set; }
         public ObservableCollection<Year> YearCollection { get; private set; }
+       public ObservableCollection<Grade> SubjectGrades { get; private set; } 
 
         //Crud Commands
 
@@ -29,7 +31,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand UpdateStudentsCommand { get; set; }
         public ICommand DeleteStudentsCommand { get; }
         public ICommand LoadStudentsCommand { get; }
+        public ICommand LoadGradeCommand { get; }
         public ICommand ClearCommand { get; }
+
+        public ICommand InsertGradeCommand { get; }
+
 
         //Listener to close the form
 
@@ -38,29 +44,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             _context = context;
-
             StudentsCollection = new ObservableCollection<StudentsEntity>();
+            SubjectGrades = new ObservableCollection<Grade>();
             AddStudentscommand = new RelayCommand(async _ => await AddStudentAsync());
             UpdateStudentsCommand = new RelayCommand(async _ => await UpdateStudentAsync(), _ => Selected_students != null);
             DeleteStudentsCommand = new RelayCommand(async _ => await DeleteStudentAsync(), _ => Selected_students != null);
             LoadStudentsCommand = new RelayCommand(async _ => await LoadStudentAsync());
-           ClearCommand = new RelayCommand(_ => ClearAsync());
+
+
+            ClearCommand = new RelayCommand(_ => ClearAsync());
+            ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
+            YearCollection = new ObservableCollection<Year>();
             LoadStudentsCommand.Execute(null);
-
-
-            ProgramsCollection = new ObservableCollection<ProgramEntity>(); // Fix this
-            YearCollection = new ObservableCollection<Year>(); // Fix this
-
             _ = LoadProgramAsync();
-
             _ = LoadYearAsync();
+            _ = LoadSubjectsAsync();
         }
 
-     
-        //Get the selected departments
+
 
         private StudentsEntity _selected_students;
-
 
         public StudentsEntity Selected_students
         {
@@ -71,9 +74,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 _selected_students = value;
                 OnPropertyChanged(nameof(Selected_students));
+                if (_selected_students != null)
+                {
+                    _ = LoadSubjectsAsync();
+                }
             }
         }
 
+
+
+
+        private Grade _selected_grade;
+
+
+        public Grade Selected_grades
+        {
+            get => _selected_grade;
+
+            set
+            {
+
+                _selected_grade = value;
+                OnPropertyChanged(nameof(Selected_grades));
+            }
+        }
+
+
+       
 
         //Program ID 
 
@@ -250,6 +277,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         }
+
+
+
+
 
 
 
@@ -438,6 +469,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         private async Task LoadStudentAsync()
         {
 
+           
             var prof = await _context.Students
                  .Include(s => s.Program)
                  .Include(s => s.YearLevel)
@@ -518,7 +550,57 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
-       
+
+
+
+
+
+
+
+        private async Task LoadSubjectsAsync()
+        {
+            try
+            {
+                if (Selected_students == null)
+                {
+                    Debug.WriteLine("No student selected.");
+                    return;
+                }
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var subjectGradesList = await context.Grades
+                        .Where(x => x.Student.StudentID == Selected_students.StudentID) 
+                        .Include(x => x.Subject)
+                        .Include(x => x.Student)
+                        .ToListAsync();
+
+                    SubjectGrades.Clear();
+                    foreach (var grade in subjectGradesList)
+                    {
+                        SubjectGrades.Add(grade);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading subjects: {ex.Message}");
+            }
+        }
+
+
+
+
+
+
+
+
+
+        private bool CanExecuteInsertGrade()
+        {
+            return true;
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

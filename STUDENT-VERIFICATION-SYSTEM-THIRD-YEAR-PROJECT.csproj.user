@@ -10,6 +10,9 @@
     <Compile Update="View\PopUpForms\AddDepartment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\AddGrade.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\AddProfessorForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +44,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\DepartmentsUsercontrol.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UsercontrolsView\GradesUsercontrol.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\Professors.xaml.cs">
@@ -75,6 +81,9 @@
     <Page Update="View\PopUpForms\AddDepartment.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\PopUpForms\AddGrade.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\PopUpForms\AddProfessorForm.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -106,6 +115,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\DepartmentsUsercontrol.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\GradesUsercontrol.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Professors.xaml">

@@ -26,6 +26,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
             {
                 optionsBuilder.UseSqlServer("Server=(local)\\SQLEXPRESS;Database=umdb;Trusted_Connection=True;TrustServerCertificate=True;");
             }
+            optionsBuilder.EnableSensitiveDataLogging();
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,6 +43,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
             modelBuilder.Entity<ProfessorsEntity>()
                 .HasIndex(p => new { p.Name, p.Email })
                 .IsUnique();
+
+            modelBuilder.Entity<Grade>()
+             .HasOne(g => g.Student)
+             .WithMany()
+             .HasForeignKey(g => g.StudentID);
         }
 
 
