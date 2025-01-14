@@ -22,10 +22,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
     /// </summary>
     public partial class AddSubjects : Window
     {
+
+        private readonly ApplicationDbContext _context;
         public AddSubjects(ApplicationDbContext context)
         {
             InitializeComponent();
-            this.DataContext = new SubjectsViewModel(context);
+            _context = context;
+            this.DataContext = new SubjectsViewModel(_context);
 
         }
 
@@ -34,6 +37,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         private void Close_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void Automation_Click(object sender, RoutedEventArgs e)
+        {
+            BulkInsertInSubjects bulkInsertInSubjects = new BulkInsertInSubjects(_context);
+            bulkInsertInSubjects.ShowDialog();
+
+            this.Close();
+
         }
     }
 }

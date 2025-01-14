@@ -236,6 +236,7 @@
                          Margin="57,150,0,275"
                          Cursor="Hand" BorderBrush="#FFFF"
                          Style="{StaticResource Automation}"
+                         Click="Automation_Click"
                          BorderThickness="1" HorizontalAlignment="Left" Width="123">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="AutoMode" Style="{StaticResource menuButtonIcon}"/>

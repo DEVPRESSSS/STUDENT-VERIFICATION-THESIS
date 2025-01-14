@@ -68,21 +68,8 @@
                               AutoGenerateColumns="False" Margin="0,0,0,86" Height="300" Grid.RowSpan="2">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="Subjects ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding SubjectID,UpdateSourceTrigger=PropertyChanged}" />
-                                <DataGridTextColumn Header="Student Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Student.StudentID,UpdateSourceTrigger=PropertyChanged}" />
                                 <DataGridTextColumn Header="Subject Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.SubjectName,UpdateSourceTrigger=PropertyChanged}" />
                                 <DataGridTextColumn Header="Grade" Binding="{Binding GradeValue,Mode=TwoWay}" CanUserResize="False" Width="*" />
-                                <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
-
-                                                <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}">
-                                                    <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}" />
-                                                </Button>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
 
 
