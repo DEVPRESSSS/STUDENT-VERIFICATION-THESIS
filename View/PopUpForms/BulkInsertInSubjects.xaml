@@ -11,9 +11,10 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         WindowStyle="None"
+        ResizeMode="CanResize"
         Width="1046">
     <Grid>
-        <Border CornerRadius="10" Background="#f7f5f5">
+        <Border CornerRadius="10" Background="#f7f5f5" MouseDown="Border_MouseDown">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -67,9 +68,30 @@
                                  ItemsSource="{Binding SubjectsCollection}"
                                  AutoGenerateColumns="False" Margin="0,10,0,10" Grid.RowSpan="2" Grid.ColumnSpan="2">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Descriptive Title" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding SubjectName,UpdateSourceTrigger=PropertyChanged}" />
+                                    <DataGridTemplateColumn Header="Program">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding SubjectName}" 
+                                                    TextWrapping="Wrap" 
+                                                    VerticalAlignment="Center" 
+                                                    HorizontalAlignment="Stretch" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode,UpdateSourceTrigger=PropertyChanged}" />
                                     <DataGridTextColumn Header="Units" Binding="{Binding Units,Mode=TwoWay}" CanUserResize="False" Width="*" />
+                                    <DataGridTextColumn Header="Year Level" Binding="{Binding YearID,Mode=TwoWay}" CanUserResize="False" Width="*" />
+                                    <DataGridTemplateColumn Header="Program">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ProgramID}" 
+                                                   TextWrapping="Wrap" 
+                                                   VerticalAlignment="Center" 
+                                                   HorizontalAlignment="Stretch" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Semester" Binding="{Binding SemesterID,Mode=TwoWay}" CanUserResize="False" Width="*" />
                                 </DataGrid.Columns>
 
 

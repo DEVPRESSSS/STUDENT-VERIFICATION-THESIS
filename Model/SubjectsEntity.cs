@@ -24,6 +24,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         public int Units { get; set; }
 
+
+
+
+        public string?SemesterID { get; set; }
+
+        [ForeignKey("SemesterID")]
+        public Semester? Semester { get; set; }
+
         [Required]
         public string? ProgramID {  get; set; }
 
@@ -32,7 +40,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public string? Description { get; set; }
 
 
-        [Required]
 
         public string? ProfessorID { get; set; }
 

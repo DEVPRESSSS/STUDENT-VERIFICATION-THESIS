@@ -37,6 +37,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             this.Close();
         }
 
-       
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+           
+        }
+   
+
     }
 }

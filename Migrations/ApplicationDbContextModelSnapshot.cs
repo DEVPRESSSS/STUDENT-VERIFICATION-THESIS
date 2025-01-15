@@ -190,6 +190,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.ToTable("ScheduleOfSubjects");
                 });
 
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Semester", b =>
+                {
+                    b.Property<string>("SemesterID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SemesterName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("SemesterID");
+
+                    b.ToTable("Semesters");
+                });
+
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StaffsEntity", b =>
                 {
                     b.Property<string>("StaffID")
@@ -301,11 +314,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfessorID")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProgramID")
                         .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SemesterID")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SubjectName")
@@ -324,6 +339,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.HasIndex("ProfessorID");
 
                     b.HasIndex("ProgramID");
+
+                    b.HasIndex("SemesterID");
 
                     b.HasIndex("YearID");
 
@@ -423,15 +440,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                 {
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProfessorsEntity", "Professors")
                         .WithMany()
-                        .HasForeignKey("ProfessorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProfessorID");
 
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProgramEntity", "Program")
                         .WithMany()
                         .HasForeignKey("ProgramID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Semester", "Semester")
+                        .WithMany()
+                        .HasForeignKey("SemesterID");
 
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Year", "Year")
                         .WithMany()
@@ -442,6 +461,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Navigation("Professors");
 
                     b.Navigation("Program");
+
+                    b.Navigation("Semester");
 
                     b.Navigation("Year");
                 });

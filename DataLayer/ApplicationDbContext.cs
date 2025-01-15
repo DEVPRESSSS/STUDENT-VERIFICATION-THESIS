@@ -59,9 +59,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         public DbSet<Year> Year { get; set; }
 
         public DbSet<Role> Role { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
 
         public DbSet<ProgramEntity> Programs { get; set; }
-
 
         public DbSet<SubjectsEntity> Subjects { get; set; }
 
