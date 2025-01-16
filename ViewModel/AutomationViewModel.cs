@@ -1,8 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using OfficeOpenXml;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Command;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,13 +32,35 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             _context = context;
             SubjectsCollection = new ObservableCollection<SubjectsEntity>();
             OpenFileDialogCommand = new RelayCommand(async _ => await ChooseFileAsync(), _ => canExtract());
+            InsertCommand = new RelayCommand(async _ => await BulkInsert());
 
         }
 
-
+       
         public ICommand? OpenFileDialogCommand { get;}
 
-        //Acronym
+
+        public ICommand? InsertCommand { get; }
+
+
+        //Selected Subjects
+
+        private SubjectsEntity _selectedSubjects;
+
+        public SubjectsEntity SelectedSubjects
+        {
+            get=> _selectedSubjects;
+
+            set
+            {
+
+                _selectedSubjects = value;
+                OnPropertyChanged(nameof(SelectedSubjects));
+            }
+
+        }
+
+        //Subject Name
 
         private string _subjectname;
 
@@ -124,6 +148,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+
+        //Excel extraction Method
 
           private async Task ChooseFileAsync()
           {
@@ -276,6 +302,102 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+
+        //Insert Method for the data Extracted
+
+
+
+        private async Task BulkInsert()
+        {
+                
+                foreach (var item in SubjectsCollection)
+                {
+
+
+                try
+                {
+                    string ID = $"SUB-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+                    
+                    var existingProgram = _context.Programs.FirstOrDefault(x => x.Name == item.ProgramID);
+
+                    var existingYear = _context.Year.FirstOrDefault(x => x.Name == item.YearID);
+
+
+                    if (existingYear == null)
+                    {
+
+
+                        var newYear = new Year { Name = item.YearID };
+                        _context.Year.Add(newYear);
+                        _context.SaveChanges();
+                        existingYear = newYear; // Reassign to the newly added year
+                    }
+
+                    if (existingProgram != null)
+                    {
+                        var programID = _context.Programs
+                            .Where(p => p.Name == item.ProgramID)
+                            .Select(p => p.ProgramID)
+                            .FirstOrDefault();
+
+
+                        using (var dbContext = new ApplicationDbContext())
+                        {
+                            if (existingProgram != null && existingYear != null)
+                            {
+                                var subjectsEntity = new SubjectsEntity
+                                {
+                                    SubjectID = ID,
+                                    SubjectName = item.SubjectName,
+                                    CourseCode = item.CourseCode,
+                                    YearID = existingYear.YearID,
+                                    ProgramID = programID,
+                                    Description = "No description",
+                                    Units = item.Units
+                                };
+
+                                dbContext.Subjects.Add(subjectsEntity);
+
+                                await dbContext.SaveChangesAsync();
+
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Program or Year not found for Subject: {item.CourseCode}, Program: {item.ProgramID}, Year: {item.YearID}");
+                            }
+
+                        }
+
+                    }
+
+
+               
+
+                   
+
+                
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+
+            
+        }
+                 MessageBox.Show("Data extraction completed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                 SubjectsCollection.Clear();
+
+
+
+
+
+
+
+
+
+
+        }
 
 
 

@@ -32,11 +32,10 @@
                         <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding CourseCode}"  IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Unit" CanUserResize="False" Binding="{Binding Units}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Description" CanUserResize="False" Binding="{Binding Description}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Professor" CanUserResize="False" Binding="{Binding Professors.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding Year.Name}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
+                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

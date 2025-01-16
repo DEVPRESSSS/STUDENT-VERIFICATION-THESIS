@@ -66,12 +66,13 @@
                                 CellStyle="{DynamicResource DataGridCellStyle1}"
                                 x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
                                  ItemsSource="{Binding SubjectsCollection}"
+                                 SelectedItem="{Binding SelectedSubjects}"
                                  AutoGenerateColumns="False" Margin="0,10,0,10" Grid.RowSpan="2" Grid.ColumnSpan="2">
                                 <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="Program">
+                                    <DataGridTemplateColumn Header="SubjectName">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
-                                                <TextBlock Text="{Binding SubjectName}" 
+                                                <TextBlock Text="{Binding SubjectName,UpdateSourceTrigger=PropertyChanged}" 
                                                     TextWrapping="Wrap" 
                                                     VerticalAlignment="Center" 
                                                     HorizontalAlignment="Stretch" />
@@ -81,11 +82,12 @@
                                     <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode,UpdateSourceTrigger=PropertyChanged}" />
                                     <DataGridTextColumn Header="Units" Binding="{Binding Units,Mode=TwoWay}" CanUserResize="False" Width="*" />
                                     <DataGridTextColumn Header="Year Level" Binding="{Binding YearID,Mode=TwoWay}" CanUserResize="False" Width="*" />
-                                    <DataGridTemplateColumn Header="Program">
+                                    <DataGridTemplateColumn Header="Program" IsReadOnly="False">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding ProgramID}" 
                                                    TextWrapping="Wrap" 
+                                                    IsEnabled="False"
                                                    VerticalAlignment="Center" 
                                                    HorizontalAlignment="Stretch" />
                                                 </DataTemplate>
@@ -141,6 +143,7 @@
                            HorizontalAlignment="Left"
                            Height="30"
                            BorderBrush="White"
+                           Command="{Binding InsertCommand}"
                             />
 
 
