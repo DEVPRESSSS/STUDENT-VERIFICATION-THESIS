@@ -246,3 +246,5 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\Micro
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.Drawing.Common.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.Security.Cryptography.Pkcs.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\runtimes\win\lib\net8.0\System.Security.Cryptography.Pkcs.dll
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\InputGrade.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\InputGrade.baml

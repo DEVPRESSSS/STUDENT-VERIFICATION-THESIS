@@ -1,4 +1,5 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+﻿using Microsoft.IdentityModel.Tokens;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if (!string.IsNullOrEmpty(NameTxt.Text))
+            {
+                this.Close();
+             
+            }
+            else
+            {
+                MessageBox.Show("You can't close it there is no Departname provided", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+               
+            }
         }
 
     

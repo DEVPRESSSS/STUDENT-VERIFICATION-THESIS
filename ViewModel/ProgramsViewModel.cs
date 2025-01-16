@@ -100,9 +100,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             set
             {
 
-                _acronym = value;
-
-                OnPropertyChanged();
+                
+                    _acronym = value;
+                    OnPropertyChanged(nameof(Acronym));
+                
             }
 
         }
@@ -121,8 +122,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 _name = value;
-
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(Name));
+                
             }
 
         }
@@ -138,34 +139,56 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 return;
             }
 
+            var existingProgramName = await _context.Programs
+                               .FirstOrDefaultAsync(s => s.Name == Name || s.Acronym == Acronym);
 
-            string ID = $"PROGRAM-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
-
-            var obj = new ProgramEntity
+            if (existingProgramName != null)
             {
-                ProgramID = ID,
-                Acronym= Acronym,
-                Name = Name,
+                MessageBox.Show($"Program Name or Acronym already exists. Please use a different one.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Clear();
+                return;
+            }
 
 
-                CreatedAt = DateTime.Now,
+            try
+            {
+
+                string ID = $"PROGRAM-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                var obj = new ProgramEntity
+                {
+                    ProgramID = ID,
+                    Acronym = Acronym,
+                    Name = Name,
 
 
-            };
+                    CreatedAt = DateTime.Now,
+
+
+                };
 
 
 
-            _context.Programs.Add(obj);
+                _context.Programs.Add(obj);
 
-            await _context.SaveChangesAsync();
-            ProgramCollection.Add(obj);
-
-
-
-            OnPropertyChanged(nameof(ProgramCollection));
+                await _context.SaveChangesAsync();
+                ProgramCollection.Add(obj);
 
 
-            MessageBox.Show("Program added success", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                OnPropertyChanged(nameof(ProgramCollection));
+                MessageBox.Show("Program added success", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                Clear();
+            }
+
+            catch (Exception ex)
+            {
+
+
+            }
+          
+
+
 
 
 
@@ -186,8 +209,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 return;
             }
+
+            if (string.IsNullOrWhiteSpace(Selected_program.Name) || string.IsNullOrWhiteSpace(Selected_program.Acronym))
+            {
+                MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
+                
 
                 existing_departments.Acronym = Selected_program.Acronym;
                 existing_departments.Name = Selected_program.Name;
@@ -196,13 +227,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 await _context.SaveChangesAsync();
 
                 MessageBox.Show("Program updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                //Clear();
             }
 
             catch (Exception ex)
             {
                 MessageBox.Show($"Oops there is an error:{ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                Clear();
             }
 
 
@@ -211,7 +242,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
-        //Delete Department
+        //Delete Program
         private async Task DeleteDepartmentAsync()
         {
 
@@ -226,6 +257,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+        //Load Programs
         private async Task LoadDepartmentsAsync()
         {
 
@@ -235,7 +268,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             foreach (var item in departments)
             {
-
+               
                 ProgramCollection.Add(item);
             }
             OnPropertyChanged(nameof(ProgramCollection));
@@ -243,6 +276,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+
+        //Clear Input
+
+        private void Clear()
+        {
+            Acronym = string.Empty;
+            Name = string.Empty;
+
+        }
 
         //Boolean method to flag if is valid
         private bool canAddDepartment() => true;

@@ -69,6 +69,9 @@
 
                             <TextBox x:Name="NameTxt" Style="{StaticResource TextBoxesForm}" 
                                  BorderBrush="#bab7b6"
+                                 MaxLength="50"
+                                 PreviewKeyDown="NameTxt_PreviewKeyDown"
+                                 PreviewTextInput="NameTxt_PreviewTextInput"
                                  BorderThickness="1" Margin="55,132,55,225"  
                                  Text="{Binding Name}" RenderTransformOrigin="0.5,0.5"
                                  >

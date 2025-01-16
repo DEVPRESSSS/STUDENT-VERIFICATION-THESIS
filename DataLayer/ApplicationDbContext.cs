@@ -39,6 +39,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
                 .HasIndex(d => d.Name)
                 .IsUnique();
 
+            modelBuilder.Entity<ProgramEntity>()
+               .HasIndex( d => new {d.Name, d.Acronym} )
+               .IsUnique();
 
             modelBuilder.Entity<ProfessorsEntity>()
                 .HasIndex(p => new { p.Name, p.Email })

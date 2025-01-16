@@ -62,6 +62,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public ICollection<ScheduleOfSubjects>? Schedules { get; set; }
 
 
+        public decimal? GradeValue { get; set; }
 
 
     }

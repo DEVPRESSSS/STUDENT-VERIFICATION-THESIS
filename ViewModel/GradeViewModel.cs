@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 using System.Diagnostics.Eventing.Reader;
 using System.Diagnostics;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
@@ -25,9 +26,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         public ObservableCollection<Grade> GradeCollection { get; private set; }
+        public ObservableCollection<StudentsEntity> StudentCollection { get; private set; }
+        public ObservableCollection<SubjectsEntity> SubjectsCollection { get; private set; }
+        public ObservableCollection<Semester> SemesterCollection { get; private set; }
      
         public ICommand LoadSubjectsCommand { get; }
         public ICommand DeleteGradeCommand { get; }
+        public ICommand LoadStudentSubs { get; }
+        public ICommand InsertGradeCommand { get; }
 
 
         public GradeViewModel(ApplicationDbContext context)
@@ -40,6 +46,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             LoadSubjectsCommand = new RelayCommand(_ => LoadSubjectsAsync());
             DeleteGradeCommand = new RelayCommand(async _ => await DeleteGrade(),_=> Selected_grades != null);
             LoadSubjectsCommand.Execute(null);
+
+            StudentCollection = new ObservableCollection<StudentsEntity>();
+            SubjectsCollection = new ObservableCollection<SubjectsEntity>();
+            SemesterCollection = new ObservableCollection<Semester>();
+            LoadStudentSubs= new RelayCommand(async _=> await LoadSubjectForStudentsAsync());
+            LoadStudentAsync();
+            _=LoadSubjectForStudentsAsync();
+            FilterSubjectsBasedOnSemesterAndStudentInfo();
+            _ = LoadSemesterAsync();
+            InsertGradeCommand = new RelayCommand(async _ => await InsertGrade());
+
         }
 
         private async Task DeleteGrade()
@@ -94,13 +111,52 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 _selected_students = value;
                 OnPropertyChanged(nameof(Selected_students));
+                FilterSubjectsBasedOnSemesterAndStudentInfo();
+                
             }
         }
 
 
 
 
-     
+
+        private SubjectsEntity _selected_subjects;
+
+
+        public SubjectsEntity Selected_subjects
+        {
+            get => _selected_subjects;
+
+            set
+            {
+
+                _selected_subjects = value;
+                OnPropertyChanged(nameof(Selected_subjects));
+            }
+        }
+
+
+        private Semester _selected_semester;
+
+
+        public Semester Selected_semester
+        {
+            get => _selected_semester;
+
+            set
+            {
+
+                _selected_semester = value;
+                OnPropertyChanged(nameof(_selected_semester));
+
+                if (Selected_semester != null)
+                {
+                    FilterSubjectsBasedOnSemesterAndStudentInfo();
+                }
+              
+            }
+        }
+
 
         private void LoadSubjectsAsync()
         {
@@ -115,6 +171,144 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 GradeCollection.Add(subject);    
              }
+
+
+        }
+
+        private void LoadStudentAsync()
+        {
+            using(var context = new ApplicationDbContext())
+            {
+
+                var subjects = context.Students.
+                    Include(x=>x.Program).
+                    Include(x=>x.YearLevel).
+                    ToList();
+
+                StudentCollection.Clear();
+
+                foreach (var subject in subjects)
+                {
+
+                    StudentCollection.Add(subject);
+                }
+
+            }
+
+        }
+
+        private async Task LoadSubjectForStudentsAsync()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+
+                var subjects = context.Subjects.
+                    Include(x=>x.Semester). ToList();
+
+                SubjectsCollection.Clear();
+
+                foreach (var subject in subjects)
+                {
+
+                    SubjectsCollection.Add(subject);
+                }
+
+            }
+
+        }
+
+        private void FilterSubjectsBasedOnSemesterAndStudentInfo()
+        {
+            SubjectsCollection.Clear();
+
+            if (Selected_students != null && Selected_semester != null)
+            {
+                var filteredSubjects = _context.Subjects
+                    .Where(s => s.ProgramID == Selected_students.ProgramID
+                                && s.YearID == Selected_students.YearID
+                                && s.SemesterID == Selected_semester.SemesterID)
+                    .Include(x => x.Semester)
+                    .ToList();
+
+                foreach (var subject in filteredSubjects)
+                {
+                    SubjectsCollection.Add(subject);
+                }
+            }
+            else if (Selected_students != null)
+            {
+                var filteredSubjects = _context.Subjects
+                    .Where(s => s.ProgramID == Selected_students.ProgramID
+                                && s.YearID == Selected_students.YearID)
+                    .Include(x => x.Semester)
+                    .ToList();
+
+                foreach (var subject in filteredSubjects)
+                {
+                    SubjectsCollection.Add(subject);
+                }
+            }
+            else
+            {
+                SubjectsCollection.Clear();
+            }
+        }
+
+
+
+
+
+        private async Task LoadSemesterAsync()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var semesters = await context.Semesters.ToListAsync();
+                SemesterCollection.Clear();
+
+                foreach (var semester in semesters)
+                {
+                    SemesterCollection.Add(semester);
+                }
+
+                if (SemesterCollection.Any())
+                {
+                    Selected_semester = SemesterCollection.First(); // Set a default value
+                }
+            }
+
+        }
+
+        //Insert Grade
+
+
+        private async Task InsertGrade()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var subject = context.Subjects.FirstOrDefault(s => s.SubjectID == Selected_subjects.SubjectID);
+                if (subject == null)
+                {
+                    throw new Exception("Subject not found.");
+                }
+
+          
+                var grade = new Grade
+                {
+                    GradeID = Guid.NewGuid().ToString(),
+                    GradeValue = Selected_subjects.GradeValue,
+                    DateAssigned = DateTime.Now,
+                    StudentID = Selected_students.StudentID,
+                    SubjectID = Selected_subjects.SubjectID
+                };
+
+                 context.Grades.Add(grade);
+
+                 subject.GradeValue = null;
+
+                 context.SaveChanges();
+
+                MessageBox.Show("Grade Added Successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
 
 
         }

@@ -182,6 +182,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 return;
             }
+
+            if (string.IsNullOrEmpty(Selected_departments.Name))
+            {
+                MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             try
             {
                 
@@ -197,20 +204,21 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 }
 
 
-                existing_departments.Name= Name;
+                existing_departments.Name= Selected_departments.Name;
 
                 _context.Departments.Update(existing_departments);
 
                 await _context.SaveChangesAsync();
 
                 MessageBox.Show("Department updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                CloseCurrentActiveWindow();
             }
 
             catch (Exception ex)
             {
-                MessageBox.Show($"Oops there is an error:{ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Please provide a name", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
 
+              
             }
 
 
@@ -249,6 +257,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
              OnPropertyChanged(nameof(DepartmentsCollection));
 
 
+        }
+
+
+
+        public void CloseCurrentActiveWindow()
+        {
+            var activeWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(window => window.IsActive);
+
+            if (activeWindow != null)
+            {
+                activeWindow.Close();
+            }
         }
 
 

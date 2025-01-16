@@ -69,8 +69,11 @@
 
                             <TextBox x:Name="NameTxt" Style="{StaticResource TextBoxesForm}" 
                               BorderBrush="#bab7b6"
-                              BorderThickness="1" Margin="54,87,56,270"  
-                              Text="{Binding Selected_program.Acronym}" RenderTransformOrigin="0.5,0.5"
+                              BorderThickness="1" Margin="54,87,56,270" 
+                              MaxLength="30"
+                              PreviewKeyDown="NameTxt_PreviewKeyDown"
+                              PreviewTextInput="NameTxt_PreviewTextInput"
+                              Text="{Binding Selected_program.Acronym,Mode=TwoWay}" RenderTransformOrigin="0.5,0.5"
                               >
 
                             </TextBox>
@@ -95,8 +98,11 @@
                                  />
                             <TextBox x:Name="NameTxt_Copy" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
+                                MaxLength="80"
+                                PreviewTextInput="NameTxt_Copy_PreviewTextInput"
+                                PreviewKeyDown="NameTxt_Copy_PreviewKeyDown"
                                 BorderThickness="1" Margin="55,144,55,213"  
-                                Text="{Binding Selected_program.Name}" RenderTransformOrigin="0.5,0.5"
+                                Text="{Binding Selected_program.Name,Mode=TwoWay}" RenderTransformOrigin="0.5,0.5"
                               />
                             <Label Content="Program Name" Margin="55,115,178,243"/>
 

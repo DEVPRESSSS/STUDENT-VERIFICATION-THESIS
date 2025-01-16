@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            if(!string.IsNullOrWhiteSpace(CourseCode.Text)&& !string.IsNullOrWhiteSpace(Name.Text) && !string.IsNullOrWhiteSpace(Description.Text)){
+
+                this.Close();
+
+
+            }
+            else
+            {
+
+                MessageBox.Show("Please fill the fields correctly","Error",MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -45,6 +57,43 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             {
                 Save.IsEnabled = false;
             }
+        }
+
+        private void CourseCode_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void CourseCode_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
+
+     
+
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("^[a-zA-Z]+$"); // Only letters are allowed
+            return regex.IsMatch(text);
+        }
+
+        private static bool IsNumAllowed(string text)
+        {
+            Regex regex = new Regex("^[0-9]+$");
+            return regex.IsMatch(text);
+        }
+
+        private void Units_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Units_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsNumAllowed(e.Text);
         }
     }
 }

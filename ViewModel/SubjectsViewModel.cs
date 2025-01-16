@@ -247,8 +247,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 return;
             }
-            
-            if(Units <= 0)
+
+            if (string.IsNullOrWhiteSpace(SubjectName) || string.IsNullOrWhiteSpace(CourseCode) || string.IsNullOrWhiteSpace(Description))
+            {
+                MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return;
+            }
+
+            if (Units <= 0)
             {
                 MessageBox.Show("Units can't be zero.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -330,7 +337,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             try
             {
-                // Fetch the subject from the database
+
+               
+
+                if (string.IsNullOrWhiteSpace(Selected_subjects.SubjectName) || string.IsNullOrWhiteSpace(Selected_subjects.CourseCode) || string.IsNullOrWhiteSpace(Selected_subjects.Description))
+                {
+                    MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                    return;
+                }
+
                 var existingSubject = await _context.Subjects.FindAsync(Selected_subjects.SubjectID);
                 if (existingSubject == null)
                 {
@@ -339,7 +355,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 }
 
                 // Check for duplicate SubjectName or CourseCode, excluding the current subject
-                var duplicateSubject = await _context.Subjects
+               /* var duplicateSubject = await _context.Subjects
                     .FirstOrDefaultAsync(s =>
                         (s.SubjectName == Selected_subjects.SubjectName || s.CourseCode == Selected_subjects.CourseCode) &&
                         s.SubjectID != Selected_subjects.SubjectID);
@@ -348,9 +364,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
                     MessageBox.Show("Another subject with the same name or course code already exists.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
-                }
+                }*/
 
-                // Update the properties of the existing subject
                 existingSubject.SubjectName = Selected_subjects.SubjectName;
                 existingSubject.CourseCode = Selected_subjects.CourseCode;
                 existingSubject.Description = Selected_subjects.Description;
@@ -359,14 +374,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 existingSubject.ProgramID = Selected_subjects.ProgramID;
                 existingSubject.YearID = Selected_subjects.YearID;
 
-                // Mark entity as modified and save changes
                 _context.Subjects.Update(existingSubject);
                 await _context.SaveChangesAsync();
 
                 MessageBox.Show("Subject updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Refresh the subject collection (optional: uncomment if needed)
-                // await LoadSubjectsAsync();
+                await LoadSubjectsAsync();
 
                 CloseCurrentActiveWindow();
             }

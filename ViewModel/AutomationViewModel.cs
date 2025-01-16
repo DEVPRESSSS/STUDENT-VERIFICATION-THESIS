@@ -322,6 +322,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                     var existingYear = _context.Year.FirstOrDefault(x => x.Name == item.YearID);
 
+                    var sem = _context.Semesters.FirstOrDefault(x => x.SemesterName == item.SemesterID);
+
 
                     if (existingYear == null)
                     {
@@ -333,11 +335,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         existingYear = newYear; // Reassign to the newly added year
                     }
 
+                  
+
                     if (existingProgram != null)
                     {
                         var programID = _context.Programs
                             .Where(p => p.Name == item.ProgramID)
                             .Select(p => p.ProgramID)
+                            .FirstOrDefault();
+
+                        var semID= _context.Semesters
+                            .Where(p => p.SemesterName == item.SemesterID)
+                            .Select(p => p.SemesterID)
                             .FirstOrDefault();
 
 
@@ -351,6 +360,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                     SubjectName = item.SubjectName,
                                     CourseCode = item.CourseCode,
                                     YearID = existingYear.YearID,
+                                    SemesterID= semID,
                                     ProgramID = programID,
                                     Description = "No description",
                                     Units = item.Units

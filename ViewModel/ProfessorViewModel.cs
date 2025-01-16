@@ -278,7 +278,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show("Selected professor does not exist in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
+            if (string.IsNullOrEmpty(Name) || Age <= 20 || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Address))
+            {
+                MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             try
             {
                 existingProfessor.Name = Selected_professor.Name;
@@ -292,6 +296,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 MessageBox.Show("Professor updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 await LoadProfessorAsync();
+                CloseCurrentActiveWindow();
             }
             catch (Exception ex)
             {
@@ -390,7 +395,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
-  
+        public void CloseCurrentActiveWindow()
+        {
+            var activeWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(window => window.IsActive);
+
+            if (activeWindow != null)
+            {
+                activeWindow.Close();
+            }
+        }
 
 
 

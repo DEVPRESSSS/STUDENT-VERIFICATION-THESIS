@@ -1,4 +1,5 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
             InitializeComponent();
             _context= context;
             DataContext = new GradeViewModel(_context);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            InputGrade grade = new InputGrade(_context)
+            {
+
+                DataContext = this.DataContext
+            };
+
+           grade.ShowDialog();
         }
     }
 }

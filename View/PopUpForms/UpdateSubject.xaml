@@ -76,18 +76,19 @@
                                   BorderBrush="#bab7b6"
                                   BorderThickness="1" Margin="63,61,90,300"  
                                   Text="{Binding Selected_subjects.SubjectName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
-                                  MaxLength="30" Grid.ColumnSpan="2"
-                                     TextChanged="TextBox_TextChanged"
-                          />
+                                  MaxLength="100" Grid.ColumnSpan="2"
+                                  TextChanged="TextBox_TextChanged"
+                             />
 
-                            <!--Age label-->
                             <Label Content="CourseCode" Margin="64,91,176,267" Grid.ColumnSpan="2"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="CourseCode" Style="{StaticResource TextBoxesForm}" 
                                  BorderBrush="#bab7b6"
                                  BorderThickness="1" Margin="64,120,90,241" 
+                                 PreviewKeyDown="CourseCode_PreviewKeyDown"
+                                 PreviewTextInput="CourseCode_PreviewTextInput"
                                  Text="{Binding Selected_subjects.CourseCode, Mode=TwoWay}"
-                                 MaxLength="10" Grid.ColumnSpan="2"
+                                 MaxLength="30" Grid.ColumnSpan="2"
 
                              />
 
@@ -95,9 +96,11 @@
 
                             <Label Content="Units" Margin="64,150,186,208" Grid.ColumnSpan="2"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Units" Style="{StaticResource TextBoxesForm}" 
                                  BorderBrush="#bab7b6"
-                                 MaxLength="2"                             
+                                 PreviewKeyDown="Units_PreviewKeyDown"
+                                 PreviewTextInput="Units_PreviewTextInput"
+                                 MaxLength="1"                             
                                  BorderThickness="1" Margin="63,179,90,182" 
                                  Text="{Binding Selected_subjects.Units, Mode=TwoWay}" Grid.ColumnSpan="2"/>
 
@@ -105,11 +108,11 @@
 
                             <Label Content="Description" Margin="63,216,186,142" Grid.ColumnSpan="2"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Description" Style="{StaticResource TextBoxesForm}" 
                                  BorderBrush="#bab7b6"
                                  BorderThickness="1" Margin="64,244,90,117"
                                  Text="{Binding Selected_subjects.Description, Mode=TwoWay}"
-                                 MaxLength="50" Grid.ColumnSpan="2"
+                                 MaxLength="100" Grid.ColumnSpan="2"
  
                                   />
 

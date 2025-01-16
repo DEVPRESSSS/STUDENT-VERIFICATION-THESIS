@@ -33,8 +33,11 @@
         <Label Content="*Name" Margin="32,64,618,361" RenderTransformOrigin="0.112,0.556"/>
 
         <!--Professor Name-->
-        <TextBox 
+        <TextBox x:Name="ProfessorName"
+                 PreviewKeyDown="ProfessorName_PreviewKeyDown"
+                 PreviewTextInput="ProfessorName_PreviewTextInput"
                  Width="150" Margin="37,94,513,331"
+                 MaxLength="50"
                Text="{Binding Name, Mode=TwoWay}"
             />
 
@@ -43,30 +46,38 @@
           Margin="32,126,618,299" RenderTransformOrigin="0.112,0.556"/>
 
         <!--Gmail textbox-->
-        <TextBox 
+        <TextBox x:Name="Gmail"
             Width="150" 
+            MaxLength="40"
             Margin="37,156,513,269"
+            PreviewKeyDown="Gmail_PreviewKeyDown"
             Text="{Binding Email, Mode=TwoWay}"/>
 
 
         <!--Phone Lable-->
-        <Label Content="*Phone" 
+        <Label Content="*Age" 
           Margin="236,64,404,361" 
           RenderTransformOrigin="0.112,0.556"/>
 
         <!--Phone textbox-->
-        <TextBox 
+        <TextBox x:Name="Age"
+            MaxLength="2"
+            PreviewTextInput="Age_PreviewTextInput"
+            PreviewKeyDown="Age_PreviewKeyDown"
             Width="150" Margin="241,94,309,331"
             Text="{Binding Age, Mode=TwoWay}"/>
 
         <!--Address label-->
         <Label Content="*Address"
                Margin="236,126,404,299"
+               PreviewKeyDown="Label_PreviewKeyDown"
                RenderTransformOrigin="0.112,0.556"/>
 
         <!--Address textbox-->
         <TextBox 
             Width="150"
+            MaxLength="100"
+            PreviewKeyDown="TextBox_PreviewKeyDown"
             Margin="241,156,309,269"
             Text="{Binding Address, Mode=TwoWay}"
             />
@@ -85,63 +96,7 @@
             RenderTransformOrigin="0.112,0.556"/>
 
 
-
-        <Label Content="*Subjects" 
-            Margin="37,200,576,225" 
-            RenderTransformOrigin="0.112,0.556"/>
-
-
-        <!--
-           <ListBox x:Name="SubjectsListBox" SelectionMode="Extended" Margin="457,156,114,201">
-               <ListBoxItem>Math</ListBoxItem>
-               <ListBoxItem>Science</ListBoxItem>
-               <ListBoxItem>English</ListBoxItem>
-               <ListBoxItem>History</ListBoxItem>
-            </ListBox>
         
-        
-        
-        
-        -->
-
-        <!---->
-        <TreeView Margin="37,230,41,104">
-            <TreeViewItem Header="First Year">
-                <CheckBox Content="Algebra" />
-                <CheckBox Content="Geometry" />
-            </TreeViewItem>
-            <TreeViewItem Header="Second Year">
-                <CheckBox Content="Physics" />
-                <CheckBox Content="Biology" />
-            </TreeViewItem>
-
-
-            <TreeViewItem Header="First Year">
-                <CheckBox Content="Algebra" />
-                <CheckBox Content="Geometry" />
-            </TreeViewItem>
-            <TreeViewItem Header="Second Year">
-                <CheckBox Content="Physics" />
-                <CheckBox Content="Biology" />
-            </TreeViewItem>
-
-            <TreeViewItem Header="First Year">
-                <CheckBox Content="Algebra" />
-                <CheckBox Content="Geometry" />
-            </TreeViewItem>
-            <TreeViewItem Header="Second Year">
-                <CheckBox Content="Physics" />
-                <CheckBox Content="Biology" />
-            </TreeViewItem>
-            <TreeViewItem Header="First Year">
-                <CheckBox Content="Algebra" />
-                <CheckBox Content="Geometry" />
-            </TreeViewItem>
-            <TreeViewItem Header="Second Year">
-                <CheckBox Content="Physics" />
-                <CheckBox Content="Biology" />
-            </TreeViewItem>
-        </TreeView>
 
 
 

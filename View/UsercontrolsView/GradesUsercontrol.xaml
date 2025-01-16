@@ -85,6 +85,8 @@
             BorderThickness="0"
             Height="25" 
             VerticalAlignment="Top"
+                Click="Button_Click"
+                
             >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>

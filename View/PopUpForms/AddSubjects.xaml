@@ -68,22 +68,24 @@
                             <Label Content="Name" Margin="61,30,210,328"/>
 
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="SubjectName" Style="{StaticResource TextBoxesForm}" 
                               BorderBrush="#bab7b6"
+                              MaxLength="100"
+                              PreviewTextInput="SubjectName_PreviewTextInput"
                               BorderThickness="1" Margin="63,61,90,300"  
                               Text="{Binding SubjectName, Mode=TwoWay}"
-                              MaxLength="30"
 
                               />
 
                             <!--Age label-->
                             <Label Content="CourseCode" Margin="64,91,176,267"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
-                             BorderBrush="#bab7b6"
-                             BorderThickness="1" Margin="64,120,90,241" 
-                             Text="{Binding CourseCode, Mode=TwoWay}"
-                             MaxLength="10"
+                            <TextBox x:Name="CourseCode" Style="{StaticResource TextBoxesForm}" 
+                                 BorderBrush="#bab7b6"
+                                 PreviewTextInput="CourseCode_PreviewTextInput"
+                                 BorderThickness="1" Margin="64,120,90,241" 
+                                 Text="{Binding CourseCode, Mode=TwoWay}"
+                                 MaxLength="20"
 
                              />
 
@@ -91,9 +93,11 @@
 
                             <Label Content="Units" Margin="64,150,186,208"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
-                             BorderBrush="#bab7b6"
-                              MaxLength="2"
+                            <TextBox x:Name="Units" Style="{StaticResource TextBoxesForm}" 
+                              BorderBrush="#bab7b6"
+                              PreviewKeyDown="Units_PreviewKeyDown"
+                              PreviewTextInput="Units_PreviewTextInput"
+                              MaxLength="1"
                                  
                              BorderThickness="1" Margin="63,179,90,182" 
                             Text="{Binding Units, Mode=TwoWay}"/>
@@ -103,10 +107,10 @@
                             <Label Content="Description" Margin="63,216,186,142"/>
 
                             <TextBox Style="{StaticResource TextBoxesForm}" 
-                             BorderBrush="#bab7b6"
-                             BorderThickness="1" Margin="64,244,90,117"
-                             Text="{Binding Description, Mode=TwoWay}"
-                             MaxLength="50"
+                                 BorderBrush="#bab7b6"                                
+                                 BorderThickness="1" Margin="64,244,90,117"
+                                 Text="{Binding Description, Mode=TwoWay}"
+                                 MaxLength="100"
  
                               />
 
@@ -179,7 +183,7 @@
 
                     <!--Title-->
 
-                    <TextBlock Text="Student Details" Margin="30,13,532,9" FontFamily="Helvetica Neue"/>
+                    <TextBlock Text="Subject Details" Margin="30,13,532,9" FontFamily="Helvetica Neue"/>
 
 
 
