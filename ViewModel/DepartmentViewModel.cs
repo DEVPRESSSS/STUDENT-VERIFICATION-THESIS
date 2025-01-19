@@ -245,16 +245,23 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         private async Task LoadDepartmentsAsync()
         {
 
-            DepartmentsCollection.Clear();
 
-            var departments = await _context.Departments.ToListAsync();
-
-            foreach (var item in departments)
+            using(var context = new ApplicationDbContext())
             {
 
-                DepartmentsCollection.Add(item);
+                DepartmentsCollection.Clear();
+
+                var departments = await context.Departments.ToListAsync();
+
+                foreach (var item in departments)
+                {
+
+                    DepartmentsCollection.Add(item);
+                }
+                OnPropertyChanged(nameof(DepartmentsCollection));
+
             }
-             OnPropertyChanged(nameof(DepartmentsCollection));
+         
 
 
         }

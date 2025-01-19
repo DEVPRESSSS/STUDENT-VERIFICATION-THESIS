@@ -1,9 +1,9 @@
-﻿    <UserControl x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView.Professors"
+﻿<UserControl x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView.Professors"
             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ProfessorViewModel}"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
@@ -31,30 +31,13 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="ProfessorID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ProfessorID}"/>
-
-                        <!--     <DataGridTemplateColumn Header="Name"  CanUserResize="False" IsReadOnly="True" Width="*">
-                           <DataGridTemplateColumn.CellTemplate>
-                               <DataTemplate>
-                                   <StackPanel Orientation="Horizontal">
-                                       <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding BgColor}">
-                                           <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-                                       </Border>
-
-                                   </StackPanel>
-                               </DataTemplate>
-                           </DataGridTemplateColumn.CellTemplate>
-                       </DataGridTemplateColumn>  -->
-
-
-
-
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Address" CanUserResize="False" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Department" CanUserResize="False" Binding="{Binding Departments.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
+                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
@@ -88,27 +71,46 @@
         <!--Search textbox-->
 
         <TextBox x:Name="UsernameXZ"
-           Width="100"
-           Margin="0,10,80,0"
-           BorderBrush="#3D7E35"
+           Style="{StaticResource TextBoxesForm}"
+           Width="141"
+           Margin="0,10,55,0"
            Background="White" 
            Height="25"
-           TextChanged="UsernameXZ_TextChanged"
-          GotFocus="UsernameXZ_GotFocus"
            VerticalAlignment="Top" 
            HorizontalAlignment="Right"
-         
+           MaxLength="20"
+           PreviewKeyDown="UsernameXZ_PreviewKeyDown"
+           Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
            />
+
+
+        <!--Search button-->
+        <Button x:Name="_new" Style="{StaticResource SubmitButton}" 
+            Margin="0,10,10,0" Width="40"
+            BorderThickness="0"
+            Height="25" 
+            Command="{Binding SearchCommand}"
+            VerticalAlignment="Top"
+             >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Icon:PackIconMaterial Kind="Magnify" 
+                    Width="10" 
+                    Height="10" 
+                    VerticalAlignment="Center" 
+                    Margin="5,0,0,0"/>
+            </StackPanel>
+        </Button>
 
 
         <!--Add button-->
 
         <Button Style="{StaticResource SubmitButton}" 
-            Margin="0,10,10,0" Width="56"
+            Margin="10,10,0,0" Width="56"
             BorderThickness="0"
             Height="25" 
             VerticalAlignment="Top"
-            Click="Button_Click">
+            
+            Click="Button_Click" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
                 <Icon:PackIconMaterial Kind="Plus" 
@@ -123,22 +125,6 @@
 
 
         <!--Export button-->
-        <ComboBox  x:Name="ComboCat" 
-                       HorizontalAlignment="Left" 
-                       VerticalAlignment="Top" 
-                        Width="97" Height="23"
-                        Margin="10,12,0,0"
-                        BorderThickness="0,0,0,1"
-                        BorderBrush="Gray"
-                        SelectedIndex="0">
-
-
-            <ComboBoxItem Content="---Export---" IsEnabled="True"/>
-
-            <ComboBoxItem Content="PDF" />
-            <ComboBoxItem Content="Excel" />
-
-        </ComboBox>
 
 
 
@@ -146,20 +132,6 @@
 
 
         <!--Import button-->
-
-        <Button Style="{StaticResource SubmitButton}" 
-            Margin="120,10,0,0" Width="65"
-            BorderThickness="0"
-            Height="25" VerticalAlignment="Top" HorizontalAlignment="Left">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="Import" FontFamily="Roboto" VerticalAlignment="Center"/>
-                <Icon:PackIconMaterial Kind="File" 
-                               Width="10" 
-                               Height="10" 
-                               VerticalAlignment="Center" 
-                               Margin="5,0,0,0"/>
-            </StackPanel>
-        </Button>
 
 
     </Grid>

@@ -107,7 +107,6 @@
                              Margin="0,-25,0,0" 
                             BorderBrush="Gray"
                              MaxLength="20"
-                             PreviewTextInput="PasswordTextBox_PreviewTextInput_1"
                              PreviewKeyDown="PasswordTextBox_PreviewKeyDown"
                                 Visibility="Hidden"
                              />

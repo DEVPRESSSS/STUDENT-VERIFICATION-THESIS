@@ -42,6 +42,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [ForeignKey("ProgramID")]
         public ProgramEntity? Program { get; set; }
 
+        public string ScholarshipID { get; set; } = string.Empty;
+
+        [ForeignKey("ScholarshipID")]
+        public Scholarship? Scholarship { get; set; }
+
         [Required]
         public string YearID { get; set; } = string.Empty;
 

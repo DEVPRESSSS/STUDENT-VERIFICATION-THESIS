@@ -20,10 +20,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         private readonly ApplicationDbContext _context;
-
         public ObservableCollection<ProgramEntity> ProgramCollection { get; private set; }
-
-        //Crud Commands
 
         public ICommand AddProgramCommand { get; }
         public ICommand UpdateProgramCommand { get; }
@@ -37,10 +34,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             _context = context;
 
             ProgramCollection = new ObservableCollection<ProgramEntity>();
-            AddProgramCommand = new RelayCommand(async _ => await AddDepartmentAsync(), _ => canAddDepartment());
-            UpdateProgramCommand = new RelayCommand(async _ => await UpdateDepartmentAsync(), _ => Selected_program != null);
-            DeleteProgramCommand = new RelayCommand(async _ => await DeleteDepartmentAsync(), _ => Selected_program != null);
-            LoadProgramCommand = new RelayCommand(async _ => await LoadDepartmentsAsync());
+            AddProgramCommand = new RelayCommand(async _ => await AddProgramAsync(), _ => canAddProgram());
+            UpdateProgramCommand = new RelayCommand(async _ => await UpdateProgramAsync(), _ => Selected_program != null);
+            DeleteProgramCommand = new RelayCommand(async _ => await DeleteProgramAsync(), _ => Selected_program != null);
+            LoadProgramCommand = new RelayCommand(async _ => await LoadProgramsAsync());
             LoadProgramCommand.Execute(null);
 
         }
@@ -130,7 +127,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         //Insert Method 
-        private async Task AddDepartmentAsync()
+        private async Task AddProgramAsync()
         {
             if (string.IsNullOrEmpty(Name)|| string.IsNullOrEmpty(Acronym))
             {
@@ -195,7 +192,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
         //Update Department
-        private async Task UpdateDepartmentAsync()
+        private async Task UpdateProgramAsync()
         {
 
 
@@ -227,7 +224,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 await _context.SaveChangesAsync();
 
                 MessageBox.Show("Program updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                //Clear();
             }
 
             catch (Exception ex)
@@ -243,7 +239,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         //Delete Program
-        private async Task DeleteDepartmentAsync()
+        private async Task DeleteProgramAsync()
         {
 
             if (Selected_program != null)
@@ -259,21 +255,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         //Load Programs
-        private async Task LoadDepartmentsAsync()
+        private async Task LoadProgramsAsync()
         {
 
-            ProgramCollection.Clear();
 
-            var departments = await _context.Programs.ToListAsync();
-
-            foreach (var item in departments)
+            using (var context = new ApplicationDbContext())
             {
-               
-                ProgramCollection.Add(item);
+
+                ProgramCollection.Clear();
+
+                var departments = await context.Programs.ToListAsync();
+
+                foreach (var item in departments)
+                {
+
+                    ProgramCollection.Add(item);
+                }
+                OnPropertyChanged(nameof(ProgramCollection));
+
             }
-            OnPropertyChanged(nameof(ProgramCollection));
-
-
         }
 
 
@@ -287,7 +287,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
         //Boolean method to flag if is valid
-        private bool canAddDepartment() => true;
+        private bool canAddProgram() => true;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

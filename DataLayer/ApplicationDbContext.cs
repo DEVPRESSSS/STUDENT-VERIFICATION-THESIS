@@ -34,7 +34,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         {
             base.OnModelCreating(modelBuilder);
 
-            // Define a unique index for the Name property in Departments
             modelBuilder.Entity<Departments>()
                 .HasIndex(d => d.Name)
                 .IsUnique();
@@ -51,6 +50,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
              .HasOne(g => g.Student)
              .WithMany()
              .HasForeignKey(g => g.StudentID);
+
+            modelBuilder.Entity<Scholarship>().HasData(
+               new Scholarship
+               {
+                   ScholarshipID = "SCHO-1002",
+                   Name = "Non-scholar",
+               },
+               new Scholarship
+               {
+                   ScholarshipID = "SCHO-1001",
+                   Name = "Scholar",
+               }
+           );
         }
 
 
@@ -71,6 +83,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         public DbSet<StaffsEntity> Staffs { get; set; }
         public DbSet<AdminEntities> Admin { get; set; }
         public DbSet<Grade> Grades { get; set; }
+        public DbSet<Scholarship> Scholarship { get; set; }
 
 
 

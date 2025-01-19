@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,6 +37,94 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Automation_Click(object sender, RoutedEventArgs e)
         {
+
+        }
+
+        private void Gmail_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Gmail_PreviewKeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void IDnumber_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Age_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void Name_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+
+        }
+
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("^[a-zA-Z]+$"); // Only letters are allowed
+            return regex.IsMatch(text);
+        }
+
+        private static bool IsNumAllowed(string text)
+        {
+            Regex regex = new Regex("^[0-9]+$");
+            return regex.IsMatch(text);
+        }
+
+        private void Address_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Address_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
+
+        private void Contact_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Contact_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsNumAllowed(e.Text);
+
+        }
+
+        private void IDnumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsNumAllowed(e.Text);
 
         }
     }

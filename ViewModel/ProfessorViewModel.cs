@@ -33,43 +33,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<Departments> DepartmentCollection { get; private set; }
 
 
-        //CRUD commands
-        public ICommand AddProfessorrsCommand { get; }
-        public ICommand UpdateProfessorrsCommand { get; }
-        public ICommand DeleteProfessorrsCommand { get; }
-        public ICommand LoadProfessorrsCommand { get; }
-
-       // public ICommand LoadDepartmentCommand { get; }
-
-
-
-        public ProfessorViewModel(ApplicationDbContext context)
-        {
-            _context = context;
-
-            ProfessorsCollection = new ObservableCollection<ProfessorsEntity>();
-            DepartmentCollection = new ObservableCollection<Departments>();
-            AddProfessorrsCommand = new RelayCommand(async _ => await AddProfessorAsync(), _ => CanExecuteAddStudent());
-            UpdateProfessorrsCommand = new RelayCommand(async _ => await UpdateProfessorAsync(), _ => Selected_professor != null);
-            DeleteProfessorrsCommand = new RelayCommand(async _ => await DeleteProfessorAsync(), _ => Selected_professor != null);
-            LoadProfessorrsCommand = new RelayCommand(async _ => await LoadProfessorAsync());
-            LoadProfessorrsCommand.Execute (null);
-
-            _ = LoadDepartmentsAsync();
-
-
-
-
-
-
-        }
-
-   
-
-        //Using encapsulation
-
-
-
         //Declare an Encapsulation 
 
         private ProfessorsEntity _selected_professor;
@@ -86,6 +49,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 OnPropertyChanged(nameof(Selected_professor));
             }
         }
+
+
 
 
         //Department ID
@@ -139,7 +104,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 _name = value;
-                OnPropertyChanged ();
+                OnPropertyChanged();
             }
         }
 
@@ -209,10 +174,61 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-        
-        
-        
-        
+
+
+        //Search 
+        private string _searchTerm;
+
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                _searchTerm = value;
+                if (string.IsNullOrWhiteSpace(_searchTerm))
+                {
+                    _ = LoadProfessorAsync();
+                }
+                else
+                {
+
+                    _ = SearchProfessorsAsync();
+                }
+            }
+        }
+
+
+        //CRUD commands
+        public ICommand AddProfessorrsCommand { get; }
+        public ICommand UpdateProfessorrsCommand { get; }
+        public ICommand DeleteProfessorrsCommand { get; }
+        public ICommand LoadProfessorrsCommand { get; }
+        public ICommand SearchCommand { get; set; }
+        public ICommand ClearCommand { get; set; }
+
+
+        public ProfessorViewModel(ApplicationDbContext context)
+        {
+            _context = context;
+
+            ProfessorsCollection = new ObservableCollection<ProfessorsEntity>();
+            DepartmentCollection = new ObservableCollection<Departments>();
+            AddProfessorrsCommand = new RelayCommand(async _ => await AddProfessorAsync(), _ => CanExecuteAddStudent());
+            UpdateProfessorrsCommand = new RelayCommand(async _ => await UpdateProfessorAsync(), _ => Selected_professor != null);
+            DeleteProfessorrsCommand = new RelayCommand(async _ => await DeleteProfessorAsync(), _ => Selected_professor != null);
+            LoadProfessorrsCommand = new RelayCommand(async _ => await LoadProfessorAsync());
+            SearchCommand = new RelayCommand(async _ => await SearchProfessorsAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
+            LoadProfessorrsCommand.Execute (null);
+            ClearCommand = new RelayCommand(async _ => await Clear());
+            _ = LoadDepartmentsAsync();
+
+        }
+
+   
+
+
+      
+
         //Delete method
         private async  Task DeleteProfessorAsync()
         {
@@ -257,7 +273,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-        //Update method
+        // Update method
         private async Task UpdateProfessorAsync()
         {
             if (Selected_professor == null)
@@ -273,18 +289,36 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
 
             var existingProfessor = await _context.Professors.FindAsync(Selected_professor.ProfessorID);
+
             if (existingProfessor == null)
             {
                 MessageBox.Show("Selected professor does not exist in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(Name) || Age <= 20 || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Address))
+
+            // Validate fields
+            if (string.IsNullOrWhiteSpace(Selected_professor.Name) ||
+                string.IsNullOrWhiteSpace(Selected_professor.Email) ||
+                string.IsNullOrWhiteSpace(Selected_professor.Address)) // Use Selected_professor.Address
             {
                 MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
             try
             {
+                // Check for existing Name or Email
+                var existingProfInfo = await _context.Professors
+                    .FirstOrDefaultAsync(s => (s.Name == Selected_professor.Name || s.Email == Selected_professor.Email) &&
+                                              s.ProfessorID != Selected_professor.ProfessorID);
+
+                if (existingProfInfo != null)
+                {
+                    MessageBox.Show("Name or email already exists. Please use a different one.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Update the professor details
                 existingProfessor.Name = Selected_professor.Name;
                 existingProfessor.Age = Selected_professor.Age;
                 existingProfessor.Email = Selected_professor.Email;
@@ -306,6 +340,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+
         //Load professors
         private async Task LoadProfessorAsync()
         {
@@ -323,7 +358,44 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+        //Search function
+        private async Task SearchProfessorsAsync()
+        {
+            try
+            {
 
+                
+
+                    var query = _context.Professors.AsQueryable();
+
+                    query = query.Where(p =>
+                        EF.Functions.Like(p.ProfessorID, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Email, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Address, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.DepartmentID, $"%{SearchTerm}%") ||
+                        p.Age.ToString().Contains(SearchTerm)
+                    );
+
+                    var result = await query.ToListAsync();
+
+                    // Update the ObservableCollection
+                    ProfessorsCollection.Clear();
+                    foreach (var professor in result)
+                    {
+                        ProfessorsCollection.Add(professor);
+                    }
+                
+              
+               
+
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         //Add professors
 
@@ -336,6 +408,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 if (string.IsNullOrEmpty(Name) || Age <= 20 || string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Address))
                 {
                     MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+
+                var existingProfInfo = await _context.Professors
+                                   .FirstOrDefaultAsync(s => s.Name == Name || s.Email == Email);
+
+                if (existingProfInfo != null)
+                {
+                    MessageBox.Show($"Name or email is already exists. Please use a different one.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -360,8 +442,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
                 MessageBox.Show("Professor added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                _= Clear();
 
-                
+
             }
             catch (Exception ex)
             {
@@ -408,7 +491,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+        //Clear function
 
+        private async Task  Clear()
+        {
+
+
+            Name = string.Empty;
+            Address = string.Empty;
+            Email = string.Empty;
+            Age = 0;
+            Name = string.Empty;
+        }
 
         //Boolean to flag if it is valid
         private bool CanExecuteAddStudent() => true;

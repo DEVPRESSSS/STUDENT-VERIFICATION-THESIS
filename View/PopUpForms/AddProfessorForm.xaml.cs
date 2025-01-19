@@ -72,13 +72,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             }
         }
 
-        private void ProfessorName_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true;
-            }
-        }
+        
 
         private void ProfessorName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

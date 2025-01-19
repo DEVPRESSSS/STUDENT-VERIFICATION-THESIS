@@ -156,9 +156,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
         }
 
        
-        private void PasswordTextBox_PreviewTextInput_1(object sender, TextCompositionEventArgs e)
-        {
-
-        }
+    
     }
 }

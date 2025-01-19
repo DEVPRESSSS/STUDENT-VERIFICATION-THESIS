@@ -64,5 +64,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
             updateProfessor.ShowDialog();
 
         }
+
+        private void UsernameXZ_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Space)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

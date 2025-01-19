@@ -3,163 +3,111 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
         mc:Ignorable="d"
-        Title="AddGrade" Height="450" Width="800"
-          WindowStartupLocation="CenterScreen"   
-          WindowStyle="None"
-          Background="Transparent"
-          AllowsTransparency="True"
-          ResizeMode="NoResize"
-        
-        >
-    <Border CornerRadius="10" Background="#f7f5f5">
+        Title="Add Grade"
+        Height="600"
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
 
+    <Border x:Name="MainBorder" CornerRadius="10" Background="White" BorderBrush="Gray" BorderThickness="1" Padding="10">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <!-- Header -->
                 <RowDefinition Height="*" />
-                <!-- Row 0 -->
-                <!-- Row 1 -->
+                <!-- Content -->
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="600" />
-                <!-- Column 0 -->
-                <ColumnDefinition />
-                <!-- Column 1 -->
-            </Grid.ColumnDefinitions>
+
+            <!-- Header Section -->
+            <Border x:Name="main" Grid.Row="0" Background="#3D7E35" CornerRadius="10,10,0,0" Padding="10">
+                <StackPanel Orientation="Horizontal">
+                    <Icon:PackIconMaterial Kind="BookEducation" Foreground="White" Width="20" Height="20" VerticalAlignment="Center" />
+
+                    <TextBlock Text="The University Of Manila Grade Verification" Foreground="White" FontSize="16" FontWeight="Bold" Width="330" />
+                    <Button x:Name="Close"
+                      Click="Close_Click"
+                      Style="{StaticResource MinimizeButtonStyle}"
+                     Width="183" Height="30" >
+
+                        <Icon:PackIconMaterial 
+                         x:Name="CloseWindow"
+                         Kind="WindowClose" 
+                         Height="10" RenderTransformOrigin="0.803,0.533"
+                         Width="12"
+                          Style="{StaticResource WindowControlIcon}"
+                         Cursor="Hand" HorizontalAlignment="Center"
+                     />
+
+                    </Button>
+
+                </StackPanel>
+
+            </Border>
+            <!--Close button -->
 
 
-            <TextBlock Text="{Binding Selected_students.StudentID, Mode=TwoWay}" Margin="79,214,24,213" FontFamily="Helvetica Neue" Grid.Row="0" Grid.Column="1" />
-
-
-            <Border Grid.Row="0" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10" Effect="{StaticResource formShadow}">
+            <!-- Content Section -->
+            <Border Grid.Row="1" CornerRadius="0,0,10,10" Padding="10">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <!-- Separator -->
                         <RowDefinition Height="*" />
+                        <!-- DataGrid -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Button -->
                     </Grid.RowDefinitions>
 
                     <!-- Separator -->
-                    <Border Grid.Row="0"
-                        Height="2"
-                        Background="#E4E0E1"
-                        Margin="10,42,10,0"
-                        VerticalAlignment="Top" />
-
-                    <Grid Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <!-- Icon -->
-                        <Icon:PackIconMaterial Kind="BookEducation" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="12,-33,0,0" Grid.Row="0" VerticalAlignment="Top" />
-
-                        <!-- Title -->
-
-                        <!-- DataGrid Section -->
-                        <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                    <Rectangle Grid.Row="0" Height="2" Fill="#E4E0E1" VerticalAlignment="Top" />
+                    <TextBlock Text="{Binding Selected_students.Name}" FontWeight="DemiBold" FontSize="14" Margin="10,0,333,444" Grid.RowSpan="2"/>
+                    <!-- DataGrid Section -->
+                    <DataGrid Grid.Row="1" x:Name="cashierDataGrid"
+                              ItemsSource="{Binding SubjectGrades}"
+                              AutoGenerateColumns="False"
+                              RowStyle="{DynamicResource DataGridRowStyle1}" 
                               ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                               CellStyle="{DynamicResource DataGridCellStyle1}"
-                              x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-                               ItemsSource="{Binding SubjectGrades}"
-                                  SelectedItem="{Binding Selected_students.Name}"
-                         
-                              AutoGenerateColumns="False" Margin="0,0,0,86" Height="300" Grid.RowSpan="2">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Subjects ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding SubjectID,UpdateSourceTrigger=PropertyChanged}" />
-                                <DataGridTextColumn Header="Subject Name" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.SubjectName,UpdateSourceTrigger=PropertyChanged}" />
-                                <DataGridTextColumn Header="Grade" Binding="{Binding GradeValue,Mode=TwoWay}" CanUserResize="False" Width="*" />
-                            </DataGrid.Columns>
+                              Style="{DynamicResource DataGridStyle1}" Margin="0,51,0,40" Grid.RowSpan="2">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="CourseCode" IsReadOnly="True" Binding="{Binding Subject.CourseCode}" Width="*" />
+                            <DataGridTextColumn Header="Professor" IsReadOnly="True" Binding="{Binding Subject.Professors.Name}" Width="*" />
+                            <DataGridTextColumn Header="Schedule" IsReadOnly="True" Binding="{Binding Subject.Schedules}" Width="*" />
+                            <DataGridTextColumn Header="Grade" Binding="{Binding GradeValue, Mode=TwoWay}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
 
+                    <!-- Save Button -->
+                    <Button x:Name="print" Grid.Row="2"  Width="100" Height="30" Margin="0,10,0,0" Click="Automation_Click" HorizontalAlignment="Center" Style="{StaticResource Automation}" VerticalAlignment="Bottom">
 
-                        </DataGrid>
-                        <!-- Save Button -->
+                        <StackPanel Orientation="Horizontal" >
 
+                            <Icon:PackIconMaterial 
+                                 Kind="Printer" 
+                                 Height="12" RenderTransformOrigin="0.803,0.533"
+                                 Width="12"
+                                  Style="{StaticResource WindowControlIcon}"
+                                 Cursor="Hand" HorizontalAlignment="Left"/>
 
-                    </Grid>
-
-
-                </Grid>
-            </Border>
-
-
-
-
-            <!-- Content for Row 0, Column 1 -->
-            <Border Grid.Row="0"
-                 Grid.Column="1" Panel.ZIndex="-1"
-                 Background="#3D7E35"
-                 Margin="10,0,0,0" 
-                 Effect="{StaticResource dropShadow}"
-                 CornerRadius="10">
-
-                <Grid>
-
-                    <!--Close button -->
-                    <Button x:Name="Close" 
-                            Click="Close_Click"
-                            Style="{StaticResource MinimizeButtonStyle}"
-                         Width="30" Height="30" Margin="150,10,10,410">
-
-                        <Icon:PackIconMaterial 
-                             x:Name="CloseWindow"
-                             Kind="WindowClose" 
-                             Height="10" RenderTransformOrigin="0.803,0.533"
-                             Width="12"
-                              Style="{StaticResource WindowControlIcon}"
-                             Cursor="Hand" HorizontalAlignment="Center"
-                         />
-
-                    </Button>
-
-                    <Button Style="{StaticResource SubmitButton}"
-                         Content="Save" Margin="57,375,0,45" 
-                         Width="123" 
-                         HorizontalAlignment="Left"
-                         Height="30"
-                         Command="{Binding InsertGradeCommand}"
-                         BorderBrush="White"
-                     />
-
-                    <!--Automation instructions-->
-                    <TextBlock TextWrapping="Wrap" 
-                    Foreground="White"
-                    Margin="64,52,10,331" 
-                    FontFamily="Helvetica Neue" 
-                    FontSize="14"
-                        >
-                      Hi Admin! Automate 
-                     the student grade insertion 
-                     process effortlessly
-
-
-                    </TextBlock>
-
-
-                    <!--Automation button-->
-                    <Button x:Name="Automation"   
-                     Margin="57,150,0,275"
-                     Cursor="Hand" BorderBrush="#FFFF"
-                     Style="{StaticResource Automation}"
-                     BorderThickness="1" HorizontalAlignment="Left" Width="123">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="AutoMode" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Bulk Insert" FontFamily="Roboto" Width="62" VerticalAlignment="Center"/>
+                             <TextBlock Text="Print" Width="23" Margin="5"/>
                         </StackPanel>
+                        
                     </Button>
-
-
-
+                    <TextBlock Text="{Binding Selected_students.IDnumber}" FontWeight="DemiBold" FontSize="14" Margin="331,0,0,444" Grid.RowSpan="2"/>
+                    <TextBlock Text="{Binding Selected_students.Program.Acronym}" FontWeight="DemiBold" FontSize="14" Margin="10,22,333,0" Grid.Row="1" Height="24" VerticalAlignment="Top"/>
+                    <TextBlock Text="{Binding Selected_students.YearLevel.Name}" FontWeight="DemiBold" FontSize="14" Margin="331,22,10,415" Grid.Row="1"/>
 
                 </Grid>
-                <!--Instructions -->
 
 
             </Border>
-
-
         </Grid>
     </Border>
-
 </Window>

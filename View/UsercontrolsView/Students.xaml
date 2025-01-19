@@ -8,9 +8,6 @@
     <Grid>
         <Border CornerRadius="4" >
 
-
-
-
             <Border 
               Background="White"
               CornerRadius="4" Margin="0,50,0,0">
@@ -33,17 +30,21 @@
                         <DataGridTextColumn Header="Address" CanUserResize="False" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Contact" CanUserResize="False" Binding="{Binding Contact}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Gmail" CanUserResize="False" Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTemplateColumn Header="Grade" CanUserResize="False" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn Header="Grades" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1">
-                                            <Icon:PackIconMaterial Kind="Trophy" Style="{StaticResource gridButtonIcon}" />
+                                            <StackPanel Orientation="Horizontal">
+                                                <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource gridButtonIcon}" />
+                                            </StackPanel>
+
                                         </Button>
-                                    
+
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -57,7 +58,7 @@
                                         </Button>
                                         <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
                                              Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteStudentsCommand}">
-                                            
+
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>
@@ -82,9 +83,9 @@
         <!--Search textbox-->
 
         <TextBox x:Name="UsernameXZ"
-            Width="100"
-            Margin="0,10,80,0"
-            BorderBrush="#3D7E35"
+            Style="{StaticResource TextBoxesForm}"
+            Width="141"
+            Margin="0,10,55,0"
             Background="White" 
             Height="25"
             VerticalAlignment="Top" 
@@ -96,41 +97,41 @@
         <!--Add button-->
 
         <Button x:Name="new" Style="{StaticResource SubmitButton}" 
-             Margin="0,10,10,0" Width="56"
+             Margin="0,10,0,0" Width="56"
              BorderThickness="0"
              Height="25" 
              VerticalAlignment="Top"
-             Click="new_Click"
+             Click="new_Click" HorizontalAlignment="Left"
              >
-                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
-                        <Icon:PackIconMaterial Kind="Plus" 
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
+                <Icon:PackIconMaterial Kind="Plus" 
                                 Width="10" 
                                 Height="10" 
                                 VerticalAlignment="Center" 
                                 Margin="5,0,0,0"/>
-                    </StackPanel>
+            </StackPanel>
         </Button>
 
 
 
 
         <!--Export button-->
-        <ComboBox  x:Name="ComboCat" 
-                HorizontalAlignment="Left" 
-                VerticalAlignment="Top" 
-                 Width="97" Height="23"
-                 Margin="10,12,0,0"
-                 BorderThickness="0,0,0,1"
-                 BorderBrush="Gray"
-                 SelectedIndex="0">
-
-
-            <ComboBoxItem Content="Export" IsEnabled="True"/>
-            <ComboBoxItem Content="PDF" />
-            <ComboBoxItem Content="Excel" />
-
-        </ComboBox>
+        <Button x:Name="_new" Style="{StaticResource SubmitButton}" 
+            Margin="0,10,10,0" Width="40"
+            BorderThickness="0"
+            Height="25" 
+            VerticalAlignment="Top"
+            Click="new_Click"
+             >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Icon:PackIconMaterial Kind="Magnify" 
+                    Width="10" 
+                    Height="10" 
+                    VerticalAlignment="Center" 
+                    Margin="5,0,0,0"/>
+            </StackPanel>
+        </Button>
 
 
 

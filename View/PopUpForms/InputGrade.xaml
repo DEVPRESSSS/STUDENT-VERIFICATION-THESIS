@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
+        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" xmlns:notifications="clr-namespace:Notifications.Wpf.Controls;assembly=Notifications.Wpf" d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
         mc:Ignorable="d"
         Title="InputGrade"
           AllowsTransparency="True"
@@ -31,7 +31,7 @@
 
 
 
-                <Border Grid.Row="0" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10" Effect="{StaticResource formShadow}">
+                <Border Grid.Row="0" Effect="{StaticResource dropShadow }" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -60,15 +60,15 @@
                             <Icon:PackIconMaterial Kind="Bookshelf" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="12,-33,0,0" Grid.Row="0" VerticalAlignment="Top" Height="15" Width="15" />
 
 
-                            <!-- DataGrid Section -->
+                            <!-- DataGrid Students Section -->
                             <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
-                            ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                            CellStyle="{DynamicResource DataGridCellStyle1}"
-                            x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-                             AutoGenerateColumns="False"
-                             Margin="8,81,8,10" Grid.RowSpan="2"
-                             ItemsSource="{Binding StudentCollection }"
-                             SelectedItem="{Binding Selected_students}"
+                                ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                CellStyle="{DynamicResource DataGridCellStyle1}"
+                                x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                                 AutoGenerateColumns="False"
+                                 Margin="8,81,8,10" Grid.RowSpan="2"
+                                 ItemsSource="{Binding StudentCollection }"
+                                 SelectedItem="{Binding Selected_students}"
                                       >
                                 <DataGrid.Columns>
                                     <DataGridTemplateColumn Header="Students">
@@ -82,32 +82,83 @@
                                         </DataGridTemplateColumn.CellTemplate>
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="Program" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Program.Acronym,UpdateSourceTrigger=PropertyChanged}" />
+                                    <DataGridTextColumn Header="Scholarship" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Scholarship.Name,UpdateSourceTrigger=PropertyChanged}" />
 
-                                    <DataGridTextColumn Header="Year" Binding="{Binding YearLevel.Name}"  CanUserResize="False" Width="*" />
+                                    <DataGridTextColumn Header="Year" Binding="{Binding YearLevel.Name}" IsReadOnly="True"   CanUserResize="False" Width="*" />
                                 </DataGrid.Columns>
 
 
                             </DataGrid>
 
 
+
+                            <!--Search Textbox-->
+
+                            <TextBox x:Name="SearchTxt"
+                                     Style="{StaticResource TextBoxesForm}"
+                                     Margin="402,-33,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="129" Grid.ColumnSpan="2"
+                                     />
+
+                                <!--
+                            
+                            
+                               <notifications:NotificationArea 
+                                     HorizontalAlignment="Right" 
+                                     Height="25"
+                                     Width="130"                               
+                                     Grid.RowSpan="2"
+                                     VerticalAlignment="Top" Grid.Column="1" Margin="0,0,28,0">
+                            </notifications:NotificationArea>
+              
+                            
+                             
+                                 -->
+                           
+
+                            <!--Search Button-->
                             <Button x:Name="search" Style="{StaticResource SubmitButton}"
-                                   Content="View Subs" Margin="0,10,10,0" 
-                                   Width="89"
-                                   Height="30"
-                                   BorderBrush="White"
-                                    Grid.Row="1"
-                                   Command="{Binding LoadStudentSubs}" VerticalAlignment="Top"
-                                    />
+                                Margin="65,-35,0,0" 
+                                Width="42"
+                                Height="27"
+                                Padding="0"
+                                BorderBrush="White"
+                                Grid.Row="1"
+                                VerticalAlignment="Top" 
+                                Grid.Column="1" HorizontalAlignment="Left">
 
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}" Width="15" Height="15" />
+                                </StackPanel>
+                            </Button>
 
-                            <ComboBox Margin="0,10,10,0"
+                            <TextBlock Text="Filters by categories"
+                                   FontSize="12"
+                                   Margin="171,2,176,0" 
+                                   Grid.RowSpan="2"
+                                   Height="16"
+                                   FontWeight="Bold"
+                                   Foreground="#686D76"
+                                   VerticalAlignment="Top"
+                                   />
+
+                            <!--Semester Dropdown-->
+                            <ComboBox Margin="0,41,28,0"
                                ItemsSource="{Binding SemesterCollection}"
                                DisplayMemberPath="SemesterName" 
                                SelectedValuePath="SemesterID"
                                Grid.Column="1"
+                               Height="24"
                                Grid.Row="1"
-                               SelectedItem="{Binding Selected_semester, UpdateSourceTrigger=PropertyChanged}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="145"
+                               SelectedIndex="-1"
+                               SelectedItem="{Binding Selected_semester}"
+                               VerticalAlignment="Top" HorizontalAlignment="Right" Width="172"
+                               
                               />
+
+
+
+
+                            <!--Subjects Datagridview-->
 
                             <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
@@ -131,11 +182,91 @@
                                     <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
 
                                     <DataGridTextColumn Header="Semester" Binding="{Binding Semester.SemesterName, Mode=TwoWay}" CanUserResize="False" Width="*" />
-                                    <DataGridTextColumn Header="Grade" Binding="{Binding GradeValue, Mode=TwoWay}" CanUserResize="False" Width="*" />
+                                    <DataGridTemplateColumn Header="Grade" Width="*" IsReadOnly="False">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding GradeValue}" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                        <DataGridTemplateColumn.CellEditingTemplate>
+                                            <DataTemplate>
+                                                <TextBox Background="{Binding Bgcolor}" Text="{Binding GradeValue,Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="False"
+                                                                  MaxLength="2" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellEditingTemplate>
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
 
 
                             </DataGrid>
+
+
+
+                            <!--Program Button-->
+                            <ComboBox x:Name="ProgramCombobox" Margin="12,42,0,0"
+                                ItemsSource="{Binding ProgramCollection}"
+                                DisplayMemberPath="Name" 
+                                SelectedValuePath="ProgramID"
+                                Grid.Row="1"
+                                ToolTip="Filter By Program"                     
+                                SelectedItem="{Binding Selected_Program,UpdateSourceTrigger=PropertyChanged}"
+                                HorizontalAlignment="Left" Width="104" Height="24" VerticalAlignment="Top"
+                              />
+
+                            <ComboBox Margin="128,42,0,0"
+                                ItemsSource="{Binding YearCollection}"
+                                DisplayMemberPath="Name" 
+                                SelectedValuePath="YearID"
+                                Grid.Row="1"
+                                ToolTip="Filter By Year"
+                                SelectedItem="{Binding Selected_Year, UpdateSourceTrigger=PropertyChanged}" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="104"
+                              />
+                            <ComboBox Margin="245,42,0,0"
+                                ItemsSource="{Binding ScholarshipsCollection}"
+                                DisplayMemberPath="Name" 
+                                SelectedValuePath="ScholarID"
+                                Height="24"
+                                Grid.Row="1"
+                                SelectedItem="{Binding Selected_scholar}"
+                                ToolTip="Filter By Scholar"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="104"
+                              />
+                            <ComboBox Margin="362,41,0,0"
+                                DisplayMemberPath="SemesterName" 
+                                SelectedValuePath="SemesterID"
+                                Height="24"
+                                Grid.Row="1"
+                                ToolTip="Filter By Set"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="104"
+                              />
+                            <TextBlock Text="Choose Program"
+                                FontSize="12"
+                                Margin="12,25,0,0" 
+                                Grid.RowSpan="2"
+                                Height="16"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="98"
+                                   />
+                            <TextBlock Text="Choose Year"
+                                FontSize="12"
+                                Margin="129,25,0,0" 
+                                Grid.RowSpan="2"
+                                Height="16"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="69"
+                                   />
+                            <TextBlock Text="Choose Scholarship"
+                                FontSize="12"
+                                Margin="245,25,0,0" 
+                                Grid.RowSpan="2"
+                                Height="16"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="105"
+                                   />
+                            <TextBlock Text="Choose Set"
+                                FontSize="12"
+                                Margin="362,25,0,0" 
+                                Grid.RowSpan="2"
+                                Height="16"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="92"
+                                   />
                             <!-- Save Button -->
 
 
@@ -184,22 +315,15 @@
 
                         </Button>
 
+
+
+                        <!--Save button-->
                         <Button Style="{StaticResource SubmitButton}"
-                       Content="Save" Margin="0,0,11,60" 
-                       Width="123"
-                       Height="30"
-                       BorderBrush="White"
-                       Command="{Binding InsertCommand}" VerticalAlignment="Bottom"
-                        />
-
-
-
-                        <Button x:Name="ChooseFileBtn" Style="{StaticResource ClearButton}"
-                       Content="Choose File(*xls)" Margin="0,0,11,106" 
-                       Width="123"
-                       Height="30"
-                       BorderBrush="White"
-                       Command="{Binding InsertGradeCommand}" VerticalAlignment="Bottom"
+                           Content="Save" Margin="0,0,11,60" 
+                           Width="123"
+                           Height="30"
+                           BorderBrush="White"
+                           Command="{Binding InsertGradeCommand}" VerticalAlignment="Bottom"
                         />
 
                         <!--Automation instructions-->

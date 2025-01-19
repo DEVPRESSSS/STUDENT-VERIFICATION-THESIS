@@ -137,15 +137,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Acronym")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ProgramID");
+
+                    b.HasIndex("Name", "Acronym")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL AND [Acronym] IS NOT NULL");
 
                     b.ToTable("Programs");
                 });
@@ -188,6 +192,34 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.HasIndex("SubjectID");
 
                     b.ToTable("ScheduleOfSubjects");
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Scholarship", b =>
+                {
+                    b.Property<string>("ScholarshipID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ScholarshipName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ScholarshipID");
+
+                    b.ToTable("Scholarship");
+
+                    b.HasData(
+                        new
+                        {
+                            ScholarshipID = "SCHO-1002",
+                            Name = "Non-scholar"
+                        },
+                        new
+                        {
+                            ScholarshipID = "SCHO-1001",
+                            Name = "Scholar"
+                        });
                 });
 
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Semester", b =>
@@ -282,6 +314,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ScholarshipID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("SubjectsEntitySubjectID")
                         .HasColumnType("nvarchar(450)");
 
@@ -292,6 +328,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.HasKey("StudentID");
 
                     b.HasIndex("ProgramID");
+
+                    b.HasIndex("ScholarshipID");
 
                     b.HasIndex("SubjectsEntitySubjectID");
 
@@ -424,6 +462,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Scholarship", "Scholarship")
+                        .WithMany()
+                        .HasForeignKey("ScholarshipID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", null)
                         .WithMany("Students")
                         .HasForeignKey("SubjectsEntitySubjectID");
@@ -435,6 +479,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired();
 
                     b.Navigation("Program");
+
+                    b.Navigation("Scholarship");
 
                     b.Navigation("YearLevel");
                 });

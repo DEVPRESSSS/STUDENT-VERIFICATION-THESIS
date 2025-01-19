@@ -9,10 +9,24 @@ using System.Windows.Input;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
-using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 using System.ComponentModel.DataAnnotations;
-using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using iText.IO.Image;
+using iText.Layout.Element;
+using iText.Layout.Properties;
+using static MaterialDesignThemes.Wpf.Theme;
+using System.Globalization;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using Image = iText.Layout.Element.Image;
+using System.IO;
+using DataGrid = System.Windows.Controls.DataGrid;
+using System.Windows.Documents.Serialization;
+using System.Windows.Documents;
+using System.Windows.Xps.Packaging;
+using System.Windows.Xps;
+
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
@@ -24,6 +38,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<ProgramEntity> ProgramsCollection { get; private set; }
         public ObservableCollection<Year> YearCollection { get; private set; }
        public ObservableCollection<Grade> SubjectGrades { get; private set; } 
+       public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; } 
 
         //Crud Commands
 
@@ -35,6 +50,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand ClearCommand { get; }
 
         public ICommand InsertGradeCommand { get; }
+        public ICommand printGradeCommand { get; }
 
 
         //Listener to close the form
@@ -50,15 +66,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             UpdateStudentsCommand = new RelayCommand(async _ => await UpdateStudentAsync(), _ => Selected_students != null);
             DeleteStudentsCommand = new RelayCommand(async _ => await DeleteStudentAsync(), _ => Selected_students != null);
             LoadStudentsCommand = new RelayCommand(async _ => await LoadStudentAsync());
-
+            //printGradeCommand = new RelayCommand(async _ => await GeneratePdfAsync());
 
             ClearCommand = new RelayCommand(_ => ClearAsync());
             ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
             YearCollection = new ObservableCollection<Year>();
+            ScholarshipsCollection = new ObservableCollection<Scholarship>();
             LoadStudentsCommand.Execute(null);
             _ = LoadProgramAsync();
             _ = LoadYearAsync();
             _ = LoadSubjectsAsync();
+            _ = LoadSchoolar();
         }
 
 
@@ -100,7 +118,22 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
-       
+
+        private Scholarship _selected_schoolar;
+
+
+        public Scholarship Selected_schoolar
+        {
+            get => _selected_schoolar;
+
+            set
+            {
+
+                _selected_schoolar = value;
+                OnPropertyChanged(nameof(Selected_schoolar));
+            }
+        }
+
 
         //Program ID 
 
@@ -142,6 +175,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+
+
+        private string _schoolarID;
+
+        public string Selected_SchoolarID
+        {
+
+            get => _schoolarID;
+
+
+            set
+            {
+
+                _schoolarID = value;
+
+                OnPropertyChanged();
+            }
+
+        }
         //Name
 
         private string _name;
@@ -335,6 +387,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     Address = Address,
                     YearID = Selected_yearID,
                     ProgramID = Selected_programID,
+                    ScholarshipID= Selected_SchoolarID
 
                 };
 
@@ -369,9 +422,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Update Student record
         private async Task UpdateStudentAsync()
         {
-
-            
-
+            // Find the existing student in the database
             var existing_student = await _context.Students.FindAsync(Selected_students.StudentID);
 
             if (existing_student == null)
@@ -379,54 +430,62 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show("Selected Student does not exist in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-
-
-            var existing_subjects = await _context.Students.FindAsync(Selected_students.StudentID);
-
-            if (existing_subjects == null)
+            // Validate if any field contains only whitespace
+            if (string.IsNullOrWhiteSpace(Selected_students.Name) ||
+                string.IsNullOrWhiteSpace(Selected_students.Gmail) ||
+                string.IsNullOrWhiteSpace(Selected_students.Address))
             {
-                MessageBox.Show("Selected Student does not exist in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                MessageBox.Show("Fields cannot contain only whitespace. Please fill out all fields correctly.",
+                                "Validation Error",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
                 return;
             }
+            // Check if Name or Gmail already exists for another student
+            var duplicateName = await _context.Students
+                .AnyAsync(s => s.Name == Selected_students.Name && s.StudentID != Selected_students.StudentID);
+
+            var duplicateGmail = await _context.Students
+                .AnyAsync(s => s.Gmail == Selected_students.Gmail && s.StudentID != Selected_students.StudentID);
+
+            if (duplicateName)
+            {
+                MessageBox.Show("The Name is already associated with another student.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (duplicateGmail)
+            {
+                MessageBox.Show("The Gmail is already associated with another student.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             try
             {
-         
+                // Update student fields
+                existing_student.Name = Selected_students.Name;
+                existing_student.Age = Selected_students.Age;
+                existing_student.IDnumber = Selected_students.IDnumber;
+                existing_student.Contact = Selected_students.Contact;
+                existing_student.Gmail = Selected_students.Gmail;
+                existing_student.ProgramID = Selected_students.ProgramID;
+                existing_student.YearID = Selected_students.YearID;
+                existing_student.Address = Selected_students.Address;
 
-                existing_subjects.Name = Selected_students.Name;
-                existing_subjects.Age = Selected_students.Age;
-                existing_subjects.IDnumber = Selected_students.IDnumber;
-                existing_subjects.Contact = Selected_students.Contact;
-                existing_subjects.Gmail = Selected_students.Gmail;
-                existing_subjects.ProgramID = Selected_students.ProgramID;
-                existing_subjects.YearID = Selected_students.YearID;
-                existing_subjects.Address = Selected_students.Address;
-
-                _context.Students.Update(existing_subjects);
+                _context.Students.Update(existing_student);
                 await _context.SaveChangesAsync();
 
                 MessageBox.Show("Student updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 await LoadStudentAsync();
-
                 CloseCurrentActiveWindow();
-
-
-
-
             }
-
             catch (Exception ex)
             {
-                MessageBox.Show($"Oops there is an error:{ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                MessageBox.Show($"Oops, there is an error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-
-
-
         }
+
         public void CloseCurrentActiveWindow()
         {
             var activeWindow = Application.Current.Windows
@@ -473,6 +532,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             var prof = await _context.Students
                  .Include(s => s.Program)
                  .Include(s => s.YearLevel)
+                 .Include(s => s.Scholarship)
                  .ToListAsync();
 
 
@@ -538,7 +598,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Clear textfields
         public void ClearAsync()
         {
-            Selected_students = null; // Assuming this is your property for binding selected students
 
             Name = string.Empty;
             Age = 0;
@@ -570,7 +629,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var context = new ApplicationDbContext())
                 {
                     var subjectGradesList = await context.Grades
-                        .Where(x => x.Student.StudentID == Selected_students.StudentID) 
+                        .Where(x => x.StudentID == Selected_students.StudentID) 
                         .Include(x => x.Subject)
                         .Include(x => x.Student)
                         .ToListAsync();
@@ -591,11 +650,36 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+      
 
 
 
 
 
+        /// <summary>
+        /// Load SchoolarShip 
+        /// </summary>
+        /// <returns></returns>
+
+
+        private async Task LoadSchoolar()
+        {
+            using(var context= new ApplicationDbContext())
+            {
+
+
+                var schoolar = await context.Scholarship.ToListAsync();
+
+
+                foreach(var item in schoolar)
+                {
+
+
+                    ScholarshipsCollection.Add(item);
+                }
+
+            }
+        }
         private bool CanExecuteInsertGrade()
         {
             return true;

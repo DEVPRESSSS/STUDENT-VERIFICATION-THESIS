@@ -74,7 +74,9 @@
                                  BorderBrush="#bab7b6"
                                  BorderThickness="1" Margin="63,61,90,300"  
                                  Text="{Binding Selected_students.Name}"
-                                 MaxLength="30"
+                                 MaxLength="50"
+                                 PreviewKeyDown="NameTxt_PreviewKeyDown"
+                                 PreviewTextInput="NameTxt_PreviewTextInput"
                                  />
                             
 
@@ -90,7 +92,8 @@
                                 BorderThickness="1" Margin="64,129,90,232" 
                                 Text="{Binding Selected_students.Age}"
                                 MaxLength="2"
-
+                                PreviewTextInput="Agetxt_PreviewTextInput"
+                                PreviewKeyDown="Agetxt_PreviewKeyDown"
                                  />
 
 
@@ -104,7 +107,8 @@
                                 BorderBrush="#bab7b6"
                                 BorderThickness="1" Margin="63,188,90,173"
                                 MaxLength="10"
-
+                                PreviewKeyDown="IDtxt_PreviewKeyDown"
+                                PreviewTextInput="IDtxt_PreviewTextInput"
                                Text="{Binding Selected_students.IDnumber}"/>
 
 
@@ -117,7 +121,9 @@
                                 BorderBrush="#bab7b6"
                                 BorderThickness="1" Margin="64,253,90,108"
                                 Text="{Binding Selected_students.Contact}"
-                                 MaxLength="11"
+                                 MaxLength="12"
+                                 PreviewKeyDown="Contactxt_PreviewKeyDown"
+                                 PreviewTextInput="Contactxt_PreviewTextInput"
                                  />
 
                             
@@ -127,20 +133,24 @@
 
                             <Label Content="Gmail" Margin="78,32,171,326" Grid.Column="1"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Gmail" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
-                                  Text="{Binding Selected_students.Gmail, Mode=TwoWay}"
-                                MaxLength="30"
+                                Text="{Binding Selected_students.Gmail, Mode=TwoWay}"
+                                MaxLength="40"
+                                PreviewKeyDown="Gmail_PreviewKeyDown"
+                                PreviewTextInput="Gmail_PreviewTextInput"
                                 BorderThickness="1" Margin="76,61,77,300" Grid.Column="1"  />
 
 
 
                             <Label Content="Address" Margin="76,91,173,267" Grid.Column="1"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Address" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
                                 Text="{Binding Selected_students.Address, Mode=TwoWay}"
-                                MaxLength="50"
+                                MaxLength="100"
+                               PreviewKeyDown="Address_PreviewKeyDown"
+                              
                                 BorderThickness="1" Margin="78,120,77,241" Grid.Column="1"  />
 
 

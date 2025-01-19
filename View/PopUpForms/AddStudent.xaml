@@ -70,33 +70,36 @@
                             <Label Content="Name" Margin="61,30,210,328"/>
                             
                             
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
-                             BorderBrush="#bab7b6"
-                             BorderThickness="1" Margin="63,61,90,300"  
-                             Text="{Binding Name, Mode=TwoWay}"
-                             MaxLength="30"
+                            <TextBox x:Name="Name" Style="{StaticResource TextBoxesForm}" 
+                                 BorderBrush="#bab7b6"
+                                 BorderThickness="1" Margin="63,61,90,300"  
+                                 Text="{Binding Name, Mode=TwoWay}"
+                                 MaxLength="50"
+                                 PreviewKeyDown="Name_PreviewKeyDown"
+                                 PreviewTextInput="Name_PreviewTextInput"
 
                              />
 
                             <!--Age label-->
                             <Label Content="Age" Margin="64,91,206,267"/>
                             
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Age" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
                                 BorderThickness="1" Margin="64,120,90,241" 
                                 Text="{Binding Age, Mode=TwoWay}"
                                 MaxLength="2"
-
+                                PreviewKeyDown="Age_PreviewKeyDown"
                                 />
 
 
 
                             <Label Content="ID number" Margin="64,150,186,208"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="IDnumber" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
                                  MaxLength="10"
-                                    
+                                PreviewKeyDown="IDnumber_PreviewKeyDown"
+                                PreviewTextInput="IDnumber_PreviewTextInput"
                                 BorderThickness="1" Margin="63,179,90,182" 
                                Text="{Binding IDnumber, Mode=TwoWay}"/>
 
@@ -104,32 +107,35 @@
 
                             <Label Content="Contact" Margin="63,216,186,142"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Contact" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
                                 BorderThickness="1" Margin="64,244,90,117"
                                 Text="{Binding Contact, Mode=TwoWay}"
-                                MaxLength="11"
+                                PreviewKeyDown="Contact_PreviewKeyDown"
+                                PreviewTextInput="Contact_PreviewTextInput"
+                                MaxLength="12"
     
                                  />
 
                             <Label Content="Gmail" Margin="78,32,171,326" Grid.Column="1"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Gmail" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
-                                  Text="{Binding Gmail, Mode=TwoWay}"
-                                MaxLength="30"
-
+                                Text="{Binding Gmail, Mode=TwoWay}"
+                                MaxLength="40"
+                                PreviewKeyDown="Gmail_PreviewKeyDown_1"
                                 BorderThickness="1" Margin="76,61,77,300" Grid.Column="1"  />
 
 
 
                             <Label Content="Address" Margin="76,91,173,267" Grid.Column="1"/>
 
-                            <TextBox Style="{StaticResource TextBoxesForm}" 
+                            <TextBox x:Name="Address" Style="{StaticResource TextBoxesForm}" 
                                 BorderBrush="#bab7b6"
                                 Text="{Binding Address, Mode=TwoWay}"
-                                MaxLength="50"
-
+                                MaxLength="100"
+                                PreviewKeyDown="Address_PreviewKeyDown"
+                                PreviewTextInput="Address_PreviewTextInput"
                                 BorderThickness="1" Margin="78,120,77,241" Grid.Column="1"  />
 
 
@@ -162,7 +168,7 @@
 
 
                             <Button Style="{StaticResource SubmitButton}"
-                                    Content="Save" Grid.Column="1" Margin="0,310,0,26" 
+                                    Content="Save" Grid.Column="1" Margin="0,345,0,11" 
                                     Width="168" 
                                     HorizontalAlignment="Center"
                                     Height="30"
@@ -170,13 +176,23 @@
 
                                     />
                             <Button Style="{StaticResource ClearButton}"
-                                Content="Clear" Margin="63,318,0,38" 
+                                Content="Clear" Margin="63,347,0,9" 
                                 Width="168" 
                                 HorizontalAlignment="Left"
                                 Height="30"
                                  Command="{Binding ClearCommand}"
                                 BorderBrush="#4CAF50"
                                     />
+                            <ComboBox  Grid.Column="1" 
+                                Margin="80,300,78,0" 
+                                VerticalAlignment="Top"
+                                BorderBrush="#bab7b6"
+                                BorderThickness="1" Height="26"
+                                DisplayMemberPath="Name" 
+                                SelectedValuePath="ScholarshipID"
+                                ItemsSource="{Binding ScholarshipsCollection}"
+                                SelectedValue="{Binding Selected_SchoolarID, Mode=TwoWay}" />
+                            <Label Content="SchoolarShip" Margin="76,272,162,88" Grid.Column="1"/>
 
                         </Grid>
 

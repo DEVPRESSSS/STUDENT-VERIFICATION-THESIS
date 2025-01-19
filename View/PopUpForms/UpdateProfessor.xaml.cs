@@ -31,7 +31,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!string.IsNullOrEmpty(Professor.Text) &&
+            if (!string.IsNullOrEmpty(Name.Text) &&
                 !string.IsNullOrEmpty(Gmail.Text) &&
                 !string.IsNullOrEmpty(Age.Text) &&
                 !string.IsNullOrEmpty(Address.Text))
@@ -55,10 +55,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         }
 
-        private void Professor_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-           
-        }
+      
 
         private void Gmail_PreviewKeyDown(object sender, KeyEventArgs e)
         {
