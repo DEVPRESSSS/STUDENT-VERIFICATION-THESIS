@@ -256,14 +256,7 @@
                             </Button>
 
 
-                            <!--Staffs-->
-                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                     Cursor="Hand" Width="160">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="AccountSupervisor" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Staffs"  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
+                        
 
                             <!--Students-->
                             <Button x:Name="StudentsBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"

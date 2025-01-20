@@ -9,6 +9,7 @@ using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using Notifications.Wpf;
 using Notifications.Wpf.Controls;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -83,7 +84,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 _selected_subjects = value;
                 if (Selected_subjects != null)
                 {
-                    LoadSubjectsAsync();
+                    _=LoadSubjectsAsync();
                     OnPropertyChanged(nameof(Selected_subjects));
 
                 }
@@ -194,12 +195,64 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-        
+        //Search Term in the Grades List
+        private string _searchTerm;
+
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                _searchTerm = value;
+                if (string.IsNullOrWhiteSpace(_searchTerm))
+                {
+                    _ = LoadSubjectsAsync();
+                }
+                else
+                {
+
+                    _ = SearchProgramAsync();
+                }
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
+
+        //Search Term in the Grades List
+        private string _searchTerm2;
+
+        public string SearchTerm2
+        {
+            get => _searchTerm2;
+            set
+            {
+                _searchTerm2 = value;
+                if (string.IsNullOrWhiteSpace(_searchTerm2))
+                {
+                    _ = LoadStudentAsync();
+
+                }
+                else
+                {
+
+                    _ = SearchStudentAndSubjects();
+                }
+                OnPropertyChanged();
+            }
+        }
+
+
 
         public ICommand LoadSubjectsCommand { get; }
         public ICommand DeleteGradeCommand { get; }
         public ICommand LoadStudentSubs { get; }
+        public ICommand LoadStudentCommand { get; }
         public ICommand InsertGradeCommand { get; }
+        public ICommand SearchCommand { get; }
+        public ICommand SearchCommand2 { get; }
 
 
         public GradeViewModel(ApplicationDbContext context)
@@ -218,10 +271,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             YearCollection = new ObservableCollection<Year>();
             ScholarshipsCollection = new ObservableCollection<Scholarship>();
             LoadStudentSubs= new RelayCommand(async _=> await LoadSubjectForStudentsAsync());
+            LoadStudentCommand = new RelayCommand(async _=> await LoadStudentAsync());
             _notificationManager = new NotificationManager();
+            SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
+            SearchCommand2 = new RelayCommand(async _ => await SearchStudentAndSubjects(), _ => !string.IsNullOrWhiteSpace(SearchTerm2));
+
 
             //Load students 
-            LoadStudentAsync();
+            _ = LoadStudentAsync();
 
             //Load subjects filter
             _=LoadSubjectForStudentsAsync();
@@ -280,11 +337,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         ///Load Grades per sub
-        private void LoadSubjectsAsync()
+        private async Task LoadSubjectsAsync()
         {
     
    
-            var subjects = _context.Grades.ToList();
+            var subjects =  await _context.Grades.
+                Include(x=> x.Student).
+                 Include(x => x.Subject).
+                ToListAsync();
 
             GradeCollection.Clear();
 
@@ -301,16 +361,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// <summary>
         /// Loas student
         /// </summary>
-        private void LoadStudentAsync()
+        private async Task  LoadStudentAsync()
         {
             using(var context = new ApplicationDbContext())
             {
 
-                var subjects = context.Students.
+                var subjects = await context.Students.
                     Include(x=>x.Program).
                     Include(x=>x.YearLevel).
                     Include(x=>x.Scholarship).
-                    ToList();
+                    ToListAsync();
 
                 StudentCollection.Clear();
 
@@ -447,8 +507,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
             using (var context = new ApplicationDbContext())
             {
+
+
                 foreach (var subject in SubjectsCollection.Where(s => s.GradeValue.HasValue)) 
                 {
+                    if(subject.GradeValue >= 100 || subject.GradeValue < 70)
+                    {
+
+                        MessageBox.Show("Grade is invalid","Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        return;
+                    }
+
                     var existingGrade = await context.Grades
                         .FirstOrDefaultAsync(g => g.StudentID == Selected_students.StudentID && g.SubjectID == subject.SubjectID);
 
@@ -612,6 +682,104 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
         }
+
+
+
+
+
+
+
+        /// <summary>
+        /// Search Grade
+        /// </summary>
+        /// <returns></returns>
+        private async Task SearchProgramAsync()
+        {
+            try
+            {
+
+                using (var context = new ApplicationDbContext())
+                {
+
+                    var query = context.Grades.
+                        Include(x=> x.Student).
+                        Include(x=> x.Subject).
+                        AsQueryable();
+
+                    query = query.Where(p =>
+                        EF.Functions.Like(p.StudentID, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.GradeValue.ToString(), $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.SubjectID.ToString(), $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Subject.CourseCode, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.GradeID, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Student.Name, $"%{SearchTerm}%")
+                    );
+
+                    var result = await query.ToListAsync();
+
+                    // Update the ObservableCollection
+                    GradeCollection.Clear();
+                    foreach (var professor in result)
+                    {
+                        GradeCollection.Add(professor);
+                    }
+
+
+                }
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+
+
+
+        private async Task SearchStudentAndSubjects()
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var query = context.Students
+                        .Include(x => x.Program)
+                        .Include(x => x.YearLevel)
+                        .Include(x => x.Scholarship)
+                        .AsQueryable();
+
+                    query = query.Where(p =>
+                        EF.Functions.Like(p.StudentID, $"%{SearchTerm2}%") ||
+                        EF.Functions.Like(p.Name, $"%{SearchTerm2}%") ||
+                        EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm2}%") ||
+                        EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm2}%") ||
+                        EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm2}%")
+                    );
+
+                    var result = await query.ToListAsync();
+
+                    StudentCollection.Clear();
+                    foreach (var student in result)
+                    {
+                        StudentCollection.Add(student);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+
         //Boolean method to flag if is valid
         private bool canAddGradement() => true;
 

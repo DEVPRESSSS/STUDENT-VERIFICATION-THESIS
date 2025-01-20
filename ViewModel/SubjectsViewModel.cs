@@ -35,6 +35,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand DeleteSubjectCommand { get; }
         public ICommand LoadSubjectCommand { get; }
         public ICommand ClearCommand { get; }
+        public ICommand SearchCommand { get; }
 
         public SubjectsViewModel(ApplicationDbContext context)
         {
@@ -53,6 +54,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             ProfessorCollection = new ObservableCollection<ProfessorsEntity>(); // Fix this
             YearCollection = new ObservableCollection<Year>(); // Fix this
             ClearCommand = new RelayCommand(_ => Clear());
+            SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
 
             _ = LoadProfessorsAsync();
             _= LoadProgramAsync();
@@ -61,6 +63,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+     
 
 
 
@@ -230,9 +233,76 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-     
 
 
+        //Search 
+        private string _searchTerm;
+
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                _searchTerm = value;
+                if (string.IsNullOrWhiteSpace(_searchTerm))
+                {
+                    _ = LoadSubjectsAsync();
+                }
+                else
+                {
+
+                    _ = SearchProgramAsync();
+                }
+            }
+        }
+
+        private async Task SearchProgramAsync()
+        {
+            try
+            {
+
+                using (var context = new ApplicationDbContext())
+                {
+
+                    var query = context.Subjects
+                     .Include(p => p.Program) 
+                     .Include(p => p.Year)    
+                     .Include(p => p.Professors)    
+                     .AsQueryable();
+
+                    query = query.Where(p =>
+                        EF.Functions.Like(p.SubjectID, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.SubjectName, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Description, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Program.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Year.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Units.ToString(), $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.CourseCode, $"%{SearchTerm}%")
+                    );
+
+                    var result = await query.ToListAsync();
+
+                    // Update the ObservableCollection
+                    SubjectCollection.Clear();
+                    foreach (var professor in result)
+                    {
+                        SubjectCollection.Add(professor);
+                    }
+
+
+                }
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
 
 
@@ -335,36 +405,38 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 return;
             }
 
+
+
+            if (string.IsNullOrWhiteSpace(Selected_subjects.SubjectName) || string.IsNullOrWhiteSpace(Selected_subjects.CourseCode) || string.IsNullOrWhiteSpace(Selected_subjects.Description))
+            {
+                MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+
+                return;
+            }
+
+            var existingSubject = await _context.Subjects.FindAsync(Selected_subjects.SubjectID);
+            if (existingSubject == null)
+            {
+                MessageBox.Show("The selected subject does not exist in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             try
             {
 
                
 
-                if (string.IsNullOrWhiteSpace(Selected_subjects.SubjectName) || string.IsNullOrWhiteSpace(Selected_subjects.CourseCode) || string.IsNullOrWhiteSpace(Selected_subjects.Description))
+
+                var existingProgram = await _context.Subjects
+                        .FirstOrDefaultAsync(s => (s.SubjectName == Selected_subjects.SubjectName || s.CourseCode == Selected_subjects.CourseCode) &&
+                                                  s.SubjectID != Selected_subjects.SubjectID);
+
+                /* if (existingProgram != null)
                 {
-                    MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                    return;
-                }
-
-                var existingSubject = await _context.Subjects.FindAsync(Selected_subjects.SubjectID);
-                if (existingSubject == null)
-                {
-                    MessageBox.Show("The selected subject does not exist in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                // Check for duplicate SubjectName or CourseCode, excluding the current subject
-               /* var duplicateSubject = await _context.Subjects
-                    .FirstOrDefaultAsync(s =>
-                        (s.SubjectName == Selected_subjects.SubjectName || s.CourseCode == Selected_subjects.CourseCode) &&
-                        s.SubjectID != Selected_subjects.SubjectID);
-
-                if (duplicateSubject != null)
-                {
-                    MessageBox.Show("Another subject with the same name or course code already exists.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Subject name or course code already exists. Please use a different one.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }*/
+
+                
 
                 existingSubject.SubjectName = Selected_subjects.SubjectName;
                 existingSubject.CourseCode = Selected_subjects.CourseCode;

@@ -39,6 +39,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<Year> YearCollection { get; private set; }
        public ObservableCollection<Grade> SubjectGrades { get; private set; } 
        public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; } 
+       public ObservableCollection<SubjectsEntity> StudentSubCollection { get; private set; } 
 
         //Crud Commands
 
@@ -51,6 +52,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         public ICommand InsertGradeCommand { get; }
         public ICommand printGradeCommand { get; }
+        public ICommand SearchCommand { get; }
 
 
         //Listener to close the form
@@ -72,7 +74,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
             YearCollection = new ObservableCollection<Year>();
             ScholarshipsCollection = new ObservableCollection<Scholarship>();
+            StudentSubCollection = new ObservableCollection<SubjectsEntity>();
             LoadStudentsCommand.Execute(null);
+            SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
+
             _ = LoadProgramAsync();
             _ = LoadYearAsync();
             _ = LoadSubjectsAsync();
@@ -95,6 +100,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 if (_selected_students != null)
                 {
                     _ = LoadSubjectsAsync();
+                    _= LoadStudentSubAsync();
                 }
             }
         }
@@ -332,7 +338,100 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+        private string _searchTerm;
 
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                _searchTerm = value;
+                if (string.IsNullOrWhiteSpace(_searchTerm))
+                {
+                    _ = LoadStudentAsync();
+                }
+                else
+                {
+
+                    _ = SearchProgramAsync();
+                }
+
+                OnPropertyChanged();
+
+            }
+        }
+
+
+        private string _semester;
+
+
+
+        public string Semester
+        {
+
+            get => _semester;
+
+
+            set
+            {
+
+                _semester = value;
+
+                OnPropertyChanged();
+
+            }
+
+
+        }
+
+        private async Task SearchProgramAsync()
+        {
+            try
+            {
+
+                using (var context = new ApplicationDbContext())
+                {
+
+                    var query = context.Students.
+                        Include(s=> s.YearLevel).
+                        Include(s=> s.Program).
+                        Include(s=> s.Scholarship).
+                        AsQueryable();
+
+                    query = query.Where(p =>
+                        EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Age.ToString(), $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.IDnumber.ToString(), $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Gmail, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Address, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm}%")
+                    );
+
+                    var result = await query.ToListAsync();
+
+                    // Update the ObservableCollection
+                    StudentsCollection.Clear();
+                    foreach (var professor in result)
+                    {
+                        StudentsCollection.Add(professor);
+                    }
+
+
+                }
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
 
 
@@ -629,15 +728,52 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var context = new ApplicationDbContext())
                 {
                     var subjectGradesList = await context.Grades
-                        .Where(x => x.StudentID == Selected_students.StudentID) 
+                        .Where(x => x.StudentID == Selected_students.StudentID)
                         .Include(x => x.Subject)
+                            .ThenInclude(s => s.Professors) 
+                        .Include(x=>x.Subject)
+                            .ThenInclude(s=>s.Semester)
                         .Include(x => x.Student)
                         .ToListAsync();
 
                     SubjectGrades.Clear();
                     foreach (var grade in subjectGradesList)
                     {
+
+                        Semester = grade.Subject.Semester.SemesterName; 
                         SubjectGrades.Add(grade);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading subjects: {ex.Message}");
+            }
+        }
+
+        private async Task LoadStudentSubAsync()
+        {
+            try
+            {
+                if (Selected_students == null)
+                {
+                    Debug.WriteLine("No student selected.");
+                    return;
+                }
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var subjectGradesList = await context.Subjects
+                        .Where(x => x.ProgramID == Selected_students.ProgramID && x.YearID == Selected_students.YearID)
+                        .Include(x => x.Program)                     
+                        .Include(x => x.Year)                     
+                        .ToListAsync();
+
+                    StudentSubCollection.Clear();
+                    foreach (var grade in subjectGradesList)
+                    {
+
+                        StudentSubCollection.Add(grade);
                     }
                 }
             }
@@ -650,7 +786,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-      
 
 
 

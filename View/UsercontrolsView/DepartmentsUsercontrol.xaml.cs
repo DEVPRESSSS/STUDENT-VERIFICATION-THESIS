@@ -55,5 +55,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
 
             departments.ShowDialog();
         }
+
+        private void UsernameXZ_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = sender as TextBox;
+
+            if (textBox != null && e.Key == Key.Space)
+            {
+                // Check if the last character is a space
+                if (textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true; // Prevent consecutive spaces
+                }
+            }
+        }
     }
 }

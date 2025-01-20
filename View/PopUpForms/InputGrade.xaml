@@ -84,7 +84,7 @@
                                     <DataGridTextColumn Header="Program" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Program.Acronym,UpdateSourceTrigger=PropertyChanged}" />
                                     <DataGridTextColumn Header="Scholarship" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Scholarship.Name,UpdateSourceTrigger=PropertyChanged}" />
 
-                                    <DataGridTextColumn Header="Year" Binding="{Binding YearLevel.Name}" IsReadOnly="True"   CanUserResize="False" Width="*" />
+                                    <DataGridTextColumn Header="Year"  Binding="{Binding YearLevel.Name}" IsReadOnly="True"   CanUserResize="False" Width="*" />
                                 </DataGrid.Columns>
 
 
@@ -96,10 +96,11 @@
 
                             <TextBox x:Name="SearchTxt"
                                      Style="{StaticResource TextBoxesForm}"
+                                     Text="{Binding SearchTerm2, UpdateSourceTrigger=PropertyChanged}"
                                      Margin="402,-33,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="129" Grid.ColumnSpan="2"
                                      />
 
-                                <!--
+                            <!--
                             
                             
                                <notifications:NotificationArea 
@@ -113,7 +114,7 @@
                             
                              
                                  -->
-                           
+
 
                             <!--Search Button-->
                             <Button x:Name="search" Style="{StaticResource SubmitButton}"
@@ -181,7 +182,7 @@
                                     </DataGridTemplateColumn>
                                     <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
 
-                                    <DataGridTextColumn Header="Semester" Binding="{Binding Semester.SemesterName, Mode=TwoWay}" CanUserResize="False" Width="*" />
+                                    <DataGridTextColumn Header="Semester" Binding="{Binding Semester.SemesterName, Mode=TwoWay}" IsReadOnly="True" CanUserResize="False" Width="*" />
                                     <DataGridTemplateColumn Header="Grade" Width="*" IsReadOnly="False">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>

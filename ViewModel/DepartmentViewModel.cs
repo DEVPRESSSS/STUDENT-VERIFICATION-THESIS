@@ -27,6 +27,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand UpdateDepartmentCommand { get; }
         public ICommand DeleteDepartmentCommand { get; }
         public ICommand LoadDepartmentCommand { get; }
+        public ICommand SearchCommand { get; }
 
 
         public DepartmentViewModel(ApplicationDbContext context)
@@ -40,11 +41,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             DeleteDepartmentCommand = new RelayCommand(async _ => await DeleteDepartmentAsync(), _ => Selected_departments != null);
             LoadDepartmentCommand = new RelayCommand(async _ => await LoadDepartmentsAsync());
             LoadDepartmentCommand.Execute(null);
+            SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
 
         }
 
 
-     
+
 
 
         //Get the selected departments
@@ -106,6 +108,67 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+
+
+        //Search 
+        private string _searchTerm;
+
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                _searchTerm = value;
+                if (string.IsNullOrWhiteSpace(_searchTerm))
+                {
+                    _ = LoadDepartmentsAsync();
+                }
+                else
+                {
+
+                    _ = SearchProgramAsync();
+                }
+            }
+        }
+
+        private async Task SearchProgramAsync()
+        {
+            try
+            {
+
+                using (var context = new ApplicationDbContext())
+                {
+
+                    var query = context.Departments.AsQueryable();
+
+                    query = query.Where(p =>
+                        EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.DepartmentID, $"%{SearchTerm}%")
+                    );
+
+                    var result = await query.ToListAsync();
+
+                    // Update the ObservableCollection
+                    DepartmentsCollection.Clear();
+                    foreach (var professor in result)
+                    {
+                        DepartmentsCollection.Add(professor);
+                    }
+
+
+                }
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
 
         //Insert Method 
         private async Task AddDepartmentAsync()
@@ -230,16 +293,31 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Delete Department
         private async Task DeleteDepartmentAsync()
         {
+            MessageBoxResult confiramtion = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (Selected_departments != null)
+            if (confiramtion == MessageBoxResult.Yes)
             {
+                if (Selected_departments != null)
+                {
+                    // Step 1: Set the DepartmentID of professors to null
+                    var professorsInDepartment = _context.Professors.Where(p => p.DepartmentID == Selected_departments.DepartmentID).ToList();
 
-                _context.Departments.Remove(Selected_departments);
-                await _context.SaveChangesAsync();
+                    foreach (var professor in professorsInDepartment)
+                    {
+                        professor.DepartmentID = null; // Nullify the DepartmentID
+                    }
 
-                DepartmentsCollection.Remove(Selected_departments);
+                    _context.Professors.UpdateRange(professorsInDepartment);
 
+                    // Step 2: Now delete the department
+                    _context.Departments.Remove(Selected_departments);
+
+                    await _context.SaveChangesAsync();
+
+                    DepartmentsCollection.Remove(Selected_departments);
+                }
             }
+               
         }
 
         private async Task LoadDepartmentsAsync()

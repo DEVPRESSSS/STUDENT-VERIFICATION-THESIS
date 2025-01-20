@@ -26,6 +26,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand UpdateProgramCommand { get; }
         public ICommand DeleteProgramCommand { get; }
         public ICommand LoadProgramCommand { get; }
+        public ICommand SearchCommand { get; set; }
 
 
         public ProgramsViewModel(ApplicationDbContext context)
@@ -39,6 +40,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             DeleteProgramCommand = new RelayCommand(async _ => await DeleteProgramAsync(), _ => Selected_program != null);
             LoadProgramCommand = new RelayCommand(async _ => await LoadProgramsAsync());
             LoadProgramCommand.Execute(null);
+            SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
 
         }
 
@@ -124,6 +126,82 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
 
         }
+
+
+
+        //Search 
+        private string _searchTerm;
+
+        public string SearchTerm
+        {
+            get => _searchTerm;
+            set
+            {
+                _searchTerm = value;
+                if (string.IsNullOrWhiteSpace(_searchTerm))
+                {
+                    _ = LoadProgramsAsync();
+                }
+                else
+                {
+
+                    _ = SearchProgramAsync();
+                }
+            }
+        }
+
+        private async Task SearchProgramAsync()
+        {
+            try
+            {
+
+                using(var context = new ApplicationDbContext())
+                {
+
+                    var query = context.Programs.AsQueryable();
+
+                    query = query.Where(p =>
+                        EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.ProgramID, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Acronym, $"%{SearchTerm}%")
+                    );
+
+                    var result = await query.ToListAsync();
+
+                    // Update the ObservableCollection
+                    ProgramCollection.Clear();
+                    foreach (var professor in result)
+                    {
+                        ProgramCollection.Add(professor);
+                    }
+
+
+                }
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void CloseCurrentActiveWindow()
+        {
+            var activeWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(window => window.IsActive);
+
+            if (activeWindow != null)
+            {
+                activeWindow.Close();
+            }
+        }
+
 
 
         //Insert Method 
@@ -215,7 +293,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             try
             {
-                
+                var existingProgram = await _context.Programs
+                .FirstOrDefaultAsync(s => (s.Name == Selected_program.Name || s.Acronym == Selected_program.Acronym) &&
+                                          s.ProgramID != Selected_program.ProgramID);
+
+                if (existingProgram != null)
+                {
+                    MessageBox.Show("Program name or acronym already exists. Please use a different one.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 existing_departments.Acronym = Selected_program.Acronym;
                 existing_departments.Name = Selected_program.Name;
@@ -224,6 +310,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 await _context.SaveChangesAsync();
 
                 MessageBox.Show("Program updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseCurrentActiveWindow();
             }
 
             catch (Exception ex)
@@ -241,16 +328,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Delete Program
         private async Task DeleteProgramAsync()
         {
+            MessageBoxResult confiramtion = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (Selected_program != null)
+            if (confiramtion == MessageBoxResult.Yes)
             {
+                if (Selected_program != null)
+                {
 
-                _context.Programs.Remove(Selected_program);
-                await _context.SaveChangesAsync();
+                    _context.Programs.Remove(Selected_program);
+                    await _context.SaveChangesAsync();
 
-                ProgramCollection.Remove(Selected_program);
+                    ProgramCollection.Remove(Selected_program);
+
+                }
 
             }
+
+
+
+
+            
         }
 
 

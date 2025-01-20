@@ -35,5 +35,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [ForeignKey("SubjectID")]
         public SubjectsEntity? Subject { get; set; }
 
+
+        [NotMapped]
+
+        public bool isGradeValueLow => GradeValue <75;
+
     }
 }

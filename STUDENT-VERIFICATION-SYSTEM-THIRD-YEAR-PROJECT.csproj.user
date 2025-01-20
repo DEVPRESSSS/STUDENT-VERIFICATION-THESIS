@@ -22,6 +22,9 @@
     <Compile Update="View\PopUpForms\AddStudent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\AddSub.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\AddSubjects.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -52,6 +55,9 @@
     <Compile Update="View\UsercontrolsView\DepartmentsUsercontrol.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UsercontrolsView\EncodeGradeUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UsercontrolsView\GradesUsercontrol.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -71,6 +77,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\WindowsFormView\ChangePassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\WindowsFormView\EncoderDashboard.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\WindowsFormView\ForgotPassword.xaml.cs">
@@ -97,6 +106,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\AddStudent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\AddSub.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\AddSubjects.xaml">
@@ -129,6 +141,9 @@
     <Page Update="View\UsercontrolsView\DepartmentsUsercontrol.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\UsercontrolsView\EncodeGradeUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\UsercontrolsView\GradesUsercontrol.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -148,6 +163,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WindowsFormView\ChangePassword.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\WindowsFormView\EncoderDashboard.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WindowsFormView\ForgotPassword.xaml">

@@ -1,0 +1,86 @@
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
+{
+    /// <summary>
+    /// Interaction logic for EncoderDashboard.xaml
+    /// </summary>
+    public partial class EncoderDashboard : Window
+    {
+        private readonly ApplicationDbContext _context;
+        public EncoderDashboard(ApplicationDbContext context)
+        {
+            InitializeComponent();
+
+            _context = context;
+        }
+
+
+        private void Maximize_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+            {
+
+                WindowState = WindowState.Maximized;
+            }
+            else
+            {
+                WindowState = WindowState.Normal;
+            }
+        }
+
+        private void Minimize_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
+        }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure want to exit??", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dr == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown(0);
+            }
+        }
+
+        private void DashboardOverview_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Grades_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new EncodeGradeUC(_context);
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+}

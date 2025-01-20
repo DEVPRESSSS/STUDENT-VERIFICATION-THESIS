@@ -76,6 +76,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
 
             obj.ShowDialog();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+
+
+           
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+
+            AddSub addSub = new AddSub(_context)
+            {
+
+                DataContext= this.DataContext
+            };
+
+            addSub.ShowDialog();
+        }
     }
     
 }

@@ -27,11 +27,19 @@
 
                         <DataGridTextColumn Header="SubjectID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding SubjectID}"/>
 
-                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding SubjectName}" IsReadOnly="True" Width="*"/>
-
+                        <DataGridTemplateColumn Header="Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding SubjectName,UpdateSourceTrigger=PropertyChanged}" 
+                                TextWrapping="Wrap" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Stretch" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding CourseCode}"  IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Unit" CanUserResize="False" Binding="{Binding Units}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Professor" CanUserResize="False" Binding="{Binding Professors.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding Year.Name}" IsReadOnly="True" Width="*"/>
 
@@ -66,27 +74,47 @@
 
 
         <!--Search textbox-->
+        <!--Search textbox-->
 
-        <TextBox x:Name="UsernameXZ"
-             Width="100"
-             Margin="0,10,80,0"
-             BorderBrush="#3D7E35"
-             Background="White" 
-             Height="25"
-             VerticalAlignment="Top" 
-             HorizontalAlignment="Right"
-  
-             />
+            <TextBox x:Name="UsernameXZ"
+                    Style="{StaticResource TextBoxesForm}"
+                    Width="141"
+                    Margin="0,10,55,0"
+                    Background="White" 
+                    Height="25"
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Right"
+                    MaxLength="50"
+                    PreviewKeyDown="UsernameXZ_PreviewKeyDown"
+                    Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
+                    />
 
+
+                        <!--Search button-->
+                        <Button x:Name="_new" Style="{StaticResource SubmitButton}" 
+                     Margin="0,10,10,0" Width="40"
+                     BorderThickness="0"
+                     Height="25" 
+                     Command="{Binding SearchCommand}"
+                     VerticalAlignment="Top"
+                      >
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Icon:PackIconMaterial Kind="Magnify" 
+                     Width="10" 
+                     Height="10" 
+                     VerticalAlignment="Center" 
+                     Margin="5,0,0,0"/>
+                            </StackPanel>
+            </Button>
 
         <!--Add button-->
 
         <Button x:Name="AddSubjects" Style="{StaticResource SubmitButton}" 
-              Margin="0,10,10,0" Width="56"
+              Margin="-2,10,0,0" Width="56"
               BorderThickness="0"
               Height="25" 
               VerticalAlignment="Top"
-                Click="AddSubjects_Click"
+                Click="AddSubjects_Click" HorizontalAlignment="Left"
               >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
@@ -102,21 +130,6 @@
 
 
         <!--Export button-->
-        <ComboBox  x:Name="ComboCat" 
-         HorizontalAlignment="Left" 
-         VerticalAlignment="Top" 
-          Width="97" Height="23"
-          Margin="10,12,0,0"
-          BorderThickness="0,0,0,1"
-          BorderBrush="Gray"
-          SelectedIndex="0">
-
-
-            <ComboBoxItem Content="Export" IsEnabled="True"/>
-            <ComboBoxItem Content="PDF" />
-            <ComboBoxItem Content="Excel" />
-
-        </ComboBox>
 
 
 

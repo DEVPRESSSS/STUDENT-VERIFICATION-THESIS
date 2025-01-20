@@ -24,15 +24,12 @@
                         <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
 
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Age" CanUserResize="False"  Binding="{Binding Age}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTextColumn Header="ID number" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Address" CanUserResize="False" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Contact" CanUserResize="False" Binding="{Binding Contact}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="ID Number" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Gmail" CanUserResize="False" Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="ScholarShip" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Grades" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
@@ -49,10 +46,24 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Add Sub" CanUserResize="False" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_3">
+                                            <Icon:PackIconMaterial Kind="PlusBoxMultiple" Style="{StaticResource gridButtonIcon}" />
+                                        </Button>
+                    
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
+                                        
                                         <Button Style="{StaticResource gridEditButton}" Click="Button_Click">
                                             <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}" />
                                         </Button>
@@ -90,6 +101,7 @@
             Height="25"
             VerticalAlignment="Top" 
             HorizontalAlignment="Right"
+            Text="{Binding SearchTerm,UpdateSourceTrigger=PropertyChanged}"
   
             />
 
@@ -122,7 +134,7 @@
             BorderThickness="0"
             Height="25" 
             VerticalAlignment="Top"
-            Click="new_Click"
+            Command="{Binding SearchCommand}"
              >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Icon:PackIconMaterial Kind="Magnify" 

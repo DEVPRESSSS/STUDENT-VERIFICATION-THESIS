@@ -66,8 +66,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
 
                     MainWindow dashboard = new MainWindow(_context);
-                    dashboard.Show();
+                     dashboard.Show();
 
+                    //EncoderDashboard encoderDashboard = new EncoderDashboard(_context);
+                   // encoderDashboard.Show();
                    this.Hide();
 
                 }

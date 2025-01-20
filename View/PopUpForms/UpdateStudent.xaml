@@ -251,21 +251,9 @@
 
 
                     <!--Automation instructions-->
-                    <TextBlock TextWrapping="Wrap" 
-                           Foreground="White"
-                           Margin="64,52,10,331" 
-                           FontFamily="Helvetica Neue" 
-                           FontSize="14"
-                               >
-                             Hi Admin! 
-                            
-                            process effortlessly
 
 
-                    </TextBlock>
 
-
-            
 
                 </Grid>
                 <!--Instructions -->
