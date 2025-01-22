@@ -50,5 +50,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
                 WindowState = WindowState.Normal;
             }
         }
+
+      
+        private void Window_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+
+                DragMove();
+            }
+        }
     }
 }

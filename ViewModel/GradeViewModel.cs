@@ -415,10 +415,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// </summary>
         private void FilterSubjectsBasedOnSemesterAndStudentInfo()
         {
-            // Clear the current collection
             SubjectsCollection.Clear();
 
-            // Case: Filter based on both Selected_students and Selected_semester
             if (Selected_students != null && Selected_semester != null)
             {
                 var filteredSubjects = _context.Subjects
@@ -437,22 +435,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 if (Selected_students.ScholarshipID == "SCHO-1002")
                 {
-                    var filteredSubjects = _context.Subjects
-                        .Where(s => s.ProgramID == Selected_students.ProgramID)
-                        .Include(x => x.Semester)
-                        .ToList();
+                    var filteredSubjects = _context.SubjectsEnrolled
+                       .Where(se => se.StudentID == Selected_students.StudentID && se.IsEnrolled)
+                       .Select(se => se.Subject) 
+                       .ToList();
 
                     foreach (var subject in filteredSubjects)
                     {
                         SubjectsCollection.Add(subject);
                     }
-
-                   /* _notificationManager.Show(new NotificationContent
-                    {
-                        Title = "Non-scholar subjects",
-                        Message = "Note that the non-scholar student can add subjects.",
-                        Type = NotificationType.Success
-                    });*/
                 }
                 else
                 {
@@ -760,6 +751,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         EF.Functions.Like(p.Name, $"%{SearchTerm2}%") ||
                         EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm2}%") ||
                         EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm2}%") ||
+                        EF.Functions.Like(p.IDnumber.ToString(), $"%{SearchTerm2}%") ||
                         EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm2}%")
                     );
 

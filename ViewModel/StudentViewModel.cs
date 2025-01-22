@@ -26,6 +26,7 @@ using System.Windows.Documents.Serialization;
 using System.Windows.Documents;
 using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -39,9 +40,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<Year> YearCollection { get; private set; }
        public ObservableCollection<Grade> SubjectGrades { get; private set; } 
        public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; } 
-       public ObservableCollection<SubjectsEntity> StudentSubCollection { get; private set; } 
+       public ObservableCollection<SubjectsEntity> SubjectPerProgram { get; private set; }
+       public ObservableCollection<SubjectsEnrolled> ListOfSubjectsEnrolled { get; private set; }
 
         //Crud Commands
+
+
+
+
+
+
 
         public ICommand AddStudentscommand { get; }
         public ICommand UpdateStudentsCommand { get; set; }
@@ -53,6 +61,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand InsertGradeCommand { get; }
         public ICommand printGradeCommand { get; }
         public ICommand SearchCommand { get; }
+        public ICommand AddSubjectCommand { get; }
 
 
         //Listener to close the form
@@ -63,25 +72,43 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             _context = context;
             StudentsCollection = new ObservableCollection<StudentsEntity>();
+
             SubjectGrades = new ObservableCollection<Grade>();
+
             AddStudentscommand = new RelayCommand(async _ => await AddStudentAsync());
+
             UpdateStudentsCommand = new RelayCommand(async _ => await UpdateStudentAsync(), _ => Selected_students != null);
+
             DeleteStudentsCommand = new RelayCommand(async _ => await DeleteStudentAsync(), _ => Selected_students != null);
+
             LoadStudentsCommand = new RelayCommand(async _ => await LoadStudentAsync());
+
             //printGradeCommand = new RelayCommand(async _ => await GeneratePdfAsync());
+            AddSubjectCommand = new RelayCommand(async _ => await AddSubjectAsync());
 
             ClearCommand = new RelayCommand(_ => ClearAsync());
+
             ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
+
             YearCollection = new ObservableCollection<Year>();
+
             ScholarshipsCollection = new ObservableCollection<Scholarship>();
-            StudentSubCollection = new ObservableCollection<SubjectsEntity>();
+
+            ListOfSubjectsEnrolled = new ObservableCollection<SubjectsEnrolled>();
+
+            SubjectPerProgram = new ObservableCollection<SubjectsEntity>();
+
             LoadStudentsCommand.Execute(null);
+
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
 
             _ = LoadProgramAsync();
             _ = LoadYearAsync();
             _ = LoadSubjectsAsync();
             _ = LoadSchoolar();
+            _ = LoadStudentSubAsync();
+
+
         }
 
 
@@ -96,12 +123,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 _selected_students = value;
-                OnPropertyChanged(nameof(Selected_students));
-                if (_selected_students != null)
+
+                if (Selected_students != null)
                 {
                     _ = LoadSubjectsAsync();
-                    _= LoadStudentSubAsync();
+                    _ = LoadSubjectsPerProgram();
+                    _ = LoadStudentSubAsync();
+
+
                 }
+                OnPropertyChanged(nameof(Selected_students));
+
+
             }
         }
 
@@ -139,6 +172,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 OnPropertyChanged(nameof(Selected_schoolar));
             }
         }
+
+
+
+
+        private SubjectsEntity _selected_Subjects;
+
+
+        public SubjectsEntity Selected_Subjects
+        {
+            get => _selected_Subjects;
+
+            set
+            {
+
+                _selected_Subjects = value;
+                OnPropertyChanged(nameof(Selected_Subjects));
+            }
+        }
+
+
 
 
         //Program ID 
@@ -750,37 +803,28 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 Debug.WriteLine($"Error loading subjects: {ex.Message}");
             }
         }
-
         private async Task LoadStudentSubAsync()
         {
-            try
-            {
-                if (Selected_students == null)
-                {
-                    Debug.WriteLine("No student selected.");
-                    return;
-                }
+           
+                
 
                 using (var context = new ApplicationDbContext())
                 {
-                    var subjectGradesList = await context.Subjects
-                        .Where(x => x.ProgramID == Selected_students.ProgramID && x.YearID == Selected_students.YearID)
-                        .Include(x => x.Program)                     
-                        .Include(x => x.Year)                     
+
+                    var subs = await context.SubjectsEnrolled
+                        .Where(x => x.StudentID == Selected_students.StudentID)
+                        .Include(x => x.Subject.Year)
                         .ToListAsync();
 
-                    StudentSubCollection.Clear();
-                    foreach (var grade in subjectGradesList)
-                    {
 
-                        StudentSubCollection.Add(grade);
+                    ListOfSubjectsEnrolled.Clear();
+                    foreach (var subject in subs)
+                    {
+                        ListOfSubjectsEnrolled.Add(subject);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error loading subjects: {ex.Message}");
-            }
+            
+            
         }
 
 
@@ -788,6 +832,40 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+        //Load all the subjects per program base on the student ProgramID
+        private async Task LoadSubjectsPerProgram()
+        {
+
+            try
+            {
+                if (Selected_students == null)
+                {
+                    MessageBox.Show("No student selected.");
+                    return;
+                }
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var subjectGradesList = await context.Subjects
+                        .Where(x => x.ProgramID == Selected_students.ProgramID)
+                        .Include(x => x.Year)                   
+                        .Include(x => x.Semester)                   
+                        .ToListAsync();
+
+                    SubjectPerProgram.Clear();
+                    foreach (var grade in subjectGradesList)
+                    {
+
+                        SubjectPerProgram.Add(grade);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error loading subjects: {ex.Message}");
+            }
+
+        }
 
 
 
@@ -796,7 +874,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// </summary>
         /// <returns></returns>
 
-
+        
         private async Task LoadSchoolar()
         {
             using(var context= new ApplicationDbContext())
@@ -815,6 +893,75 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
         }
+
+
+
+
+        /// <summary>
+        /// Mark as enrolled sub
+        /// </summary>
+        /// <returns></returns>
+
+        private async Task AddSubjectAsync()
+        {
+            try
+            {
+                
+
+                using (var context = new ApplicationDbContext())
+                {
+
+
+
+                    foreach (var sub in SubjectPerProgram.Where(x => x.IsEnrolled == true))
+                    {
+
+                        var exisitingEnrolledSubjects = await context.SubjectsEnrolled.FirstOrDefaultAsync(x=> x.SubjectID == sub.SubjectID && x.StudentID == Selected_students.StudentID);
+
+                        if(exisitingEnrolledSubjects!= null)
+                        {
+
+
+                            MessageBox.Show("Oops one of the subjects you selected is already enrolled!", "Error" , MessageBoxButton.OK, MessageBoxImage.Error);
+
+                            SubjectPerProgram.Remove(sub);
+                            
+                            return;
+                        }
+
+
+
+                        string ID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                        var subjectEnrolled = new SubjectsEnrolled
+                        {
+                            EnrollmentID= ID,
+                            SubjectID = sub.SubjectID,
+                            StudentID= Selected_students.StudentID,
+                            IsEnrolled= true
+
+
+                        };
+
+                        context.SubjectsEnrolled.Add(subjectEnrolled);
+                        
+
+
+                    }
+
+                    await context.SaveChangesAsync();
+                    MessageBox.Show($"Subjects enrolled successfully");
+
+                    _= LoadStudentSubAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading subjects: {ex.Message}");
+            }
+        }
+
+
         private bool CanExecuteInsertGrade()
         {
             return true;

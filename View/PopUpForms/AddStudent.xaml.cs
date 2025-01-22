@@ -79,9 +79,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Name_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !IsTextAllowed(e.Text);
-
-        }
+              var textBox = sender as TextBox;
+            string fullText = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+            e.Handled = !IsNameAllowed(fullText);
+         }
 
         private static bool IsTextAllowed(string text)
         {
@@ -126,6 +127,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         {
             e.Handled = !IsNumAllowed(e.Text);
 
+        }
+
+        private static readonly Regex NameRegex = new Regex(@"^(?!.*\s{2})[A-Za-z]+(?:\s[A-Za-z]+)*(?:\s[A-Za-z]+\.)?$");
+        private bool IsNameAllowed(string text)
+        {
+            // Check if the text matches the regular expression
+            return NameRegex.IsMatch(text);
         }
     }
 }

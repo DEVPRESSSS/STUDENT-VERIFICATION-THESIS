@@ -49,7 +49,7 @@
                         <DataGridTemplateColumn Header="Add Sub" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
+                                    <StackPanel Style="{StaticResource ButtonHide}" Orientation="Horizontal">
 
                                         <Button Style="{StaticResource gridEditButton}" Click="Button_Click_3">
                                             <Icon:PackIconMaterial Kind="PlusBoxMultiple" Style="{StaticResource gridButtonIcon}" />

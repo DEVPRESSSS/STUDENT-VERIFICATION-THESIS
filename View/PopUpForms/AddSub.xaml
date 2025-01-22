@@ -6,209 +6,226 @@
         xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
         mc:Ignorable="d"
         Title="AddSub"   AllowsTransparency="True"
-  WindowStartupLocation="CenterScreen"
-  Background="Transparent"
-  WindowStyle="None"
-  ResizeMode="CanResize"
+          WindowStartupLocation="CenterScreen"
+          Background="Transparent"
+          WindowStyle="None"
+          MinHeight="650"
+          MinWidth="1000"
+          MouseDown="Window_MouseDown"
+          ResizeMode="CanResizeWithGrip"
           Height="650" Width="1000">
-    <Grid>
-        <Border CornerRadius="10" Background="#f7f5f5" >
 
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <!-- Row 0 -->
-                    <!-- Row 1 -->
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="600" />
-                    <!-- Column 0 -->
-                    <ColumnDefinition />
-                    <!-- Column 1 -->
-                </Grid.ColumnDefinitions>
+    <Border CornerRadius="10"  Background="#f7f5f5" >
 
-
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <!-- Row 0 -->
+                <!-- Row 1 -->
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="600" />
+                <!-- Column 0 -->
+                <ColumnDefinition />
+                <!-- Column 1 -->
+            </Grid.ColumnDefinitions>
 
 
-                <Border Grid.Row="0" Effect="{StaticResource dropShadow }" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
 
-                        <!-- Separator -->
-                        <Border Grid.Row="0"
+
+            <Border Grid.Row="0" Effect="{StaticResource dropShadow }" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Separator -->
+                    <Border Grid.Row="0"
                           Height="2"
                           Background="#E4E0E1"
                           Margin="10,42,10,0"
                           VerticalAlignment="Top" />
 
 
-                        <Grid Grid.Row="1">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="468*"/>
-                                <ColumnDefinition Width="497*"/>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="468*"/>
+                            <ColumnDefinition Width="497*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                            <!-- Icon -->
-                            <Icon:PackIconMaterial Kind="Bookshelf" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="12,-33,0,0" Grid.Row="0" VerticalAlignment="Top" Height="15" Width="15" />
+                        <!-- Icon -->
+                        <Icon:PackIconMaterial Kind="School" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="12,-33,0,0" Grid.Row="0" VerticalAlignment="Top" Height="15" Width="15" />
 
 
-                            <!-- DataGrid Students Section -->
-                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+
+                        <!--Current sub text-->
+
+                        <Border Background="#31511E" 
+                                CornerRadius="10" 
+                                Margin="16,10,0,0" 
+                                Grid.RowSpan="2" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="142">
+                            <TextBlock Text="Current Subjects" 
+                                       FontSize="14" 
+                                       Padding="10"
+                                       Foreground="#FBFBFB"
+                                       FontWeight="Bold" 
+                                       HorizontalAlignment="Center" 
+                                       VerticalAlignment="Center" />
+                        </Border>
+
+
+                        <!-- DataGrid Students Section -->
+                        <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                                 CellStyle="{DynamicResource DataGridCellStyle1}"
                                 x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
                                  AutoGenerateColumns="False"
                                  Margin="8,53,0,0" Grid.RowSpan="2"
-                                 ItemsSource="{Binding StudentSubCollection }"
-                                 SelectedItem="{Binding Selected_students}" Height="240" VerticalAlignment="Top" Grid.ColumnSpan="2"
+                                 ItemsSource="{Binding ListOfSubjectsEnrolled }"
+                                 Height="217" VerticalAlignment="Top" Grid.ColumnSpan="2"
                                       >
-                                <DataGrid.Columns>
-                                   
-                                    <DataGridTextColumn Header="CourseCode" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode,UpdateSourceTrigger=PropertyChanged}" />
-                                    <DataGridTextColumn Header="SubjectName" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding SubjectName,UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGrid.Columns>
 
-                                    <DataGridTextColumn Header="Year"  Binding="{Binding YearLevel.Name}" IsReadOnly="True"   CanUserResize="False" Width="*" />
-                                </DataGrid.Columns>
+                                <DataGridTextColumn Header="CourseCode" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.CourseCode}" />
+                                <DataGridTextColumn Header="SubjectName" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.SubjectName}" />
 
-
-                            </DataGrid>
+                                <DataGridTextColumn Header="Year"  Binding="{Binding Subject.Year.Name}" IsReadOnly="True"   CanUserResize="False" Width="*" />
+                                <DataGridTextColumn Header="Semester"  Binding="{Binding Subject.Semester.SemesterName}" IsReadOnly="True"   CanUserResize="False" Width="*" />
+                            </DataGrid.Columns>
 
 
-
-                            <!--Search Textbox-->
-
-                            <TextBox x:Name="SearchTxt"
-                                     Style="{StaticResource TextBoxesForm}"
-                                     Text="{Binding SearchTerm2, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="402,-33,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="129" Grid.ColumnSpan="2"
-                                     />
-
-                            <!--
-                            
-                            
-                               <notifications:NotificationArea 
-                                     HorizontalAlignment="Right" 
-                                     Height="25"
-                                     Width="130"                               
-                                     Grid.RowSpan="2"
-                                     VerticalAlignment="Top" Grid.Column="1" Margin="0,0,28,0">
-                            </notifications:NotificationArea>
-              
-                            
-                             
-                                 -->
+                        </DataGrid>
 
 
-                            <!--Search Button-->
-                            <Button x:Name="search" Style="{StaticResource SubmitButton}"
-                                Margin="127,-35,0,0" 
-                                Width="42"
-                                Height="27"
-                                Padding="0"
-                                BorderBrush="White"
-                                Grid.Row="1"
-                                VerticalAlignment="Top" 
-                                Grid.Column="1" HorizontalAlignment="Left">
 
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}" Width="15" Height="15" />
-                                </StackPanel>
-                            </Button>
+                        <!--Search Textbox-->
 
-                            <!--Semester Dropdown-->
+
+
+                        <!--Search Button-->
+
+                        <!--Semester Dropdown-->
 
 
 
 
-                            <!--Subjects Datagridview-->
+                        <!--Subjects Datagridview-->
 
-                            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                        <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                                 CellStyle="{DynamicResource DataGridCellStyle1}"
                                 x:Name="cashierDataGrid_Copy" Style="{DynamicResource DataGridStyle1}"
-                                ItemsSource="{Binding SubjectsCollection}"
-                                SelectedItem="{Binding Selected_subjects}"
+                                ItemsSource="{Binding SubjectPerProgram}"
+                                SelectedItem="{Binding Selected_Subjects}"
 
-                                AutoGenerateColumns="False" Margin="0,0,0,10" Grid.RowSpan="2" Height="257" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
-                                <DataGrid.Columns>
-                                    <DataGridTemplateColumn Header="SubjectName">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding SubjectName, UpdateSourceTrigger=PropertyChanged}" 
+                                AutoGenerateColumns="False" Margin="0,319,0,10" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="SubjectName">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding SubjectName, UpdateSourceTrigger=PropertyChanged}" 
                                                     TextWrapping="Wrap" 
                                                     VerticalAlignment="Center" 
                                                     HorizontalAlignment="Stretch" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                    </DataGridTemplateColumn>
-                                    <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
 
-                                    <DataGridTextColumn Header="Semester" Binding="{Binding Semester.SemesterName, Mode=TwoWay}" IsReadOnly="True" CanUserResize="False" Width="*" />
-                                    <DataGridTemplateColumn Header="Grade" Width="*" IsReadOnly="False">
-                                        <DataGridTemplateColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding GradeValue}" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellTemplate>
-                                        <DataGridTemplateColumn.CellEditingTemplate>
-                                            <DataTemplate>
-                                                <TextBox Background="{Binding Bgcolor}" Text="{Binding GradeValue,Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="False"
-                                                                  MaxLength="2" />
-                                            </DataTemplate>
-                                        </DataGridTemplateColumn.CellEditingTemplate>
-                                    </DataGridTemplateColumn>
-                                </DataGrid.Columns>
+                                <DataGridTextColumn Header="Semester" Binding="{Binding Semester.SemesterName, Mode=TwoWay}" IsReadOnly="True" CanUserResize="False" Width="*" />
+                                <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                        <!-- CheckBox for edit action -->
+                                                
+                                                        <CheckBox Margin="5,0,0,0" VerticalAlignment="Center" IsChecked="{Binding IsEnrolled, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
+                                           
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                            </DataGrid>
+                            </DataGrid.Columns>
 
 
+                        </DataGrid>
 
-                            <!--Program Button-->
-                            <!-- Save Button -->
+                        <!--Available subjects-->
+                        <Border Background="#FAB12F" 
+                                CornerRadius="10" 
+                                Margin="17,287,0,0" 
+                                Grid.RowSpan="2" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left" Width="185">
+                            <TextBlock Text="Available Subjects to add" 
+                                    FontSize="14" 
+                                    Padding="10"
+                                    
+                                    Foreground="#FBFBFB"
+                                    FontWeight="Bold" 
+                                    VerticalAlignment="Center" HorizontalAlignment="Left" Width="179" />
+                        </Border>
 
 
-                        </Grid>
+                        <TextBlock Text="{Binding Selected_students.Name}" 
+                                FontSize="14" 
+                                Foreground="#181C14"
+                                FontWeight="Bold" 
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Width="168" Margin="46,-33,0,0" Height="20" />
+                        <TextBlock Text="{Binding Selected_students.Program.Acronym}" 
+                                FontSize="14" 
+                                Foreground="#181C14"
+                                FontWeight="Bold" 
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Width="112" Margin="303,-32,0,0" Height="20" Grid.Column="1" />
+
+
+
+
 
 
                     </Grid>
-                </Border>
+
+
+                </Grid>
+            </Border>
 
 
 
 
-                <!-- Content for Row 0, Column 1 -->
-                <Border Grid.Row="0"
+            <!-- Content for Row 0, Column 1 -->
+            <Border Grid.Row="0"
                    Grid.Column="1" Panel.ZIndex="-1"
                    Background="#3D7E35"
                    Margin="200,0,0,0" 
                    Effect="{StaticResource dropShadow}"
                    CornerRadius="10" RenderTransformOrigin="0.5,0.5">
-                    <Border.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform AngleY="0.287"/>
-                            <RotateTransform/>
-                            <TranslateTransform Y="-0.745"/>
-                        </TransformGroup>
-                    </Border.RenderTransform>
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleY="0.287"/>
+                        <RotateTransform/>
+                        <TranslateTransform Y="-0.745"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
 
-                    <Grid>
+                <Grid>
 
-                        <!--Close button -->
-                        <Button x:Name="Close" 
+                    <!--Close button -->
+                    <Button x:Name="Close" 
                       Click="Close_Click"
                       Style="{StaticResource MinimizeButtonStyle}"
                          Width="30" Height="30" Margin="0,5,10,0" RenderTransformOrigin="0.417,-0.256" HorizontalAlignment="Right" VerticalAlignment="Top">
 
-                            <Icon:PackIconMaterial 
+                        <Icon:PackIconMaterial 
                        x:Name="CloseWindow"
                        Kind="WindowClose" 
                        Height="10" RenderTransformOrigin="0.803,0.533"
@@ -218,47 +235,46 @@
                        Cursor="Hand" HorizontalAlignment="Center"
                    />
 
-                        </Button>
+                    </Button>
 
 
 
-                        <!--Save button-->
-                        <Button Style="{StaticResource SubmitButton}"
-                           Content="Save" Margin="0,0,11,60" 
+                    <!--Save button-->
+                    <Button Style="{StaticResource SubmitButton}"
+                           Content="Save" Margin="0,0,11,12" 
                            Width="123"
                            Height="30"
                            BorderBrush="White"
-                           Command="{Binding InsertGradeCommand}" VerticalAlignment="Bottom"
+                           Command="{Binding AddSubjectCommand}" VerticalAlignment="Bottom"
                         />
 
-                        <!--Automation instructions-->
-                        <TextBlock TextWrapping="Wrap" 
+                    <!--Automation instructions-->
+                    <TextBlock TextWrapping="Wrap" 
                           Foreground="White"
                           Margin="0,45,0,0" 
                           FontFamily="Helvetica Neue" 
-                          FontSize="14" Height="188" VerticalAlignment="Top" HorizontalAlignment="Right" Width="134"
+                          FontSize="14" Height="62" VerticalAlignment="Top" HorizontalAlignment="Right" Width="134"
                               >
-                            Hi Admin! Automate 
-                           the student grade insertion 
-                           process effortlessly
+                            Hi Admin! Please be 
+                            careful when addign subjects
+                            Thank you!
 
 
-                        </TextBlock>
+                    </TextBlock>
 
-                        <!--Maximize button-->
-                        <!--Automation button-->
-
-
+                    <!--Maximize button-->
+                    <!--Automation button-->
 
 
-                    </Grid>
-                    <!--Instructions -->
 
 
-                </Border>
+                </Grid>
+                <!--Instructions -->
 
 
-            </Grid>
-        </Border>
-    </Grid>
+            </Border>
+
+
+        </Grid>
+    </Border>
 </Window>

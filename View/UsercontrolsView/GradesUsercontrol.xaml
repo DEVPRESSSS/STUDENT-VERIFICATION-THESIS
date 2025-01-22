@@ -35,9 +35,13 @@
                         <DataGridTemplateColumn Header="Grade" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock Text="{Binding GradeValue}" 
-                                         Style="{StaticResource GradeTextBlockStyle}"      
-                                               />
+                                    <Border Style="{StaticResource GradeBorderStyle}">
+
+                                        <TextBlock Text="{Binding GradeValue}" 
+                                                       Style="{StaticResource GradeTextBlockStyle}"      
+                                                                                           />
+                                    </Border>
+                                  
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                  

@@ -6,19 +6,61 @@
     StartupUri="View/WindowsFormView/LoginForm.xaml">
 
     <Application.Resources>
-            <!-- Add Material Design Resource Dictionary -->
 
-        <Style TargetType="TextBlock" x:Key="GradeTextBlockStyle">
-            <Setter Property="Foreground" Value="Black"/>
-            <!-- Default foreground -->
-            <Setter Property="Background" Value="Transparent"/>
-            <!-- Default background -->
+
+
+        <Style TargetType="Border" x:Key="GradeBorderStyle">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="4" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="MaxWidth" Value="40" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding isGradeValueLow}" Value="True">
-                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="Background" Value="#FF6969" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding isGradeValueLow}" Value="False">
+                    <Setter Property="Background" Value="#61B15A" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <Style TargetType="TextBlock" x:Key="GradeTextBlockStyle">
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding isGradeValueLow}" Value="True">
+                    <Setter Property="Foreground" Value="White" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding isGradeValueLow}" Value="False">
+                    <Setter Property="Foreground" Value="White" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+
+
+        <Style TargetType="StackPanel" x:Key="ButtonHide">
+            <!-- Default background -->
+            <Setter Property="Background" Value="Transparent"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsScholar}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsScholar}" Value="False">
+                    <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+
+
+
+
+
         <!-- Textboxes template-->
         <Style x:Key="TextBoxes" TargetType="TextBox">
             <Setter Property="Background" Value="Transparent"/>

@@ -84,6 +84,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         public DbSet<AdminEntities> Admin { get; set; }
         public DbSet<Grade> Grades { get; set; }
         public DbSet<Scholarship> Scholarship { get; set; }
+        public DbSet<SubjectsEnrolled> SubjectsEnrolled { get; set; }
 
 
 
