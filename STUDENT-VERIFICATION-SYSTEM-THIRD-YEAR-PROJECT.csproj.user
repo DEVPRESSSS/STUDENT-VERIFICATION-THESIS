@@ -43,10 +43,16 @@
     <Compile Update="View\PopUpForms\UpdateProgram.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\UpdateSched.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\UpdateStudent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\UpdateSubject.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\UpsertSchedule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\DashboardOverview.xaml.cs">
@@ -65,6 +71,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\ProgramsUsercontrol.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UsercontrolsView\Schedule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\Staff.xaml.cs">
@@ -129,10 +138,16 @@
     <Page Update="View\PopUpForms\UpdateProgram.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\PopUpForms\UpdateSched.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\PopUpForms\UpdateStudent.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\UpdateSubject.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\UpsertSchedule.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\DashboardOverview.xaml">
@@ -151,6 +166,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\ProgramsUsercontrol.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\Schedule.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Staff.xaml">

@@ -95,7 +95,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         private Semester _selected_semester;
 
 
-        public Semester Selected_semester
+        public Semester? Selected_semester
         {
             get => _selected_semester;
 
@@ -380,6 +380,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     StudentCollection.Add(subject);
                 }
 
+                Selected_semester = null;
+
             }
 
         }
@@ -431,7 +433,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     SubjectsCollection.Add(subject);
                 }
             }
-            else if (Selected_students != null)
+            else if (Selected_students != null )
             {
                 if (Selected_students.ScholarshipID == "SCHO-1002")
                 {
@@ -538,7 +540,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             SubjectID = subject.SubjectID
                         };
 
-                        context.Grades.Add(newGrade);
+                        context.Grades.Add (newGrade);
                         GradeCollection.Add(newGrade);
                     }
 
@@ -546,6 +548,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 await context.SaveChangesAsync();
                 MessageBox.Show("Grades processed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                _= LoadSubjectsAsync();
             }
 
 
@@ -609,7 +612,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             // If neither program nor year is selected, load all students
             if (Selected_Program == null && Selected_Year == null && Selected_scholar == null)
             {
-                LoadStudentAsync();
+                _= LoadStudentAsync();
                 return;
             }
 

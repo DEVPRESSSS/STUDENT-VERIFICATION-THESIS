@@ -133,5 +133,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
             MainContentArea.Content = new GradesUsercontrol(_context);
 
         }
+
+        private void Schedule_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new Schedule(_context);
+
+        }
     }
 }

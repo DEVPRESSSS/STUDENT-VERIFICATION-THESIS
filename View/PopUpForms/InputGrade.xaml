@@ -189,15 +189,19 @@
                                 <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <DataGridTextColumn Header="Semester" Binding="{Binding Semester.SemesterName, Mode=TwoWay}" IsReadOnly="True" CanUserResize="False" Width="*" />
-                                <DataGridTemplateColumn Header="Grade" Width="*" IsReadOnly="False">
+                                <DataGridTemplateColumn Header="Input Grade" Width="*" IsReadOnly="False">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding GradeValue}" />
+                                            <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="2">
+
+                                                <TextBlock Text="{Binding GradeValue}" />
+
+                                            </Border>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                     <DataGridTemplateColumn.CellEditingTemplate>
                                         <DataTemplate>
-                                            <TextBox Background="{Binding Bgcolor}" Text="{Binding GradeValue,Mode=TwoWay, UpdateSourceTrigger=LostFocus}" IsReadOnly="False"
+                                            <TextBox  Text="{Binding GradeValue, UpdateSourceTrigger=LostFocus}" IsReadOnly="False"
                                                                   MaxLength="2" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellEditingTemplate>
@@ -281,6 +285,21 @@
                                 Height="16"
                                 VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right" Width="95"
                                    />
+                        <Button x:Name="Refresh_Copy"
+                            Margin="436,1,0,0" 
+                            Width="33"
+                            Height="22"
+                            Padding="0"
+                            Command="{Binding LoadStudentCommand}"
+                            Background="Transparent"
+                            BorderBrush="White"
+                            Grid.Row="1"
+                            VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="1">
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Icon:PackIconMaterial Kind="Refresh" Style="{StaticResource menuButtonIcon}" Width="15" Height="15" />
+                            </StackPanel>
+                        </Button>
                         <!-- Save Button -->
 
 

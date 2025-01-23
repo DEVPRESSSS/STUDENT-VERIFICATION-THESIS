@@ -172,12 +172,24 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
 
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ScheduleOfSubjects", b =>
                 {
-                    b.Property<string>("SchedID")
+                    b.Property<string>("ScheduleID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Day")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfessorID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Room")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SubjectID")
                         .IsRequired()
@@ -187,11 +199,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("SchedID");
+                    b.HasKey("ScheduleID");
+
+                    b.HasIndex("ProfessorID");
 
                     b.HasIndex("SubjectID");
 
-                    b.ToTable("ScheduleOfSubjects");
+                    b.ToTable("Schedule");
                 });
 
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Scholarship", b =>
@@ -240,13 +254,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Property<string>("StaffID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Contact")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -318,9 +325,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("SubjectsEntitySubjectID")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("YearID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -330,8 +334,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.HasIndex("ProgramID");
 
                     b.HasIndex("ScholarshipID");
-
-                    b.HasIndex("SubjectsEntitySubjectID");
 
                     b.HasIndex("YearID");
 
@@ -460,11 +462,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
 
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ScheduleOfSubjects", b =>
                 {
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProfessorsEntity", "Professor")
+                        .WithMany()
+                        .HasForeignKey("ProfessorID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", "Subject")
-                        .WithMany("Schedules")
+                        .WithMany()
                         .HasForeignKey("SubjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Professor");
 
                     b.Navigation("Subject");
                 });
@@ -493,10 +503,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .HasForeignKey("ScholarshipID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", null)
-                        .WithMany("Students")
-                        .HasForeignKey("SubjectsEntitySubjectID");
 
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Year", "YearLevel")
                         .WithMany()
@@ -559,13 +565,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Navigation("Semester");
 
                     b.Navigation("Year");
-                });
-
-            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEntity", b =>
-                {
-                    b.Navigation("Schedules");
-
-                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }

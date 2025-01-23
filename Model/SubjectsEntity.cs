@@ -54,12 +54,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [ForeignKey("YearID")]
         public Year ? Year { get; set; }
 
-        // Navigation property for many-to-many relationship with StudentsEntity
-
-        public ICollection<StudentsEntity>? Students { get; set; }
+        
 
 
-        public ICollection<ScheduleOfSubjects>? Schedules { get; set; }
 
 
         public decimal? GradeValue { get; set; }
@@ -68,6 +65,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [NotMapped]
         public bool? IsEnrolled { get; set; } = false;
 
+     
 
     }
 }

@@ -78,10 +78,10 @@
                               CellStyle="{DynamicResource DataGridCellStyle1}"
                               Style="{DynamicResource DataGridStyle1}" Margin="0,51,0,40" Grid.RowSpan="2">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="CourseCode" IsReadOnly="True" Binding="{Binding Subject.CourseCode}" Width="*" />
-                            <DataGridTextColumn Header="Professor" IsReadOnly="True" Binding="{Binding Subject.Professors.Name}" Width="*" />
-                            <DataGridTextColumn Header="Schedule" IsReadOnly="True" Binding="{Binding Subject.Schedules}" Width="*" />
-                            <DataGridTextColumn Header="Grade" Binding="{Binding GradeValue, Mode=TwoWay}" Width="*" />
+                            <DataGridTextColumn Header="CourseCode" IsReadOnly="True" Binding="{Binding CourseCode}" Width="*" />
+                            <DataGridTextColumn Header="Professor" IsReadOnly="True" Binding="{Binding ProfessorName}" Width="*" />
+                            <DataGridTextColumn Header="Schedule" IsReadOnly="True" Binding="{Binding Time}" Width="*" />
+                            <DataGridTextColumn Header="Grade" Binding="{Binding GradeValue, Mode=TwoWay}" Width="*" IsReadOnly="True" />
                         </DataGrid.Columns>
                     </DataGrid>
 

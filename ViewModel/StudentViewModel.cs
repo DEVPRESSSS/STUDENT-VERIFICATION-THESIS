@@ -548,7 +548,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 _context.Students.Add(obj);
 
                 await _context.SaveChangesAsync();
+
+
                 StudentsCollection.Add(obj);
+
 
 
 
@@ -694,6 +697,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 StudentsCollection.Add(professor);
             }
+            
             OnPropertyChanged(nameof(StudentsCollection));
 
 
@@ -780,29 +784,64 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 using (var context = new ApplicationDbContext())
                 {
-                    var subjectGradesList = await context.Grades
-                        .Where(x => x.StudentID == Selected_students.StudentID)
-                        .Include(x => x.Subject)
-                            .ThenInclude(s => s.Professors) 
-                        .Include(x=>x.Subject)
-                            .ThenInclude(s=>s.Semester)
-                        .Include(x => x.Student)
+                    var results = await context.Grades
+                        .Where(g => g.StudentID == Selected_students.StudentID) // Filter by StudentID
+                        .Join(
+                            context.Subjects,
+                            grade => grade.SubjectID,       // Key from Grades
+                            subject => subject.SubjectID,  // Key from Subjects
+                            (grade, subject) => new { grade, subject } // Combine grade and subject
+                        )
+                        .GroupJoin(
+                            context.Schedule,
+                            gs => new { gs.subject.SubjectID, gs.subject.ProfessorID }, 
+                            schedule => new { schedule.SubjectID, schedule.ProfessorID }, 
+                            (gs, schedules) => new { gs.grade, gs.subject, schedules } 
+                        )
+                        .SelectMany(
+                            gss => gss.schedules.DefaultIfEmpty(), // Perform a LEFT JOIN
+                            (gss, schedule) => new
+                            {
+                                gss.grade.GradeID,
+                                gss.grade.GradeValue,
+                                gss.subject.SubjectID,
+                                gss.subject.SubjectName,
+                                gss.subject.CourseCode, 
+                                Time = schedule != null ? schedule.Time : null,
+                                gss.subject.ProfessorID,
+                                ProfessorName = context.Professors 
+                                    .Where(p => p.ProfessorID == gss.subject.ProfessorID)
+                                    .Select(p => p.Name) 
+                                    .FirstOrDefault()
+                            }
+                        )
                         .ToListAsync();
 
+                    // Use the results, for example:
                     SubjectGrades.Clear();
-                    foreach (var grade in subjectGradesList)
+                    foreach (var item in results)
                     {
-
-                        Semester = grade.Subject.Semester.SemesterName; 
-                        SubjectGrades.Add(grade);
+                        SubjectGrades.Add(new Grade
+                        {
+                            GradeID = item.GradeID,
+                            GradeValue = item.GradeValue,
+                            SubjectID = item.SubjectID,
+                            CourseCode = item.CourseCode, // Add CourseCode
+                            ProfessorID = item.ProfessorID,
+                            ProfessorName = item.ProfessorName, // Add ProfessorName
+                            Time = item.Time,
+                        });
                     }
                 }
+
+
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Error loading subjects: {ex.Message}");
+                Debug.WriteLine($"Error loading subjects with schedules: {ex.Message}");
             }
         }
+
         private async Task LoadStudentSubAsync()
         {
            
@@ -814,6 +853,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     var subs = await context.SubjectsEnrolled
                         .Where(x => x.StudentID == Selected_students.StudentID)
                         .Include(x => x.Subject.Year)
+                        .Include(x => x.Subject.Semester)
                         .ToListAsync();
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
     /// </summary>
     public partial class Staff : UserControl
     {
-        public Staff()
+
+        private readonly ApplicationDbContext _context;
+        public Staff(ApplicationDbContext context)
         {
             InitializeComponent();
+            _context = context;
         }
     }
 }

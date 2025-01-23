@@ -19,7 +19,7 @@
                           ItemsSource="{Binding StudentsCollection}"
                           SelectedItem="{Binding Selected_students}"
                           >
-                    <DataGrid.Columns>
+                    <DataGrid.Columns>                                                                                                                                                                
 
                         <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
 

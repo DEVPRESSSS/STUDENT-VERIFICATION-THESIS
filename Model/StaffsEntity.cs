@@ -23,12 +23,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [Required]
 
         public string? Email { get; set; }
-        [Required]
-
-        public int Contact { get; set; }
-        [Required]
-
-        public string? Address { get; set; }
+      
 
 
         [Required]

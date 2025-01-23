@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800"
+             d:DesignHeight="800" d:DesignWidth="800"
              Background="White">
 
     <Border CornerRadius="4" >
@@ -65,7 +65,7 @@
                          VerticalAlignment="Top" 
                          HorizontalAlignment="Right" 
                          Margin="0,20,0,0"/>
-                        <TextBlock x:Name="ProductCounts"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="30, 40 0,0"/>
+                        <TextBlock x:Name="ProductCounts"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
 
                         <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
                             <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
@@ -186,7 +186,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Departments" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="10,19,75,0" Grid.ColumnSpan="2"/>
+                        <TextBlock Text="Department" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,0,0" HorizontalAlignment="Right" Width="90"/>
                         <TextBlock x:Name="Department"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
 
                         <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
@@ -208,7 +208,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Verified Grades" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="10,19,57,0" Grid.ColumnSpan="2"/>
+                        <TextBlock Text="Verified" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,10,0" HorizontalAlignment="Right" Width="70"/>
                         <TextBlock x:Name="Grade"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
 
                         <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
@@ -231,7 +231,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="No grades yet" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="10,19,57,0" Grid.ColumnSpan="2"/>
+                        <TextBlock Text="No grades" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,5,0" HorizontalAlignment="Right" Width="80"/>
                         <TextBlock x:Name="NotYet"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
 
                         <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
@@ -255,7 +255,7 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Text="Released Today" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="10,19,57,0" Grid.ColumnSpan="2"/>
+                        <TextBlock Text="Released" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,10,0" HorizontalAlignment="Right" Width="70"/>
                         <TextBlock x:Name="ReleaseGrade"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
 
                         <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
@@ -270,12 +270,7 @@
             </Grid>
         </Grid>
 
-        <Border.Background>
 
-            <!--Background Image-->
-            <ImageBrush Stretch="Fill" ImageSource="pack://application:,,,/Resources/UmPicture.png"/>
-
-        </Border.Background>
 
     </Border>
 </UserControl>

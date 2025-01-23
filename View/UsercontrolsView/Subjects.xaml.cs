@@ -67,5 +67,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
                 }
             }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            UpsertSchedule obj = new UpsertSchedule(_context)
+            {
+
+                DataContext= this.DataContext
+
+            };
+          
+            
+            obj.ShowDialog();
+        }
     }
 }

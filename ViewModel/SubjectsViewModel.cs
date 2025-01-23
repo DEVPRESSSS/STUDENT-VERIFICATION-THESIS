@@ -36,7 +36,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand LoadSubjectCommand { get; }
         public ICommand ClearCommand { get; }
         public ICommand SearchCommand { get; }
-
+        public ICommand? UpsertCommand { get; }
         public SubjectsViewModel(ApplicationDbContext context)
         {
 
@@ -55,6 +55,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             YearCollection = new ObservableCollection<Year>(); // Fix this
             ClearCommand = new RelayCommand(_ => Clear());
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
+            UpsertCommand = new RelayCommand(async _ => await AddScheduleAsync());
 
             _ = LoadProfessorsAsync();
             _= LoadProgramAsync();
@@ -232,6 +233,81 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+        //Get day
+        private string _day;
+
+
+        public string Day
+        {
+
+            get => _day;
+
+            set
+            {
+
+
+                _day = value;
+
+                OnPropertyChanged(nameof(Day));
+
+
+
+
+            }
+        }
+
+
+
+
+
+
+        //Get time
+        private string _time;
+
+
+        public string Time
+        {
+
+            get => _time;
+
+            set
+            {
+
+
+                _time = value;
+
+                OnPropertyChanged(nameof(Time));
+
+
+
+
+            }
+        }
+
+
+
+        //Get room
+        private string _room;
+
+
+        public string Room
+        {
+
+            get => _room;
+
+            set
+            {
+
+
+                _room = value;
+
+                OnPropertyChanged(nameof(Room));
+
+
+
+
+            }
+        }
 
 
 
@@ -256,6 +332,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+      
+
         private async Task SearchProgramAsync()
         {
             try
@@ -274,7 +352,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         EF.Functions.Like(p.SubjectID, $"%{SearchTerm}%") ||
                         EF.Functions.Like(p.SubjectName, $"%{SearchTerm}%") ||
                         EF.Functions.Like(p.Description, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Program.Name, $"%{SearchTerm}%") ||
+                        EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm}%") ||
                         EF.Functions.Like(p.Year.Name, $"%{SearchTerm}%") ||
                         EF.Functions.Like(p.Units.ToString(), $"%{SearchTerm}%") ||
                         EF.Functions.Like(p.CourseCode, $"%{SearchTerm}%")
@@ -601,6 +679,64 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
            // ProgramID = SelectedProgramID,
             //YearID = Selected_yearID,
             Units = 0;
+        }
+
+
+
+
+
+
+
+        private async Task AddScheduleAsync()
+        {
+            if (!ValidateInputs())
+            {
+                return;
+            }
+            if(Selected_subjects.ProfessorID == null)
+            {
+
+                MessageBox.Show("Please add professor first", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return;
+
+            }
+
+            string ID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+            var newSched = new ScheduleOfSubjects
+            {
+                ScheduleID = ID,
+                SubjectID = Selected_subjects.SubjectID,
+                Day = Day,
+                Time = Time,
+                Room = Room,
+                ProfessorID = Selected_subjects.ProfessorID,
+            };
+
+            _context.Schedule.Add(newSched);
+            await _context.SaveChangesAsync();
+            MessageBox.Show("Schedule added successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            CloseCurrentActiveWindow();
+
+
+        }
+
+       
+
+
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(Day) ||
+                string.IsNullOrWhiteSpace(Time) ||
+                string.IsNullOrWhiteSpace(Room) 
+                )
+            {
+                MessageBox.Show("All fields are required and cannot contain only white spaces.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
         }
 
         //Boolean method to flag if is valid

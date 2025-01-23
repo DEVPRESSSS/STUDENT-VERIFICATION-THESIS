@@ -43,6 +43,18 @@
                         <DataGridTextColumn Header="Professor" CanUserResize="False" Binding="{Binding Professors.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding Year.Name}" IsReadOnly="True" Width="*"/>
 
+                        <DataGridTemplateColumn Header="Sched" CanUserResize="False" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1" >
+                                            <Icon:PackIconMaterial Kind="Clock" Style="{StaticResource gridButtonIcon}" />
+                                        </Button>
+                                       
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

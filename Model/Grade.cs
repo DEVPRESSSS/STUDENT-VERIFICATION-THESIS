@@ -40,5 +40,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         public bool isGradeValueLow => GradeValue <75;
 
+
+        [NotMapped]
+        public string? Time { get; set; }
+
+        [NotMapped]
+        public string? CourseCode { get; set; }
+
+
+        [NotMapped]
+        public string? ProfessorID { get; set; }
+
+
+        [NotMapped]
+        public string? ProfessorName { get; set; }
     }
 }
