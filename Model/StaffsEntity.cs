@@ -41,8 +41,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-     
 
+
+     
 
 
     }

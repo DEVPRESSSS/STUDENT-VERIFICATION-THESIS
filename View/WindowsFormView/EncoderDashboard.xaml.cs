@@ -22,12 +22,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
     public partial class EncoderDashboard : Window
     {
         private readonly ApplicationDbContext _context;
+
         public EncoderDashboard(ApplicationDbContext context)
         {
             InitializeComponent();
 
             _context = context;
+            
         }
+
+
 
 
         private void Maximize_Click_1(object sender, RoutedEventArgs e)
@@ -80,6 +84,24 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+
+            MessageBoxResult dr = MessageBox.Show("Are you sure want to logout??", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dr == MessageBoxResult.Yes)
+            {
+                LoginForm OBJ = new LoginForm();
+                OBJ.Show();
+
+                this.Close();
+            }
+           
+        }
+
+     
+
+        private void Subjects_Click_1(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new Subjects(_context);
 
         }
     }

@@ -144,7 +144,7 @@
                                             <StackPanel Orientation="Horizontal">
                                                         <!-- CheckBox for edit action -->
                                                 
-                                                        <CheckBox Margin="5,0,0,0" VerticalAlignment="Center" IsChecked="{Binding IsEnrolled, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                                        <CheckBox Margin="5,0,0,0" Style="{StaticResource CheckBoxStyle1}" VerticalAlignment="Center" IsChecked="{Binding IsEnrolled, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
 
                                            
                                             </StackPanel>

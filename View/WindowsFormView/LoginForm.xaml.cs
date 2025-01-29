@@ -1,27 +1,22 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Notification.Wpf;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 {
     /// <summary>
     /// Interaction logic for LoginForm.xaml
     /// </summary>
+    /// 
+
+
     public partial class LoginForm : Window
     {
+        private NotificationManager _notificationManager;
+
         private readonly ApplicationDbContext _context;
-       public LoginForm() : this(new ApplicationDbContext()) // Replace with a valid instance if applicable
+       public LoginForm() : this(new ApplicationDbContext()) 
 {
 
 
@@ -31,8 +26,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
     public LoginForm(ApplicationDbContext context)
     {
         InitializeComponent();
-        _context = context;
-    }
+             _context = context;
+            _notificationManager = new NotificationManager();
+        }
 
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -53,31 +49,36 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
 
-
             try
             {
-                var admin = _context.Admin.FirstOrDefault(a => a.Username== Usernametxt.Text && a.Password == Passwordtxt.Password || a.Password == PasswordTextBox.Text);
-
+                // Check if the username and password match in Admin table
+                var admin = _context.Admin.FirstOrDefault(a => a.Username == Usernametxt.Text && (a.Password == Passwordtxt.Password || a.Password == PasswordTextBox.Text));
                 if (admin != null)
                 {
-                    MessageBox.Show("Login successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    Clear();
-
+                    ShowNotification("Success","Login successfully", NotificationType.Success);
 
                     MainWindow dashboard = new MainWindow(_context);
-                     dashboard.Show();
-
-                    //EncoderDashboard encoderDashboard = new EncoderDashboard(_context);
-                   // encoderDashboard.Show();
-                   this.Hide();
-
+                    dashboard.Show();
+                    this.Hide();
+                    return;
                 }
-                else
+
+                var staff = _context.Staffs.FirstOrDefault(s => s.Username == Usernametxt.Text && (s.Password == Passwordtxt.Password || s.Password == PasswordTextBox.Text));
+                if (staff != null)
                 {
-                    MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ShowNotification("Success", "Login successfully", NotificationType.Success);
+
+                    EncoderDashboard staffDashboard = new EncoderDashboard(_context); 
+                    staffDashboard.Show();
                     Clear();
+
+                    this.Hide();
+                    return;
                 }
+
+                ShowNotification("Error", "Invalid Username or Password", NotificationType.Error);
+
+                Clear();
             }
             catch (Exception ex)
             {
@@ -95,17 +96,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Usernametxt_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(e.Text)) // Check for spaces or empty input
+            if (string.IsNullOrWhiteSpace(e.Text)) 
             {
-                e.Handled = true; // Block the input
+                e.Handled = true; 
             }
         }
 
         private void Usernametxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space) // Check if the spacebar is pressed
+            if (e.Key == Key.Space) 
             {
-                e.Handled = true; // Block the spacebar input
+                e.Handled = true; 
             }
         }
 
@@ -128,9 +129,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Passwordtxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space) // Check if the spacebar is pressed
+            if (e.Key == Key.Space) 
             {
-                e.Handled = true; // Block the spacebar input
+                e.Handled = true; 
             }
         }
 
@@ -157,7 +158,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
             }
         }
 
+
+        private void ShowNotification(string title, string message, NotificationType notificationType)
+         {
+
+            var notificaficationManager = new NotificationManager();
+
+            
+            notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type= notificationType });
+        }
+
        
-    
     }
 }

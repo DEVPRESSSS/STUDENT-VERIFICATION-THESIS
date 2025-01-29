@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
         mc:Ignorable="d"
         Title="Dashboard" 
         Height="650" Width="1120"
@@ -21,8 +21,8 @@
         <!--This is for the border radius or corner radius of the window-->
 
         <Border CornerRadius="10"
-              BorderBrush="#3D7E35"
-              BorderThickness="2"
+              BorderBrush="#F2F8FC"
+              BorderThickness="2,0,0,0"
                >
 
 
@@ -46,9 +46,8 @@
                 <!-- Green border in row 0-->
                 <Border Grid.Row="0"
                         Background="#3D7E35"
-                        Margin="0,0,0,0"
                         CornerRadius="5,5,0,0"
-                        Effect="{StaticResource dropShadow}">
+                        Effect="{StaticResource dropShadow}" Margin="-2,0,0,0">
 
 
                     <!--Grid for borderstyle design-->
@@ -165,7 +164,7 @@
                 <Grid Grid.Row="1">
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="80" x:Name="SidebarBorder"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
@@ -174,25 +173,24 @@
 
 
 
-                    <!-- Sidebar -->
 
 
                     <Border Grid.Column="0"
-                            Background="White"
+                            Background="#F2F8FC"
                             BorderBrush="#3D7E35"
-                            BorderThickness="0.5"
-                            Padding="10" Margin="0,0,2,0"
+                            BorderThickness="0"
+                            Padding="10" Margin="-1,0,3,0"
                             CornerRadius="0,0,0,10"
                             Effect="{StaticResource dropShadow}">
 
                         <!--The panel that holds the buttons-->
-                        <StackPanel>
+                        <StackPanel x:Name="SideBarButtonsHolder">
 
                             <!--The border for the profile -->
-                            <Border Width="80" Height="80" Background="White" BorderThickness="4" CornerRadius="40" Margin="0,6,0,0">
+                            <Border Width="54" Height="77" Background="Transparent" BorderThickness="4" CornerRadius="40" Margin="0,6,0,0">
 
                                 <!--The ellipse that shapes the image to circle-->
-                                <Ellipse>
+                                <Ellipse Margin="-4,0,-4,15">
                                     <Ellipse.Fill>
                                         <ImageBrush ImageSource="pack://application:,,,/Resources/LogoUm.png"/>
                                     </Ellipse.Fill>
@@ -202,36 +200,46 @@
 
                             </Border>
 
-                            <!--Textblock for the name of admin-->
 
                             <!--Buttons in the sidebar-->
 
                             <!--Dashboard-->
-                            <Button x:Name="DashboardOverview" Style="{StaticResource menuButton}"  Foreground="White" Margin="0,10,0,5"
-                                    Cursor="Hand" Width="160" Click="DashboardOverview_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Menu" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard"  FontFamily="Roboto"/>
+                            <Button x:Name="DashboardOverview" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                 Cursor="Hand" Click="DashboardOverview_Click" Width="48" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Icon:PackIconMaterial Kind="Menu" Style="{StaticResource menuButtonIcon}" />
+                                    <TextBlock x:Name="DashboardTxt" Text="Dashboard" 
+                                          Margin="5,0,0,0" 
+                                          Foreground="White"
+                                          Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
+
 
                             <!--Professors-->
 
                             <Button x:Name="ProfessorBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                 Cursor="Hand" Width="160" Click="ProfessorBtn_Click">
-                                <StackPanel Orientation="Horizontal">
+                                 Cursor="Hand" Width="48"  Click="ProfessorBtn_Click" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="AccountCircle" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Professors" FontFamily="Roboto"/>
+                                    <TextBlock x:Name="ProfessorTxt" Text="Professors" 
+                                      Margin="5,0,0,0" 
+                                      Foreground="White"
+                                      Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
 
                             <Button x:Name="ProgamBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                Cursor="Hand" Width="160"
-                                Click="ProgamBtn_Click_1">
-                                <StackPanel Orientation="Horizontal">
+                                Cursor="Hand" 
+                                Click="ProgamBtn_Click_1" Width="48">
+                                
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="School" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Programs" FontFamily="Roboto"/>
+                                    <TextBlock x:Name="ProgramTxt" Text="Programs" 
+                                      Margin="5,0,0,0" 
+                                      Foreground="White"
+                                      Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
@@ -240,80 +248,108 @@
                             <!--Departments-->
 
                             <Button x:Name="DepartmentBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                    Cursor="Hand" Width="160" Click="DepartmentBtn_Click">
-                                <StackPanel Orientation="Horizontal">
+                                    Cursor="Hand" Width="48" Click="DepartmentBtn_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="Domain" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Departments"  FontFamily="Roboto"/>
+                                    <TextBlock x:Name="DepartmentTxt" Text="Departments" 
+                                      Margin="5,0,0,0" 
+                                      Foreground="White"
+                                      Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
                             <!--Subjects-->
 
                             <Button x:Name="Subjects" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                 Cursor="Hand" Width="160" Click="Subjects_Click">
-                                <StackPanel Orientation="Horizontal">
+                                 Cursor="Hand" Width="48" Click="Subjects_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="Bookshelf" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Subjects"  FontFamily="Roboto"/>
+                                    <TextBlock x:Name="SubjectsTxt" Text="Subjects" 
+                                          Margin="5,0,0,0" 
+                                          Foreground="White"
+                                          Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
 
-                        
+
 
                             <!--Students-->
                             <Button x:Name="StudentsBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                               Cursor="Hand" Width="160" Click="StudentsBtn_Click">
-                                <StackPanel Orientation="Horizontal">
+                               Cursor="Hand" Width="48" Click="StudentsBtn_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="BookEducation" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Students"  FontFamily="Roboto"/>
+                                    <TextBlock x:Name="StudentTxt" Text="Students" 
+                                      Margin="5,0,0,0" 
+                                      Foreground="White"
+                                      Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
                             <Button x:Name="Grades" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                Cursor="Hand" Width="160" Click="Grades_Click">
-                                <StackPanel Orientation="Horizontal">
+                                Cursor="Hand" Width="48" Click="Grades_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="Star" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Grades"  FontFamily="Roboto"/>
+                                    <TextBlock x:Name="GradesTxt" Text="Grades" 
+                                              Margin="5,0,0,0" 
+                                              Foreground="White"
+                                              Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
                             <Button x:Name="Schedule" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                    Cursor="Hand" Width="160" Click="Schedule_Click">
-                                <StackPanel Orientation="Horizontal">
+                                    Cursor="Hand" Width="48" Click="Schedule_Click">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="Clock" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Schedule"  FontFamily="Roboto"/>
+                                    <TextBlock x:Name="SchedTxt" Text="Schedule" 
+                                          Margin="5,0,0,0" 
+                                          Foreground="White"
+                                          Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
 
-                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                                  Cursor="Hand" Width="160" >
-                                <StackPanel Orientation="Horizontal">
+                            <Button x:Name="EncoderBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                            Click="Button_Click_2"      Cursor="Hand" Width="48" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="AccountMultiple" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Staff"  FontFamily="Roboto"/>
+                                    <TextBlock x:Name="EncoderTxt" Text="Encoders" 
+                                      Margin="5,0,0,0" 
+                                      Foreground="White"
+                                      Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
                             <!--Logout-->
 
-                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                                  Cursor="Hand" Width="160" >
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Settings"  FontFamily="Roboto"/>
+                            <Button x:Name="SettingsBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                           Click="SettingsBtn_Click"       Cursor="Hand" Width="48" >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                   
+                                    
+                                    <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}" />
+
+                                    <TextBlock x:Name="SettingsTxt" Text="Settings" 
+                                           Margin="5,0,0,0" 
+                                           Foreground="White"
+                                           Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
 
 
 
-                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                                  Cursor="Hand" Width="160"  Click="Button_Click"
+                            <Button x:Name="LogoutBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                                  Cursor="Hand" Width="48"  Click="LogoutBtn_Click"
                                         >
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" >
                                     <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Log Out"  FontFamily="Roboto"/>
+                                    <TextBlock x:Name="LogoutTxt" Text="Log out" 
+                                         Margin="5,0,0,0" 
+                                         Foreground="White"
+                                         Visibility="Collapsed" />
                                 </StackPanel>
                             </Button>
+
 
 
 
@@ -321,16 +357,28 @@
 
 
                         </StackPanel>
+
                     </Border>
 
 
-
+                    <Button x:Name="ToggleButton" 
+                            Background="Transparent"
+                            Foreground="Gray"
+                            BorderBrush="Transparent"
+                            Click="ToggleButton_Click"
+                                                      
+                            Cursor="Hand" Height="20" Margin="66,-1,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="20">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Icon:PackIconMaterial x:Name="ToggleIcon" Width="10" Height="10" Kind="ChevronRight" Style="{StaticResource menuButtonIcon}" />
+                        </StackPanel>
+                    </Button>
 
                     <!-- Main Content Area -->
                     <Border Grid.Column="1"
-                            Background="White"
+                            Background="#F2F8FC"
                             Margin="8"
                             CornerRadius="4"
+                            Effect="{StaticResource dropShadow}"
                             >
 
 

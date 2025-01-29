@@ -223,6 +223,14 @@
                                 </StackPanel>
                             </Button>
 
+                            <Button x:Name="Subjects" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                               Cursor="Hand" Width="160" Click="Subjects_Click_1">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="Star" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Subjects "  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
 
 
 

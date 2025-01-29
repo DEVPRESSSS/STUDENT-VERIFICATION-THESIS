@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StaffViewModel}"
              mc:Ignorable="d" 
+              Background="#F2F8FC"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <!--Programs Table-->
         <Border 
-           Background="White"
+           Background="#FDFDFD"
            Margin="10,53,10,10" 
            CornerRadius="4">
 
@@ -17,25 +18,27 @@
         ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
         CellStyle="{DynamicResource DataGridCellStyle1}" 
         x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-        ItemsSource="{Binding ProgramCollection}"
-        SelectedItem="{Binding Selected_program}"
+        ItemsSource="{Binding StaffCollection}"
+        SelectedItem="{Binding Selected_staff}"
         AutoGenerateColumns="False">
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Staff" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StaffID}"/>
+                    <DataGridTextColumn Header="StaffID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StaffID}"/>
                     <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Username" CanUserResize="False"  Binding="{Binding Username,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Password" CanUserResize="False"  Binding="{Binding Password,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                     <DataGridTemplateColumn Header="Email">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" 
+                                <TextBlock Text="{Binding Email,UpdateSourceTrigger=PropertyChanged}" 
                              TextWrapping="Wrap" 
                              VerticalAlignment="Center" 
                              HorizontalAlignment="Stretch" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Role" CanUserResize="False" Binding="{Binding Role,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding Username,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Role" CanUserResize="False" Binding="{Binding Role.Name,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
 
                     <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
@@ -46,7 +49,7 @@
                                         <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>
                                     <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
-                                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteProgramCommand}">
+                                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteStaffCommand}">
 
                                         <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>
@@ -113,7 +116,7 @@
               Height="25" 
               VerticalAlignment="Top" 
               HorizontalAlignment="Left"
-         
+              Click="Button_Click_1"
               >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>

@@ -1,4 +1,7 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+﻿using MaterialDesignThemes.Wpf;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +30,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
         {
             InitializeComponent();
             _context = context;
+
+            DataContext= new StaffViewModel(_context);
+        }
+
+      
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            AddStaffForm obj = new AddStaffForm(_context)
+            {
+
+                DataContext= this.DataContext
+
+            };
+            obj.ShowDialog();
+        }
+
+        private void UsernameXZ_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
         }
     }
 }

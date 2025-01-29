@@ -123,15 +123,21 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void NameTxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            var textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
             {
-                e.Handled = true;
+                // Check if last character is already a space
+                if (textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true; // Block the space
+                }
             }
         }
 
         private void NameTxt_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !IsTextAllowed(e.Text);
+            var regex = new Regex(@"^[a-zA-Z.,\s]+$");
+            e.Handled = !regex.IsMatch(e.Text);
 
         }
 

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SubjectsViewModel}"
              mc:Ignorable="d" 
+              Background="#F2F8FC"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Border CornerRadius="4" >
@@ -13,7 +14,7 @@
 
             <!--Professor Table-->
             <Border 
-               Background="White"
+               Background="#FDFDFD"
                CornerRadius="4" Margin="0,50,0,0">
 
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
@@ -122,7 +123,7 @@
         <!--Add button-->
 
         <Button x:Name="AddSubjects" Style="{StaticResource SubmitButton}" 
-              Margin="-2,10,0,0" Width="56"
+              Margin="12,10,0,0" Width="56"
               BorderThickness="0"
               Height="25" 
               VerticalAlignment="Top"

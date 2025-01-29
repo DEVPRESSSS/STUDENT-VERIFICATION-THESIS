@@ -76,7 +76,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void ProfessorName_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !IsTextAllowed(e.Text);
+            var regex = new Regex(@"^[a-zA-Z.,\s]+$");
+            e.Handled = !regex.IsMatch(e.Text);
 
         }
 
@@ -96,6 +97,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         {
             Regex regex = new Regex("^[0-9]+$"); 
             return regex.IsMatch(text);
+        }
+
+        private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
+            {
+                // Check if last character is already a space
+                if (textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true; // Block the space
+                }
+            }
         }
     }
 }

@@ -568,20 +568,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         private async Task LoadSubjectsAsync()
         {
-
-            var prof = await _context.Subjects
-                 .Include(s => s.Program) 
-                 .Include(s => s.Professors) 
-                 .Include(s => s.Year)
-                 .ToListAsync();
-
-
-            SubjectCollection.Clear();
-            foreach (var professor in prof)
+            using(var context = new ApplicationDbContext())
             {
 
-                SubjectCollection.Add(professor);
+                var prof = await context.Subjects
+                .Include(s => s.Program)
+                .Include(s => s.Professors)
+                .Include(s => s.Year)
+                .ToListAsync();
+
+
+                SubjectCollection.Clear();
+                foreach (var professor in prof)
+                {
+
+                    SubjectCollection.Add(professor);
+                }
+
+
             }
+
 
 
 

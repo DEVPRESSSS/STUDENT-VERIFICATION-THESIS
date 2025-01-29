@@ -11,14 +11,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fpass.png" />
     <None Remove="Resources\LogoUm.png" />
     <None Remove="Resources\UmPicture.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="7.5.2" />
+    <PackageReference Include="EPPlus" Version="7.5.3" />
     <PackageReference Include="itext7" Version="9.0.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />
+    <PackageReference Include="LiveCharts.Wpf.Core" Version="0.9.8" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="5.1.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.8.0" />
@@ -32,10 +34,13 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
-    <PackageReference Include="Notifications.Wpf" Version="0.1.1" />
+    <PackageReference Include="Notification.Wpf" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\Fpass.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\LogoUm.png" />
     <Resource Include="Resources\UmPicture.png" />
   </ItemGroup>

@@ -7,9 +7,6 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
-using Notifications.Wpf;
-using Notifications.Wpf.Controls;
-using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -19,8 +16,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         private readonly ApplicationDbContext _context;
 
-        //Notification 
-        private readonly NotificationManager _notificationManager;
+  
 
 
         public ObservableCollection<Grade> GradeCollection { get; private set; }
@@ -272,7 +268,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             ScholarshipsCollection = new ObservableCollection<Scholarship>();
             LoadStudentSubs= new RelayCommand(async _=> await LoadSubjectForStudentsAsync());
             LoadStudentCommand = new RelayCommand(async _=> await LoadStudentAsync());
-            _notificationManager = new NotificationManager();
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
             SearchCommand2 = new RelayCommand(async _ => await SearchStudentAndSubjects(), _ => !string.IsNullOrWhiteSpace(SearchTerm2));
 

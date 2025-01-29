@@ -1,6 +1,7 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,7 +26,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
             InitializeComponent();
             MainContentArea.Content = new DashboardOverview();
             _context= context;
+
+            DataContext = new MainViewModel(_context);
         }
+
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -112,21 +116,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            MessageBoxResult dr = MessageBox.Show("Are you sure want to log out?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (dr == MessageBoxResult.Yes)
-            {
-
-                LoginForm test= new LoginForm();
-
-                test.Show();
-
-                this.Hide();
-            }
-        }
+    
 
         private void Grades_Click(object sender, RoutedEventArgs e)
         {
@@ -137,6 +127,100 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
         private void Schedule_Click(object sender, RoutedEventArgs e)
         {
             MainContentArea.Content = new Schedule(_context);
+
+        }
+
+       
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new Staff(_context);
+         
+        }
+
+
+        private bool isExpanded = false;
+        private readonly int buttonWidth = 160;
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            
+
+            if (isExpanded)
+            {
+                ToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.ChevronRight;
+                SidebarBorder.Width = new GridLength(80);
+                ToggleButton.Margin = new Thickness(66, -1, 0, 0);
+
+                // Collapse all buttons
+                CollapseButton(LogoutBtn, LogoutTxt);
+                CollapseButton(DashboardOverview, DashboardTxt);
+                CollapseButton(ProfessorBtn, ProfessorTxt);
+                CollapseButton(StudentsBtn, StudentTxt);
+                CollapseButton(DepartmentBtn, DepartmentTxt);
+                CollapseButton(ProgamBtn, ProgramTxt);
+                CollapseButton(Subjects, SubjectsTxt);
+                CollapseButton(Grades, GradesTxt);
+                CollapseButton(Schedule, SchedTxt);
+                CollapseButton(EncoderBtn, EncoderTxt);
+                CollapseButton(SettingsBtn, SettingsTxt);
+            }
+            else
+            {
+                ToggleIcon.Kind = MahApps.Metro.IconPacks.PackIconMaterialKind.ChevronLeft;
+                ToggleButton.Margin= new Thickness(188,-1,0,0);
+                SidebarBorder.Width = new GridLength(200);
+
+                // Expand all buttons
+                ExpandButton(LogoutBtn, LogoutTxt);
+                ExpandButton(DashboardOverview, DashboardTxt);
+                ExpandButton(ProfessorBtn, ProfessorTxt);
+                ExpandButton(StudentsBtn, StudentTxt);
+                ExpandButton(DepartmentBtn, DepartmentTxt);
+                ExpandButton(ProgamBtn, ProgramTxt);
+                ExpandButton(Subjects, SubjectsTxt);
+                ExpandButton(Grades, GradesTxt);
+                ExpandButton(Schedule, SchedTxt);
+                ExpandButton(EncoderBtn, EncoderTxt);
+                ExpandButton(SettingsBtn, SettingsTxt);
+            }
+
+         
+
+            isExpanded = !isExpanded;
+
+        }
+
+        private void ExpandButton(Button button, TextBlock textBlock)
+        {
+            button.Width = buttonWidth; 
+            textBlock.Visibility = Visibility.Visible; 
+        }
+
+        // Helper method to collapse button
+        private void CollapseButton(Button button, TextBlock textBlock)
+        {
+            button.Width = 48; 
+            textBlock.Visibility = Visibility.Collapsed;
+        }
+
+        private void LogoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure want to log out?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dr == MessageBoxResult.Yes)
+            {
+
+                LoginForm test = new LoginForm();
+
+                test.Show();
+
+                this.Hide();
+            }
+        }
+
+        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        {
 
         }
     }

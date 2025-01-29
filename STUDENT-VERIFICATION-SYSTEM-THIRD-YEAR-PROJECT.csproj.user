@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Cards\CardCounts.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\AddDepartment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -17,6 +20,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\AddProgram.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\AddStaffForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\AddStudent.xaml.cs">
@@ -44,6 +50,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\UpdateSched.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\UpdateStaffForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\UpdateStudent.xaml.cs">
@@ -76,6 +85,9 @@
     <Compile Update="View\UsercontrolsView\Schedule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UsercontrolsView\Settings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UsercontrolsView\Staff.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -99,6 +111,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Cards\CardCounts.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -112,6 +127,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\AddProgram.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\AddStaffForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\AddStudent.xaml">
@@ -139,6 +157,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\UpdateSched.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\UpdateStaffForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\UpdateStudent.xaml">
@@ -169,6 +190,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Schedule.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\Settings.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Staff.xaml">

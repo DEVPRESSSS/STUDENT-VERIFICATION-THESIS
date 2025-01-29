@@ -74,6 +74,7 @@
                                  BorderThickness="1" Margin="137,42,114,319"  
                                  Text="{Binding Name, Mode=TwoWay}"                    
                                  MaxLength="50"
+                                 PreviewKeyDown="Name_PreviewKeyDown"
                                  PreviewTextInput="ProfessorName_PreviewTextInput" Grid.ColumnSpan="2"
                               />
 

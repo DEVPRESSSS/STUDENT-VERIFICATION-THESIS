@@ -73,6 +73,7 @@
                               BorderThickness="1" Margin="137,42,114,319"  
                               Text="{Binding Selected_professor.Name, Mode=TwoWay}"                    
                               MaxLength="50"
+                                     PreviewKeyDown="Name_PreviewKeyDown"
                               PreviewTextInput="Professor_PreviewTextInput" Grid.ColumnSpan="2"
                            />
 

@@ -3,274 +3,389 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:sys="clr-namespace:System;assembly=netstandard"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="800"
-             Background="White">
+             d:DesignHeight="930" d:DesignWidth="850"
+             Background="#F2F8FC">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
-    <Border CornerRadius="4" >
-        <Grid>
-
-
-            <Grid.RowDefinitions>
-                <RowDefinition/>
+        <Border CornerRadius="10" VerticalAlignment="Top" >
+            <Grid Height="915">
 
 
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+
+
+                </Grid.RowDefinitions>
 
 
 
-            <Grid Grid.Row="0">
+                <Grid Grid.Row="0">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
+
+                <!--4 columns of row 1-->
+                <Grid Grid.Row="0" Height="237" VerticalAlignment="Top" >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+
+
+
+
+                    </Grid.ColumnDefinitions>
+
+
+
+
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Grid.Column="3" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                              FontSize="16"
+                              FontWeight="DemiBold"
+                              VerticalAlignment="Top" 
+                              HorizontalAlignment="Right" 
+                              Margin="0,20,0,0"/>
+                                <TextBlock  
+                               Text="0" 
+                               FontSize="18" 
+                               FontWeight="DemiBold" 
+                               VerticalAlignment="Top" 
+                               HorizontalAlignment="Right" 
+                               Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+
+
+
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Grid.Column="3" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                              FontSize="16"
+                              FontWeight="DemiBold"
+                              VerticalAlignment="Top" 
+                              HorizontalAlignment="Right" 
+                              Margin="0,20,0,0"/>
+                                <TextBlock  
+                               Text="0" 
+                               FontSize="18" 
+                               FontWeight="DemiBold" 
+                               VerticalAlignment="Top" 
+                               HorizontalAlignment="Right" 
+                               Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Grid.Column="1" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                          FontSize="16"
+                          FontWeight="DemiBold"
+                          VerticalAlignment="Top" 
+                          HorizontalAlignment="Right" 
+                          Margin="0,20,0,0"/>
+                                <TextBlock  
+                           Text="0" 
+                           FontSize="18" 
+                           FontWeight="DemiBold" 
+                           VerticalAlignment="Top" 
+                           HorizontalAlignment="Right" 
+                           Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Grid.Column="2" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                              FontSize="16"
+                              FontWeight="DemiBold"
+                              VerticalAlignment="Top" 
+                              HorizontalAlignment="Right" 
+                              Margin="0,20,0,0"/>
+                                <TextBlock   
+                               Text="0" 
+                               FontSize="18" 
+                               FontWeight="DemiBold" 
+                               VerticalAlignment="Top" 
+                               HorizontalAlignment="Right" 
+                               Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                                FontSize="16"
+                                FontWeight="DemiBold"
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,20,0,0"/>
+                                <TextBlock  
+                                Text="0" 
+                                FontSize="18" 
+                                FontWeight="DemiBold" 
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                                FontSize="16"
+                                FontWeight="DemiBold"
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,20,0,0"/>
+                                <TextBlock  
+                                Text="0" 
+                                FontSize="18" 
+                                FontWeight="DemiBold" 
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Grid.Column="2" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                                FontSize="16"
+                                FontWeight="DemiBold"
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,20,0,0"/>
+                                <TextBlock   
+                                Text="0" 
+                                FontSize="18" 
+                                FontWeight="DemiBold" 
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Grid.Column="1" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                                FontSize="16"
+                                FontWeight="DemiBold"
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,20,0,0"/>
+                                <TextBlock  
+                                Text="0" 
+                                FontSize="18" 
+                                FontWeight="DemiBold" 
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+
+
+
+
+
+
+
+                </Grid>
+
+
+                <Grid Grid.Row="1" Margin="0,0,0,-15" VerticalAlignment="Stretch">
+
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="212"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <Border  Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,6,26,0" Height="378" VerticalAlignment="Top">
+
+
+
+                        <lvc:CartesianChart x:Name="MyChart" Grid.ColumnSpan="3" Margin="10,10,10,10">
+
+                            <!-- XAxis Configuration -->
+                            <lvc:CartesianChart.AxisX>
+                                <lvc:Axis Title="Categories" LabelFormatter="{Binding Formatter}">
+                                    <lvc:Axis.Labels>
+                                        <x:Array Type="{x:Type sys:String}">
+                                            <sys:String>A</sys:String>
+                                            <sys:String>B</sys:String>
+                                            <sys:String>C</sys:String>
+                                            <sys:String>D</sys:String>
+                                            <sys:String>E</sys:String>
+                                        </x:Array>
+                                    </lvc:Axis.Labels>
+                                </lvc:Axis>
+                            </lvc:CartesianChart.AxisX>
+
+                            <!-- YAxis Configuration -->
+                            <lvc:CartesianChart.AxisY>
+                                <lvc:Axis Title="Values" LabelFormatter="{Binding Formatter}" />
+                            </lvc:CartesianChart.AxisY>
+
+                            <!-- Series (Prototype data) -->
+                            <lvc:CartesianChart.Series>
+                                <lvc:ColumnSeries Values="10, 25, 30, 45, 50" />
+                            </lvc:CartesianChart.Series>
+
+                        </lvc:CartesianChart>
+
+
+                    </Border>
+
+
+                    <Border  Effect="{StaticResource dropShadow}" Grid.Column="1" Style="{StaticResource DashboardCardStyle1}" Margin="0,6,10,0" Height="378" VerticalAlignment="Top">
+
+
+
+                    </Border>
+
+
+
+                    <Border  Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,402,10,10" Grid.ColumnSpan="2" />
+                </Grid>
+
 
             </Grid>
 
-            <!--4 columns of row 1-->
-            <Grid Grid.Row="0">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
 
+        </Border>
+    </ScrollViewer>
 
-
-
-                </Grid.ColumnDefinitions>
-
-
-
-                <StackPanel Grid.Column="0"  
-                    Background="white"
-                    Margin="10,20,10,90"
-                     VerticalAlignment="Top"
-                     Effect="{StaticResource dropShadow}"
-                     >
-
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Professors"
-                         FontSize="16"
-                         FontWeight="DemiBold"
-                         VerticalAlignment="Top" 
-                         HorizontalAlignment="Right" 
-                         Margin="0,20,0,0"/>
-                        <TextBlock x:Name="ProductCounts"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
-
-                        <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-
-                        </StackPanel>
-                    </Grid>
-
-                </StackPanel>
-
-
-
-
-
-
-
-
-                <StackPanel Grid.Column="1"
-                                Background="
-                                white"
-                                Margin="10,20,10,90"
-                                 Effect="{StaticResource dropShadow}"
-                                VerticalAlignment="Top">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Staffs" 
-                                   FontSize="16"
-                                   FontWeight="DemiBold" 
-                                   VerticalAlignment="Top"
-                                   HorizontalAlignment="Right" 
-                                   Margin="0,20,0,0"/>
-
-
-                        <TextBlock x:Name="CashierCounts" 
-                                   Text="0" 
-                                   FontSize="18" 
-                                   FontWeight="DemiBold" 
-                                   VerticalAlignment="Top"
-                                   Margin="0,41,10,0" HorizontalAlignment="Right" Width="10"/>
-
-                        <StackPanel Grid.Column="1" 
-                                    Width="70" 
-                                    Height="80" 
-                                    Orientation="Vertical" 
-                                    HorizontalAlignment="Right" 
-                                    VerticalAlignment="Bottom" 
-                                    Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="AccountMultiple" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-
-                        </StackPanel>
-                    </Grid>
-
-                </StackPanel>
-
-
-
-                <StackPanel Grid.Column="2"
-                                Background="white"
-                                Margin="10,20,10,90"
-                                 VerticalAlignment="Top"
-                                 Effect="{StaticResource dropShadow}">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Students" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Bottom" Margin="26,0,0,50" HorizontalAlignment="Left" Width="64"/>
-                        <TextBlock x:Name="ZeroCounts"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" Margin="72,40,8,0" RenderTransformOrigin="1.674,0.605"/>
-
-                        <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="BookEducation" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-
-                <StackPanel Grid.Column="3" 
-                                Background="white"
-                                Margin="10,20,10,90"
-                                 VerticalAlignment="Top"
-                                 Effect="{StaticResource dropShadow}">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Programs" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,20,0,0"/>
-                        <TextBlock x:Name="Sale"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
-
-                        <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="School" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-
-
-                <StackPanel Grid.Column="0" 
-                                Background="white"
-                                Margin="10,130,10,90"
-                                 VerticalAlignment="Top"
-                                 Effect="{StaticResource dropShadow}">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Department" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,0,0" HorizontalAlignment="Right" Width="90"/>
-                        <TextBlock x:Name="Department"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
-
-                        <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="Domain" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-
-                <StackPanel Grid.Column="1" 
-                    Background="white"
-                    Margin="10,130,10,90"
-                     VerticalAlignment="Top"
-                     Effect="{StaticResource dropShadow}">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Verified" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,10,0" HorizontalAlignment="Right" Width="70"/>
-                        <TextBlock x:Name="Grade"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
-
-                        <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="ClipboardCheck" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-
-
-                <StackPanel Grid.Column="2" 
-                     Background="white"
-                     Margin="10,130,10,90"
-                      VerticalAlignment="Top"
-                      Effect="{StaticResource dropShadow}">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="No grades" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,5,0" HorizontalAlignment="Right" Width="80"/>
-                        <TextBlock x:Name="NotYet"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
-
-                        <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="ClipboardTextOff" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-
-
-
-                <StackPanel Grid.Column="3" 
-                      Background="white"
-                      Margin="10,130,10,90"
-                       VerticalAlignment="Top"
-                       Effect="{StaticResource dropShadow}">
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Released" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Top" Margin="0,19,10,0" HorizontalAlignment="Right" Width="70"/>
-                        <TextBlock x:Name="ReleaseGrade"  Text="0" FontSize="18" FontWeight="DemiBold" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,40,25,0"/>
-
-                        <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                            <Icon:PackIconMaterial Kind="Send" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
-                        </StackPanel>
-                    </Grid>
-                </StackPanel>
-
-
-
-
-            </Grid>
-        </Grid>
-
-
-
-    </Border>
 </UserControl>
