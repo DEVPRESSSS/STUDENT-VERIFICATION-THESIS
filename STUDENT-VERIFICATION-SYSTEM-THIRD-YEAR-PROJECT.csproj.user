@@ -10,6 +10,18 @@
     <Compile Update="Cards\CardCounts.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\EncoderDashboardView\BulkInsertGrade.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\EncoderDashboardView\GradesEncoderUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\EncoderDashboardView\StudentsEncoderUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\EncoderDashboardView\SubjectEncoderUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\AddDepartment.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -35,6 +47,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\BulkInsertInSubjects.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\BulkInsertStudent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\InputGrade.xaml.cs">
@@ -109,12 +124,27 @@
     <Compile Update="View\WindowsFormView\LoginForm.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\WindowsFormView\LoginWD.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Cards\CardCounts.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EncoderDashboardView\BulkInsertGrade.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EncoderDashboardView\GradesEncoderUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EncoderDashboardView\StudentsEncoderUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EncoderDashboardView\SubjectEncoderUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\AddDepartment.xaml">
@@ -142,6 +172,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\BulkInsertInSubjects.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\BulkInsertStudent.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\InputGrade.xaml">
@@ -214,6 +247,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WindowsFormView\LoginForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\WindowsFormView\LoginWD.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

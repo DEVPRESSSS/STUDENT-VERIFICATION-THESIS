@@ -52,7 +52,6 @@
                             </Grid.RowDefinitions>
 
                             <!-- Icon -->
-                            <Icon:PackIconMaterial Kind="Bookshelf" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="12,-33,0,0" Grid.Row="0" VerticalAlignment="Top" Height="15" Width="15" />
 
 
                             <!-- DataGrid Students Section -->
@@ -92,7 +91,7 @@
                             <TextBox x:Name="SearchTxt"
                                      Style="{StaticResource TextBoxesForm}"
                                      Text="{Binding SearchTerm2, UpdateSourceTrigger=PropertyChanged}"
-                                     Margin="0,-34,399,10" Height="NaN" HorizontalAlignment="Right" Width="129" Grid.ColumnSpan="2"
+                                     Margin="0,-32,65,8" Height="NaN" HorizontalAlignment="Right" Width="129"
                                      />
 
                             <!--
@@ -113,14 +112,13 @@
 
                             <!--Search Button-->
                             <Button x:Name="search" Style="{StaticResource SubmitButton}"
-                                Margin="0,-35,353,0" 
+                                Margin="0,-34,16,0" 
                                 Width="42"
                                 Height="27"
                                 Padding="0"
                                 BorderBrush="White"
                                 Grid.Row="1"
-                                VerticalAlignment="Top" 
-                                Grid.Column="1">
+                                VerticalAlignment="Top">
 
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <Icon:PackIconMaterial Kind="Magnify" Style="{StaticResource menuButtonIcon}" Width="15" Height="15" />
@@ -240,14 +238,14 @@
                                 ToolTip="Filter By Scholar"
                                 VerticalAlignment="Top" HorizontalAlignment="Left" Width="86"
                               />
-                            <ComboBox Margin="311,42,8,0"
+                            <ComboBox Margin="311,42,0,0"
                                 DisplayMemberPath="SemesterName" 
                                 SelectedValuePath="SemesterID"
                                 Height="24"
                                 Grid.Row="1"
                                 MaxWidth="86"
                                 ToolTip="Filter By Set"
-                                VerticalAlignment="Top"
+                                VerticalAlignment="Top" HorizontalAlignment="Left" Width="69"
                               />
                             <TextBlock Text="Program"
                                 FontSize="12"

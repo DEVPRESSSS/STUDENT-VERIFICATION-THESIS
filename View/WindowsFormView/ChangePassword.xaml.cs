@@ -196,5 +196,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
             NewPassword.Visibility = Visibility.Collapsed;
             NewPasswordTextBox.Visibility = Visibility.Visible;
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+
+                DragMove();
+            }
+        }
     }
 }

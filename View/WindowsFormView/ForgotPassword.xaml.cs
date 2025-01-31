@@ -187,5 +187,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
                 e.Handled = true; // Block the spacebar input
             }
         }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            if(e.LeftButton == MouseButtonState.Pressed)
+            {
+
+                DragMove();
+            }
+        }
     }
 }

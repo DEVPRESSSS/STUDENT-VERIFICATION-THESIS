@@ -22,6 +22,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public string? Email { get; set; }
         [Required]
 
-        public string? Password { get; set; } = null;
+        public string? Password { get; set; }
     }
 }

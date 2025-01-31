@@ -10,23 +10,11 @@ using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.ComponentModel.DataAnnotations;
-using System.Windows.Controls;
-using System.Windows.Media.Imaging;
-using iText.IO.Image;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using static MaterialDesignThemes.Wpf.Theme;
-using System.Globalization;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using Image = iText.Layout.Element.Image;
 using System.IO;
-using DataGrid = System.Windows.Controls.DataGrid;
-using System.Windows.Documents.Serialization;
-using System.Windows.Documents;
-using System.Windows.Xps.Packaging;
-using System.Windows.Xps;
-using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations;
+using Microsoft.Win32;
+using OfficeOpenXml;
+using Notification.Wpf;
+using Microsoft.Data.SqlClient;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -42,15 +30,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
        public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; } 
        public ObservableCollection<SubjectsEntity> SubjectPerProgram { get; private set; }
        public ObservableCollection<SubjectsEnrolled> ListOfSubjectsEnrolled { get; private set; }
+       public ObservableCollection<StudentsEntity> StudentBulkCollection { get; private set; }
+
+
 
         //Crud Commands
-
-
-
-
-
-
-
         public ICommand AddStudentscommand { get; }
         public ICommand UpdateStudentsCommand { get; set; }
         public ICommand DeleteStudentsCommand { get; }
@@ -62,6 +46,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand printGradeCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand AddSubjectCommand { get; }
+        public ICommand ChooseFileCommand { get; }
+        public ICommand BulkInsertCommand { get; }
 
 
         //Listener to close the form
@@ -98,9 +84,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             SubjectPerProgram = new ObservableCollection<SubjectsEntity>();
 
+            StudentBulkCollection = new ObservableCollection<StudentsEntity>();
+
             LoadStudentsCommand.Execute(null);
 
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
+
+            ChooseFileCommand = new RelayCommand(_ => ExtractStudent());
+            BulkInsertCommand = new RelayCommand(_ => MultiInsertStudent());
+
+           // BulkInsertCommand = new RelayCommand(_ => ExtractStudent());
+
 
             _ = LoadProgramAsync();
             _ = LoadYearAsync();
@@ -111,7 +105,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-
+     
 
         private StudentsEntity _selected_students;
 
@@ -656,29 +650,61 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Delete Student
         private async Task DeleteStudentAsync()
         {
-
-
             MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if(confirmation == MessageBoxResult.Yes)
+            if (confirmation == MessageBoxResult.Yes)
             {
                 if (Selected_students != null)
                 {
+                    try
+                    {
+                        // Check for related records in SubjectsEnrolled (or other dependent tables)
+                        var relatedSubjects = await _context.SubjectsEnrolled
+                            .FirstOrDefaultAsync(x => x.StudentID == Selected_students.StudentID);
 
-                    _context.Students.Remove(Selected_students);
-                    await _context.SaveChangesAsync();
+                        if (relatedSubjects != null)
+                        {
+                            // If related records exist, inform the user and guide them to handle it first
+                            MessageBox.Show("Cannot delete student as they are enrolled in one or more subjects. Please remove the student from their subjects first.", "Delete Failed", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                    StudentsCollection.Remove(Selected_students);
+                            // Reset the selected student to null after failure
+                            Selected_students = null;
 
+                            return;
+                        }
+
+                        // Proceed with deleting the student if no related records exist
+                        _context.Students.Remove(Selected_students);
+                        await _context.SaveChangesAsync();
+
+                        StudentsCollection.Remove(Selected_students);
+
+                        // Reset the selected student after successful deletion
+                        Selected_students = null;
+
+                        MessageBox.Show("Student deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (SqlException sqlEx)
+                    {
+                        // Handle SQL errors (foreign key constraint violation, etc.)
+                        MessageBox.Show($"Error while deleting student: {sqlEx.Message}", "Delete Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        // Optionally reset the selection if an error occurs
+                        Selected_students = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        // General exception handling
+                        MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                        // Optionally reset the selection if an error occurs
+                        Selected_students = null;
+                    }
                 }
-
-
             }
-
-
-
-
         }
+
+
 
         private async Task LoadStudentAsync()
         {
@@ -1002,6 +1028,197 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+        private void ExtractStudent()
+        {
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Select an Excel file.",
+                Filter = "Excel Files (*.xlsx;*.xls)|*.xlsx;*.xls"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filepath = openFileDialog.FileName;
+                using (var package = new ExcelPackage(new FileInfo(filepath)))
+                {
+                    StudentBulkCollection.Clear();
+
+                    foreach (var worksheet in package.Workbook.Worksheets)
+                    {
+                        int rowCount = worksheet.Dimension.Rows;
+
+
+
+
+
+                        for (int row = 1; row <= rowCount; row++)
+                        {
+                            var firstCellText = worksheet.Cells[row, 1].Text?.Trim(); // Check the first column for "Name" or "Has name"
+                            if (string.Equals(firstCellText, "Name", StringComparison.OrdinalIgnoreCase) ||
+                                string.Equals(firstCellText, "name", StringComparison.OrdinalIgnoreCase))
+                            {
+                                continue; 
+                            }
+
+                            var name = worksheet.Cells[row, 1].Text?.Trim();
+                            var idnumTtext = worksheet.Cells[row, 2].Text?.Trim();
+                            var gmail = worksheet.Cells[row, 3].Text?.Trim();
+                            var program = worksheet.Cells[row, 4].Text?.Trim();
+                            var yearlevel = worksheet.Cells[row, 5].Text?.Trim();
+                            var scholarship = worksheet.Cells[row, 6].Text?.Trim();
+
+                            long? idnum = null; 
+                            if (!string.IsNullOrEmpty(idnumTtext) && long.TryParse(idnumTtext, out long parsedId))
+                            {
+                                idnum = parsedId; 
+                            }
+
+                            if (!string.IsNullOrEmpty(name) ||
+                                idnum.HasValue ||
+                                !string.IsNullOrEmpty(gmail) ||
+                                !string.IsNullOrEmpty(program) ||
+                                !string.IsNullOrEmpty(yearlevel) ||
+                                !string.IsNullOrEmpty(scholarship))
+                            {
+                                StudentBulkCollection.Add(new StudentsEntity
+                                {
+                                    Name = name,
+                                    IDnumber = idnum ?? 0, 
+                                    Gmail = gmail,
+                                    ProgramID = program,
+                                    YearID = yearlevel,
+                                    ScholarshipID = scholarship,
+                                });
+                            }
+                        }
+
+
+
+                    }
+
+
+
+                }
+
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+        private void MultiInsertStudent()
+        {
+            foreach (var item in StudentBulkCollection)
+            {
+                try
+                {
+                    // Check if the student already exists (case-insensitive using .ToLower())
+                    var student = _context.Students
+                        .AsNoTracking() // Disable tracking for this query
+                        .FirstOrDefault(x => x.Name.ToLower() == item.Name.ToLower());
+
+                    if (student != null)
+                    {
+                        ShowNotification("Error", $"Student '{item.Name}' already exists.", NotificationType.Error);
+                        continue;
+                    }
+
+                    var programExist = _context.Programs
+                        .FirstOrDefault(x => x.Acronym.ToLower() == item.ProgramID.ToLower());
+                    if (programExist == null)
+                    {
+                        ShowNotification("Error", $"Program '{item.ProgramID}' does not exist.", NotificationType.Error);
+                        continue;
+                    }
+
+                    var yearMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+                {
+                    { "4th Year", "Fourth Year" },
+                    { "3rd Year", "Third Year" },
+                    { "2nd Year", "Second Year" },
+                    { "1st Year", "First Year" },
+                };
+
+                    var normalizedYear = yearMapping.ContainsKey(item.YearID) ? yearMapping[item.YearID] : item.YearID;
+
+                    var yearExist = _context.Year
+                        .FirstOrDefault(x => x.Name.ToLower() == normalizedYear.ToLower());
+
+                    if (yearExist == null)
+                    {
+                        ShowNotification("Error", $"Year level '{item.YearID}' does not exist.", NotificationType.Error);
+                        continue;
+                    }
+
+                    // Normalize and trim both the database value and the extracted value
+                    var scholarshipExist = _context.Scholarship
+                        .FirstOrDefault(x => x.Name.ToUpper() == item.ScholarshipID.ToUpper());
+
+                    if (scholarshipExist == null)
+                    {
+                        ShowNotification("Error", $"Scholarship '{item.ScholarshipID}' does not exist.", NotificationType.Error);
+                        continue;
+                    }
+                    string ID = $"STU-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                    // Add new student
+                    var newStudent = new StudentsEntity
+                    {
+                        StudentID = ID,
+                        Name = item.Name,
+                        IDnumber = item.IDnumber,
+                        Gmail = item.Gmail,
+                        Address = "N/A",
+                        ProgramID = programExist.ProgramID,
+                        YearID = yearExist.YearID,
+                        ScholarshipID = scholarshipExist.ScholarshipID
+                    };
+
+                    _context.Students.Add(newStudent);
+
+                    _context.SaveChanges();
+                    ShowNotification("Success", $"Student '{item.Name}' successfully added.", NotificationType.Success);
+                }
+                catch (Exception ex)
+                {
+                    ShowNotification("Error", $"Error: '{ex}'", NotificationType.Error);
+
+                }
+            }
+        }
+
+
+
+        //Show notications
+        private void ShowNotification(string title, string message, NotificationType notificationType)
+        {
+
+            var notificaficationManager = new NotificationManager();
+
+            if (NotificationType.Success == notificationType)
+            {
+                notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(20));
+
+            }
+
+            notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
+
+
+
+
+        }
         private bool CanExecuteInsertGrade()
         {
             return true;

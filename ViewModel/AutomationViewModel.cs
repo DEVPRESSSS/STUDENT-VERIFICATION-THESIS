@@ -1,20 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using OfficeOpenXml;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Command;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model;
-using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
-using System.IO.Packaging;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -25,6 +17,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         private readonly ApplicationDbContext _context;
         public ObservableCollection<SubjectsEntity> SubjectsCollection { get; private set; }
+
+
+        public ICommand? OpenFileDialogCommand { get; }
+        public ICommand? InsertCommand { get; }
+
         public AutomationViewModel(ApplicationDbContext context)
         {
             
@@ -37,10 +34,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
        
-        public ICommand? OpenFileDialogCommand { get;}
+    
 
 
-        public ICommand? InsertCommand { get; }
 
 
         //Selected Subjects
@@ -411,6 +407,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+
+   
         private bool canExtract() => true;
 
         public event PropertyChangedEventHandler? PropertyChanged;

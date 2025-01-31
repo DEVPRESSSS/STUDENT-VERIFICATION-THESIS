@@ -191,7 +191,7 @@
                                 <!--The ellipse that shapes the image to circle-->
                                 <Ellipse>
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="pack://application:,,,/Resources/LogoUm.png"/>
+                                        <ImageBrush ImageSource="pack://application:,,,/Resources/Profile.jpg"/>
                                     </Ellipse.Fill>
                                 </Ellipse>
 
@@ -226,10 +226,28 @@
                             <Button x:Name="Subjects" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
                                                Cursor="Hand" Width="160" Click="Subjects_Click_1">
                                 <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Star" Style="{StaticResource menuButtonIcon}"/>
+                                    <Icon:PackIconMaterial Kind="Bookshelf" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Subjects "  FontFamily="Roboto"/>
                                 </StackPanel>
                             </Button>
+
+                            <Button x:Name="Students" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                     Cursor="Hand" Width="160" Click="Students_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="School" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Students "  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="Grade" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                      Cursor="Hand" Width="160" Click="Grade_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <Icon:PackIconMaterial Kind="School" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Grades "  FontFamily="Roboto"/>
+                                </StackPanel>
+                            </Button>
+
+
 
 
 

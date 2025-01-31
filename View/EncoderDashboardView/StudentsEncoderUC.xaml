@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView.StudentsEncoderUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border 
+       Background="#FDFDFD"
+      CornerRadius="4" Margin="0,50,0,0">
+
+            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                  CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="cashierDataGrid"
+                  Style="{DynamicResource DataGridStyle1}"
+                  ItemsSource="{Binding StudentsCollection}"
+                  SelectedItem="{Binding Selected_students}"
+                  >
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
+
+                    <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+
+                    <DataGridTextColumn Header="ID Number" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Gmail" CanUserResize="False" Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="ScholarShip" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
+
+                    <DataGridTemplateColumn Header="Grades" CanUserResize="False" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource gridEditButton}" Click="Button_Click">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource gridButtonIcon}" />
+                                        </StackPanel>
+
+                                    </Button>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+
+        </Border>
+
+
+
+
+
+
+
+
+        <!--Search textbox-->
+
+        <TextBox x:Name="UsernameXZ"
+            Style="{StaticResource TextBoxesForm}"
+            Width="141"
+            Margin="0,10,55,0"
+            Background="White" 
+            Height="25"
+            VerticalAlignment="Top" 
+            HorizontalAlignment="Right"
+            Text="{Binding SearchTerm,UpdateSourceTrigger=PropertyChanged}"
+  
+            />
+
+
+        <!--Add button-->
+
+
+
+
+        <!--Export button-->
+        <Button x:Name="_new" Style="{StaticResource SubmitButton}" 
+    Margin="0,10,10,0" Width="40"
+    BorderThickness="0"
+    Height="25" 
+    VerticalAlignment="Top"
+    Command="{Binding SearchCommand}"
+     >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Icon:PackIconMaterial Kind="Magnify" 
+            Width="10" 
+            Height="10" 
+            VerticalAlignment="Center" 
+            Margin="5,0,0,0"/>
+            </StackPanel>
+        </Button>
+
+
+
+
+    </Grid>
+</UserControl>

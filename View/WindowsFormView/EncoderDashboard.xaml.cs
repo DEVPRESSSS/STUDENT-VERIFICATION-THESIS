@@ -1,4 +1,5 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
             InitializeComponent();
 
             _context = context;
-            
+            MainContentArea.Content = new DashboardOverview();
+
+
         }
 
 
@@ -78,7 +81,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Grades_Click(object sender, RoutedEventArgs e)
         {
-            MainContentArea.Content = new EncodeGradeUC(_context);
+            
+                MainContentArea.Content = new EncodeGradeUC(_context);
+       
+
 
         }
 
@@ -89,7 +95,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
             if (dr == MessageBoxResult.Yes)
             {
-                LoginForm OBJ = new LoginForm();
+                LoginWD OBJ = new LoginWD();
                 OBJ.Show();
 
                 this.Close();
@@ -101,7 +107,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Subjects_Click_1(object sender, RoutedEventArgs e)
         {
-            MainContentArea.Content = new Subjects(_context);
+            MainContentArea.Content = new SubjectEncoderUC(_context);
+
+        }
+
+        private void Students_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new StudentsEncoderUC(_context);
+        }
+
+        private void Grade_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentArea.Content = new GradesEncoderUC(_context);
 
         }
     }

@@ -14,6 +14,10 @@ using System.Windows;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
+using Microsoft.Win32;
+using OfficeOpenXml;
+using System.IO;
+using Notification.Wpf;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
@@ -26,6 +30,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<ProfessorsEntity> ProfessorCollection { get; private set; }
         public ObservableCollection<ProgramEntity> ProgramsCollection { get; private set; }
         public ObservableCollection<Year> YearCollection { get; private set; }
+        public ObservableCollection<Grade> GradeSheetCollection { get; private set; }
 
 
         //Crud Commands
@@ -37,6 +42,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand ClearCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand? UpsertCommand { get; }
+        public ICommand? ExtractGradeCommand { get; }
+        public ICommand? AddGrade { get; }
         public SubjectsViewModel(ApplicationDbContext context)
         {
 
@@ -53,9 +60,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             ProgramsCollection = new ObservableCollection<ProgramEntity>(); // Fix this
             ProfessorCollection = new ObservableCollection<ProfessorsEntity>(); // Fix this
             YearCollection = new ObservableCollection<Year>(); // Fix this
+            GradeSheetCollection = new ObservableCollection<Grade>(); // Fix this
             ClearCommand = new RelayCommand(_ => Clear());
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
             UpsertCommand = new RelayCommand(async _ => await AddScheduleAsync());
+            ExtractGradeCommand = new RelayCommand(_ =>  BullExtractGradePerSub());
+            AddGrade = new RelayCommand(async _ => await AddExtractedGrade());
 
             _ = LoadProfessorsAsync();
             _= LoadProgramAsync();
@@ -727,7 +737,115 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-       
+
+
+
+
+        //Extraction of Grades
+        private void BullExtractGradePerSub()
+        {
+
+            ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Select an Excel file.",
+                Filter = "Excel Files (*.xlsx;*.xls)|*.xlsx;*.xls"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filepath = openFileDialog.FileName;
+                using (var package = new ExcelPackage(new FileInfo(filepath)))
+                {
+                    GradeSheetCollection.Clear();
+
+                    foreach (var worksheet in package.Workbook.Worksheets)
+                    {
+                        int rowCount = worksheet.Dimension.Rows;
+
+
+                        
+                       
+
+                        for (int row = 1; row <= rowCount; row++)
+                        {
+                            var cellValue = worksheet.Cells[row, 1].Text?.Trim();
+
+                            var name = worksheet.Cells[row, 1].Text?.Trim();
+                            var year = worksheet.Cells[row, 2].Text?.Trim();
+                            var gradeText = worksheet.Cells[row, 3].Text?.Trim();
+
+
+
+
+                            if (!string.IsNullOrEmpty(gradeText) && decimal.TryParse(gradeText, out decimal gradeValue))
+                            {
+                                // Add valid data to the collection
+                                GradeSheetCollection.Add(new Grade
+                                {
+                                    StudentName = name,
+                                    GradeValue = gradeValue
+                                });
+                            }
+                        }
+
+                    }
+
+
+
+                }
+
+
+            }
+
+        }
+
+
+        private async Task AddExtractedGrade()
+        {
+            foreach (var grade in GradeSheetCollection)
+            {
+                var student = await CheckIfStudentExistsAndGetIDAsync(grade.StudentName);
+
+                if (student != null)
+                {
+                    string ID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                    var newGrade = new Grade
+                    {
+                        GradeID= ID,
+                        StudentID = student.StudentID, 
+                        GradeValue = grade.GradeValue, 
+                        DateAssigned = DateTime.Now,   
+                        SubjectID = Selected_subjects.SubjectID    
+                    };
+
+                    await InsertGradeAsync(newGrade);
+                }
+                else
+                {
+
+                    ShowNotification($"Error",$"{grade.StudentName} is not exist in the database grade will not be input", NotificationType.Error);
+                }
+            }
+        }
+
+        private async Task<StudentsEntity?> CheckIfStudentExistsAndGetIDAsync(string studentName)
+        {
+            var student = await _context.Students
+                                          .FirstOrDefaultAsync(s => s.Name == studentName); 
+            return student; 
+        }
+
+        private async Task InsertGradeAsync(Grade newGrade)
+        {
+            _context.Grades.Add(newGrade);
+            await _context.SaveChangesAsync();
+            ShowNotification($"Sucess", $"{newGrade.StudentName} grade was successfully inserted", NotificationType.Success);
+
+        }
+
 
 
 
@@ -743,6 +861,27 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
 
             return true;
+        }
+
+        //Show notications
+        private void ShowNotification(string title, string message, NotificationType notificationType)
+        {
+
+            var notificaficationManager = new NotificationManager();
+
+            if (NotificationType.Success == notificationType)
+            {
+                notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(20));
+
+            }
+
+            notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType}, expirationTime: TimeSpan.FromSeconds(5));
+
+
+          
+            
         }
 
         //Boolean method to flag if is valid

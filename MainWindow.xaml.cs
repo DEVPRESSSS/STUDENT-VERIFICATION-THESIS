@@ -211,7 +211,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
             if (dr == MessageBoxResult.Yes)
             {
 
-                LoginForm test = new LoginForm();
+                LoginWD test = new LoginWD();
 
                 test.Show();
 

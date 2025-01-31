@@ -13,6 +13,8 @@
   <ItemGroup>
     <None Remove="Resources\Fpass.png" />
     <None Remove="Resources\LogoUm.png" />
+    <None Remove="Resources\Profile.jpg" />
+    <None Remove="Resources\ResetPass.png" />
     <None Remove="Resources\UmPicture.png" />
   </ItemGroup>
 
@@ -42,6 +44,8 @@
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\LogoUm.png" />
+    <Resource Include="Resources\Profile.jpg" />
+    <Resource Include="Resources\ResetPass.png" />
     <Resource Include="Resources\UmPicture.png" />
   </ItemGroup>
 

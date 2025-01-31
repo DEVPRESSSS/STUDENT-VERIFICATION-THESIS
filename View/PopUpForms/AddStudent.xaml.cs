@@ -22,10 +22,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
     /// </summary>
     public partial class AddStudent : Window
     {
+
+        private readonly ApplicationDbContext _context;
         public AddStudent(ApplicationDbContext context)
         {
             InitializeComponent();
-
+            _context = context;
             this.DataContext = new StudentViewModel(context);
         }
 
@@ -37,7 +39,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Automation_Click(object sender, RoutedEventArgs e)
         {
-
+            BulkInsertStudent obj = new BulkInsertStudent(_context);
+            obj.ShowDialog();   
         }
 
         private void Gmail_PreviewKeyDown(object sender, KeyEventArgs e)

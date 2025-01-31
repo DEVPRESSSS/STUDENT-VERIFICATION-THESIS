@@ -287,3 +287,15 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\refin
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.pdb
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.genruntimeconfig.cache
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\ref\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.dll
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\WindowsFormView\LoginWD.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\WindowsFormView\LoginWD.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\SubjectEncoderUC.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\SubjectEncoderUC.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\StudentsEncoderUC.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\StudentsEncoderUC.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\BulkInsertGrade.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\BulkInsertGrade.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\GradesEncoderUC.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\GradesEncoderUC.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\BulkInsertStudent.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\BulkInsertStudent.baml
