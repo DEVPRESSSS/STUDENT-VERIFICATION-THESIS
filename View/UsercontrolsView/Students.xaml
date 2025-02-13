@@ -8,80 +8,80 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
 
-            <Border 
+        <Border 
                Background="#FDFDFD"
               CornerRadius="4" Margin="0,50,0,0">
 
-                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+            <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
                           CellStyle="{DynamicResource DataGridCellStyle1}" x:Name="cashierDataGrid"
                           Style="{DynamicResource DataGridStyle1}"
                           ItemsSource="{Binding StudentsCollection}"
                           SelectedItem="{Binding Selected_students}"
                           >
-                    <DataGrid.Columns>                                                                                                                                                                
+                <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
+                    <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
 
-                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTextColumn Header="ID Number" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Gmail" CanUserResize="False" Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="ScholarShip" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="ID Number" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Gmail" CanUserResize="False" Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="ScholarShip" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTemplateColumn Header="Grades" CanUserResize="False" IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource gridButtonIcon}" />
-                                            </StackPanel>
+                    <DataGridTemplateColumn Header="Grades" CanUserResize="False" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource gridButtonIcon}" />
+                                        </StackPanel>
 
-                                        </Button>
+                                    </Button>
 
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Add Sub" CanUserResize="False" IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Style="{StaticResource ButtonHide}" Orientation="Horizontal">
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Add Sub" CanUserResize="False" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Style="{StaticResource ButtonHide}" Orientation="Horizontal">
 
-                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_3">
-                                            <Icon:PackIconMaterial Kind="PlusBoxMultiple" Style="{StaticResource gridButtonIcon}" />
-                                        </Button>
-                    
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        
-                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click">
-                                            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}" />
-                                        </Button>
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
+                                    <Button Style="{StaticResource gridEditButton}" Click="Button_Click_3">
+                                        <Icon:PackIconMaterial Kind="PlusBoxMultiple" Style="{StaticResource gridButtonIcon}" />
+                                    </Button>
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+
+                                    <Button Style="{StaticResource gridEditButton}" Click="Button_Click">
+                                        <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}" />
+                                    </Button>
+                                    <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
                                              Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteStudentsCommand}">
 
-                                            <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                                        <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
 
 
-            </Border>
+        </Border>
 
 
 
@@ -143,10 +143,6 @@
                     Margin="5,0,0,0"/>
             </StackPanel>
         </Button>
-
-
-
-
 
 
         <!--Import button-->

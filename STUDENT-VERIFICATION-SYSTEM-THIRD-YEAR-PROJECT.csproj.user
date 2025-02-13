@@ -13,6 +13,9 @@
     <Compile Update="View\EncoderDashboardView\BulkInsertGrade.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\EncoderDashboardView\ExcelWordGradeUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EncoderDashboardView\GradesEncoderUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -136,6 +139,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EncoderDashboardView\BulkInsertGrade.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EncoderDashboardView\ExcelWordGradeUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EncoderDashboardView\GradesEncoderUC.xaml">

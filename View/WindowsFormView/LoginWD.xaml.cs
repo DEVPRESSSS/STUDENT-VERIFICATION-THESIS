@@ -36,7 +36,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
             InitializeComponent();
             _context = context;
 
-            DataContext = new LfcVM(context, this);
+            DataContext = new LfcVM(context, this, txtPassword);
         }
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -151,5 +151,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
             }
         }
+
+
+        private void forgotpass_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ForgotPassword obj = new ForgotPassword();
+            obj.Show();
+
+            this.Hide();
+        }
+
+      
     }
 }

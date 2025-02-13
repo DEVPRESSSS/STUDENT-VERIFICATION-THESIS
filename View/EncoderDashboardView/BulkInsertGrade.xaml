@@ -201,7 +201,14 @@
                             Grid.Column="0"
                     />
                     <Button Style="{StaticResource SubmitButton}"
-                        Content="Choose file" Margin="0,0,11,64" 
+                        Content="Choose file (docx)" Margin="0,0,11,64" 
+                        Width="123"
+                        Height="30"
+                        BorderBrush="White"
+                        Command="{Binding ExtractGradeCommandDocs}" VerticalAlignment="Bottom"
+                    />
+                    <Button Style="{StaticResource SubmitButton}"
+                        Content="Choose file (xls.)" Margin="0,0,11,104" 
                         Width="123"
                         Height="30"
                         BorderBrush="White"

@@ -8,16 +8,15 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
-using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 using Microsoft.Win32;
 using OfficeOpenXml;
 using System.IO;
 using Notification.Wpf;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
@@ -43,6 +42,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand SearchCommand { get; }
         public ICommand? UpsertCommand { get; }
         public ICommand? ExtractGradeCommand { get; }
+        public ICommand? ExtractGradeCommandDocs { get; }
         public ICommand? AddGrade { get; }
         public SubjectsViewModel(ApplicationDbContext context)
         {
@@ -57,14 +57,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             LoadSubjectCommand.Execute(null);
 
 
-            ProgramsCollection = new ObservableCollection<ProgramEntity>(); // Fix this
-            ProfessorCollection = new ObservableCollection<ProfessorsEntity>(); // Fix this
-            YearCollection = new ObservableCollection<Year>(); // Fix this
-            GradeSheetCollection = new ObservableCollection<Grade>(); // Fix this
+            ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
+            ProfessorCollection = new ObservableCollection<ProfessorsEntity>(); 
+            YearCollection = new ObservableCollection<Year>(); 
+            GradeSheetCollection = new ObservableCollection<Grade>(); 
             ClearCommand = new RelayCommand(_ => Clear());
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
             UpsertCommand = new RelayCommand(async _ => await AddScheduleAsync());
             ExtractGradeCommand = new RelayCommand(_ =>  BullExtractGradePerSub());
+            ExtractGradeCommandDocs =new RelayCommand(_ => ExtractGradeFromWord());
             AddGrade = new RelayCommand(async _ => await AddExtractedGrade());
 
             _ = LoadProfessorsAsync();
@@ -555,26 +556,28 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Delete Department
         private async Task DeleteSubjectAsync()
         {
-
             MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (confirmation == MessageBoxResult.Yes)
             {
-
                 if (Selected_subjects != null)
                 {
+                    // First, delete all the related records in SubjectsEnrolled
+                    var enrolledSubjects = _context.SubjectsEnrolled.Where(se => se.SubjectID == Selected_subjects.SubjectID);
+                    _context.SubjectsEnrolled.RemoveRange(enrolledSubjects);
 
+                    // Now delete the subject
                     _context.Subjects.Remove(Selected_subjects);
+
+                    // Save changes to the database
                     await _context.SaveChangesAsync();
 
+                    // Remove from the collection
                     SubjectCollection.Remove(Selected_subjects);
-
                 }
-
             }
-
-         
         }
+
 
         private async Task LoadSubjectsAsync()
         {
@@ -685,6 +688,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                activeWindow.Close();
             }
         }
+
+
+        /// <summary>
+        /// Clear the inputs
+        /// </summary>
         private void Clear()
         {
             Selected_subjects = null;
@@ -702,7 +710,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        /// <summary>
+        /// Insert method of schedu;e
+        /// </summary>
+        /// <returns></returns>
         private async Task AddScheduleAsync()
         {
             if (!ValidateInputs())
@@ -741,7 +752,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-        //Extraction of Grades
+       /// <summary>
+       /// Extraction of data using Excel
+       /// </summary>
         private void BullExtractGradePerSub()
         {
 
@@ -802,35 +815,84 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+
+        /// <summary>
+        /// Method that pass the grades to Insert Grade
+        /// </summary>
+        /// <returns></returns>
         private async Task AddExtractedGrade()
         {
-            foreach (var grade in GradeSheetCollection)
+
+            MessageBoxResult dr = MessageBox.Show("Are you sure want to insert these grades? Please double check the subject name and professor", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dr == MessageBoxResult.Yes)
             {
-                var student = await CheckIfStudentExistsAndGetIDAsync(grade.StudentName);
 
-                if (student != null)
+                List<Grade> newGrades = new List<Grade>();
+
+                foreach (var grade in GradeSheetCollection.ToList())
                 {
-                    string ID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+                    var student = await CheckIfStudentExistsAndGetIDAsync(grade.StudentName);
 
-                    var newGrade = new Grade
+                    if (student != null)
                     {
-                        GradeID= ID,
-                        StudentID = student.StudentID, 
-                        GradeValue = grade.GradeValue, 
-                        DateAssigned = DateTime.Now,   
-                        SubjectID = Selected_subjects.SubjectID    
-                    };
+                        var studentWithExistingGrade = await _context.Grades
+                            .Include(g => g.Subject)
+                            .Where(g => g.StudentID == student.StudentID && g.Subject.SubjectID == Selected_subjects.SubjectID)
+                            .FirstOrDefaultAsync();
 
-                    await InsertGradeAsync(newGrade);
+                        if (studentWithExistingGrade != null)
+                        {
+                            ShowNotification("Error", $"{grade.StudentName} already has a grade in the table", NotificationType.Error);
+                            continue;
+                        }
+
+                        string ID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                        var newGrade = new Grade
+                        {
+                            GradeID = ID,
+                            StudentID = student.StudentID,
+                            GradeValue = grade.GradeValue,
+                            DateAssigned = DateTime.Now,
+                            SubjectID = Selected_subjects.SubjectID
+                        };
+
+                        newGrades.Add(newGrade);
+                    }
+                    else
+                    {
+                        ShowNotification("Error", $"{grade.StudentName} does not exist in the database, grade will not be input", NotificationType.Error);
+                    }
                 }
-                else
-                {
 
-                    ShowNotification($"Error",$"{grade.StudentName} is not exist in the database grade will not be input", NotificationType.Error);
+                if (newGrades.Any())
+                {
+                    await InsertGradesAsync(newGrades);
                 }
             }
+            
         }
 
+
+        /// <summary>
+        /// Perform the insertion of grades
+        /// </summary>
+        /// <returns></returns>
+        private async Task InsertGradesAsync(List<Grade> newGrades)
+        {
+            _context.Grades.AddRange(newGrades); 
+            await _context.SaveChangesAsync();
+
+            ShowNotification("Success", $"{newGrades.Count} grades were successfully inserted", NotificationType.Success);
+            GradeSheetCollection.Clear(); 
+        }
+
+
+        /// <summary>
+        /// Check if the student exist in the student table
+        /// </summary>
+        /// <returns></returns>
         private async Task<StudentsEntity?> CheckIfStudentExistsAndGetIDAsync(string studentName)
         {
             var student = await _context.Students
@@ -838,17 +900,119 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             return student; 
         }
 
-        private async Task InsertGradeAsync(Grade newGrade)
-        {
-            _context.Grades.Add(newGrade);
-            await _context.SaveChangesAsync();
-            ShowNotification($"Sucess", $"{newGrade.StudentName} grade was successfully inserted", NotificationType.Success);
+     
 
+        //Extraction of Grades using MS WORD
+        private void ExtractGradeFromWord()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Select a Word file.",
+                Filter = "Word Documents (*.docx;*.doc)|*.docx;*.doc"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filepath = openFileDialog.FileName;
+
+                if (!File.Exists(filepath))
+                {
+                    MessageBox.Show("The specified file does not exist.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                string fileExtension = Path.GetExtension(filepath).ToLower();
+                if (fileExtension != ".docx" && fileExtension != ".doc")
+                {
+                    MessageBox.Show("Please select a valid Word document (.docx or .doc).", "Invalid File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                try
+                {
+                    using (WordprocessingDocument wDoc = WordprocessingDocument.Open(filepath, false))
+                    {
+                        var parts = wDoc.MainDocumentPart.Document.Descendants().FirstOrDefault();
+                        if (parts != null)
+                        {
+                            GradeSheetCollection.Clear();
+
+                            foreach (var node in parts.ChildElements)
+                            {
+                         
+
+                                if (node is Table)
+                                {
+                                    ProcessTable((Table)node);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (FileFormatException ex)
+                {
+                    GradeSheetCollection.Clear();
+
+                    MessageBox.Show($"The file is corrupted or not a valid Word document.\n\nError: {ex.Message}", "File Corrupted", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                catch (Exception ex)
+                {
+                    GradeSheetCollection.Clear();
+
+                    MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Process the data from the table
+        /// </summary>
+        private void ProcessTable(Table node)
+        {
+            bool isHeader = true; 
+
+            foreach (var row in node.Descendants<TableRow>())
+            {
+                if (isHeader)
+                {
+                    isHeader = false;
+                    continue;
+                }
+
+                var cells = row.Descendants<TableCell>().ToList();
+
+                if (cells.Count > 1)
+                {
+                    string studentName = GetCellText(cells[1]); 
+                    string gradeText = GetCellText(cells[6]); 
+
+                    decimal gradeValue = 0m; 
+
+                    if (!decimal.TryParse(gradeText, out gradeValue))
+                    {
+                        continue;
+                    }
+                    GradeSheetCollection.Add(new Grade
+                    {
+                        StudentName = studentName,
+                        GradeValue = gradeValue
+                    });
+                }
+            }
+        }
+
+        private string GetCellText(TableCell cell)
+        {
+            return string.Join(" ", cell.Descendants<Text>().Select(t => t.Text));
         }
 
 
 
-
+        /// <summary>
+        /// Validation for Schedule Insert
+        /// </summary>
+        /// <returns></returns>
         private bool ValidateInputs()
         {
             if (string.IsNullOrWhiteSpace(Day) ||
@@ -872,7 +1036,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             if (NotificationType.Success == notificationType)
             {
                 notificaficationManager.Show(
-                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(20));
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
 
             }
 

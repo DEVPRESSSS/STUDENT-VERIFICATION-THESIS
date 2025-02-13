@@ -140,7 +140,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            LoginForm change = new LoginForm();
+            LoginWD change = new LoginWD();
 
             change.Show();
             this.Close();

@@ -72,9 +72,6 @@
                        Width="100"
                        Margin="0,8,0,0"/>
 
-
-                <TextBlock Text="or use your email:" Style="{StaticResource descriptionText}" Foreground="#878787" Margin="0 10 0 15"/>
-
                 <!--Social Icons-->
                 <StackPanel Orientation="Horizontal" Margin="0 20" HorizontalAlignment="Center"/>
 
@@ -90,7 +87,7 @@
 
                         <Icon:PackIconMaterial Kind="Email" Height="20" Opacity="0.5" Foreground="Gray" />
                         <TextBlock x:Name="textEmail" MouseDown="textEmail_MouseDown" Text="username" Style="{StaticResource textHint}"/>
-                        <TextBox x:Name="txtEmail" Text="{Binding Username}" TextChanged="txtEmail_TextChanged" PreviewKeyDown="txtEmail_PreviewKeyDown" Style="{StaticResource textbox}"/>
+                        <TextBox x:Name="txtEmail" Text="{Binding Username}" TextChanged="txtEmail_TextChanged" MaxLength="50" PreviewKeyDown="txtEmail_PreviewKeyDown" Style="{StaticResource textbox}"/>
                     </Grid>
                 </Border>
 
@@ -106,8 +103,8 @@
 
                         <Icon:PackIconMaterial Kind="Lock" Height="20" Opacity="0.5" Foreground="Gray" />
                         <TextBlock x:Name="textPassword" MouseDown="textPassword_MouseDown_1" Text="password" Style="{StaticResource textHint}"/>
-                        <PasswordBox x:Name="txtPassword"  PasswordChanged="txtPassword_PasswordChanged" PreviewKeyDown="txtEmail_PreviewKeyDown" Style="{StaticResource textbox}"/>
-                        <TextBox x:Name="txtPasswordUnmask" Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}" TextChanged="txtPasswordUnmask_TextChanged" PreviewKeyDown="txtEmail_PreviewKeyDown" Visibility="Collapsed"  Style="{StaticResource textbox}"/>
+                        <PasswordBox x:Name="txtPassword" MaxLength="30"  PasswordChanged="txtPassword_PasswordChanged" PreviewKeyDown="txtEmail_PreviewKeyDown" Style="{StaticResource textbox}"/>
+                        <TextBox x:Name="txtPasswordUnmask" MaxLength="30"  Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}" TextChanged="txtPasswordUnmask_TextChanged" PreviewKeyDown="txtEmail_PreviewKeyDown" Visibility="Collapsed"  Style="{StaticResource textbox}"/>
 
 
                         <!-- Eye button-->
@@ -130,7 +127,7 @@
 
 
                 <!--Forgot password-->
-                <TextBlock Text="forgot password?" Style="{StaticResource descriptionText}" TextDecorations="Underline" FontStyle="Italic" Foreground="#878787" Margin="0 10 0 15"/>
+                <TextBlock x:Name="forgotpass" MouseDown="forgotpass_MouseDown" Text="forgot password?" Style="{StaticResource descriptionText}" TextDecorations="Underline" FontStyle="Italic" Foreground="#878787" Margin="0 10 0 15"/>
 
                 <!--SignIn Button-->
 

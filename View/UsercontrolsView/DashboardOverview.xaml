@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:sys="clr-namespace:System;assembly=netstandard" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="930" d:DesignWidth="850"
              Background="#F2F8FC">
@@ -58,7 +58,7 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Title and Count TextBlocks -->
-                                <TextBlock Text="Professors"
+                                <TextBlock Text="Verified"
                               FontSize="16"
                               FontWeight="DemiBold"
                               VerticalAlignment="Top" 
@@ -95,14 +95,14 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Title and Count TextBlocks -->
-                                <TextBlock Text="Professors"
+                                <TextBlock Text="Grades"
                               FontSize="16"
                               FontWeight="DemiBold"
                               VerticalAlignment="Top" 
                               HorizontalAlignment="Right" 
                               Margin="0,20,0,0"/>
                                 <TextBlock  
-                               Text="0" 
+                               Text="{Binding ProfessorCount }" 
                                FontSize="18" 
                                FontWeight="DemiBold" 
                                VerticalAlignment="Top" 
@@ -111,7 +111,7 @@
 
                                 <!-- Icon Section -->
                                 <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                    <Icon:PackIconMaterial Kind="Trophy" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
@@ -127,14 +127,14 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Title and Count TextBlocks -->
-                                <TextBlock Text="Professors"
+                                <TextBlock Text="Departments"
                           FontSize="16"
                           FontWeight="DemiBold"
                           VerticalAlignment="Top" 
                           HorizontalAlignment="Right" 
                           Margin="0,20,0,0"/>
                                 <TextBlock  
-                           Text="0" 
+                           Text="{Binding DepartmentCount}" 
                            FontSize="18" 
                            FontWeight="DemiBold" 
                            VerticalAlignment="Top" 
@@ -159,14 +159,14 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Title and Count TextBlocks -->
-                                <TextBlock Text="Professors"
+                                <TextBlock Text="Subjects"
                               FontSize="16"
                               FontWeight="DemiBold"
                               VerticalAlignment="Top" 
                               HorizontalAlignment="Right" 
                               Margin="0,20,0,0"/>
                                 <TextBlock   
-                               Text="0" 
+                               Text="{Binding SubjectsCount}" 
                                FontSize="18" 
                                FontWeight="DemiBold" 
                                VerticalAlignment="Top" 
@@ -191,14 +191,14 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Title and Count TextBlocks -->
-                                <TextBlock Text="Professors"
+                                <TextBlock Text="Programs"
                                 FontSize="16"
                                 FontWeight="DemiBold"
                                 VerticalAlignment="Top" 
                                 HorizontalAlignment="Right" 
                                 Margin="0,20,0,0"/>
                                 <TextBlock  
-                                Text="0" 
+                                Text="{Binding ProgramsCount}" 
                                 FontSize="18" 
                                 FontWeight="DemiBold" 
                                 VerticalAlignment="Top" 
@@ -230,7 +230,7 @@
                                 HorizontalAlignment="Right" 
                                 Margin="0,20,0,0"/>
                                 <TextBlock  
-                                Text="0" 
+                                Text="{Binding ProfessorCount}" 
                                 FontSize="18" 
                                 FontWeight="DemiBold" 
                                 VerticalAlignment="Top" 
@@ -255,23 +255,23 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Title and Count TextBlocks -->
-                                <TextBlock Text="Professors"
-                                FontSize="16"
-                                FontWeight="DemiBold"
-                                VerticalAlignment="Top" 
-                                HorizontalAlignment="Right" 
-                                Margin="0,20,0,0"/>
+                                <TextBlock Text="Students"
+                                    FontSize="16"
+                                    FontWeight="DemiBold"
+                                    VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" 
+                                    Margin="0,20,0,0"/>
                                 <TextBlock   
-                                Text="0" 
-                                FontSize="18" 
-                                FontWeight="DemiBold" 
-                                VerticalAlignment="Top" 
-                                HorizontalAlignment="Right" 
-                                Margin="0,40,25,0"/>
+                                    Text="{Binding StudentsCount}" 
+                                    FontSize="18" 
+                                    FontWeight="DemiBold" 
+                                    VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" 
+                                    Margin="0,40,25,0"/>
 
                                 <!-- Icon Section -->
                                 <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                    <Icon:PackIconMaterial Kind="School" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
@@ -287,14 +287,14 @@
                                 </Grid.ColumnDefinitions>
 
                                 <!-- Title and Count TextBlocks -->
-                                <TextBlock Text="Professors"
+                                <TextBlock Text="Encoder"
                                 FontSize="16"
                                 FontWeight="DemiBold"
                                 VerticalAlignment="Top" 
                                 HorizontalAlignment="Right" 
                                 Margin="0,20,0,0"/>
                                 <TextBlock  
-                                Text="0" 
+                                Text="{Binding StaffCount}" 
                                 FontSize="18" 
                                 FontWeight="DemiBold" 
                                 VerticalAlignment="Top" 
@@ -303,7 +303,7 @@
 
                                 <!-- Icon Section -->
                                 <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
-                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                    <Icon:PackIconMaterial Kind="AccountMultiple" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
                                 </StackPanel>
                             </Grid>
                         </StackPanel>
@@ -340,7 +340,7 @@
 
                             <!-- XAxis Configuration -->
                             <lvc:CartesianChart.AxisX>
-                                <lvc:Axis Title="Categories" LabelFormatter="{Binding Formatter}">
+                                <lvc:Axis Title="Categories" >
                                     <lvc:Axis.Labels>
                                         <x:Array Type="{x:Type sys:String}">
                                             <sys:String>A</sys:String>
@@ -355,7 +355,7 @@
 
                             <!-- YAxis Configuration -->
                             <lvc:CartesianChart.AxisY>
-                                <lvc:Axis Title="Values" LabelFormatter="{Binding Formatter}" />
+                                <lvc:Axis Title="Values"/>
                             </lvc:CartesianChart.AxisY>
 
                             <!-- Series (Prototype data) -->

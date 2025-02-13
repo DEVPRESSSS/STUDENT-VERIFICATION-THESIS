@@ -20,6 +20,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
     /// </summary>
     public partial class DashboardOverview : UserControl
     {
+
+        
         public DashboardOverview()
         {
             InitializeComponent();

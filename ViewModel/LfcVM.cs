@@ -11,6 +11,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -22,14 +23,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         private Window _loginWindow;
+        private PasswordBox _passwordBox;
 
         public ICommand? loginCommand { get; }
-        public LfcVM(ApplicationDbContext context, Window loginWindow)
+        public LfcVM(ApplicationDbContext context, Window loginWindow, PasswordBox passwordBox)
         {
             
             _context = context;
             _loginWindow = loginWindow;
             loginCommand = new RelayCommand(async _=> await Login(), _=> canLogin());
+            _passwordBox = passwordBox;
 
 
         }
@@ -92,10 +95,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 //Find admin username and password
                 var findAdmin = await _context.Admin
                      .FirstOrDefaultAsync(x => x.Username == Username && x.Password == Password);
-                if(findAdmin == null)
-                {
-                    MessageBox.Show("Null");
-                }
+              
 
                 if (findAdmin != null)
                 {
@@ -115,9 +115,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
                     ShowNotification("Success", "Login successfully", NotificationType.Success);
 
-
                     //Redirect to Encoder dashboard
-                    EncoderDashboard staffDashboard = new EncoderDashboard(_context);
+                    EncoderDashboard staffDashboard = new EncoderDashboard(_context,staff.Username);
                     staffDashboard.Show();
                     CloseCurrentActiveWindow();
                     return;
@@ -126,7 +125,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 //Notify the user if iinvalid username or password
                 ShowNotification("Error", "Invalid Username or Password", NotificationType.Error);
+                Password = string.Empty;
 
+                Clear();
             }
             catch
             {
@@ -148,6 +149,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             notificaficationManager.Show(
                   new NotificationContent { Title = title, Message = message, Type = notificationType });
         }
+
+        public void Clear()
+        {
+
+            Username = string.Empty;
+            _passwordBox.Clear();
+        }
+
+
+
 
         //Validation for Login
         private bool canLogin()

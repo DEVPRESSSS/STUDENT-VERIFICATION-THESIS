@@ -3,217 +3,110 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StaffViewModel}"
+        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" 
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+        xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:StaffViewModel}"
         mc:Ignorable="d"
         Title="AddStaffForm"        
-           Height="450" Width="800"
-           WindowStartupLocation="CenterScreen"
-           WindowStyle="None"
-           Background="Transparent"
-           AllowsTransparency="True"
-           ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="#f7f5f5">
-
+        Height="650" Width="900"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+    <Border CornerRadius="15" Background="#f7f5f5" Padding="10">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <!-- Row 0 -->
-                <!-- Row 1 -->
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="600" />
-                <!-- Column 0 -->
-                <ColumnDefinition />
-                <!-- Column 1 -->
+                <ColumnDefinition Width="650" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-
-
-
-            <!-- Content for Row 0, Column 0 -->
-            <Border Grid.Row="0" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10" Effect="{StaticResource formShadow}">
-
+            <!-- Main Content -->
+            <Border Grid.Row="0"  Grid.Column="0" CornerRadius="15" Background="White" Margin="10" Effect="{StaticResource formShadow}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <!-- Header -->
                         <RowDefinition Height="*" />
+                        <!-- Form Fields -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Buttons -->
                     </Grid.RowDefinitions>
 
-                    <!-- Separator -->
-                    <Border Grid.Row="0"
-                    Height="2"
-                    Background="#E4E0E1"
-                    Margin="10,42,10,0"
-                    VerticalAlignment="Top" />
+                    <!-- Header -->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="#3D7E35"  Height="60">
+                        <Icon:PackIconMaterial Kind="BookEducation" Foreground="White" Width="28" Height="28" Margin="20,0,0,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Staff Details" FontSize="20" FontWeight="Bold" Foreground="White" VerticalAlignment="Center" Margin="15,0,0,0"/>
+                    </StackPanel>
 
+                    <!-- Form Fields -->
+                    <StackPanel Grid.Row="1" Margin="30,20,30,20">
+                        <!-- Name Field -->
+                        <Label Content="Name" FontSize="14" Foreground="#727D73" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="Name" Style="{StaticResource TextBoxesForm}" BorderBrush="#bab7b6" BorderThickness="1" Height="40" Margin="0,0,0,15" 
+                                 Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="50"
+                                 PreviewKeyDown="Name_PreviewKeyDown" PreviewTextInput="Name_PreviewTextInput"/>
 
-                    <Border CornerRadius="20"
-                Background="White" Margin="0,37,0,7" Grid.RowSpan="2">
+                        <!-- Gmail Field -->
+                        <Label Content="Gmail" FontSize="14" Foreground="#727D73" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="Gmail" Style="{StaticResource TextBoxesForm}" BorderBrush="#bab7b6" BorderThickness="1" Height="40" Margin="0,0,0,15" 
+                                 Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="40"
+                                 PreviewKeyDown="Password_PreviewKeyDown"/>
 
+                        <!-- Username Field -->
+                        <Label Content="Username" FontSize="14" Foreground="#727D73" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="Username" Style="{StaticResource TextBoxesForm}" BorderBrush="#bab7b6" BorderThickness="1" Height="40" Margin="0,0,0,15" 
+                                 Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="100"
+                                 PreviewKeyDown="Password_PreviewKeyDown"/>
 
-                        <Grid>
+                        <!-- Password Field -->
+                        <Label Content="Password" FontSize="14" Foreground="#727D73" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <TextBox x:Name="Password" Style="{StaticResource TextBoxesForm}" BorderBrush="#bab7b6" BorderThickness="1" Height="40" Margin="0,0,0,15" 
+                                 Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="50"
+                                 PreviewKeyDown="Password_PreviewKeyDown"/>
 
-                            <Grid.ColumnDefinitions>
+                        <!-- Role Field -->
+                        <Label Content="Role" FontSize="14" Foreground="#727D73" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <ComboBox BorderBrush="#bab7b6" BorderThickness="1" Height="40" ItemsSource="{Binding RoleCollection}" 
+                                  DisplayMemberPath="Name" SelectedValuePath="RoleID" SelectedValue="{Binding RoleID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
 
-                                <ColumnDefinition/>
-
-                                <ColumnDefinition/>
-
-                            </Grid.ColumnDefinitions>
-
-
-                            <!--Textboxes and buttons-->
-
-                            <!--Name label-->
-                            <Label Content="Name" FontWeight="Bold"  Margin="137,14,134,344"/>
-
-
-                            <TextBox x:Name="Name" Style="{StaticResource TextBoxesForm}" 
-                             BorderBrush="#bab7b6"
-                             PreviewKeyDown="Name_PreviewKeyDown"
-                             PreviewTextInput="Name_PreviewTextInput"
-                             BorderThickness="1" Margin="137,42,115,319"  
-                             Text="{Binding Name, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                    
-                             MaxLength="50" Grid.ColumnSpan="2"
-                          />
-
-                            <!--Gmail label-->
-                            <Label Content="Gmail" FontWeight="Bold"  Margin="135,72,135,286"/>
-
-                            <TextBox x:Name="Gmail" Style="{StaticResource TextBoxesForm}" 
-                            BorderBrush="#bab7b6"
-                            BorderThickness="1" Margin="137,101,114,260" 
-                            Text="{Binding Email, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
-                            MaxLength="40"
-                                     PreviewKeyDown="Password_PreviewKeyDown"
-                            Grid.ColumnSpan="2"
-                        />
-
-                            <!--Age-->
-
-                            <Label Content="Password" FontWeight="Bold"  Margin="137,191,113,167"/>
-
-                            <TextBox x:Name="Password" Style="{StaticResource TextBoxesForm}" 
-                            BorderBrush="#bab7b6"
-                            MaxLength="50"
-                            PreviewKeyDown="Password_PreviewKeyDown"
-                           BorderThickness="1" Margin="137,220,114,141" 
-                           Text="{Binding Password, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
-
-
-
-
-                            <!--Address-->
-
-                            <Label Content="Username" FontWeight="Bold"  Margin="137,131,113,227"/>
-
-                            <TextBox x:Name="Username" Style="{StaticResource TextBoxesForm}" 
-                             BorderBrush="#bab7b6"
-                             MaxLength="100"
-                             PreviewKeyDown="Password_PreviewKeyDown"
-                             BorderThickness="1" Margin="137,161,114,200" 
-                             Text="{Binding Username, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
-
-
-
-                            <!--Department-->
-                            <Label Content="Role" FontWeight="Bold" Margin="137,245,102,113"/>
-
-                            <ComboBox 
-                            Margin="137,278,115,0" 
-                            VerticalAlignment="Top"
-                            BorderBrush="#bab7b6"
-                            BorderThickness="1" Height="26"
-                            ItemsSource="{Binding RoleCollection}"
-                            DisplayMemberPath="Name" 
-                            SelectedValuePath="RoleID"
-                            SelectedValue="{Binding RoleID, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2" />
-
-
-                            <!--Save Button-->
-
-                            <Button Style="{StaticResource SubmitButton}"
-                                Content="Save" Grid.Column="1" Margin="40,333,0,23" 
-                                Width="168" 
-                                HorizontalAlignment="Left"
-                                Height="30"
-                                Command="{Binding AddStaffCommand}"
-                                FontWeight="Bold"
-                                BorderThickness="0"
-
-                                />
-
-                            <!--Clear Button-->
-
-                            <Button Style="{StaticResource ClearButton}"
-                            Content="Clear" Margin="137,333,0,23" 
-                            Width="168" 
-                            HorizontalAlignment="Left"
-                            Height="30"
-                            FontWeight="Bold"
-                            BorderBrush="Green"
-                            />
-
-                        </Grid>
-
-
-
-                    </Border>
-                    <!-- Icon -->
-                    <Icon:PackIconMaterial Kind="BookEducation" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="10,0,0,0" />
-
-                    <!--Title-->
-
-                    <TextBlock Text="Staff Details" FontWeight="Bold"  Margin="30,13,502,9" FontFamily="Helvetica Neue"/>
-
-
-
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20" Width="570">
+                        <!-- Save Button -->
+                        <Button Style="{StaticResource SubmitButton}" Content="Save" Width="264" Height="40" Margin="0,0,10,0" 
+                                Command="{Binding AddStaffCommand}" FontWeight="Bold" Background="#3D7E35" Foreground="White" BorderThickness="0"
+                                Cursor="Hand"/>
+                        <!-- Clear Button -->
+                        <Button Style="{StaticResource ClearButton}" Content="Clear" Width="280" Height="40" 
+                                FontWeight="Bold" Background="#FF4F4F" Foreground="White" BorderThickness="0"
+                                Cursor="Hand"/>
+                    </StackPanel>
                 </Grid>
-
             </Border>
 
-
-
-            <!-- Content for Row 0, Column 1 -->
-            <Border Grid.Row="0"
-            Grid.Column="1" Panel.ZIndex="-1"
-            Background="#3D7E35"
-            Margin="10,0,0,0" 
-            Effect="{StaticResource dropShadow}"
-            CornerRadius="10">
-
+            <!-- Sidebar -->
+            <Border Grid.Row="0" Grid.Column="1" Background="#3D7E35" CornerRadius="0,15,15,0" Padding="10">
                 <Grid>
+                    <!-- Abstract Shapes -->
+                    <Ellipse Width="80" Height="80" Fill="#5F9A55" Opacity="0.3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,100,0,0"/>
+                    <Rectangle Width="40" Height="120" Fill="#4A7E40" Opacity="0.3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,-20"/>
+                    <Ellipse Width="55" Height="59" Fill="#5F9A55" Opacity="0.3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="145,185,0,0"/>
+                    <Ellipse Width="55" Height="59" Fill="#5F9A55" Opacity="0.3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="145,357,0,0"/>
+                    <Ellipse Width="75" Height="74" Fill="#5F9A55" Opacity="0.3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="50,455,0,0"/>
+                    <Ellipse Width="80" Height="80" Fill="#5F9A55" Opacity="0.3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="22,265,0,0" Grid.Column="1"/>
 
-                    <!--Close button -->
-                    <Button x:Name="Close" 
-                         Click="Close_Click"
-                           Style="{StaticResource MinimizeButtonStyle}"
-                        Width="30" Height="30" Margin="150,10,10,410">
-
-                        <Icon:PackIconMaterial 
-                            x:Name="CloseWindow"
-                            Kind="WindowClose" 
-                            Height="10" RenderTransformOrigin="0.803,0.533"
-                            Width="12"
-                             Style="{StaticResource WindowControlIcon}"
-                            Cursor="Hand" HorizontalAlignment="Center"
-                        />
-
+                    <!-- Close Button -->
+                    <Button x:Name="Close" Click="Close_Click" Style="{StaticResource MinimizeButtonStyle}"  Width="40" Height="40" Margin="160,0,0,560" Cursor="Hand" VerticalAlignment="Bottom" HorizontalAlignment="Left">
+                        <Icon:PackIconMaterial Kind="WindowClose" Width="20" Height="20" Foreground="White"/>
                     </Button>
 
-
-             
-
-
-                    <!--Automation button-->
-
                 </Grid>
-                <!--Instructions -->
-
-
             </Border>
-
-
         </Grid>
     </Border>
 </Window>

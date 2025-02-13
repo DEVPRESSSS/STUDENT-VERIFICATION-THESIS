@@ -154,7 +154,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
                     }
 
                     // Redirect to LoginView or other actions
-                    var loginView = new LoginForm();
+                    var loginView = new LoginWD();
                     loginView.Show();
                     this.Close();
                 }

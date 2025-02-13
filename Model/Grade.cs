@@ -57,5 +57,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [NotMapped]
         public string? StudentName { get; set; }
+
+
+        [NotMapped]
+        public string? SemesterID { get; set; }
+
+        [NotMapped]
+        public string? SemesterName { get; set; }
     }
 }

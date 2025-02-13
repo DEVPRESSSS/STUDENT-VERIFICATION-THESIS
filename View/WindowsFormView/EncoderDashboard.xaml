@@ -13,6 +13,9 @@
         Background="Transparent"
         AllowsTransparency="True"
         MouseDown="Window_MouseDown">
+
+
+
     <Border CornerRadius="10" >
 
         <!--This is for the border radius or corner radius of the window-->
@@ -34,13 +37,13 @@
                 <Grid.RowDefinitions>
 
                     <RowDefinition Height="40"/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
 
 
 
-                <!-- Green border in row 0-->
                 <Border Grid.Row="0"
                         Background="#3D7E35"
                         Margin="0,0,0,0"
@@ -52,13 +55,12 @@
                     <Grid Grid.Row="0" Width="200" HorizontalAlignment="Right">
                         <Grid.RowDefinitions>
                             <RowDefinition/>
-                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="3"/>
                         </Grid.RowDefinitions>
 
 
                         <Grid.ColumnDefinitions>
 
-                            <!--Notification bell button-->
 
 
 
@@ -74,6 +76,18 @@
                             <ColumnDefinition/>
 
                         </Grid.ColumnDefinitions>
+
+
+                        <!--Greetins Username-->
+                        <!-- Greetins Username -->
+                        <TextBlock x:Name="usernametxt" 
+                           FontSize="16" 
+                           FontWeight="DemiBold"
+                           Foreground="White"
+                           HorizontalAlignment="Left"
+                           Margin="-915,8,0,8" Width="173"/>
+
+
 
                         <!--Bell button-->
                         <Button x:Name="Notif"
@@ -158,137 +172,16 @@
                 </Border>
 
 
-                <!--Grid for row 1 -->
-                <Grid Grid.Row="1">
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-
-
-
-
-
-                    <!-- Sidebar -->
-
-
-                    <Border Grid.Column="0"
-                            Background="White"
-                            BorderBrush="#3D7E35"
-                            BorderThickness="0.5"
-                            Padding="10" Margin="0,0,2,0"
-                            CornerRadius="0,0,0,10"
-                            Effect="{StaticResource dropShadow}">
-
-                        <!--The panel that holds the buttons-->
-                        <StackPanel>
-
-                            <!--The border for the profile -->
-                            <Border Width="80" Height="80" Background="White" BorderThickness="4" CornerRadius="40" Margin="0,6,0,0">
-
-                                <!--The ellipse that shapes the image to circle-->
-                                <Ellipse>
-                                    <Ellipse.Fill>
-                                        <ImageBrush ImageSource="pack://application:,,,/Resources/Profile.jpg"/>
-                                    </Ellipse.Fill>
-                                </Ellipse>
-
-
-
-                            </Border>
-
-                            <!--Textblock for the name of admin-->
-
-                            <!--Buttons in the sidebar-->
-
-                            <!--Dashboard-->
-                            <Button x:Name="DashboardOverview" Style="{StaticResource menuButton}"  Foreground="White" Margin="0,50,0,5"
-                                    Cursor="Hand" Width="160" Click="DashboardOverview_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Menu" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Dashboard"  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
-
-                           
-
-
-                            <Button x:Name="Grades" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                Cursor="Hand" Width="160" Click="Grades_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Star" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Encode Grade"  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button x:Name="Subjects" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                               Cursor="Hand" Width="160" Click="Subjects_Click_1">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Bookshelf" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Subjects "  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button x:Name="Students" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                     Cursor="Hand" Width="160" Click="Students_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="School" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Students "  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
-
-                            <Button x:Name="Grade" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                      Cursor="Hand" Width="160" Click="Grade_Click">
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="School" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Grades "  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
-
-
-
-
-
-
-                            <!--Logout-->
-
-                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                                  Cursor="Hand" Width="160" >
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Cog" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Settings"  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
-
-
-
-                            <Button Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                                  Cursor="Hand" Width="160"  Click="Button_Click"
-                                        >
-                                <StackPanel Orientation="Horizontal">
-                                    <Icon:PackIconMaterial Kind="Logout" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Log Out"  FontFamily="Roboto"/>
-                                </StackPanel>
-                            </Button>
-
-
-
-
-
-
-                        </StackPanel>
-                    </Border>
-
-
+                <!--Grid for row 2 -->
+                <Grid Grid.Row="2">
 
 
                     <!-- Main Content Area -->
-                    <Border Grid.Column="1"
+                    <Border 
                             Background="White"
                             Margin="8"
                             CornerRadius="4"
+                        Effect="{StaticResource dropShadow}"
                             >
 
 
@@ -305,36 +198,120 @@
 
 
 
-                <!--This is for header row which in the row 0-->
-                <Grid>
-                    <Grid.ColumnDefinitions>
+
+                <Grid Grid.Row="1">
+
+                    <Border Background="White" Effect="{StaticResource dropShadow}">
 
 
-                        <!--Column for the logo picture-->
-                        <ColumnDefinition/>
-                        <!--Column for Minimize-->
-                        <ColumnDefinition Width="35"/>
-                        <!--Column for maximize-->
-                        <ColumnDefinition Width="35"/>
-                        <!--Column for Close-->
+                    </Border>
 
-                        <ColumnDefinition Width="35"/>
+                    <!--The panel that holds the buttons-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 
 
+                        <!--Dashboard-->
+                        <Button x:Name="DashboardOverview" Style="{StaticResource menuButton2}"   
+                                      Cursor="Hand" Click="DashboardOverview_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Menu"  Style="{StaticResource menuButtonIcon}"/>
+                                <!--
+                                                                                        <TextBlock Text="Dashboard"  FontFamily="Roboto"/>
 
-                    </Grid.ColumnDefinitions>
-
-
-
-
-
-
+                                            -->
+                            </StackPanel>
+                        </Button>
 
 
 
 
+                        <!--
+                            <Button x:Name="Grades" Style="{StaticResource menuButton2}"  FontSize="20" ToolTip="Input grade"  Margin="5"
+                             Cursor="Hand" Click="Grades_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="PencilBoxMultipleOutline"   Style="{StaticResource menuButtonIcon}"/>
+          
+            
+                                 <TextBlock Text="Encode Grade"  FontFamily="Roboto"/>
+         
+
+                            </StackPanel>
+                        </Button>
+
+                        
+                        
+                        
+                        -->
+                    
+
+
+
+                        <!--Subjects Button-->
+                        <Button x:Name="Subjects" Style="{StaticResource menuButton2}"  ToolTip="Subjects List"  Margin="5"
+                             Cursor="Hand" Click="Subjects_Click_1">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Bookshelf"  Style="{StaticResource menuButtonIcon}"/>
+                                <!--
+                                     <TextBlock Text="Subjects "  FontFamily="Roboto"/>
+
+                                -->
+
+                            </StackPanel>
+                        </Button>
+
+
+                        <!--Students Button-->
+
+                        <Button x:Name="Students" Style="{StaticResource menuButton2}" ToolTip="Students list"  Margin="5"
+                              Cursor="Hand"  Click="Students_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="School"  Style="{StaticResource menuButtonIcon}"/>
+                                <!--
+                                   <TextBlock Text="Students "  FontFamily="Roboto"/>
+
+                                -->
+
+                            </StackPanel>
+                        </Button>
+
+
+                        <!--Grades Button-->
+
+                        <Button x:Name="Grade" Style="{StaticResource menuButton2}" ToolTip="Grades list"  Margin="5"
+                              Cursor="Hand"  Click="Grade_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="ClipboardText"  Style="{StaticResource menuButtonIcon}"/>
+                                <!--
+                                     <TextBlock Text="Grades "  FontFamily="Roboto"/>
+
+                                -->
+                            </StackPanel>
+                        </Button>
+
+
+                        <!--Settings-->
+
+                        <Button Style="{StaticResource menuButton2}" ToolTip="Settings"  Margin="5"
+                           Cursor="Hand"  >
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Cog"   Style="{StaticResource menuButtonIcon}"/>
+
+                                <!--
+                                                                <TextBlock Text="Settings"  FontFamily="Roboto"/>
+
+                                -->
+                            </StackPanel>
+                        </Button>
+
+
+
+
+
+
+                    </StackPanel>
 
                 </Grid>
+
 
 
             </Grid>

@@ -223,7 +223,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 _yearID = value;
 
+
                 OnPropertyChanged();
+                _ = SearchProgramAsync();
             }
 
         }
@@ -435,48 +437,47 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
             try
             {
-
                 using (var context = new ApplicationDbContext())
                 {
+                    var query = context.Students
+                        .Include(s => s.YearLevel)
+                        .Include(s => s.Program)
+                        .Include(s => s.Scholarship)
+                        .AsQueryable();
 
-                    var query = context.Students.
-                        Include(s=> s.YearLevel).
-                        Include(s=> s.Program).
-                        Include(s=> s.Scholarship).
-                        AsQueryable();
+                
+                    // Apply general search term filter
+                    if (!string.IsNullOrEmpty(SearchTerm))
+                    {
+                        query = query.Where(p =>
+                            EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.Age.ToString(), $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.IDnumber.ToString(), $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.Gmail, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.Address, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm}%")
+                        );
+                    }
 
-                    query = query.Where(p =>
-                        EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Age.ToString(), $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.IDnumber.ToString(), $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Gmail, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Address, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm}%")
-                    );
+                    // Apply year-specific filter
+                
 
                     var result = await query.ToListAsync();
 
                     // Update the ObservableCollection
                     StudentsCollection.Clear();
-                    foreach (var professor in result)
+                    foreach (var student in result)
                     {
-                        StudentsCollection.Add(professor);
+                        StudentsCollection.Add(student);
                     }
-
-
                 }
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Error during search: {ex.Message}", "Error",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -811,21 +812,21 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var context = new ApplicationDbContext())
                 {
                     var results = await context.Grades
-                        .Where(g => g.StudentID == Selected_students.StudentID) // Filter by StudentID
+                        .Where(g => g.StudentID == Selected_students.StudentID) 
                         .Join(
                             context.Subjects,
-                            grade => grade.SubjectID,       // Key from Grades
-                            subject => subject.SubjectID,  // Key from Subjects
-                            (grade, subject) => new { grade, subject } // Combine grade and subject
+                            grade => grade.SubjectID,       
+                            subject => subject.SubjectID,  
+                            (grade, subject) => new { grade, subject } 
                         )
                         .GroupJoin(
                             context.Schedule,
-                            gs => new { gs.subject.SubjectID, gs.subject.ProfessorID }, 
+                            gs => new { gs.subject.SubjectID, gs.subject.ProfessorID}, 
                             schedule => new { schedule.SubjectID, schedule.ProfessorID }, 
                             (gs, schedules) => new { gs.grade, gs.subject, schedules } 
                         )
                         .SelectMany(
-                            gss => gss.schedules.DefaultIfEmpty(), // Perform a LEFT JOIN
+                            gss => gss.schedules.DefaultIfEmpty(), 
                             (gss, schedule) => new
                             {
                                 gss.grade.GradeID,
@@ -833,29 +834,39 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                 gss.subject.SubjectID,
                                 gss.subject.SubjectName,
                                 gss.subject.CourseCode, 
+                                gss.subject.SemesterID, 
+                              
                                 Time = schedule != null ? schedule.Time : null,
                                 gss.subject.ProfessorID,
                                 ProfessorName = context.Professors 
                                     .Where(p => p.ProfessorID == gss.subject.ProfessorID)
                                     .Select(p => p.Name) 
-                                    .FirstOrDefault()
+                                    .FirstOrDefault(),
+                                SemesterName = context.Semesters
+                                .Where(s => s.SemesterID == gss.subject.SemesterID)
+                                .Select(s => s.SemesterName)
+                                .FirstOrDefault()
                             }
                         )
                         .ToListAsync();
-
+              
                     // Use the results, for example:
                     SubjectGrades.Clear();
                     foreach (var item in results)
                     {
+                        
                         SubjectGrades.Add(new Grade
                         {
                             GradeID = item.GradeID,
                             GradeValue = item.GradeValue,
                             SubjectID = item.SubjectID,
-                            CourseCode = item.CourseCode, // Add CourseCode
+                            CourseCode = item.CourseCode, 
                             ProfessorID = item.ProfessorID,
-                            ProfessorName = item.ProfessorName, // Add ProfessorName
+                            ProfessorName = item.ProfessorName, 
                             Time = item.Time,
+                            SemesterID = item.SemesterID,
+                            SemesterName= item.SemesterName,
+                           
                         });
                     }
                 }
@@ -901,7 +912,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Load all the subjects per program base on the student ProgramID
         private async Task LoadSubjectsPerProgram()
         {
-
             try
             {
                 if (Selected_students == null)
@@ -912,17 +922,21 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 using (var context = new ApplicationDbContext())
                 {
+                    var enrolledSubjectIds = await context.SubjectsEnrolled
+                        .Where(e => e.StudentID == Selected_students.StudentID && e.IsEnrolled)
+                        .Select(e => e.SubjectID)
+                        .ToListAsync();
+
                     var subjectGradesList = await context.Subjects
-                        .Where(x => x.ProgramID == Selected_students.ProgramID)
-                        .Include(x => x.Year)                   
-                        .Include(x => x.Semester)                   
+                        .Where(x => x.ProgramID == Selected_students.ProgramID && !enrolledSubjectIds.Contains(x.SubjectID))
+                        .Include(x => x.Year)
+                        .Include(x => x.Semester)
                         .ToListAsync();
 
                     SubjectPerProgram.Clear();
-                    foreach (var grade in subjectGradesList)
+                    foreach (var subject in subjectGradesList)
                     {
-
-                        SubjectPerProgram.Add(grade);
+                        SubjectPerProgram.Add(subject);
                     }
                 }
             }
@@ -930,8 +944,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 Debug.WriteLine($"Error loading subjects: {ex.Message}");
             }
-
         }
+
 
 
 
@@ -940,7 +954,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// </summary>
         /// <returns></returns>
 
-        
+
         private async Task LoadSchoolar()
         {
             using(var context= new ApplicationDbContext())
@@ -1017,8 +1031,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                     await context.SaveChangesAsync();
                     MessageBox.Show($"Subjects enrolled successfully");
-
-                    _= LoadStudentSubAsync();
+                    _ = LoadSubjectsPerProgram();
+                    _ = LoadStudentSubAsync();
                 }
             }
             catch (Exception ex)
@@ -1027,7 +1041,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Extract the student
+        /// </summary>
         private void ExtractStudent()
         {
             ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
@@ -1114,7 +1130,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        /// <summary>
+        /// Automation when adding student
+        /// 
+        /// </summary>
 
         private void MultiInsertStudent()
         {
@@ -1187,6 +1206,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     _context.Students.Add(newStudent);
 
                     _context.SaveChanges();
+                    StudentsCollection.Add(newStudent);
                     ShowNotification("Success", $"Student '{item.Name}' successfully added.", NotificationType.Success);
                 }
                 catch (Exception ex)

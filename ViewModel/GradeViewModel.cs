@@ -302,28 +302,28 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         private async Task DeleteGrade()
         {
-
             MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (confirmation == MessageBoxResult.Yes)
             {
-                using (var context = new ApplicationDbContext())
+                using (var context = new ApplicationDbContext()) // New DbContext instance
                 {
-
                     if (Selected_grades != null)
                     {
+                        // Attach the entity to the new context before removing
+                        context.Attach(Selected_grades);
+                        context.Grades.Remove(Selected_grades);
+                        await context.SaveChangesAsync();
 
-
-                        _context.Grades.Remove(Selected_grades);
-                        await _context.SaveChangesAsync();
+                        // Remove from local collection
                         GradeCollection.Remove(Selected_grades);
-
                     }
                 }
             }
         }
 
-       
+
+
 
         /// <summary>
         /// list of methods

@@ -68,7 +68,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
                 {
                     ShowNotification("Success", "Login successfully", NotificationType.Success);
 
-                    EncoderDashboard staffDashboard = new EncoderDashboard(_context); 
+                    EncoderDashboard staffDashboard = new EncoderDashboard(_context,Usernametxt.Text); 
                     staffDashboard.Show();
                     Clear();
 

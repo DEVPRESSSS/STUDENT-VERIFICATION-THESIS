@@ -23,12 +23,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
     public partial class EncoderDashboard : Window
     {
         private readonly ApplicationDbContext _context;
-
-        public EncoderDashboard(ApplicationDbContext context)
+        public EncoderDashboard(ApplicationDbContext context,string username)
         {
             InitializeComponent();
 
             _context = context;
+            usernametxt.Text = $"Welcome back {username}!";
             MainContentArea.Content = new DashboardOverview();
 
 
@@ -76,13 +76,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void DashboardOverview_Click(object sender, RoutedEventArgs e)
         {
+            MainContentArea.Content = new DashboardOverview();
 
         }
 
         private void Grades_Click(object sender, RoutedEventArgs e)
         {
             
-                MainContentArea.Content = new EncodeGradeUC(_context);
+              //  MainContentArea.Content = new ExcelWordGradeUC(_context);
        
 
 
@@ -118,6 +119,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Grade_Click(object sender, RoutedEventArgs e)
         {
+         
             MainContentArea.Content = new GradesEncoderUC(_context);
 
         }

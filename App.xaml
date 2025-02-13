@@ -445,7 +445,7 @@
             <!-- Menu Button template-->
         <Style x:Key="menuButton" TargetType="Button">
             <Setter Property="Background" Value="#3D7E35"/>
-            <Setter Property="Foreground" Value="#3D7E32"/>
+             <Setter Property="Foreground" Value="#F4F5F6"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="Margin" Value="15 3"/>
@@ -473,36 +473,36 @@
         </Style>
 
         <!-- Menu Button template-->
+
+
         <Style x:Key="menuButton2" TargetType="Button">
-            <Setter Property="Background" Value="#F2F8FC"/>
-            <Setter Property="Foreground" Value="#3D7E32"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="Margin" Value="15 3"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                CornerRadius="7" 
-                BorderBrush="Transparent" 
-                BorderThickness="1">
-                            <ContentPresenter VerticalAlignment="Center" 
-                              HorizontalAlignment="Left"
-                              ContentSource="Content"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#313622"/>
-                    <Setter Property="Foreground" Value="#F4F5F6"/>
-                </Trigger>
-            </Style.Triggers>
+                <Setter Property="Background" Value="#F4F5F6"/>
+                <Setter Property="Foreground" Value="Gray"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                <Setter Property="Height" Value="35"/>
+                <Setter Property="Margin" Value="15 3"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" 
+                        CornerRadius="7" 
+                        BorderBrush="Transparent" 
+                        BorderThickness="1">
+                                <ContentPresenter VerticalAlignment="Center" 
+                                      HorizontalAlignment="Left"
+                                      ContentSource="Content"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#3D7E35"/>
+                        <Setter Property="Foreground" Value="#F4F5F6"/>
+                    </Trigger>
+                </Style.Triggers>
         </Style>
-
-
 
 
 
@@ -511,6 +511,7 @@
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Width" Value="15" />
             <Setter Property="Height" Value="15" />
+   
         </Style>
 
 
