@@ -85,5 +85,34 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             Regex regex = new Regex("^[0-9]+$");
             return regex.IsMatch(text);
         }
+
+        private void SubjectName_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            SingleSpace(sender,e);
+        }
+
+        private void CourseCode_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            SingleSpace(sender, e);
+        }
+
+        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            SingleSpace(sender, e);
+        }
+
+
+        private void SingleSpace(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
+            {
+                if (textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true;
+                }
+            }
+
+        }
     }
 }

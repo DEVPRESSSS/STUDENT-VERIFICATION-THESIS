@@ -379,9 +379,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("GradeValue")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("ProfessorID")
                         .HasColumnType("nvarchar(450)");
 

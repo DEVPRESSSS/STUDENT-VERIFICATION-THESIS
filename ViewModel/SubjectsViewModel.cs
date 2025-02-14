@@ -885,7 +885,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             await _context.SaveChangesAsync();
 
             ShowNotification("Success", $"{newGrades.Count} grades were successfully inserted", NotificationType.Success);
-            GradeSheetCollection.Clear(); 
+            GradeSheetCollection.Clear();
         }
 
 

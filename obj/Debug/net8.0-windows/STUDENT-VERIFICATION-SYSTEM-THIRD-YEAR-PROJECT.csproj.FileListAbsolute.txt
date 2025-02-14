@@ -6,6 +6,8 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\STUDE
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\Azure.Core.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\Azure.Identity.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\BouncyCastle.Cryptography.dll
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.dll
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.Framework.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\EPPlus.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\EPPlus.Interfaces.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\EPPlus.System.Drawing.dll
@@ -120,6 +122,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\Syste
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.Drawing.Common.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.Formats.Asn1.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.IdentityModel.Tokens.Jwt.dll
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.IO.Packaging.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.IO.Pipelines.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.Memory.Data.dll
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.Runtime.Caching.dll
@@ -207,6 +210,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\App.b
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\Cards\CardCounts.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\MainWindow.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\BulkInsertGrade.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\ExcelWordGradeUC.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\GradesEncoderUC.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\StudentsEncoderUC.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\SubjectEncoderUC.g.cs
@@ -251,6 +255,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDE
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\Cards\CardCounts.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\MainWindow.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\BulkInsertGrade.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\ExcelWordGradeUC.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\GradesEncoderUC.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\StudentsEncoderUC.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\SubjectEncoderUC.baml
@@ -299,8 +304,3 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\refin
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.pdb
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.genruntimeconfig.cache
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\ref\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.dll
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.dll
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\DocumentFormat.OpenXml.Framework.dll
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\bin\Debug\net8.0-windows\System.IO.Packaging.dll
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\ExcelWordGradeUC.g.cs
-D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\EncoderDashboardView\ExcelWordGradeUC.baml

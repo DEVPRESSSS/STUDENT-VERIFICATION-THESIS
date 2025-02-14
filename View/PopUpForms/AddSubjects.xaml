@@ -62,8 +62,6 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <!--Textboxes and buttons-->
-
                             <!--Name label-->
                             <Label Content="Name" Margin="61,30,210,328"/>
 
@@ -72,6 +70,7 @@
                               BorderBrush="#bab7b6"
                               MaxLength="100"
                               PreviewTextInput="SubjectName_PreviewTextInput"
+                              PreviewKeyDown="SubjectName_PreviewKeyDown"
                               BorderThickness="1" Margin="63,61,90,300"  
                               Text="{Binding SubjectName, Mode=TwoWay}"
 
@@ -83,6 +82,7 @@
                             <TextBox x:Name="CourseCode" Style="{StaticResource TextBoxesForm}" 
                                  BorderBrush="#bab7b6"
                                  PreviewTextInput="CourseCode_PreviewTextInput"
+                                 PreviewKeyDown="CourseCode_PreviewKeyDown"
                                  BorderThickness="1" Margin="64,120,90,241" 
                                  Text="{Binding CourseCode, Mode=TwoWay}"
                                  MaxLength="20"
@@ -107,7 +107,8 @@
                             <Label Content="Description" Margin="63,216,186,142"/>
 
                             <TextBox Style="{StaticResource TextBoxesForm}" 
-                                 BorderBrush="#bab7b6"                                
+                                 BorderBrush="#bab7b6"
+                                 PreviewKeyDown="TextBox_PreviewKeyDown"
                                  BorderThickness="1" Margin="64,244,90,117"
                                  Text="{Binding Description, Mode=TwoWay}"
                                  MaxLength="100"

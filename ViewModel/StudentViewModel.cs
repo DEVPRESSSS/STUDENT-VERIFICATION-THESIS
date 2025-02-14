@@ -15,6 +15,7 @@ using Microsoft.Win32;
 using OfficeOpenXml;
 using Notification.Wpf;
 using Microsoft.Data.SqlClient;
+using DocumentFormat.OpenXml.InkML;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -546,6 +547,40 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
                 StudentsCollection.Add(obj);
+
+
+                /*using (var db = new ApplicationDbContext())
+                {
+                    var fetchSubs = await db.Subjects
+                        .Where(x => x.ProgramID == Selected_programID && x.YearID == Selected_yearID)
+                        .ToListAsync(); 
+
+                    if (fetchSubs.Any()) 
+                    {
+                        foreach (var sub in fetchSubs)
+                        {
+                            string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                            var subjectEnrolled = new SubjectsEnrolled
+                            {
+                                EnrollmentID = enrollmentID,
+                                SubjectID = sub.SubjectID,
+                                StudentID = Selected_students.StudentID,
+                                IsEnrolled = true
+                            };
+
+                            db.SubjectsEnrolled.Add(subjectEnrolled); 
+                        }
+
+                        await db.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No subjects found for the selected program and year.");
+                    }
+                }
+                */
+
 
 
 

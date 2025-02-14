@@ -93,6 +93,7 @@
 
                                 <DataGridTextColumn Header="CourseCode" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.CourseCode}" />
                                 <DataGridTextColumn Header="SubjectName" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.SubjectName}" />
+                                <DataGridTextColumn Header="Units" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.Units}" />
 
                                 <DataGridTextColumn Header="Year"  Binding="{Binding Subject.Year.Name}" IsReadOnly="True"   CanUserResize="False" Width="*" />
                                 <DataGridTextColumn Header="Semester"  Binding="{Binding Subject.Semester.SemesterName}" IsReadOnly="True"   CanUserResize="False" Width="*" />
@@ -103,16 +104,7 @@
 
 
 
-                        <!--Search Textbox-->
-
-
-
-                        <!--Search Button-->
-
-                        <!--Semester Dropdown-->
-
-
-
+                    
 
                         <!--Subjects Datagridview-->
 
@@ -124,7 +116,9 @@
                                 SelectedItem="{Binding Selected_Subjects}"
 
                                 AutoGenerateColumns="False" Margin="0,319,0,10" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                            <DataGrid.Columns>
+                               <DataGrid.Columns>
+                                <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
+
                                 <DataGridTemplateColumn Header="SubjectName">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -135,7 +129,8 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Units" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Units, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Year" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Year.Name, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <DataGridTextColumn Header="Semester" Binding="{Binding Semester.SemesterName, Mode=TwoWay}" IsReadOnly="True" CanUserResize="False" Width="*" />
                                 <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
@@ -256,7 +251,7 @@
                           FontSize="14" Height="62" VerticalAlignment="Top" HorizontalAlignment="Right" Width="134"
                               >
                             Hi Admin! Please be 
-                            careful when addign subjects
+                            careful when adding subjects
                             Thank you!
 
 

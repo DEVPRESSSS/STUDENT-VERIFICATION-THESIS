@@ -37,7 +37,7 @@
                                 <DataTemplate>
                                     <Border Style="{StaticResource GradeBorderStyle}">
 
-                                        <TextBlock Text="{Binding GradeValue}" 
+                                        <TextBlock Text="{Binding GradeValue,StringFormat={}{0:F0}}" 
                                                 Style="{StaticResource GradeTextBlockStyle}"      
                                                                                     />
                                     </Border>

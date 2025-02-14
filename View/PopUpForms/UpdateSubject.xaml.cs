@@ -61,6 +61,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void CourseCode_PreviewKeyDown(object sender, KeyEventArgs e)
         {
+            SingleSpace(sender, e);
 
         }
 
@@ -94,6 +95,31 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         private void Units_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsNumAllowed(e.Text);
+        }
+
+        private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            SingleSpace(sender, e);
+
+        }
+
+        private void Description_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            SingleSpace(sender, e);
+
+        }
+
+        private void SingleSpace(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
+            {
+                if (textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true;
+                }
+            }
+
         }
     }
 }

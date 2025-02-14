@@ -304,7 +304,17 @@
                         </Button>
 
 
+                        <Button Style="{StaticResource menuButton2}" ToolTip="Logout"  Margin="5"
+                          Cursor="Hand" Click="Button_Click_1" >
+                            <StackPanel Orientation="Horizontal">
+                                <Icon:PackIconMaterial Kind="Logout"   Style="{StaticResource menuButtonIcon}"/>
 
+                                <!--
+                                               <TextBlock Text="Settings"  FontFamily="Roboto"/>
+
+               -->
+                            </StackPanel>
+                        </Button>
 
 
 

@@ -83,27 +83,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
         private void Grades_Click(object sender, RoutedEventArgs e)
         {
             
-              //  MainContentArea.Content = new ExcelWordGradeUC(_context);
+               MainContentArea.Content = new EncodeGradeUC(_context);
        
 
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-            MessageBoxResult dr = MessageBox.Show("Are you sure want to logout??", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (dr == MessageBoxResult.Yes)
-            {
-                LoginWD OBJ = new LoginWD();
-                OBJ.Show();
-
-                this.Close();
-            }
-           
-        }
-
+ 
      
 
         private void Subjects_Click_1(object sender, RoutedEventArgs e)
@@ -122,6 +108,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
          
             MainContentArea.Content = new GradesEncoderUC(_context);
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult dr = MessageBox.Show("Are you sure want to logout??", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (dr == MessageBoxResult.Yes)
+            {
+                LoginWD OBJ = new LoginWD();
+                OBJ.Show();
+
+                this.Close();
+            }
         }
     }
 }

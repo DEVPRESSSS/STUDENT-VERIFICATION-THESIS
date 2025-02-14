@@ -54,10 +54,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [ForeignKey("YearID")]
         public Year ? Year { get; set; }
 
-        
 
 
 
+
+        [NotMapped]
 
         public decimal? GradeValue { get; set; }
 

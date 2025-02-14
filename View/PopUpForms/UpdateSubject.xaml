@@ -78,6 +78,7 @@
                                   Text="{Binding Selected_subjects.SubjectName, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"
                                   MaxLength="100" Grid.ColumnSpan="2"
                                   TextChanged="TextBox_TextChanged"
+                                     PreviewKeyDown="Name_PreviewKeyDown"
                              />
 
                             <Label Content="CourseCode" Margin="64,91,176,267" Grid.ColumnSpan="2"/>
@@ -89,7 +90,7 @@
                                  PreviewTextInput="CourseCode_PreviewTextInput"
                                  Text="{Binding Selected_subjects.CourseCode, Mode=TwoWay}"
                                  MaxLength="30" Grid.ColumnSpan="2"
-
+                        
                              />
 
 
@@ -113,7 +114,7 @@
                                  BorderThickness="1" Margin="64,244,90,117"
                                  Text="{Binding Selected_subjects.Description, Mode=TwoWay}"
                                  MaxLength="100" Grid.ColumnSpan="2"
- 
+                                 PreviewKeyDown="Description_PreviewKeyDown"
                                   />
 
 
