@@ -39,7 +39,7 @@
                     <DataGridTextColumn Header="Role" CanUserResize="False" Binding="{Binding Role.Name,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
 
-                    <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
+                    <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -48,7 +48,7 @@
                                         <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>
                                     <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
-                                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteStaffCommand}">
+                                         Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSubjectEnrolledCommand}">
 
                                         <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                     </Button>

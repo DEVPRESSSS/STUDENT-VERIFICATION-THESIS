@@ -50,10 +50,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand AddSubjectCommand { get; }
         public ICommand ChooseFileCommand { get; }
         public ICommand BulkInsertCommand { get; }
-
-
-        //Listener to close the form
-
+        public ICommand DeleteSubjectEnrolledCommand { get; }
 
         public StudentViewModel(ApplicationDbContext context)
         {
@@ -68,6 +65,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             UpdateStudentsCommand = new RelayCommand(async _ => await UpdateStudentAsync(), _ => Selected_students != null);
 
             DeleteStudentsCommand = new RelayCommand(async _ => await DeleteStudentAsync(), _ => Selected_students != null);
+
+            DeleteSubjectEnrolledCommand = new RelayCommand(async _ => await DeleteSubjectEnrolled(), _ => Selected_subjectEnrolled != null);
 
             LoadStudentsCommand = new RelayCommand(async _ => await LoadStudentAsync());
 
@@ -131,6 +130,29 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
         }
+
+
+
+        private SubjectsEnrolled _selected_subjectenrolled;
+
+        public SubjectsEnrolled Selected_subjectEnrolled
+        {
+            get => _selected_subjectenrolled;
+
+            set
+            {
+
+                _selected_subjectenrolled = value;
+            
+                OnPropertyChanged(nameof(_selected_subjectenrolled));
+
+
+            }
+        }
+
+
+
+
 
 
 
@@ -433,6 +455,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+
+
+        /// <summary>
+        /// Search by program
+        /// </summary>
+        /// <returns></returns>
         private async Task SearchProgramAsync()
         {
             try
@@ -670,6 +698,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+        //Close the Current Window
         public void CloseCurrentActiveWindow()
         {
             var activeWindow = Application.Current.Windows
@@ -740,7 +770,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
-
+        //Load all the students
         private async Task LoadStudentAsync()
         {
 
@@ -832,7 +862,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        /// <summary>
+        /// Load the Subjects with grade
+        /// </summary>
+        /// <returns></returns>
         private async Task LoadSubjectsAsync()
         {
             try
@@ -913,6 +946,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+
+
+
+        /// <summary>
+        /// Load all the subs enrolled by the student for viewing
+        /// </summary>
+        /// <returns></returns>
         private async Task LoadStudentSubAsync()
         {
            
@@ -1026,7 +1067,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
 
 
-
+                    //Iteration of subject per program
                     foreach (var sub in SubjectPerProgram.Where(x => x.IsEnrolled == true))
                     {
 
@@ -1035,9 +1076,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         if(exisitingEnrolledSubjects!= null)
                         {
 
-
-                            MessageBox.Show("Oops one of the subjects you selected is already enrolled!", "Error" , MessageBoxButton.OK, MessageBoxImage.Error);
-
+                            
+                            ShowNotification("Error", "Oops one of the subjects you selected is already enrolled!", NotificationType.Error);
                             SubjectPerProgram.Remove(sub);
                             
                             return;
@@ -1064,7 +1104,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     }
 
                     await context.SaveChangesAsync();
-                    MessageBox.Show($"Subjects enrolled successfully");
+
+                    ShowNotification("Success", $"Subject enrolled successfully", NotificationType.Success);
                     _ = LoadSubjectsPerProgram();
                     _ = LoadStudentSubAsync();
                 }
@@ -1105,7 +1146,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                         for (int row = 1; row <= rowCount; row++)
                         {
-                            var firstCellText = worksheet.Cells[row, 1].Text?.Trim(); // Check the first column for "Name" or "Has name"
+                            var firstCellText = worksheet.Cells[row, 1].Text?.Trim(); 
                             if (string.Equals(firstCellText, "Name", StringComparison.OrdinalIgnoreCase) ||
                                 string.Equals(firstCellText, "name", StringComparison.OrdinalIgnoreCase))
                             {
@@ -1160,13 +1201,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
-
-
-
         /// <summary>
-        /// Automation when adding student
-        /// 
+        /// Automation when adding student       
         /// </summary>
 
         private void MultiInsertStudent()
@@ -1175,9 +1211,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 try
                 {
-                    // Check if the student already exists (case-insensitive using .ToLower())
                     var student = _context.Students
-                        .AsNoTracking() // Disable tracking for this query
+                        .AsNoTracking() 
                         .FirstOrDefault(x => x.Name.ToLower() == item.Name.ToLower());
 
                     if (student != null)
@@ -1249,52 +1284,66 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-                    //Auto enrolled for scholar
-                    using (var db = new ApplicationDbContext())
+
+
+
+
+
+                    //Validate if the student is scholar
+                    if(scholarshipExist.ScholarshipID == "SCHO-1001")
                     {
 
-
-                        //Fetch all the subjects based on the Program and Year
-                        var fetchSubs =  db.Subjects
-                            .Where(x => x.ProgramID == programExist.ProgramID && x.YearID == yearExist.YearID)
-                            .ToList();
-
-                        if (fetchSubs.Any())
+                        //Auto enrolled for scholar
+                        using (var db = new ApplicationDbContext())
                         {
 
-                            //Iteration of subjects
-                            foreach (var sub in fetchSubs)
+
+                            //Fetch all the subjects based on the Program and Year
+                            var fetchSubs = db.Subjects
+                                .Where(x => x.ProgramID == programExist.ProgramID && x.YearID == yearExist.YearID)
+                                .ToList();
+
+                            if (fetchSubs.Any())
                             {
 
-                                //EnrollmentID
-                                string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
-
-
-                                //Peforms insert to enroll the subs
-                                var subjectEnrolled = new SubjectsEnrolled
+                                //Iteration of subjects
+                                foreach (var sub in fetchSubs)
                                 {
-                                    EnrollmentID = enrollmentID,
-                                    SubjectID = sub.SubjectID,
-                                    StudentID = ID,
-                                    IsEnrolled = true
-                                };
+
+                                    //EnrollmentID
+                                    string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
 
-                                //Add to the collection
-                                db.SubjectsEnrolled.Add(subjectEnrolled);
+                                    //Peforms insert to enroll the subs
+                                    var subjectEnrolled = new SubjectsEnrolled
+                                    {
+                                        EnrollmentID = enrollmentID,
+                                        SubjectID = sub.SubjectID,
+                                        StudentID = ID,
+                                        IsEnrolled = true
+                                    };
+
+
+                                    //Add to the collection
+                                    db.SubjectsEnrolled.Add(subjectEnrolled);
+                                }
+
+
+                                //Save the changes
+                                db.SaveChanges();
                             }
+                            else
+                            {
 
 
-                            //Save the changes
-                             db.SaveChanges();
+                                ShowNotification("Error", $"Error: No subjects found", NotificationType.Error);
+                            }
                         }
-                        else
-                        {
 
 
-                            ShowNotification("Error", $"Error: No subjects found", NotificationType.Error);
-                        }
                     }
+
+                  
 
 
                     //Push notifications
@@ -1306,7 +1355,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 }
             }
+            //This will clear the collection after successfull insert
+            StudentBulkCollection.Clear();
+
+            //Refresh the Students immediately
+             _= LoadStudentAsync();
         }
+
+
+
+
         /// <summary>
         /// View the enrolled subs of the student
         /// </summary>
@@ -1340,6 +1398,35 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+
+        /// <summary>
+        /// Delete the subject enrolled by the student
+        /// </summary>
+
+
+        private async Task DeleteSubjectEnrolled()
+        {
+            try
+            {
+               
+
+                using (var db = new ApplicationDbContext())
+                {
+                    db.SubjectsEnrolled.Remove(Selected_subjectEnrolled);
+                    await db.SaveChangesAsync();
+                }
+
+                ListOfSubjectsEnrolled.Remove(Selected_subjectEnrolled);
+                ShowNotification("Success", $"Subject unenrolled successfully", NotificationType.Success);
+                _= LoadSubjectsPerProgram();
+            }
+            catch (Exception ex)
+            {
+                ShowNotification("Error", $"Error: {ex.Message}", NotificationType.Error);
+            }
+        }
+
+
         //Show notications
         private void ShowNotification(string title, string message, NotificationType notificationType)
         {
@@ -1349,15 +1436,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             if (NotificationType.Success == notificationType)
             {
                 notificaficationManager.Show(
-                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(20));
-
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(10));
+                return;
             }
-
-            notificaficationManager.Show(
-                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
-
-
-
 
         }
         private bool CanExecuteInsertGrade()

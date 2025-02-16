@@ -87,16 +87,31 @@
                                  AutoGenerateColumns="False"
                                  Margin="8,53,0,0" Grid.RowSpan="2"
                                  ItemsSource="{Binding ListOfSubjectsEnrolled }"
+                                 SelectedItem="{Binding Selected_subjectEnrolled}"
                                  Height="217" VerticalAlignment="Top" Grid.ColumnSpan="2"
                                       >
                             <DataGrid.Columns>
 
                                 <DataGridTextColumn Header="CourseCode" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.CourseCode}" />
-                                <DataGridTextColumn Header="SubjectName" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.SubjectName}" />
+                                <DataGridTextColumn Header="Subject" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.SubjectName}" />
                                 <DataGridTextColumn Header="Units" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Subject.Units}" />
 
                                 <DataGridTextColumn Header="Year"  Binding="{Binding Subject.Year.Name}" IsReadOnly="True"   CanUserResize="False" Width="*" />
-                                <DataGridTextColumn Header="Semester"  Binding="{Binding Subject.Semester.SemesterName}" IsReadOnly="True"   CanUserResize="False" Width="*" />
+                                <DataGridTextColumn Header="Sem"  Binding="{Binding Subject.Semester.SemesterName}" IsReadOnly="True"   CanUserResize="False" Width="*" />
+                                <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                              
+                                                <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
+                                                     Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSubjectEnrolledCommand}">
+
+                                                    <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                             </DataGrid.Columns>
 
 

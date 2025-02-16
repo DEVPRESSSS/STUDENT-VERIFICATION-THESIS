@@ -82,6 +82,7 @@
             <Style x:Key="signInButton" TargetType="Button">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Width" Value="200"/>
+                <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Margin" Value="0 20 0 0"/>
                 <Setter Property="Background" Value="#3D7E35"/>
                 <Setter Property="Foreground" Value="#fdfefe"/>
@@ -97,11 +98,11 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#339685"/>
+                        <Setter Property="Background" Value="#3D7E35"/>
                         <Setter Property="Foreground" Value="white"/>
                     </Trigger>
                     <Trigger Property="IsMouseCaptured" Value="True">
-                        <Setter Property="Background" Value="#2d7a6c"/>
+                        <Setter Property="Background" Value="#3D7E35"/>
                         <Setter Property="Foreground" Value="White"/>
                     </Trigger>
                 </Style.Triggers>
