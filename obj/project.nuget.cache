@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "LVgfvMeSb/+dKc6lTkanfOybhtl+BWmXkrKZ4SGtuWm0XCHpUPCs8KaOg0AzpLo1QOqFIYkH6SdFmD5hyY9i/g==",
+  "dgSpecHash": "lj8LH6SFtwY7IzNkLSxxONtyOC0gkp6yhdYBjWYaNB1gkou7BpOK0bDygHMGlzelSncveZY7VZMEdiKPvdlvnA==",
   "success": true,
   "projectFilePath": "D:\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\xmont\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\xmont\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\bouncycastle.cryptography\\2.4.0\\bouncycastle.cryptography.2.4.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\documentformat.openxml\\3.2.0\\documentformat.openxml.3.2.0.nupkg.sha512",
     "C:\\Users\\xmont\\.nuget\\packages\\documentformat.openxml.framework\\3.2.0\\documentformat.openxml.framework.3.2.0.nupkg.sha512",

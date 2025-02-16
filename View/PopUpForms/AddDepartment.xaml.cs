@@ -53,15 +53,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private static bool IsTextAllowed(string text)
         {
-            Regex regex = new Regex("^[a-zA-Z]+$"); // Only letters are allowed
+            Regex regex = new Regex("^[a-zA-Z]+$"); 
             return regex.IsMatch(text);
         }
 
         private void NameTxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
             {
-                e.Handled = true;
+                if (string.IsNullOrEmpty(textBox.Text) || textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true; 
+
+                }
             }
         }
     }

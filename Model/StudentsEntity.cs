@@ -11,8 +11,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
     public class StudentsEntity
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)] // Prevent auto-generation
-        public string StudentID { get; set; } = string.Empty; // Ensure non-null values
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] 
+        public string StudentID { get; set; } = string.Empty; 
 
         [Required]
         public string? Name { get; set; }

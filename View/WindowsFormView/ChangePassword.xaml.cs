@@ -133,10 +133,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
                     }
                     else if (staff != null)
                     {
-                        // Update password for Staff
                         if (staff.Password != newPassword)
                         {
-                            staff.Password = newPassword;
+                            staff.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
                             await context.SaveChangesAsync();
                             MessageBox.Show("Staff password updated successfully!",
                                               "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -153,7 +152,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
                                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-                    // Redirect to LoginView or other actions
                     var loginView = new LoginWD();
                     loginView.Show();
                     this.Close();

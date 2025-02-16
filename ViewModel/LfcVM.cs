@@ -110,13 +110,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 }
 
                 //Find staff username and password
-                var staff = _context.Staffs.FirstOrDefault(s => s.Username == Username && s.Password == Password);
-                if (staff != null)
+                var staff = await _context.Staffs.FirstOrDefaultAsync(s => s.Username == Username);
+                if (staff != null && BCrypt.Net.BCrypt.Verify(Password, staff.Password))
                 {
                     ShowNotification("Success", "Login successfully", NotificationType.Success);
 
-                    //Redirect to Encoder dashboard
-                    EncoderDashboard staffDashboard = new EncoderDashboard(_context,staff.Username);
+                    // Redirect to Staff Dashboard
+                    EncoderDashboard staffDashboard = new EncoderDashboard(_context, staff.Username);
                     staffDashboard.Show();
                     CloseCurrentActiveWindow();
                     return;

@@ -25,19 +25,28 @@
 
                     <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
 
-                    <DataGridTextColumn Header="ID Number" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="ID No" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Gmail" CanUserResize="False" Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="YearLevel" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="ScholarShip" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
 
-                    <DataGridTemplateColumn Header="Grades" CanUserResize="False" IsReadOnly="True" Width="*">
+                    <DataGridTemplateColumn Header="Subject/Grade" CanUserResize="False" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1">
+                                    <Button Style="{StaticResource gridEditButton}" Click="Button_Click_4" Background="#FAB12F" Foreground="White" BorderThickness="0" >
                                         <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="Eye" Style="{StaticResource gridButtonIcon}" />
+                                            <Icon:PackIconMaterial Kind="BookMultiple" HorizontalContentAlignment="Center" Style="{StaticResource gridButtonIcon}" />
+
+                                        </StackPanel>
+
+                                    </Button>
+
+                                    <Button Style="{StaticResource gridEditButton}" Margin="5 0 0 0"   Click="Button_Click_1">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="Printer" HorizontalContentAlignment="Center" Style="{StaticResource gridButtonIcon}" />
+                                          
                                         </StackPanel>
 
                                     </Button>
@@ -54,8 +63,9 @@
                                     <Button Style="{StaticResource gridEditButton}" Click="Button_Click_3">
                                         <Icon:PackIconMaterial Kind="PlusBoxMultiple" Style="{StaticResource gridButtonIcon}" />
                                     </Button>
-
+                                    
                                 </StackPanel>
+                                
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

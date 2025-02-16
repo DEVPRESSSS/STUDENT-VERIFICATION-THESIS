@@ -57,10 +57,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             var textBox = sender as TextBox;
             if (textBox != null && e.Key == Key.Space)
             {
-                // Check if last character is already a space
                 if (textBox.Text.EndsWith(" "))
                 {
-                    e.Handled = true; // Block the space
+                    e.Handled = true; 
                 }
             }
         }

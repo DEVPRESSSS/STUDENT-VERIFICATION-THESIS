@@ -10,7 +10,6 @@
 
           
 
-                 <!--Login Templates-->
 
             <!--Title Style-->
             <Style x:Key="titleText" TargetType="TextBlock">
@@ -206,9 +205,11 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+            
+            
+    
 
-
-        <Style TargetType="Button">
+            <Style TargetType="Button">
             <Style.Triggers>
                 <!-- Hide button if IsEncoderDashboard is true -->
                 <DataTrigger Binding="{Binding IsEncoderDashboard}" Value="True">

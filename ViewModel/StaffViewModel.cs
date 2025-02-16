@@ -29,6 +29,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand? UpdateStaffCommand { get; }
         public ICommand? LoadStaffCommand { get; }
         public ICommand? DeleteStaffCommand { get; }
+        public ICommand? ClearCommand { get; }
+        public ICommand? CloseWindow { get; }
 
 
         private StaffsEntity _selected_Staff;
@@ -183,10 +185,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             AddStaffCommand = new RelayCommand(async _ => await AddStaffAsync());
             UpdateStaffCommand = new RelayCommand(async _ => await UpdateStaffAsync(), _ => Selected_staff!= null);
             DeleteStaffCommand = new RelayCommand(async _ => await DeleteStaffAsync(), _ => Selected_staff!= null);
+            ClearCommand = new RelayCommand( _ => Clear());
+            CloseWindow = new RelayCommand( _ => CloseCurrentActiveWindow());
 
             _ = LoadRoleAsync();
         }
 
+
+        /// <summary>
+        /// Delete stafd
+        /// </summary>
+        /// <returns></returns>
         private async Task DeleteStaffAsync()
         {
 
@@ -209,6 +218,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+        /// <summary>
+        /// Add Staff method
+        /// </summary>
+        
         private async Task AddStaffAsync()
         {
             // Validate required fields
@@ -229,6 +243,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show("Name, email, or username already exists. Please use a different one!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Password);
 
             // Create new staff
             string ID = $"STAFF-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
@@ -239,7 +254,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 Name = Name,
                 Email = Email,
                 Username = Username,
-                Password = Password,
+                Password = hashedPassword,
                 RoleID = RoleID,
             };
 
@@ -255,11 +270,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while adding staff: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+               
             }
         }
 
 
-
+        /// <summary>
+        /// Update staff method
+        /// </summary>
         private async Task UpdateStaffAsync()
         {
 
@@ -276,7 +294,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 }
 
-                var existingEmailAndUserName = await _context.Staffs.FirstOrDefaultAsync(x => x.Name == Selected_staff.Name || x.Username == Selected_staff.Username || x.Email == Selected_staff.Email);
+                var existingEmailAndUserName = await _context.Staffs
+                    .Where(x => (x.Name == Selected_staff.Name || x.Username == Selected_staff.Username || x.Email == Selected_staff.Email)
+                            && x.StaffID != Selected_staff.StaffID) 
+                    .FirstOrDefaultAsync();
 
 
                 if (existingEmailAndUserName != null)
@@ -288,23 +309,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
                 var staffID = _context.Staffs.FirstOrDefault(x => x.StaffID == Selected_staff.StaffID);
+                            string ID = $"STAFF-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
                 if(staffID != null)
                 {
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(Selected_staff.Password);
 
-                   
+
                     staffID.Name = Selected_staff.Name;
                     staffID.Email = Selected_staff.Email;
                     staffID.Username = Selected_staff.Username;
-                    staffID.Password = Selected_staff.Password;
-                    staffID.Role = Selected_staff.Role;
+                    staffID.Password = hashedPassword;
+                    staffID.RoleID = Selected_staff.RoleID;
 
 
 
                     _context.Staffs.Update(staffID);
                     await _context.SaveChangesAsync();
 
-                    MessageBox.Show($"Staff updated successfully!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Staff updated successfully!", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _= LoadStaffAsync();
                     CloseCurrentActiveWindow();
                 }
 
@@ -331,7 +355,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        /// <summary>
+        /// Load all staff
+        /// </summary>
         private async Task  LoadStaffAsync()
         {
             using(var context = new ApplicationDbContext())
@@ -356,7 +382,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        /// <summary>
+        /// Load each role from Db
+        /// </summary>
+        
 
         private async Task LoadRoleAsync()
         {
@@ -376,6 +405,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+
+        /// <summary>
+        /// Clear the fields
+        /// </summary>
         private void Clear()
         {
 
@@ -386,6 +419,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
         public void CloseCurrentActiveWindow()
         {
+            if (string.IsNullOrWhiteSpace(Selected_staff.Name) || string.IsNullOrWhiteSpace(Selected_staff.Username) || string.IsNullOrWhiteSpace(Selected_staff.Password) || string.IsNullOrWhiteSpace(Selected_staff.Email))
+            {
+
+
+                MessageBox.Show($"Name, email, or username can't be empty!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return;
+
+            }
+
+            // Close the active window
             var activeWindow = Application.Current.Windows
                 .OfType<Window>()
                 .FirstOrDefault(window => window.IsActive);
@@ -394,8 +438,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 activeWindow.Close();
             }
-
         }
+
         private bool canAddDepartment()
         {
 

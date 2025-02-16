@@ -51,5 +51,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
         {
 
         }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateStaffForm obj = new UpdateStaffForm(_context)
+            {
+
+                DataContext = this.DataContext
+
+            };
+            obj.ShowDialog();
+        }
     }
 }

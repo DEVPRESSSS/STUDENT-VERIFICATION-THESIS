@@ -83,7 +83,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private static bool IsTextAllowed(string text)
         {
-            Regex regex = new Regex("^[a-zA-Z]+$"); // Only letters are allowed
+            Regex regex = new Regex("^[a-zA-Z]+$"); 
             return regex.IsMatch(text);
         }
 
@@ -101,13 +101,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            var textBox = sender as TextBox;
+            TextBox textBox = sender as TextBox;
             if (textBox != null && e.Key == Key.Space)
             {
-                // Check if last character is already a space
-                if (textBox.Text.EndsWith(" "))
+                if (string.IsNullOrEmpty(textBox.Text) || textBox.Text.EndsWith(" "))
                 {
-                    e.Handled = true; // Block the space
+                    e.Handled = true;
+
                 }
             }
         }

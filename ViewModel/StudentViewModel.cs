@@ -32,6 +32,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
        public ObservableCollection<SubjectsEntity> SubjectPerProgram { get; private set; }
        public ObservableCollection<SubjectsEnrolled> ListOfSubjectsEnrolled { get; private set; }
        public ObservableCollection<StudentsEntity> StudentBulkCollection { get; private set; }
+       //public ObservableCollection<SubjectsEnrolled> Subje { get; private set; }
 
 
 
@@ -70,7 +71,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             LoadStudentsCommand = new RelayCommand(async _ => await LoadStudentAsync());
 
-            //printGradeCommand = new RelayCommand(async _ => await GeneratePdfAsync());
             AddSubjectCommand = new RelayCommand(async _ => await AddSubjectAsync());
 
             ClearCommand = new RelayCommand(_ => ClearAsync());
@@ -94,7 +94,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             ChooseFileCommand = new RelayCommand(_ => ExtractStudent());
             BulkInsertCommand = new RelayCommand(_ => MultiInsertStudent());
 
-           // BulkInsertCommand = new RelayCommand(_ => ExtractStudent());
 
 
             _ = LoadProgramAsync();
@@ -548,8 +547,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 StudentsCollection.Add(obj);
 
-
-                /*using (var db = new ApplicationDbContext())
+                //Enrolled the scholar to its subjects
+                using (var db = new ApplicationDbContext())
                 {
                     var fetchSubs = await db.Subjects
                         .Where(x => x.ProgramID == Selected_programID && x.YearID == Selected_yearID)
@@ -565,7 +564,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             {
                                 EnrollmentID = enrollmentID,
                                 SubjectID = sub.SubjectID,
-                                StudentID = Selected_students.StudentID,
+                                StudentID = ID,
                                 IsEnrolled = true
                             };
 
@@ -579,7 +578,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         MessageBox.Show("No subjects found for the selected program and year.");
                     }
                 }
-                */
+                
 
 
 
@@ -1196,12 +1195,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     }
 
                     var yearMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-                {
-                    { "4th Year", "Fourth Year" },
-                    { "3rd Year", "Third Year" },
-                    { "2nd Year", "Second Year" },
-                    { "1st Year", "First Year" },
-                };
+                    {
+                        { "4th Year", "Fourth Year" },
+                        { "3rd Year", "Third Year" },
+                        { "2nd Year", "Second Year" },
+                        { "1st Year", "First Year" },
+                    };
 
                     var normalizedYear = yearMapping.ContainsKey(item.YearID) ? yearMapping[item.YearID] : item.YearID;
 
@@ -1223,9 +1222,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         ShowNotification("Error", $"Scholarship '{item.ScholarshipID}' does not exist.", NotificationType.Error);
                         continue;
                     }
-                    string ID = $"STU-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+
+
 
                     // Add new student
+
+                    string ID = $"STU-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
                     var newStudent = new StudentsEntity
                     {
                         StudentID = ID,
@@ -1242,6 +1246,58 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                     _context.SaveChanges();
                     StudentsCollection.Add(newStudent);
+
+
+
+                    //Auto enrolled for scholar
+                    using (var db = new ApplicationDbContext())
+                    {
+
+
+                        //Fetch all the subjects based on the Program and Year
+                        var fetchSubs =  db.Subjects
+                            .Where(x => x.ProgramID == programExist.ProgramID && x.YearID == yearExist.YearID)
+                            .ToList();
+
+                        if (fetchSubs.Any())
+                        {
+
+                            //Iteration of subjects
+                            foreach (var sub in fetchSubs)
+                            {
+
+                                //EnrollmentID
+                                string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+
+                                //Peforms insert to enroll the subs
+                                var subjectEnrolled = new SubjectsEnrolled
+                                {
+                                    EnrollmentID = enrollmentID,
+                                    SubjectID = sub.SubjectID,
+                                    StudentID = ID,
+                                    IsEnrolled = true
+                                };
+
+
+                                //Add to the collection
+                                db.SubjectsEnrolled.Add(subjectEnrolled);
+                            }
+
+
+                            //Save the changes
+                             db.SaveChanges();
+                        }
+                        else
+                        {
+
+
+                            ShowNotification("Error", $"Error: No subjects found", NotificationType.Error);
+                        }
+                    }
+
+
+                    //Push notifications
                     ShowNotification("Success", $"Student '{item.Name}' successfully added.", NotificationType.Success);
                 }
                 catch (Exception ex)
@@ -1251,7 +1307,37 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 }
             }
         }
+        /// <summary>
+        /// View the enrolled subs of the student
+        /// </summary>
+        /// 
 
+        private void ViewEnrolledSubsOfTheStudent()
+        {
+            using(var context = new ApplicationDbContext())
+            {
+                //Query all the subs enrolled by the student
+                var fetchAllSubsEnrolled = context.SubjectsEnrolled.Where(x=>x.StudentID== Selected_students.StudentID && x.IsEnrolled == true).
+                    Include(x =>x.Subject).
+                    Include(x =>x.Student).
+                    ToList();
+
+                //Iteration of the subjects enrolled
+
+                foreach(var subEnrolled  in fetchAllSubsEnrolled)
+                {
+
+
+
+                    ListOfSubjectsEnrolled.Add(subEnrolled);
+
+                }
+
+            }
+
+
+
+        }
 
 
         //Show notications
