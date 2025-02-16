@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -12,27 +12,25 @@
 
             <!--Professor Table-->
             <Border 
-      Background="#FDFDFD"
-      Margin="10,47,10,10"
-      CornerRadius="4">
+              Background="#FDFDFD"
+              Margin="10,47,10,10"
+              CornerRadius="4">
 
 
 
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
-           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-           CellStyle="{DynamicResource DataGridCellStyle1}" 
-           x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-           ItemsSource="{Binding GradeCollection}"
-           SelectedItem="{Binding Selected_grades,Mode=TwoWay}"
-           AutoGenerateColumns="False">
+                   ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                   CellStyle="{DynamicResource DataGridCellStyle1}" 
+                   x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                   ItemsSource="{Binding GradeCollection}"
+                   SelectedItem="{Binding Selected_grades,Mode=TwoWay}"
+                   AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="GradeID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding GradeID}"/>
-                        <DataGridTextColumn Header="StudentID" CanUserResize="False"  Binding="{Binding StudentID}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Student.Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="SubjectID" CanUserResize="False" Binding="{Binding SubjectID}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="SubjectName" CanUserResize="False" Binding="{Binding Subject.CourseCode}" IsReadOnly="True" Width="*"/>
-                        <DataGridTemplateColumn Header="Grade" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding SubjectID}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn Header="Final Grade" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border Style="{StaticResource GradeBorderStyle}">
@@ -46,9 +44,11 @@
                             </DataGridTemplateColumn.CellTemplate>
 
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="DateAssigned" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
 
-                       
+                        <DataGridTextColumn Header="Encoded" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Encoder" CanUserResize="False" Binding="{Binding User.Name}" IsReadOnly="True" Width="*"/>
+
+
                     </DataGrid.Columns>
                 </DataGrid>
 

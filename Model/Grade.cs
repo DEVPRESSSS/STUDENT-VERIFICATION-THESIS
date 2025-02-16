@@ -36,6 +36,22 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public SubjectsEntity? Subject { get; set; }
 
 
+        [Required]
+        public string? EnrollmentID { get; set; }
+
+        [ForeignKey("EnrollmentID")]
+        public SubjectsEnrolled? Enroll { get; set; }
+
+
+
+
+        [Required]
+        public string? StaffID { get; set; }
+
+        [ForeignKey("StaffID")]
+        public StaffsEntity? User { get; set; }
+
+
         [NotMapped]
 
         public bool isGradeValueLow => GradeValue <75;

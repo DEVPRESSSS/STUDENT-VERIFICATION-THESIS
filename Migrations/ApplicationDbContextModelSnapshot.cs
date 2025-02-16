@@ -72,8 +72,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Property<DateTime>("DateAssigned")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("EnrollmentID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<decimal>("GradeValue")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("StaffID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("StudentID")
                         .IsRequired()
@@ -84,6 +92,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("GradeID");
+
+                    b.HasIndex("EnrollmentID");
+
+                    b.HasIndex("StaffID");
 
                     b.HasIndex("StudentID");
 
@@ -431,6 +443,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
 
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Grade", b =>
                 {
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SubjectsEnrolled", "Enroll")
+                        .WithMany()
+                        .HasForeignKey("EnrollmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StaffsEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("StaffID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StudentsEntity", "Student")
                         .WithMany()
                         .HasForeignKey("StudentID")
@@ -443,9 +467,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Enroll");
+
                     b.Navigation("Student");
 
                     b.Navigation("Subject");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.ProfessorsEntity", b =>

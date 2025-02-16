@@ -29,11 +29,9 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="GradeID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding GradeID}"/>
-                        <DataGridTextColumn Header="StudentID" CanUserResize="False"  Binding="{Binding StudentID}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Student.Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="SubjectID" CanUserResize="False" Binding="{Binding SubjectID}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="SubjectName" CanUserResize="False" Binding="{Binding Subject.CourseCode}" IsReadOnly="True" Width="*"/>
-                        <DataGridTemplateColumn Header="Grade" Width="*" IsReadOnly="True">
+                        <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding Subject.CourseCode}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn Header="Final Grade" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <Border Style="{StaticResource GradeBorderStyle}">
@@ -47,7 +45,8 @@
                             </DataGridTemplateColumn.CellTemplate>
                  
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="DateAssigned" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Encoder" CanUserResize="False" Binding="{Binding User.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Encoded" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>

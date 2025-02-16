@@ -1061,51 +1061,56 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
             try
             {
-                
+                int totalUnits = ListOfSubjectsEnrolled.Sum(x => x.Subject.Units); 
 
                 using (var context = new ApplicationDbContext())
                 {
+                    List<SubjectsEnrolled> newEnrollments = new List<SubjectsEnrolled>();
 
-
-                    //Iteration of subject per program
-                    foreach (var sub in SubjectPerProgram.Where(x => x.IsEnrolled == true))
+                    // Iterate over selected subjects
+                    foreach (var sub in SubjectPerProgram.Where(x => x.IsEnrolled==true))
                     {
+                        // Check if subject is already enrolled
+                        var existingSubject = await context.SubjectsEnrolled
+                            .FirstOrDefaultAsync(x => x.SubjectID == sub.SubjectID && x.StudentID == Selected_students.StudentID);
 
-                        var exisitingEnrolledSubjects = await context.SubjectsEnrolled.FirstOrDefaultAsync(x=> x.SubjectID == sub.SubjectID && x.StudentID == Selected_students.StudentID);
-
-                        if(exisitingEnrolledSubjects!= null)
+                        if (existingSubject != null)
                         {
+                            ShowNotification("Error", "Oops! One of the subjects you selected is already enrolled!", NotificationType.Error);
+                            return; 
+                        }
 
-                            
-                            ShowNotification("Error", "Oops one of the subjects you selected is already enrolled!", NotificationType.Error);
-                            SubjectPerProgram.Remove(sub);
-                            
+                        totalUnits += sub.Units;
+
+                        if (totalUnits >= 27)
+                        {
+                            ShowNotification("Error", "The student's subjects already reached the unit quota (27 max)!", NotificationType.Error);
                             return;
                         }
 
-
-
                         string ID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
+                        // Add new subject enrollment to list
                         var subjectEnrolled = new SubjectsEnrolled
                         {
-                            EnrollmentID= ID,
+                            EnrollmentID = ID,
                             SubjectID = sub.SubjectID,
-                            StudentID= Selected_students.StudentID,
-                            IsEnrolled= true
-
-
+                            StudentID = Selected_students.StudentID,
+                            IsEnrolled = true
                         };
 
-                        context.SubjectsEnrolled.Add(subjectEnrolled);
-                        
-
-
+                        newEnrollments.Add(subjectEnrolled);
                     }
 
-                    await context.SaveChangesAsync();
+                    // Save all new enrollments to database
+                    if (newEnrollments.Count > 0)
+                    {
+                        context.SubjectsEnrolled.AddRange(newEnrollments);
+                        await context.SaveChangesAsync();
+                        ShowNotification("Success", "Subjects enrolled successfully", NotificationType.Success);
+                    }
 
-                    ShowNotification("Success", $"Subject enrolled successfully", NotificationType.Success);
+                    // Refresh UI
                     _ = LoadSubjectsPerProgram();
                     _ = LoadStudentSubAsync();
                 }
@@ -1115,6 +1120,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show($"Error loading subjects: {ex.Message}");
             }
         }
+
 
         /// <summary>
         /// Extract the student
@@ -1438,6 +1444,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 notificaficationManager.Show(
                   new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(10));
                 return;
+            }
+            else
+            {
+                notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(10));
             }
 
         }

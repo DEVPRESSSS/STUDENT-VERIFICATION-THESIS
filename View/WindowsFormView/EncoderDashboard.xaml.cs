@@ -1,4 +1,5 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 using System;
@@ -23,6 +24,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
     public partial class EncoderDashboard : Window
     {
         private readonly ApplicationDbContext _context;
+
         public EncoderDashboard(ApplicationDbContext context,string username)
         {
             InitializeComponent();
@@ -30,9 +32,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
             _context = context;
             usernametxt.Text = $"Welcome back {username}!";
             MainContentArea.Content = new DashboardOverview();
-
+            var user = _context.Staffs.FirstOrDefault(x => x.Username == username);
+            if (user != null)
+            {
+                UserSessionService.Instance.SetLoggedInUser(user.StaffID, username);
+            }
 
         }
+
+
+    
 
 
 

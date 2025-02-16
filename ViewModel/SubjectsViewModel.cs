@@ -822,12 +822,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// <returns></returns>
         private async Task AddExtractedGrade()
         {
-
-            MessageBoxResult dr = MessageBox.Show("Are you sure want to insert these grades? Please double check the subject name and professor", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult dr = MessageBox.Show(
+                "Are you sure you want to insert these grades? Please double-check the subject name and professor.",
+                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (dr == MessageBoxResult.Yes)
             {
-
                 List<Grade> newGrades = new List<Grade>();
 
                 foreach (var grade in GradeSheetCollection.ToList())
@@ -836,14 +836,21 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                     if (student != null)
                     {
+                        var enrollment = await _context.SubjectsEnrolled
+                            .FirstOrDefaultAsync(e => e.StudentID == student.StudentID && e.SubjectID == Selected_subjects.SubjectID);
+
+                        if (enrollment == null)
+                        {
+                            ShowNotification("Error", $"{grade.StudentName} is not enrolled in {Selected_subjects.SubjectName}. Grade not recorded.", NotificationType.Error);
+                            continue;
+                        }
+
                         var studentWithExistingGrade = await _context.Grades
-                            .Include(g => g.Subject)
-                            .Where(g => g.StudentID == student.StudentID && g.Subject.SubjectID == Selected_subjects.SubjectID)
-                            .FirstOrDefaultAsync();
+                            .FirstOrDefaultAsync(g => g.EnrollmentID == enrollment.EnrollmentID);
 
                         if (studentWithExistingGrade != null)
                         {
-                            ShowNotification("Error", $"{grade.StudentName} already has a grade in the table", NotificationType.Error);
+                            ShowNotification("Error", $"{grade.StudentName} already has a grade recorded for {Selected_subjects.SubjectName}.", NotificationType.Error);
                             continue;
                         }
 
@@ -855,24 +862,27 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             StudentID = student.StudentID,
                             GradeValue = grade.GradeValue,
                             DateAssigned = DateTime.Now,
-                            SubjectID = Selected_subjects.SubjectID
+                            SubjectID = Selected_subjects.SubjectID,
+                            EnrollmentID = enrollment.EnrollmentID,
+                            StaffID = UserSessionService.Instance.LoggedInStaffID
                         };
 
                         newGrades.Add(newGrade);
                     }
                     else
                     {
-                        ShowNotification("Error", $"{grade.StudentName} does not exist in the database, grade will not be input", NotificationType.Error);
+                        ShowNotification("Error", $"{grade.StudentName} does not exist in the database. Grade not recorded.", NotificationType.Error);
                     }
                 }
 
                 if (newGrades.Any())
                 {
                     await InsertGradesAsync(newGrades);
+                    ShowNotification("Success", "Grades have been successfully added!", NotificationType.Success);
                 }
             }
-            
         }
+
 
 
         /// <summary>

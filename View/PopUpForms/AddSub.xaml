@@ -102,7 +102,7 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                              
+
                                                 <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
                                                      Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSubjectEnrolledCommand}">
 
@@ -119,7 +119,7 @@
 
 
 
-                    
+
 
                         <!--Subjects Datagridview-->
 
@@ -131,7 +131,7 @@
                                 SelectedItem="{Binding Selected_Subjects}"
 
                                 AutoGenerateColumns="False" Margin="0,319,0,10" Grid.RowSpan="2" Grid.ColumnSpan="2">
-                               <DataGrid.Columns>
+                            <DataGrid.Columns>
                                 <DataGridTextColumn Header="Course Code" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding CourseCode, UpdateSourceTrigger=PropertyChanged}" />
 
                                 <DataGridTemplateColumn Header="SubjectName">
@@ -152,11 +152,11 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <StackPanel Orientation="Horizontal">
-                                                        <!-- CheckBox for edit action -->
-                                                
-                                                        <CheckBox Margin="5,0,0,0" Style="{StaticResource CheckBoxStyle1}" VerticalAlignment="Center" IsChecked="{Binding IsEnrolled, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                                                <!-- CheckBox for edit action -->
 
-                                           
+                                                <CheckBox Margin="5,0,0,0" Style="{StaticResource CheckBoxStyle1}" VerticalAlignment="Center" IsChecked="{Binding IsEnrolled, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -194,8 +194,8 @@
                                 Foreground="#181C14"
                                 FontWeight="Bold" 
                                 VerticalAlignment="Top"
-                                HorizontalAlignment="Left"
-                                Width="112" Margin="303,-32,0,0" Height="20" Grid.Column="1" />
+                                HorizontalAlignment="Right"
+                                Width="120" Margin="0,-32,12,0" Height="20" Grid.Column="1" />
 
 
 

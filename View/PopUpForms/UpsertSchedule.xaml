@@ -192,33 +192,9 @@
 
 
                     <!--Automation instructions-->
-                    <TextBlock TextWrapping="Wrap" 
-                       Foreground="White"
-                       Margin="64,52,10,331" 
-                       FontFamily="Helvetica Neue" 
-                       FontSize="14"
-                           >
-                         Hi Admin! Automate 
-                        the Professor data insertion 
-                        process effortlessly
-
-
-                    </TextBlock>
 
 
                     <!--Automation button-->
-                    <Button x:Name="Automation"   
-                        Margin="57,150,0,275"
-                        Cursor="Hand" BorderBrush="#FFFF"
-                        Style="{StaticResource Automation}"
-                        BorderThickness="1"
-                        FontWeight="Bold"                     
-                        HorizontalAlignment="Left" Width="123">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="AutoMode" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Bulk Insert" FontFamily="Roboto" Width="62" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
 
                 </Grid>
                 <!--Instructions -->
