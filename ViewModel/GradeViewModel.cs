@@ -340,6 +340,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 Include(x=> x.Student).
                  Include(x => x.Subject).
                  Include(x => x.User).
+                 Include(x => x.SY).
                 ToListAsync();
 
             GradeCollection.Clear();

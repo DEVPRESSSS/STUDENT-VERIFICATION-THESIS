@@ -60,9 +60,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
             ProfessorCollection = new ObservableCollection<ProfessorsEntity>(); 
-            YearCollection = new ObservableCollection<Year>(); 
+            YearCollection = new ObservableCollection<Year>();
+            SchoolYearCollection = new ObservableCollection<SchoolYear>();
             GradeSheetCollection = new ObservableCollection<Grade>();
-            SchoolYearCollection = new ObservableCollection<SchoolYear>(); 
             ClearCommand = new RelayCommand(_ => Clear());
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
             UpsertCommand = new RelayCommand(async _ => await AddScheduleAsync());
@@ -73,6 +73,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             _ = LoadProfessorsAsync();
             _= LoadProgramAsync();
             _ = LoadYearAsync();
+            _ = LoadSchoolYearAsync();
 
 
         }
@@ -104,6 +105,27 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// <summary>
         /// School Year
         /// </summary>
+        /// 
+        private string _syID;
+
+        public string Selected_syID
+        {
+
+            get => _syID;
+
+
+            set
+            {
+
+                _syID = value;
+
+                OnPropertyChanged();
+            }
+
+        }
+
+
+
         private SchoolYear _selected_schoolyear;
 
 
@@ -698,6 +720,37 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+        /// <summary>
+        /// Load school year
+        /// </summary>
+        /// <returns></returns>
+        private async Task LoadSchoolYearAsync()
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var sys = await context.SchoolYear.ToListAsync();
+
+                    SchoolYearCollection.Clear();
+                    foreach (var sy in sys)
+                    {
+                        SchoolYearCollection.Add(sy);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading departments: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+
+
+
+
+
+
         //Close the form
         public void CloseCurrentActiveWindow()
         {
@@ -886,7 +939,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             DateAssigned = DateTime.Now,
                             SubjectID = Selected_subjects.SubjectID,
                             EnrollmentID = enrollment.EnrollmentID,
-                            SchoolYearID= Selected_schoolyear.SchoolYearID,
+                            SchoolYearID= Selected_syID,
                             StaffID = UserSessionService.Instance.LoggedInStaffID
                         };
 

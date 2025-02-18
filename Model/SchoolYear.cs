@@ -16,7 +16,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [Required]
 
-        [MaxLength(20)]
         public string? SY { get; set; }
 
     }

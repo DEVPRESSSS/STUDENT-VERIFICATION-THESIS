@@ -140,14 +140,15 @@
 
 
                         <ComboBox 
-                            Margin="0,47,10,0" 
+                            Margin="0,8,302,0" 
                             VerticalAlignment="Top"
                             BorderBrush="#bab7b6"
+                            
                             BorderThickness="1" Height="26"
                             ItemsSource="{Binding SchoolYearCollection}"
-                            DisplayMemberPath="Name" 
-                            SelectedValuePath="DepartmentID"
-                            SelectedValue="{Binding Selected_schoolyear, Mode=TwoWay}" Grid.Column="1" HorizontalAlignment="Right" Width="233" />
+                            DisplayMemberPath="SY" 
+                            SelectedValuePath="SchoolYearID"
+                            SelectedValue="{Binding Selected_syID, Mode=TwoWay}" HorizontalAlignment="Right" Width="233" Grid.ColumnSpan="2" />
 
 
 

@@ -19,12 +19,12 @@
 
 
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
-                   ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                   CellStyle="{DynamicResource DataGridCellStyle1}" 
-                   x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-                   ItemsSource="{Binding GradeCollection}"
-                   SelectedItem="{Binding Selected_grades,Mode=TwoWay}"
-                   AutoGenerateColumns="False">
+                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                       CellStyle="{DynamicResource DataGridCellStyle1}" 
+                       x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                       ItemsSource="{Binding GradeCollection}"
+                       SelectedItem="{Binding Selected_grades,Mode=TwoWay}"
+                       AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="GradeID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding GradeID}"/>
@@ -46,6 +46,7 @@
                         </DataGridTemplateColumn>
 
                         <DataGridTextColumn Header="Encoded" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="S.Y" CanUserResize="False" Binding="{Binding SY.SY}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Encoder" CanUserResize="False" Binding="{Binding User.Name}" IsReadOnly="True" Width="*"/>
 
 
