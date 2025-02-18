@@ -97,7 +97,7 @@
                     Height="25"
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Right"
-                    MaxLength="50"
+                    MaxLength="60"
                     PreviewKeyDown="UsernameXZ_PreviewKeyDown"
                     Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}"
                     />

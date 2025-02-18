@@ -1,0 +1,327 @@
+﻿<UserControl x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView.EncoderDashboardOverview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+             mc:Ignorable="d" 
+               d:DesignHeight="500" d:DesignWidth="850"
+            Background="#F2F8FC">
+
+        <Border CornerRadius="10" Height="500" VerticalAlignment="Top" >
+            <Grid Height="233" VerticalAlignment="Top">
+
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+
+
+                </Grid.RowDefinitions>
+
+
+
+                <Grid Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                </Grid>
+
+                <!--4 columns of row 1-->
+                <Grid Grid.Row="0" Height="237" VerticalAlignment="Top" >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+
+
+
+
+                    </Grid.ColumnDefinitions>
+
+
+
+
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Grid.Column="3" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Verified"
+                           FontSize="16"
+                           FontWeight="DemiBold"
+                           VerticalAlignment="Top" 
+                           HorizontalAlignment="Right" 
+                           Margin="0,20,0,0"/>
+                                <TextBlock  
+                                Text="{Binding GradeCount}" 
+                                FontSize="18" 
+                                FontWeight="DemiBold" 
+                                VerticalAlignment="Top" 
+                                HorizontalAlignment="Right" 
+                                Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+
+
+
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Grid.Column="3" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Grades"
+                           FontSize="16"
+                           FontWeight="DemiBold"
+                           VerticalAlignment="Top" 
+                           HorizontalAlignment="Right" 
+                           Margin="0,20,0,0"/>
+                                <TextBlock  
+                            Text="{Binding ProfessorCount }" 
+                            FontSize="18" 
+                            FontWeight="DemiBold" 
+                            VerticalAlignment="Top" 
+                            HorizontalAlignment="Right" 
+                            Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="Trophy" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Grid.Column="1" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Departments"
+                       FontSize="16"
+                       FontWeight="DemiBold"
+                       VerticalAlignment="Top" 
+                       HorizontalAlignment="Right" 
+                       Margin="0,20,0,0"/>
+                                <TextBlock  
+                        Text="{Binding DepartmentCount}" 
+                        FontSize="18" 
+                        FontWeight="DemiBold" 
+                        VerticalAlignment="Top" 
+                        HorizontalAlignment="Right" 
+                        Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Grid.Column="2" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Subjects"
+                           FontSize="16"
+                           FontWeight="DemiBold"
+                           VerticalAlignment="Top" 
+                           HorizontalAlignment="Right" 
+                           Margin="0,20,0,0"/>
+                                <TextBlock   
+                            Text="{Binding SubjectsCount}" 
+                            FontSize="18" 
+                            FontWeight="DemiBold" 
+                            VerticalAlignment="Top" 
+                            HorizontalAlignment="Right" 
+                            Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,130,10,0" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Programs"
+                             FontSize="16"
+                             FontWeight="DemiBold"
+                             VerticalAlignment="Top" 
+                             HorizontalAlignment="Right" 
+                             Margin="0,20,0,0"/>
+                                <TextBlock  
+                             Text="{Binding ProgramsCount}" 
+                             FontSize="18" 
+                             FontWeight="DemiBold" 
+                             VerticalAlignment="Top" 
+                             HorizontalAlignment="Right" 
+                             Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Professors"
+                             FontSize="16"
+                             FontWeight="DemiBold"
+                             VerticalAlignment="Top" 
+                             HorizontalAlignment="Right" 
+                             Margin="0,20,0,0"/>
+                                <TextBlock  
+                             Text="{Binding ProfessorCount}" 
+                             FontSize="18" 
+                             FontWeight="DemiBold" 
+                             VerticalAlignment="Top" 
+                             HorizontalAlignment="Right" 
+                             Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountCircle" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Grid.Column="2" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Students"
+                                 FontSize="16"
+                                 FontWeight="DemiBold"
+                                 VerticalAlignment="Top" 
+                                 HorizontalAlignment="Right" 
+                                 Margin="0,20,0,0"/>
+                                <TextBlock   
+                                 Text="{Binding StudentsCount}" 
+                                 FontSize="18" 
+                                 FontWeight="DemiBold" 
+                                 VerticalAlignment="Top" 
+                                 HorizontalAlignment="Right" 
+                                 Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="School" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border Padding="0" Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,20,10,0" Grid.Column="1" Height="90" VerticalAlignment="Top">
+                        <StackPanel Margin="10,0,10,0" Background="Transparent" VerticalAlignment="Center" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <!-- Title and Count TextBlocks -->
+                                <TextBlock Text="Encoder"
+                             FontSize="16"
+                             FontWeight="DemiBold"
+                             VerticalAlignment="Top" 
+                             HorizontalAlignment="Right" 
+                             Margin="0,20,0,0"/>
+                                <TextBlock  
+                             Text="{Binding StaffCount}" 
+                             FontSize="18" 
+                             FontWeight="DemiBold" 
+                             VerticalAlignment="Top" 
+                             HorizontalAlignment="Right" 
+                             Margin="0,40,25,0"/>
+
+                                <!-- Icon Section -->
+                                <StackPanel Grid.Column="1" Width="70" Height="80" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5,5,5,5">
+                                    <Icon:PackIconMaterial Kind="AccountMultiple" Foreground="#3D7E35" HorizontalAlignment="Center" RenderTransformOrigin="4.792,2.972" Height="80" Width="36"/>
+                                </StackPanel>
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+
+
+
+
+
+
+
+
+                </Grid>
+
+
+            </Grid>
+
+
+
+        </Border>
+</UserControl>

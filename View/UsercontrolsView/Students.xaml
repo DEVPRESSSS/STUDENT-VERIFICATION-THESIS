@@ -23,10 +23,27 @@
 
                     <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
 
-                    <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-
+                    <DataGridTemplateColumn Header="Name">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" 
+                                 TextWrapping="Wrap" 
+                                 VerticalAlignment="Center" 
+                                 HorizontalAlignment="Stretch" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="ID No" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Gmail" CanUserResize="False" Binding="{Binding Gmail}" IsReadOnly="True" Width="*"/>
+                    <DataGridTemplateColumn Header="Email">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Gmail,UpdateSourceTrigger=PropertyChanged}" 
+                               TextWrapping="Wrap" 
+                               VerticalAlignment="Center" 
+                               HorizontalAlignment="Stretch" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="ScholarShip" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
@@ -108,6 +125,8 @@
             Margin="0,10,55,0"
             Background="White" 
             Height="25"
+                       MaxLength="60"
+
             VerticalAlignment="Top" 
             HorizontalAlignment="Right"
             Text="{Binding SearchTerm,UpdateSourceTrigger=PropertyChanged}"

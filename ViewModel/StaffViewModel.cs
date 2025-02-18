@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Notification.Wpf;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Command;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model;
@@ -199,19 +200,30 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         private async Task DeleteStaffAsync()
         {
 
-            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sur you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult messageBoxResult = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if(messageBoxResult == MessageBoxResult.Yes)
             {
 
-                using(var context = new ApplicationDbContext())
+
+                try
                 {
 
-                    context.Staffs.Remove(Selected_staff);
-                    await context.SaveChangesAsync();
-                    StaffCollection.Remove(Selected_staff);
+                    using (var context = new ApplicationDbContext())
+                    {
 
+                        context.Staffs.Remove(Selected_staff);
+                        await context.SaveChangesAsync();
+                        StaffCollection.Remove(Selected_staff);
+
+                    }
                 }
+                catch
+                {
+
+                    ShowNotification("Error","Oops this User has a related record in Grade table! Delete it first but make sure it is not important!", NotificationType.Error);
+                }
+            
 
                    
                 
@@ -439,6 +451,36 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 activeWindow.Close();
             }
         }
+
+        private void ShowNotification(string title, string message, NotificationType notificationType)
+        {
+
+            var notificaficationManager = new NotificationManager();
+
+            if (NotificationType.Success == notificationType)
+            {
+                notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
+
+            }
+            else
+            {
+
+                notificaficationManager.Show(
+                      new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+
 
         private bool canAddDepartment()
         {

@@ -30,6 +30,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<ProgramEntity> ProgramsCollection { get; private set; }
         public ObservableCollection<Year> YearCollection { get; private set; }
         public ObservableCollection<Grade> GradeSheetCollection { get; private set; }
+        public ObservableCollection<SchoolYear> SchoolYearCollection { get; private set; }
 
 
         //Crud Commands
@@ -60,7 +61,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
             ProfessorCollection = new ObservableCollection<ProfessorsEntity>(); 
             YearCollection = new ObservableCollection<Year>(); 
-            GradeSheetCollection = new ObservableCollection<Grade>(); 
+            GradeSheetCollection = new ObservableCollection<Grade>();
+            SchoolYearCollection = new ObservableCollection<SchoolYear>(); 
             ClearCommand = new RelayCommand(_ => Clear());
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
             UpsertCommand = new RelayCommand(async _ => await AddScheduleAsync());
@@ -99,7 +101,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-   
+        /// <summary>
+        /// School Year
+        /// </summary>
+        private SchoolYear _selected_schoolyear;
+
+
+        public SchoolYear Selected_schoolyear
+        {
+            get => _selected_schoolyear;
+
+            set
+            {
+
+                _selected_schoolyear = value;
+                OnPropertyChanged(nameof(Selected_schoolyear));
+            }
+        }
+
+
 
         private string _yearID;
 
@@ -653,6 +673,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+   
+
 
         //Load Year table
         private async Task LoadYearAsync()
@@ -711,7 +733,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         /// <summary>
-        /// Insert method of schedu;e
+        /// Insert method of schedule
         /// </summary>
         /// <returns></returns>
         private async Task AddScheduleAsync()
@@ -864,6 +886,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             DateAssigned = DateTime.Now,
                             SubjectID = Selected_subjects.SubjectID,
                             EnrollmentID = enrollment.EnrollmentID,
+                            SchoolYearID= Selected_schoolyear.SchoolYearID,
                             StaffID = UserSessionService.Instance.LoggedInStaffID
                         };
 

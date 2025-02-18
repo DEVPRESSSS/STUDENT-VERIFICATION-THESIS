@@ -79,6 +79,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Property<decimal>("GradeValue")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("SchoolYearID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("StaffID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -94,6 +98,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.HasKey("GradeID");
 
                     b.HasIndex("EnrollmentID");
+
+                    b.HasIndex("SchoolYearID");
 
                     b.HasIndex("StaffID");
 
@@ -245,6 +251,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         {
                             ScholarshipID = "SCHO-1001",
                             Name = "Scholar"
+                        });
+                });
+
+            modelBuilder.Entity("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SchoolYear", b =>
+                {
+                    b.Property<string>("SchoolYearID")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SY")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("SchoolYearID");
+
+                    b.ToTable("SchoolYear");
+
+                    b.HasData(
+                        new
+                        {
+                            SchoolYearID = "SCH0102",
+                            SY = "2024-2025"
+                        },
+                        new
+                        {
+                            SchoolYearID = "SCH0101",
+                            SY = "2023-2024"
                         });
                 });
 
@@ -449,10 +482,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SchoolYear", "SY")
+                        .WithMany()
+                        .HasForeignKey("SchoolYearID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StaffsEntity", "User")
                         .WithMany()
                         .HasForeignKey("StaffID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.StudentsEntity", "Student")
@@ -468,6 +507,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired();
 
                     b.Navigation("Enroll");
+
+                    b.Navigation("SY");
 
                     b.Navigation("Student");
 

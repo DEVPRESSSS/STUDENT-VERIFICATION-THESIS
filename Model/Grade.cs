@@ -52,6 +52,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public StaffsEntity? User { get; set; }
 
 
+
+        [Required]
+        public string? SchoolYearID { get; set; }
+
+        [ForeignKey("SchoolYearID")]
+        public SchoolYear? SY { get; set; }
+
+
+
+
         [NotMapped]
 
         public bool isGradeValueLow => GradeValue <75;

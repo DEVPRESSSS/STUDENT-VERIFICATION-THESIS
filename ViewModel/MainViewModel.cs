@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LiveCharts;
+using Microsoft.EntityFrameworkCore;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -20,6 +22,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         private int _departmentCount;
         private int _professorCount;
         private int _programCount;
+        private int _gradeCount;
         public int StudentsCount
         {
             get => _studentsCount;
@@ -99,10 +102,28 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+        public int GradeCount
+        {
+            get => _gradeCount;
+            set
+            {
+                _gradeCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public ObservableCollection<string> ProgramNames { get; set; }
+        public ChartValues<int> StudentCountPerProgram { get; set; }
+
         public MainViewModel(ApplicationDbContext context)
         {
             _context = context;
             LoadEntityCounts();
+            ProgramNames = new ObservableCollection<string>();
+            StudentCountPerProgram = new ChartValues<int>();
+
+            LoadData();
         }
 
         private async void LoadEntityCounts()
@@ -117,6 +138,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 DepartmentCount = await _context.Departments.CountAsync();
                 ProfessorCount = await _context.Professors.CountAsync();
                 ProgramsCount = await _context.Professors.CountAsync();
+                GradeCount = await _context.Grades.CountAsync();
             }
             catch (Exception ex)
             {
@@ -124,6 +146,47 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show($"Error loading counts: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
+
+        private void LoadData()
+        {
+
+
+            using(var context= new ApplicationDbContext())
+            {
+
+                var studentCounts = context.Grades
+                  .Where(g => g.GradeValue != null)
+                  .GroupBy(g => g.Student.ProgramID)
+                  .Select(g => new
+                  {
+                      ProgramName = g.FirstOrDefault().Student.Program.Name,
+                      StudentCount = g.Select(grade => grade.StudentID).Distinct().Count()
+                  })
+                  .ToList();
+
+                    ProgramNames.Clear();
+                    foreach (var item in studentCounts)
+                    {
+                        ProgramNames.Add(item.ProgramName);
+                    }
+
+                    StudentCountPerProgram.Clear();
+                    foreach (var item in studentCounts)
+                    {
+                        StudentCountPerProgram.Add(item.StudentCount);
+                    }
+
+                    OnPropertyChanged(nameof(ProgramNames));
+                    OnPropertyChanged(nameof(StudentCountPerProgram));
+
+
+            }
+
+
+          
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

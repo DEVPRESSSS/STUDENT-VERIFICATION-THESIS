@@ -31,7 +31,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
             _context = context;
             usernametxt.Text = $"Welcome back {username}!";
-            MainContentArea.Content = new DashboardOverview();
+            MainContentArea.Content = new EncoderDashboardOverview(_context);
             var user = _context.Staffs.FirstOrDefault(x => x.Username == username);
             if (user != null)
             {
@@ -85,7 +85,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void DashboardOverview_Click(object sender, RoutedEventArgs e)
         {
-            MainContentArea.Content = new DashboardOverview();
+            MainContentArea.Content = new EncoderDashboardOverview(_context);
 
         }
 
@@ -98,8 +98,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         }
 
- 
-     
 
         private void Subjects_Click_1(object sender, RoutedEventArgs e)
         {

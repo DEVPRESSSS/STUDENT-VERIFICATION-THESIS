@@ -29,7 +29,16 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="GradeID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding GradeID}"/>
-                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Student.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn Header="Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Student.Name,UpdateSourceTrigger=PropertyChanged}" 
+                                        TextWrapping="Wrap" 
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Stretch" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding Subject.CourseCode}" IsReadOnly="True" Width="*"/>
                         <DataGridTemplateColumn Header="Final Grade" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
@@ -45,7 +54,16 @@
                             </DataGridTemplateColumn.CellTemplate>
                  
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Encoder" CanUserResize="False" Binding="{Binding User.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn Header="Encoder">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding User.Name,UpdateSourceTrigger=PropertyChanged}" 
+                                          TextWrapping="Wrap" 
+                                          VerticalAlignment="Center" 
+                                          HorizontalAlignment="Stretch" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Encoded" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
@@ -87,6 +105,8 @@
            Margin="0,10,55,0"
            Background="White" 
            Height="25"
+           MaxLength="60"
+
            VerticalAlignment="Top" 
            HorizontalAlignment="Right"
            Text="{Binding SearchTerm,UpdateSourceTrigger=PropertyChanged}"

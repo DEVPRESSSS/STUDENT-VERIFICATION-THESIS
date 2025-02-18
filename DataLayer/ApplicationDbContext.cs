@@ -34,6 +34,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         {
             base.OnModelCreating(modelBuilder);
 
+
+
+            modelBuilder.Entity<Grade>()
+             .HasOne(g => g.User) 
+             .WithMany() 
+             .HasForeignKey(g => g.StaffID)
+             .OnDelete(DeleteBehavior.Restrict);
+
+
             modelBuilder.Entity<Departments>()
                 .HasIndex(d => d.Name)
                 .IsUnique();
@@ -63,6 +72,28 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
                    Name = "Scholar",
                }
            );
+
+
+            modelBuilder.Entity<SchoolYear>().HasData(
+
+
+                     new SchoolYear
+                        {
+
+
+                            SchoolYearID= "SCH0102",
+                            SY= "2024-2025"
+                     },
+                     new SchoolYear
+                     {
+
+
+                         SchoolYearID = "SCH0101",
+                         SY = "2023-2024"
+                     }
+
+
+                );
         }
 
 
@@ -86,6 +117,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         public DbSet<Scholarship> Scholarship { get; set; }
         public DbSet<SubjectsEnrolled> SubjectsEnrolled { get; set; }
         public DbSet<ScheduleOfSubjects> Schedule { get; set; }
+        public DbSet<SchoolYear> SchoolYear { get; set; }
 
 
 
