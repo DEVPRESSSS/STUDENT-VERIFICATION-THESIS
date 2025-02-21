@@ -867,13 +867,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-                            if (!string.IsNullOrEmpty(gradeText) && decimal.TryParse(gradeText, out decimal gradeValue))
+                            if (!string.IsNullOrEmpty(gradeText))
                             {
                                 // Add valid data to the collection
                                 GradeSheetCollection.Add(new Grade
                                 {
                                     StudentName = name,
-                                    GradeValue = gradeValue
+                                    GradeValue = gradeText,
+                                    SchoolYearID = Selected_syID,
+
                                 });
                             }
                         }
@@ -928,7 +930,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             ShowNotification("Error", $"{grade.StudentName} already has a grade recorded for {Selected_subjects.SubjectName}.", NotificationType.Error);
                             continue;
                         }
+                        if (string.IsNullOrWhiteSpace(Selected_syID))
+                        {
+                            ShowNotification("Error", "Please select a school year ID", NotificationType.Error);
 
+                            return;
+                        }
                         string ID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
                         var newGrade = new Grade
@@ -1082,7 +1089,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     GradeSheetCollection.Add(new Grade
                     {
                         StudentName = studentName,
-                        GradeValue = gradeValue
+                        GradeValue = Convert.ToString(gradeValue),
+                        SchoolYearID = Selected_syID,
+
                     });
                 }
             }

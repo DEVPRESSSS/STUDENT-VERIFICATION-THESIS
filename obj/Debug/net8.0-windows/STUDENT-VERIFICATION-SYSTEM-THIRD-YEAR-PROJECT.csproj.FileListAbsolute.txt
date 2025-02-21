@@ -227,6 +227,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\BulkInsertInSubjects.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\BulkInsertStudent.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\InputGrade.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\InputRangeGrades.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\ListOfSubjects.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateDepartment.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateProfessor.g.cs
@@ -240,6 +241,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\DepartmentsUsercontrol.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\EncodeGradeUC.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\GradesUsercontrol.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\InputGradeUC.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Professors.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\ProgramsUsercontrol.g.cs
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Schedule.g.cs
@@ -273,6 +275,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\AddSubjects.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\BulkInsertInSubjects.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\BulkInsertStudent.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\InputRangeGrades.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\ListOfSubjects.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateDepartment.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\UpdateProfessor.baml
@@ -286,6 +289,7 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\DepartmentsUsercontrol.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\EncodeGradeUC.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\GradesUsercontrol.baml
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\InputGradeUC.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Professors.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\ProgramsUsercontrol.baml
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\UsercontrolsView\Schedule.baml
@@ -309,3 +313,5 @@ D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\refin
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.pdb
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.genruntimeconfig.cache
 D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\ref\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.dll
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\ListOfStudentsToBeGraded.g.cs
+D:\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\obj\Debug\net8.0-windows\View\PopUpForms\ListOfStudentsToBeGraded.baml

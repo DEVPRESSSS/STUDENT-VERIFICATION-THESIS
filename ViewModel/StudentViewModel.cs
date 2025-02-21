@@ -558,7 +558,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     Age = Age,
                     IDnumber = IDnumber,
                     Contact= Contact,
-                    Gmail = Gmail,
+                    Gmail = "N/A",
                     Address = Address,
                     YearID = Selected_yearID,
                     ProgramID = Selected_programID,
@@ -679,7 +679,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 existing_student.Age = Selected_students.Age;
                 existing_student.IDnumber = Selected_students.IDnumber;
                 existing_student.Contact = Selected_students.Contact;
-                existing_student.Gmail = Selected_students.Gmail;
                 existing_student.ProgramID = Selected_students.ProgramID;
                 existing_student.YearID = Selected_students.YearID;
                 existing_student.Address = Selected_students.Address;
@@ -1382,8 +1381,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 //Query all the subs enrolled by the student
                 var fetchAllSubsEnrolled = context.SubjectsEnrolled.Where(x=>x.StudentID== Selected_students.StudentID && x.IsEnrolled == true).
-                    Include(x =>x.Subject).
-                    Include(x =>x.Student).
+                    Include(x =>x.Subject)
+                    .ThenInclude(s => s.Semester)
+                    .Include(x =>x.Student).
                     ToList();
 
                 //Iteration of the subjects enrolled

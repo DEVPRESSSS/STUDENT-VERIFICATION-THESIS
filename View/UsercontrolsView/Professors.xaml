@@ -31,12 +31,9 @@
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="ProfessorID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ProfessorID}"/>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Address" CanUserResize="False" Binding="{Binding Address}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Department" CanUserResize="False" Binding="{Binding Departments.Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>

@@ -42,8 +42,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
                !string.IsNullOrWhiteSpace(Agetxt.Text) &&
                !string.IsNullOrWhiteSpace(IDtxt.Text) &&
                !string.IsNullOrWhiteSpace(Address.Text) &&
-               !string.IsNullOrWhiteSpace(Contactxt.Text) &&
-               !string.IsNullOrWhiteSpace(Gmail.Text))
+               !string.IsNullOrWhiteSpace(Contactxt.Text))
             {
                 this.Close();
 

@@ -63,7 +63,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [NotMapped]
 
-        public decimal? GradeValue { get; set; }
+        public string? GradeValue { get; set; }
 
 
         [NotMapped]

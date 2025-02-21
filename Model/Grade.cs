@@ -17,7 +17,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public string? GradeID { get; set; } = string.Empty;
 
         [Required]
-        public decimal? GradeValue { get; set; } 
+        public string? GradeValue { get; set; } 
 
         [Required]
         public DateTime DateAssigned { get; set; } = DateTime.Now; 
@@ -62,9 +62,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
 
 
-        [NotMapped]
+       // [NotMapped]
 
-        public bool isGradeValueLow => GradeValue <75;
+        //public bool isGradeValueLow => GradeValue <75;
 
 
         [NotMapped]

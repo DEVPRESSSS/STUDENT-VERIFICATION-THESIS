@@ -201,7 +201,10 @@
                 <DataTrigger Binding="{Binding IsScholar}" Value="True">
                     <Setter Property="Visibility" Value="Collapsed"/>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding IsScholar}" Value="False">
+                    <DataTrigger Binding="{Binding IsScholar4th}" Value="True">
+                        <Setter Property="Visibility" Value="Visible"/>
+                </DataTrigger>
+                    <DataTrigger Binding="{Binding IsScholar}" Value="False">
                     <Setter Property="Visibility" Value="Visible"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -210,7 +213,7 @@
             
     
 
-            <Style TargetType="Button">
+        <Style TargetType="Button">
             <Style.Triggers>
                 <!-- Hide button if IsEncoderDashboard is true -->
                 <DataTrigger Binding="{Binding IsEncoderDashboard}" Value="True">

@@ -59,5 +59,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [NotMapped]
 
         public bool IsScholar => ScholarshipID == "SCHO-1001";
+        public bool IsScholar4th => ScholarshipID == "SCHO-1001" && YearID== "YearID104";
     }
 }

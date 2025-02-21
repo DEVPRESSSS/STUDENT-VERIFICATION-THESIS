@@ -20,15 +20,14 @@
 
 
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
-                  ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                  CellStyle="{DynamicResource DataGridCellStyle1}" 
-                  x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-                  ItemsSource="{Binding GradeCollection}"
-                  SelectedItem="{Binding Selected_grades,Mode=TwoWay}"
-                  AutoGenerateColumns="False">
+                      ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                      CellStyle="{DynamicResource DataGridCellStyle1}" 
+                      x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                      ItemsSource="{Binding GradeCollection}"
+                      SelectedItem="{Binding Selected_grades,Mode=TwoWay}"
+                      AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="GradeID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding GradeID}"/>
                         <DataGridTemplateColumn Header="Name">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -49,11 +48,13 @@
                                                        Style="{StaticResource GradeTextBlockStyle}"      
                                                                                            />
                                     </Border>
-                                  
+
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
-                 
+
                         </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="S.Y" CanUserResize="False" Binding="{Binding SY.SY}" IsReadOnly="True" Width="*"/>
+
                         <DataGridTemplateColumn Header="Encoder">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -132,7 +133,7 @@
         <!--Add button-->
 
         <Button Style="{StaticResource SubmitButton}" 
-            Margin="16,10,0,0" Width="56"
+            Margin="12,10,0,0" Width="56"
             BorderThickness="0"
             Height="25" 
             VerticalAlignment="Top"
@@ -151,15 +152,19 @@
 
 
 
-
-        <!--Export button-->
-
-
-
-
-
-
-        <!--Import button-->
+        <!--Filter Grade-->
+        <ComboBox 
+            Margin="0,9,201,0" 
+            VerticalAlignment="Top"
+            BorderBrush="#bab7b6"                
+            BorderThickness="0" Height="26"
+            ItemsSource="{Binding SchoolYearCollection}"
+            DisplayMemberPath="SY" 
+            SelectedValuePath="SchoolYearID"
+            SelectedValue="{Binding Selected_syID, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Right" 
+            ToolTip="Filter by School Year"
+            Width="120" />
 
     </Grid>
 </UserControl>

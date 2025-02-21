@@ -27,7 +27,6 @@
                        AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="GradeID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding GradeID}"/>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Student.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding SubjectID}" IsReadOnly="True" Width="*"/>
                         <DataGridTemplateColumn Header="Final Grade" Width="*" IsReadOnly="True">
@@ -103,13 +102,19 @@
 
 
 
-        <!--Export button-->
 
-
-
-
-
-
-        <!--Import button-->
+        <!--Filter Grade-->
+        <ComboBox 
+            Margin="0,9,201,0" 
+            VerticalAlignment="Top"
+            BorderBrush="#bab7b6"                
+            BorderThickness="0" Height="26"
+            ItemsSource="{Binding SchoolYearCollection}"
+            DisplayMemberPath="SY" 
+            SelectedValuePath="SchoolYearID"
+            SelectedValue="{Binding Selected_syID, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+            HorizontalAlignment="Right" 
+            ToolTip="Filter by School Year"
+            Width="120" />
     </Grid>
 </UserControl>

@@ -26,7 +26,6 @@
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="SubjectID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding SubjectID}"/>
 
                         <DataGridTemplateColumn Header="Name">
                             <DataGridTemplateColumn.CellTemplate>

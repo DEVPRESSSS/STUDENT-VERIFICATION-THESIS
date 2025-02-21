@@ -66,6 +66,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
                    ScholarshipID = "SCHO-1002",
                    Name = "Non-scholar",
                },
+             
                new Scholarship
                {
                    ScholarshipID = "SCHO-1001",
@@ -83,6 +84,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
 
                             SchoolYearID= "SCH0102",
                             SY= "2024-2025"
+                     },
+                     new SchoolYear
+                       {
+
+
+                           SchoolYearID = "SCH0100",
+                           SY = "All"
                      },
                      new SchoolYear
                      {

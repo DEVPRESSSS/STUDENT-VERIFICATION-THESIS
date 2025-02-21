@@ -61,6 +61,12 @@
     <Compile Update="View\PopUpForms\InputGrade.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\InputRangeGrades.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\ListOfStudentsToBeGraded.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\ListOfSubjects.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,6 +104,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\GradesUsercontrol.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\UsercontrolsView\InputGradeUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\Professors.xaml.cs">
@@ -195,6 +204,12 @@
     <Page Update="View\PopUpForms\InputGrade.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\PopUpForms\InputRangeGrades.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\ListOfStudentsToBeGraded.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\PopUpForms\ListOfSubjects.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -232,6 +247,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\GradesUsercontrol.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UsercontrolsView\InputGradeUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Professors.xaml">

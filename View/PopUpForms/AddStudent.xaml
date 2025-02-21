@@ -117,15 +117,6 @@
     
                                  />
 
-                            <Label Content="Gmail" Margin="78,32,171,326" Grid.Column="1"/>
-
-                            <TextBox x:Name="Gmail" Style="{StaticResource TextBoxesForm}" 
-                                BorderBrush="#bab7b6"
-                                Text="{Binding Gmail, Mode=TwoWay}"
-                                MaxLength="40"
-                                PreviewKeyDown="Gmail_PreviewKeyDown_1"
-                                BorderThickness="1" Margin="76,61,77,300" Grid.Column="1"  />
-
 
 
                             <Label Content="Address" Margin="76,91,173,267" Grid.Column="1"/>

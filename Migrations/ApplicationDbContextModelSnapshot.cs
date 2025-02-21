@@ -76,8 +76,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<decimal>("GradeValue")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("GradeValue")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SchoolYearID")
                         .IsRequired()
@@ -272,6 +273,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         {
                             SchoolYearID = "SCH0102",
                             SY = "2024-2025"
+                        },
+                        new
+                        {
+                            SchoolYearID = "SCH0100",
+                            SY = "All"
                         },
                         new
                         {

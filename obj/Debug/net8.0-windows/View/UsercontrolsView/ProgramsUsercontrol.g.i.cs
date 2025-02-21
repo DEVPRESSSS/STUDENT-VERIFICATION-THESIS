@@ -79,8 +79,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;component/view/usercontrolsview/p" +
-                    "rogramsusercontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;V1.0.0.0;component/view/usercontr" +
+                    "olsview/programsusercontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\View\UsercontrolsView\ProgramsUsercontrol.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

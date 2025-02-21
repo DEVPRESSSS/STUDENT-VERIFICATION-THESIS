@@ -30,6 +30,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [Required]
         public bool IsEnrolled { get; set; } = false;
 
-     
+
+        [NotMapped]
+        public string? GradeValue { get;set; }
+
+
     }
 }

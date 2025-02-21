@@ -7,6 +7,8 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
+using DocumentFormat.OpenXml.InkML;
+using Notification.Wpf;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -20,12 +22,38 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         public ObservableCollection<Grade> GradeCollection { get; private set; }
+        public ObservableCollection<SubjectsEnrolled> SubjectEnrolledCollection { get; private set; }
         public ObservableCollection<StudentsEntity> StudentCollection { get; private set; }
         public ObservableCollection<SubjectsEntity> SubjectsCollection { get; private set; }
+        public ObservableCollection<SubjectsEntity> SubjectPerProfCollection { get; private set; }
         public ObservableCollection<Semester> SemesterCollection { get; private set; }
         public ObservableCollection<ProgramEntity> ProgramCollection { get; private set; }
         public ObservableCollection<Year> YearCollection { get; private set; }
         public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; }
+        public ObservableCollection<SchoolYear> SchoolYearCollection { get; private set; }
+        public ObservableCollection<ProfessorsEntity> ProfessorsCollection { get; private set; }
+
+
+        private ProfessorsEntity _selected_professor;
+
+
+        public ProfessorsEntity Selected_professor
+        {
+            get => _selected_professor;
+
+            set
+            {
+
+                _selected_professor = value;
+                if(Selected_professor!= null)
+                {
+                    _ = LoadAssignedSubsAsync();
+
+                }
+                OnPropertyChanged(nameof(Selected_professor));
+            }
+        }
+
 
 
 
@@ -64,6 +92,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+        private string _subjectID;
+
+        public string Selected_subjectID
+        {
+
+            get => _subjectID;
+
+
+            set
+            {
+
+                _subjectID = value;
+
+               
+
+                OnPropertyChanged();
+            }
+
+        }
 
 
 
@@ -80,7 +127,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 _selected_subjects = value;
                 if (Selected_subjects != null)
                 {
-                    _=LoadSubjectsAsync();
+                    _= LoadGradesAsync();
+                    LoadSubjectsEnrolled();
                     OnPropertyChanged(nameof(Selected_subjects));
 
                 }
@@ -202,12 +250,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 _searchTerm = value;
                 if (string.IsNullOrWhiteSpace(_searchTerm))
                 {
-                    _ = LoadSubjectsAsync();
+                    _ = LoadGradesAsync();
                 }
                 else
                 {
 
-                    _ = SearchProgramAsync();
+                    _ = SearchGradeAsync();
                 }
                 OnPropertyChanged();
             }
@@ -240,13 +288,64 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+        //School Year
 
+        private string _syID;
+
+        public string Selected_syID
+        {
+
+            get => _syID;
+
+
+            set
+            {
+
+                _syID = value;
+
+                if(!string.IsNullOrWhiteSpace(Selected_syID))
+                {
+                    if(Selected_syID == "SCH0100")
+                    {
+                        _ = LoadGradesAsync();
+                    }
+                    else
+                    {
+
+                        _ = FilterBySchoolYear();
+
+
+                    }
+                }
+
+                OnPropertyChanged();
+            }
+
+        }
+
+
+
+        private SchoolYear _selected_schoolyear;
+
+
+        public SchoolYear Selected_schoolyear
+        {
+            get => _selected_schoolyear;
+
+            set
+            {
+
+                _selected_schoolyear = value;
+                OnPropertyChanged(nameof(Selected_schoolyear));
+            }
+        }
 
         public ICommand LoadSubjectsCommand { get; }
         public ICommand DeleteGradeCommand { get; }
         public ICommand LoadStudentSubs { get; }
         public ICommand LoadStudentCommand { get; }
         public ICommand InsertGradeCommand { get; }
+        public ICommand InsertManualCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand SearchCommand2 { get; }
 
@@ -257,19 +356,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             _context = context;
 
             GradeCollection = new ObservableCollection<Grade>();
-            LoadSubjectsCommand = new RelayCommand(_ => LoadSubjectsAsync());
+            LoadSubjectsCommand = new RelayCommand(_ => LoadGradesAsync());
             DeleteGradeCommand = new RelayCommand(async _ => await DeleteGrade(),_=> Selected_grades != null);
             LoadSubjectsCommand.Execute(null);
             StudentCollection = new ObservableCollection<StudentsEntity>();
             SubjectsCollection = new ObservableCollection<SubjectsEntity>();
+            SubjectPerProfCollection = new ObservableCollection<SubjectsEntity>();
             SemesterCollection = new ObservableCollection<Semester>();
             ProgramCollection = new ObservableCollection<ProgramEntity>();
             YearCollection = new ObservableCollection<Year>();
+            SchoolYearCollection = new ObservableCollection<SchoolYear>();
             ScholarshipsCollection = new ObservableCollection<Scholarship>();
             LoadStudentSubs= new RelayCommand(async _=> await LoadSubjectForStudentsAsync());
             LoadStudentCommand = new RelayCommand(async _=> await LoadStudentAsync());
-            SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
+            SearchCommand = new RelayCommand(async _ => await SearchGradeAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
             SearchCommand2 = new RelayCommand(async _ => await SearchStudentAndSubjects(), _ => !string.IsNullOrWhiteSpace(SearchTerm2));
+            InsertGradeCommand = new RelayCommand(async _ => await InsertGrade());
+            InsertManualCommand = new RelayCommand(async _ => await InsertGradePerSub());
+            ProfessorsCollection = new ObservableCollection<ProfessorsEntity>();
+            SubjectEnrolledCollection = new ObservableCollection<SubjectsEnrolled>();
 
 
             //Load students 
@@ -294,8 +399,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             //Load Schoolar
             _= LoadSchoolar();
             //Insert Grade 
-            InsertGradeCommand = new RelayCommand(async _ => await InsertGrade());
 
+            //Load School Year
+            _ = LoadSchoolYearAsync();
+
+
+            _ = LoadAssignedSubsAsync();
+
+            LoadProfessorAsync();
 
 
         }
@@ -332,7 +443,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         ///Load Grades per sub
-        private async Task LoadSubjectsAsync()
+        private async Task LoadGradesAsync()
         {
     
    
@@ -499,15 +610,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
 
-                foreach (var subject in SubjectsCollection.Where(s => s.GradeValue.HasValue)) 
+                foreach (var subject in SubjectsCollection) 
                 {
-                    if(subject.GradeValue >= 100 || subject.GradeValue < 70)
+                    /*if(subject.GradeValue >= 100 || subject.GradeValue < 70)
                     {
 
                         MessageBox.Show("Grade is invalid","Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
                         return;
-                    }
+                    }*/
 
                     var existingGrade = await context.Grades
                         .FirstOrDefaultAsync(g => g.StudentID == Selected_students.StudentID && g.SubjectID == subject.SubjectID);
@@ -545,7 +656,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 await context.SaveChangesAsync();
                 MessageBox.Show("Grades processed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                _= LoadSubjectsAsync();
+                _= LoadGradesAsync();
             }
 
 
@@ -596,6 +707,31 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 }
             }
 
+        }
+
+        /// <summary>
+        /// School Year
+        /// </summary>
+        /// <returns></returns>
+        private async Task LoadSchoolYearAsync()
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var sys = await context.SchoolYear.ToListAsync();
+
+                    SchoolYearCollection.Clear();
+                    foreach (var sy in sys)
+                    {
+                        SchoolYearCollection.Add(sy);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading departments: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -684,45 +820,42 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// Search Grade
         /// </summary>
         /// <returns></returns>
-        private async Task SearchProgramAsync()
+        private async Task SearchGradeAsync()
         {
             try
             {
-
                 using (var context = new ApplicationDbContext())
                 {
+                    var query = context.Grades
+                        .Include(x => x.Student)
+                        .Include(x => x.Subject)
+                        .Include(x => x.User)
+                        .Include(x => x.SY)
+                        .AsQueryable();
 
-                    var query = context.Grades.
-                        Include(x=> x.Student).
-                        Include(x=> x.Subject).
-                        AsQueryable();
+                    // Apply search term filter
+                    if (!string.IsNullOrWhiteSpace(SearchTerm))
+                    {
+                        query = query.Where(p =>
+                            EF.Functions.Like(p.StudentID, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.GradeValue.ToString(), $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.SubjectID.ToString(), $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.Subject.CourseCode, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.GradeID, $"%{SearchTerm}%") ||
+                            EF.Functions.Like(p.Student.Name, $"%{SearchTerm}%")
+                        );
+                    }
 
-                    query = query.Where(p =>
-                        EF.Functions.Like(p.StudentID, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.GradeValue.ToString(), $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.SubjectID.ToString(), $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Subject.CourseCode, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.GradeID, $"%{SearchTerm}%") ||
-                        EF.Functions.Like(p.Student.Name, $"%{SearchTerm}%")
-                    );
-
+                  
                     var result = await query.ToListAsync();
 
                     // Update the ObservableCollection
                     GradeCollection.Clear();
-                    foreach (var professor in result)
+                    foreach (var grade in result)
                     {
-                        GradeCollection.Add(professor);
+                        GradeCollection.Add(grade);
                     }
-
-
                 }
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
@@ -730,6 +863,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+        private async Task FilterBySchoolYear()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var query = context.Grades
+                 .Include(x => x.Student)
+                 .Include(x => x.Subject)
+                 .Include(x => x.SY)
+                 .Include(x => x.User)
+                 .AsQueryable();
+
+                query = query.Where(p => p.SchoolYearID == Selected_syID);
+
+               
+
+                var result = await query.ToListAsync();
+
+                // Update the ObservableCollection
+                GradeCollection.Clear();
+                foreach (var grade in result)
+                {
+                    GradeCollection.Add(grade);
+                }
+            }
+
+        }
 
 
 
@@ -772,6 +932,178 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+
+        /// <summary>
+        /// This will load the professor
+        /// </summary>
+        private void LoadProfessorAsync()
+        {
+
+            using (var context = new ApplicationDbContext())
+            {
+                var prof = context.Professors
+                .Include(p => p.Departments).ToList();
+
+                foreach (var professor in prof)
+                {
+
+                    ProfessorsCollection.Add(professor);
+                }
+                OnPropertyChanged(nameof(ProfessorsCollection));
+
+            }
+        }
+
+
+
+
+
+        /// <summary>
+        /// This will load the assigned Subjects
+        /// </summary>
+        /// <returns></returns>
+        private async Task LoadAssignedSubsAsync()
+        {
+            using(var context = new ApplicationDbContext())
+            {
+
+                var subs = await context.Subjects.Where(x => x.ProfessorID == Selected_professor.ProfessorID).ToListAsync();
+
+                SubjectPerProfCollection.Clear();
+                foreach (var sub in subs)
+                {
+
+                    SubjectPerProfCollection.Add(sub);
+                }
+                OnPropertyChanged(nameof(SubjectPerProfCollection));
+
+
+
+            }
+
+
+
+        }
+
+
+
+
+
+        private void LoadSubjectsEnrolled()
+        {
+            if (Selected_subjects == null)
+            {
+                return;
+            }
+
+            using (var context = new ApplicationDbContext())
+            {
+                var enrolled = context.SubjectsEnrolled
+                    .Include(x => x.Subject)
+                    .Include(x => x.Student)                    
+                    .Where(x=> x.SubjectID == Selected_subjects.SubjectID)                 
+                    .ToList();
+
+                if (!enrolled.Any())
+                {
+                    ShowNotification("Error", "There is no enrolled students to this subject yet", NotificationType.Information);
+                }
+
+                SubjectEnrolledCollection.Clear();
+                foreach (var subject in enrolled)
+                {
+                    SubjectEnrolledCollection.Add(subject);
+                }
+            }
+        }
+
+        private async Task InsertGradePerSub()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                foreach (var subject in SubjectEnrolledCollection)
+                {
+                    // 🚨 Validate if GradeValue is null or empty
+                    if (string.IsNullOrWhiteSpace(subject.GradeValue?.ToString()))
+                    {
+                        ShowNotification("Error", $"Grade value for Student {subject.StudentID} in Subject {subject.SubjectID} is required.", NotificationType.Error);
+                        return; // Stop execution if any GradeValue is invalid
+                    }
+
+                    // Check if a grade already exists for this student and subject
+                    var existingGrade = context.Grades
+                        .FirstOrDefault(g => g.StudentID == subject.StudentID && g.SubjectID == subject.SubjectID);
+
+                    if (existingGrade != null)
+                    {
+                        // Update existing grade
+                        existingGrade.GradeValue = subject.GradeValue;
+                        existingGrade.DateAssigned = DateTime.Now;
+
+                        // Update UI collection
+                        var gradeInUI = GradeCollection.FirstOrDefault(g => g.StudentID == subject.StudentID && g.SubjectID == subject.SubjectID);
+                        if (gradeInUI != null)
+                        {
+                            gradeInUI.GradeValue = subject.GradeValue;
+                            gradeInUI.DateAssigned = DateTime.Now;
+                        }
+                    }
+                    else
+                    {
+                        if (string.IsNullOrWhiteSpace(Selected_syID))
+                        {
+                            ShowNotification("Error", "Please select a school year ID", NotificationType.Error);
+                            return;
+                        }
+
+                        // Generate a unique Grade ID
+                        string ID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                        var newGrade = new Grade
+                        {
+                            GradeID = ID,
+                            GradeValue = subject.GradeValue?.ToString(),
+                            DateAssigned = DateTime.Now,
+                            StudentID = subject.StudentID,
+                            SubjectID = subject.SubjectID,
+                            EnrollmentID = subject.EnrollmentID,
+                            SchoolYearID = Selected_syID,
+                            StaffID = UserSessionService.Instance.LoggedInStaffID
+                        };
+
+                        context.Grades.Add(newGrade);
+                        GradeCollection.Add(newGrade);
+                    }
+                }
+
+                // Save changes asynchronously
+                await context.SaveChangesAsync();
+                MessageBox.Show("Grades processed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                await LoadGradesAsync();
+            }
+        }
+
+
+
+        private void ShowNotification(string title, string message, NotificationType notificationType)
+        {
+
+            var notificaficationManager = new NotificationManager();
+
+            if (NotificationType.Success == notificationType)
+            {
+                notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
+
+            }
+
+            notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
+
+
+
+
+        }
         //Boolean method to flag if is valid
         private bool canAddGradement() => true;
 

@@ -215,34 +215,26 @@
                                       Cursor="Hand" Click="DashboardOverview_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Menu"  Style="{StaticResource menuButtonIcon}"/>
-                                <!--
-                                                                                        <TextBlock Text="Dashboard"  FontFamily="Roboto"/>
-
-                                            -->
+                          
                             </StackPanel>
                         </Button>
 
 
 
 
-                        <!--
-                            <Button x:Name="Grades" Style="{StaticResource menuButton2}"  FontSize="20" ToolTip="Input grade"  Margin="5"
+                       
+                          <Button x:Name="Grades" Style="{StaticResource menuButton2}"  FontSize="20" ToolTip="Input grade"  Margin="5"
                              Cursor="Hand" Click="Grades_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="PencilBoxMultipleOutline"   Style="{StaticResource menuButtonIcon}"/>
           
             
-                                 <TextBlock Text="Encode Grade"  FontFamily="Roboto"/>
          
 
                             </StackPanel>
                         </Button>
 
-                        
-                        
-                        
-                        -->
-                    
+                  
 
 
 

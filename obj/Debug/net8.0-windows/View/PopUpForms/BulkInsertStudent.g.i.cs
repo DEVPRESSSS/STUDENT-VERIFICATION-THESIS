@@ -80,8 +80,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;component/view/popupforms/bulkins" +
-                    "ertstudent.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;V1.0.0.0;component/view/popupform" +
+                    "s/bulkinsertstudent.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\View\PopUpForms\BulkInsertStudent.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

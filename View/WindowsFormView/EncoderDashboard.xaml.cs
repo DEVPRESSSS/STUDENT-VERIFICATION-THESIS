@@ -92,7 +92,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
         private void Grades_Click(object sender, RoutedEventArgs e)
         {
             
-               MainContentArea.Content = new EncodeGradeUC(_context);
+               MainContentArea.Content = new InputGradeUC(_context);
        
 
 
