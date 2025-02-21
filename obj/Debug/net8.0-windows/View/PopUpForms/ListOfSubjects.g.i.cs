@@ -64,8 +64,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;V1.0.0.0;component/view/popupform" +
-                    "s/listofsubjects.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;component/view/popupforms/listofs" +
+                    "ubjects.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\View\PopUpForms\ListOfSubjects.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

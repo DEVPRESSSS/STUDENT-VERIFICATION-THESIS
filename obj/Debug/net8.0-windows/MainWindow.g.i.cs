@@ -335,8 +335,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;V1.0.0.0;component/mainwindow.xam" +
-                    "l", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;component/mainwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\MainWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

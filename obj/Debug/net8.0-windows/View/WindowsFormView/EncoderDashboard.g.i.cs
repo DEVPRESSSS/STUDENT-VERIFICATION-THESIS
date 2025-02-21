@@ -175,8 +175,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;V1.0.0.0;component/view/windowsfo" +
-                    "rmview/encoderdashboard.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT;component/view/windowsformview/en" +
+                    "coderdashboard.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\View\WindowsFormView\EncoderDashboard.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

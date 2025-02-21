@@ -579,7 +579,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var db = new ApplicationDbContext())
                 {
                     var fetchSubs = await db.Subjects
-                        .Where(x => x.ProgramID == Selected_programID && x.YearID == Selected_yearID)
+                        .Where(x => x.ProgramID == Selected_programID && x.YearID == Selected_yearID && x.SemesterID == "SEM101")
                         .ToListAsync(); 
 
                     if (fetchSubs.Any()) 
@@ -642,6 +642,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show("Selected Student does not exist in the database.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
             // Validate if any field contains only whitespace
             if (string.IsNullOrWhiteSpace(Selected_students.Name) ||
                 string.IsNullOrWhiteSpace(Selected_students.Gmail) ||
@@ -653,6 +654,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                 MessageBoxImage.Warning);
                 return;
             }
+
             // Check if Name or Gmail already exists for another student
             var duplicateName = await _context.Students
                 .AnyAsync(s => s.Name == Selected_students.Name && s.StudentID != Selected_students.StudentID);
@@ -674,6 +676,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             try
             {
+                // Check if YearID has changed
+                bool isYearChanged = existing_student.YearID != Selected_students.YearID;
+
                 // Update student fields
                 existing_student.Name = Selected_students.Name;
                 existing_student.Age = Selected_students.Age;
@@ -688,6 +693,56 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 MessageBox.Show("Student updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                using (var db = new ApplicationDbContext())
+                {
+                    if (isYearChanged)
+                    {
+                        var enrolledSubjects = await db.SubjectsEnrolled
+                            .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled)
+                            .ToListAsync();
+
+                        if (enrolledSubjects.Any())
+                        {
+                            foreach (var unenroll in enrolledSubjects)
+                            {
+                                unenroll.IsEnrolled = false;
+                                db.SubjectsEnrolled.Update(unenroll);
+                            }
+                            await db.SaveChangesAsync();
+                        }
+                    }
+
+                    var fetchSubs = await db.Subjects
+                        .Where(x => x.ProgramID == Selected_students.ProgramID &&
+                                    x.YearID == Selected_students.YearID &&
+                                    x.SemesterID == "SEM101")
+                        .ToListAsync();
+
+                    if (fetchSubs.Any())
+                    {
+                        foreach (var sub in fetchSubs)
+                        {
+                            string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                            var subjectEnrolled = new SubjectsEnrolled
+                            {
+                                EnrollmentID = enrollmentID,
+                                SubjectID = sub.SubjectID,
+                                StudentID = Selected_students.StudentID,
+                                IsEnrolled = true
+                            };
+
+                            db.SubjectsEnrolled.Add(subjectEnrolled);
+                        }
+
+                        await db.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No subjects found for the selected program and year.");
+                    }
+                }
+
                 await LoadStudentAsync();
                 CloseCurrentActiveWindow();
             }
@@ -696,6 +751,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show($"Oops, there is an error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
 
         //Close the Current Window
@@ -962,7 +1018,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
 
                     var subs = await context.SubjectsEnrolled
-                        .Where(x => x.StudentID == Selected_students.StudentID)
+                        .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled == true)
                         .Include(x => x.Subject.Year)
                         .Include(x => x.Subject.Semester)
                         .ToListAsync();
@@ -1305,7 +1361,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                             //Fetch all the subjects based on the Program and Year
                             var fetchSubs = db.Subjects
-                                .Where(x => x.ProgramID == programExist.ProgramID && x.YearID == yearExist.YearID)
+                                .Where(x => x.ProgramID == programExist.ProgramID && x.YearID == yearExist.YearID && x.SemesterID == "SEM101")
                                 .ToList();
 
                             if (fetchSubs.Any())
@@ -1375,33 +1431,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// </summary>
         /// 
 
-        private void ViewEnrolledSubsOfTheStudent()
-        {
-            using(var context = new ApplicationDbContext())
-            {
-                //Query all the subs enrolled by the student
-                var fetchAllSubsEnrolled = context.SubjectsEnrolled.Where(x=>x.StudentID== Selected_students.StudentID && x.IsEnrolled == true).
-                    Include(x =>x.Subject)
-                    .ThenInclude(s => s.Semester)
-                    .Include(x =>x.Student).
-                    ToList();
-
-                //Iteration of the subjects enrolled
-
-                foreach(var subEnrolled  in fetchAllSubsEnrolled)
-                {
-
-
-
-                    ListOfSubjectsEnrolled.Add(subEnrolled);
-
-                }
-
-            }
-
-
-
-        }
+  
 
 
 

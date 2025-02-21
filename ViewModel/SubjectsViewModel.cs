@@ -561,11 +561,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         .FirstOrDefaultAsync(s => (s.SubjectName == Selected_subjects.SubjectName || s.CourseCode == Selected_subjects.CourseCode) &&
                                                   s.SubjectID != Selected_subjects.SubjectID);
 
-                /* if (existingProgram != null)
-                {
-                    MessageBox.Show("Subject name or course code already exists. Please use a different one.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }*/
+               
 
                 
 
@@ -582,7 +578,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 MessageBox.Show("Subject updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                await LoadSubjectsAsync();
 
                 CloseCurrentActiveWindow();
             }
