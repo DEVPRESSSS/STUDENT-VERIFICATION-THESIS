@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Windows.Media;
+
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 {
@@ -43,8 +40,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
 
 
-     
+        [NotMapped]
 
+        public string? Character { get; set; }
+
+
+        [NotMapped]
+
+        public Brush? bgColor { get; set; }
 
     }
 }

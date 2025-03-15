@@ -21,7 +21,6 @@
                           >
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="ID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StudentID}"/>
 
                     <DataGridTemplateColumn Header="Name">
                         <DataGridTemplateColumn.CellTemplate>
@@ -33,10 +32,10 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="ID No" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="ID" CanUserResize="False" Binding="{Binding IDnumber}" IsReadOnly="True" Width="*"/>
                   
                     <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
+                    <DataGridTextColumn Header="Year Level" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="ScholarShip" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
 
                     <DataGridTemplateColumn Header="Subject/Grade" CanUserResize="False" IsReadOnly="True" Width="*">

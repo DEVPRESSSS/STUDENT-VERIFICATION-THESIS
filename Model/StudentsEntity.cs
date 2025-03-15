@@ -27,8 +27,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [Required]
         public long Contact { get; set; }
 
-        [Required]
-        public string? Gmail { get; set; }
+
 
         [Required]
         public string? Address { get; set; }

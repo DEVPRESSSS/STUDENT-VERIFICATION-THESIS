@@ -42,9 +42,9 @@
                         <DataGridTemplateColumn Header="Final Grade" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Border Style="{StaticResource GradeBorderStyle}">
+                                    <Border Style="{StaticResource GradeBorderStyle}" Width="Auto" >
 
-                                        <TextBlock Text="{Binding GradeValue,StringFormat={}{0:F0}}" 
+                                        <TextBlock HorizontalAlignment="Center" Text="{Binding GradeValue}" 
                                                        Style="{StaticResource GradeTextBlockStyle}"      
                                                                                            />
                                     </Border>
@@ -65,15 +65,19 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Encoded" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Date Graded" CanUserResize="False" 
+                            Binding="{Binding DateAssigned, StringFormat='{}{0:yyyy-MM-dd}'}" 
+                            IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-
+                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1">
+                                            <Icon:PackIconMaterial Kind="PencilOutline"  Style="{StaticResource gridButtonIcon}" />
+                                        </Button>
                                         <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
-                                        Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteGradeCommand}">
+                                             Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteGradeCommand}">
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>
@@ -137,7 +141,7 @@
             BorderThickness="0"
             Height="25" 
             VerticalAlignment="Top"
-                Click="Button_Click" HorizontalAlignment="Left"
+            HorizontalAlignment="Left"
                 
             >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

@@ -51,6 +51,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand ChooseFileCommand { get; }
         public ICommand BulkInsertCommand { get; }
         public ICommand DeleteSubjectEnrolledCommand { get; }
+        public ICommand EnrollSecondSemCommand { get; }
 
         public StudentViewModel(ApplicationDbContext context)
         {
@@ -92,6 +93,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             ChooseFileCommand = new RelayCommand(_ => ExtractStudent());
             BulkInsertCommand = new RelayCommand(_ => MultiInsertStudent());
+
+
+            EnrollSecondSemCommand = new RelayCommand(_ =>EnrollSecondSem());
 
 
 
@@ -481,7 +485,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
                             EF.Functions.Like(p.Age.ToString(), $"%{SearchTerm}%") ||
                             EF.Functions.Like(p.IDnumber.ToString(), $"%{SearchTerm}%") ||
-                            EF.Functions.Like(p.Gmail, $"%{SearchTerm}%") ||
                             EF.Functions.Like(p.Address, $"%{SearchTerm}%") ||
                             EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm}%") ||
                             EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm}%") ||
@@ -539,7 +542,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             try
             {
                 var exisitngStudent = await _context.Students
-                    .FirstOrDefaultAsync(s => s.Name == Name || s.Gmail == Gmail || s.IDnumber == IDnumber);
+                    .FirstOrDefaultAsync(s => s.Name == Name || s.IDnumber == IDnumber);
 
 
 
@@ -558,7 +561,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     Age = Age,
                     IDnumber = IDnumber,
                     Contact= Contact,
-                    Gmail = "N/A",
                     Address = Address,
                     YearID = Selected_yearID,
                     ProgramID = Selected_programID,
@@ -645,7 +647,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             // Validate if any field contains only whitespace
             if (string.IsNullOrWhiteSpace(Selected_students.Name) ||
-                string.IsNullOrWhiteSpace(Selected_students.Gmail) ||
                 string.IsNullOrWhiteSpace(Selected_students.Address))
             {
                 MessageBox.Show("Fields cannot contain only whitespace. Please fill out all fields correctly.",
@@ -659,8 +660,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             var duplicateName = await _context.Students
                 .AnyAsync(s => s.Name == Selected_students.Name && s.StudentID != Selected_students.StudentID);
 
-            var duplicateGmail = await _context.Students
-                .AnyAsync(s => s.Gmail == Selected_students.Gmail && s.StudentID != Selected_students.StudentID);
+    
 
             if (duplicateName)
             {
@@ -668,11 +668,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 return;
             }
 
-            if (duplicateGmail)
-            {
-                MessageBox.Show("The Gmail is already associated with another student.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            
 
             try
             {
@@ -695,7 +691,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 using (var db = new ApplicationDbContext())
                 {
-                    if (isYearChanged)
+                    if (isYearChanged == false)
                     {
                         var enrolledSubjects = await db.SubjectsEnrolled
                             .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled)
@@ -751,7 +747,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show($"Oops, there is an error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
 
         //Close the Current Window
@@ -1019,6 +1014,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                     var subs = await context.SubjectsEnrolled
                         .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled == true)
+                        .Include(x=>x.Subject)
                         .Include(x => x.Subject.Year)
                         .Include(x => x.Subject.Semester)
                         .ToListAsync();
@@ -1238,7 +1234,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                 {
                                     Name = name,
                                     IDnumber = idnum ?? 0, 
-                                    Gmail = gmail,
                                     ProgramID = program,
                                     YearID = yearlevel,
                                     ScholarshipID = scholarship,
@@ -1331,7 +1326,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         StudentID = ID,
                         Name = item.Name,
                         IDnumber = item.IDnumber,
-                        Gmail = item.Gmail,
                         Address = "N/A",
                         ProgramID = programExist.ProgramID,
                         YearID = yearExist.YearID,
@@ -1426,12 +1420,75 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-        /// <summary>
-        /// View the enrolled subs of the student
-        /// </summary>
-        /// 
 
-  
+        /// <summary>
+        /// Enroll the second Sem of the Student
+        /// </summary>
+        private void EnrollSecondSem()
+        {
+            var confirmation = MessageBox.Show("Are you sure you want to enroll the second sem for this student?",
+                                                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (confirmation == MessageBoxResult.Yes)
+            {
+                // Unenroll First Sem Subjects
+                var studentSubFirstSem = _context.SubjectsEnrolled
+                    .Where(x => x.StudentID == Selected_students.StudentID && x.Subject.SemesterID == "SEM101")
+                    .ToList();
+
+                foreach (var studentSub in studentSubFirstSem)
+                {
+                    studentSub.IsEnrolled = false;
+                    _context.SubjectsEnrolled.Update(studentSub);
+                }
+
+                _context.SaveChanges();
+
+                var existingSecondSemSubjects = _context.SubjectsEnrolled
+                    .Where(x => x.StudentID == Selected_students.StudentID && x.Subject.SemesterID == "SEM102")
+                    .Select(x => x.SubjectID)
+                    .ToHashSet(); 
+
+                var subjectsToEnroll = _context.Subjects
+                    .Where(se => se.ProgramID == Selected_students.ProgramID &&
+                                 se.YearID == Selected_students.YearID &&
+                                 se.SemesterID == "SEM102" &&
+                                 !existingSecondSemSubjects.Contains(se.SubjectID)) // Exclude already enrolled subjects
+                    .ToList();
+
+                List<SubjectsEnrolled> newEnrollments = new List<SubjectsEnrolled>();
+
+                foreach (var subs in subjectsToEnroll)
+                {
+                    string ID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+
+                    var subjectEnrolled = new SubjectsEnrolled
+                    {
+                        EnrollmentID = ID,
+                        SubjectID = subs.SubjectID,
+                        StudentID = Selected_students.StudentID,
+                        IsEnrolled = true
+                    };
+
+                    newEnrollments.Add(subjectEnrolled);
+                }
+
+                if (newEnrollments.Count > 0)
+                {
+                    _context.SubjectsEnrolled.AddRange(newEnrollments);
+                    _context.SaveChangesAsync();
+                    ShowNotification("Success", "Subjects enrolled successfully. First sem subjects have been unenrolled.", NotificationType.Success);
+                    CloseCurrentActiveWindow();
+                }
+                else
+                {
+                    ShowNotification("Info", "No new subjects to enroll. The student is already enrolled in all available second-semester subjects.", NotificationType.Information);
+                }
+            }
+        }
+
+
+
 
 
 
@@ -1444,7 +1501,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
             try
             {
-               
 
                 using (var db = new ApplicationDbContext())
                 {
@@ -1461,6 +1517,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 ShowNotification("Error", $"Error: {ex.Message}", NotificationType.Error);
             }
         }
+
+        //TracK if Subjects are second sem
 
 
         //Show notications

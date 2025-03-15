@@ -25,7 +25,6 @@
                        AutoGenerateColumns="False">
                         <DataGrid.Columns>
 
-                            <DataGridTextColumn Header="SchedID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ScheduleID}"/>
                             <DataGridTextColumn Header="Day" CanUserResize="False"  Binding="{Binding Day,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                             <DataGridTextColumn Header="Time" CanUserResize="False" Binding="{Binding Time,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                             <DataGridTextColumn Header="Room" CanUserResize="False" Binding="{Binding Room,Mode=TwoWay}" IsReadOnly="True" Width="*"/>

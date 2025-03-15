@@ -62,9 +62,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
 
 
-       // [NotMapped]
+        [NotMapped]
 
-        //public bool isGradeValueLow => GradeValue <75;
+        public bool isGradeValueLow => Convert.ToInt32(GradeValue) <75;
+
+
+        [NotMapped]
+        public bool IsGradeINC => GradeValue?.ToUpper() == "INC";
 
 
         [NotMapped]

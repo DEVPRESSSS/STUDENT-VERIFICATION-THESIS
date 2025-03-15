@@ -30,7 +30,18 @@
                           SelectedItem="{Binding Selected_professor,Mode=TwoWay}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Professor" CanUserResize="False" IsReadOnly="True" Width="*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding bgColor}">
+                                            <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                        </Border>
 
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Department" CanUserResize="False" Binding="{Binding Departments.Name}" IsReadOnly="True" Width="*"/>

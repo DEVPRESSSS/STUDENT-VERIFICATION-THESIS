@@ -12,7 +12,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -370,34 +372,46 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// <summary>
         /// Load all staff
         /// </summary>
-        private async Task  LoadStaffAsync()
+        /// 
+
+
+        private BrushConverter converter = new BrushConverter();
+        private string[] myArray = { "#1098AD", "#1E88E5", "#FF8F00", "#FF5252", "#6741D9", "#0CA678" };
+        private Brush brush;
+
+        private async Task LoadStaffAsync()
         {
-            using(var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext())
             {
-
-                var stafflist = await context.Staffs.
-                    Include(x => x.Role).
-                    ToListAsync();
-
-
+                var staffList = await context.Staffs
+                    .Include(x => x.Role)
+                    .ToListAsync();
 
                 StaffCollection.Clear();
 
-                foreach (var staff in stafflist)
+                for (int i = 0; i < staffList.Count; i++)
                 {
+                    var staff = staffList[i];
+                    string colorString = myArray[i % myArray.Length];
+                    brush = (Brush)converter.ConvertFromString(colorString);
+
+                    // Get first letter of name as Character
+                    string name = staff.Name;
+                    staff.Character = name.Length > 0 ? name.Substring(0, 1) : string.Empty;
+
+                    // Set the background color
+                    staff.bgColor = brush;
 
                     StaffCollection.Add(staff);
                 }
             }
-
         }
-
 
 
         /// <summary>
         /// Load each role from Db
         /// </summary>
-        
+
 
         private async Task LoadRoleAsync()
         {
@@ -478,8 +492,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+        /// <summary>
+        /// Character Staff
+        /// </summary>
+        /// <returns></returns>
 
 
+       
 
 
         private bool canAddDepartment()

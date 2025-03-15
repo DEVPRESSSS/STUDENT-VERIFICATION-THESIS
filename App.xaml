@@ -174,7 +174,10 @@
                 <DataTrigger Binding="{Binding isGradeValueLow}" Value="False">
                     <Setter Property="Background" Value="#61B15A" />
                 </DataTrigger>
-            </Style.Triggers>
+                    <DataTrigger Binding="{Binding IsGradeINC}" Value="True">
+                        <Setter Property="Background" Value="#FFBC11" />
+                    </DataTrigger>
+                </Style.Triggers>
         </Style>
 
         <Style TargetType="TextBlock" x:Key="GradeTextBlockStyle">
@@ -188,7 +191,10 @@
                 <DataTrigger Binding="{Binding isGradeValueLow}" Value="False">
                     <Setter Property="Foreground" Value="White" />
                 </DataTrigger>
-            </Style.Triggers>
+                    <DataTrigger Binding="{Binding IsGradeINC}" Value="True">
+                        <Setter Property="Foreground" Value="White" />
+                </DataTrigger>
+                </Style.Triggers>
         </Style>
 
 
@@ -209,11 +215,19 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-            
-            
-    
 
-        <Style TargetType="Button">
+            <Style TargetType="StackPanel" x:Key="EnrolledSecond">
+                <Setter Property="Visibility" Value="Visible"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsSecondSem}" Value="True">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+
+
+            <Style TargetType="Button">
             <Style.Triggers>
                 <!-- Hide button if IsEncoderDashboard is true -->
                 <DataTrigger Binding="{Binding IsEncoderDashboard}" Value="True">

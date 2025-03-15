@@ -23,9 +23,8 @@
                AutoGenerateColumns="False">
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="ProgramID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding ProgramID}"/>
                     <DataGridTextColumn Header="Acronym" CanUserResize="False"  Binding="{Binding Acronym,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTemplateColumn Header="Students">
+                    <DataGridTemplateColumn Header="Program">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name,UpdateSourceTrigger=PropertyChanged}" 
@@ -35,7 +34,6 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
 
                     <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>

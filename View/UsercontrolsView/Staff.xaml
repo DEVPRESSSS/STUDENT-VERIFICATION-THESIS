@@ -22,8 +22,18 @@
                 SelectedItem="{Binding Selected_staff}"
                 AutoGenerateColumns="False">
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Staff" CanUserResize="False" IsReadOnly="True" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding bgColor}">
+                                        <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                    </Border>
 
-                    <DataGridTextColumn Header="StaffID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding StaffID}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Username" CanUserResize="False"  Binding="{Binding Username,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
                     <DataGridTemplateColumn Header="Email">
@@ -37,7 +47,6 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Role" CanUserResize="False" Binding="{Binding Role.Name,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                    <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
 
                     <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>

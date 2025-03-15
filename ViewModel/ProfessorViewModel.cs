@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
@@ -341,22 +342,41 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-        //Load professors
+  
+
+        private BrushConverter converter = new BrushConverter();
+        private string[] myArray = { "#1098AD", "#1E88E5", "#FF8F00", "#FF5252", "#6741D9", "#0CA678" };
+        private Brush brush;
+
         private async Task LoadProfessorAsync()
         {
-            var prof = await _context.Professors
-                .Include(p=>p.Departments).ToListAsync();
-
-            ProfessorsCollection.Clear();
-            foreach (var professor in prof)
+            using (var context = new ApplicationDbContext())
             {
+                var prof = await _context.Professors
+                 .Include(p => p.Departments).ToListAsync();
 
-                ProfessorsCollection.Add(professor);
+                ProfessorsCollection.Clear();
+
+                for (int i = 0; i < prof.Count; i++)
+                {
+                    var staff = prof[i];
+                    string colorString = myArray[i % myArray.Length];
+                    brush = (Brush)converter.ConvertFromString(colorString);
+
+                    // Get first letter of name as Character
+                    string name = staff.Name;
+                    staff.Character = name.Length > 0 ? name.Substring(0, 1) : string.Empty;
+
+                    // Set the background color
+                    staff.bgColor = brush;
+
+                    ProfessorsCollection.Add(staff);
+                    OnPropertyChanged(nameof(ProfessorsCollection));
+
+                }
             }
-            OnPropertyChanged(nameof(ProfessorsCollection));
-
-
         }
+
 
         //Search function
         private async Task SearchProfessorsAsync()

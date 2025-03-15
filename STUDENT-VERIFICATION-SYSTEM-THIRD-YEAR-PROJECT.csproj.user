@@ -58,6 +58,9 @@
     <Compile Update="View\PopUpForms\BulkInsertStudent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\EditGrade.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\InputGrade.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -199,6 +202,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\BulkInsertStudent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\EditGrade.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\InputGrade.xaml">

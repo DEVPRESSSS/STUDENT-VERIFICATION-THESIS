@@ -34,7 +34,7 @@
                       BorderThickness="0" FontSize="16" Width="40" 
                       Click="Button_Click"
                       HorizontalAlignment="Right"/>
-                    </DockPanel>
+                </DockPanel>
             </Border>
 
 
@@ -52,7 +52,19 @@
                 </DataGrid.Columns>
             </DataGrid>
 
+            <StackPanel Style="{StaticResource EnrolledSecond}" Orientation="Horizontal" Margin="0,0,0,10" Grid.Row="1" Height="40" VerticalAlignment="Bottom">
+                <Button x:Name="EnrollSecondSem"
+                            BorderThickness="0" 
+                            Content="ENROLL SECOND SEM" 
+                            Command="{Binding EnrollSecondSemCommand}"
+                            Style="{StaticResource SubmitButton}" 
+                            Margin="2,2,2,10" Grid.Row="1" Width="494" Height="26" VerticalAlignment="Bottom"/>     
+            </StackPanel>
+
+
+
+
         </Grid>
     </Border>
-   
+
 </Window>

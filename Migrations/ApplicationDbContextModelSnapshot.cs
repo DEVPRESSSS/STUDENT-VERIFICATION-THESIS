@@ -353,10 +353,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Gmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<long>("IDnumber")
                         .HasColumnType("bigint");
 

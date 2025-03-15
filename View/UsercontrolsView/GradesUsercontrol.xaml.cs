@@ -31,15 +31,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
             DataContext = new GradeViewModel(_context);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            InputGrade grade = new InputGrade(_context)
-            {
+    
 
-                DataContext = this.DataContext
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+
+
+            EditGrade editGrade = new EditGrade(_context)
+            {
+                DataContext= this.DataContext,
+
             };
 
-           grade.ShowDialog();
+            editGrade.ShowDialog();
         }
     }
 }

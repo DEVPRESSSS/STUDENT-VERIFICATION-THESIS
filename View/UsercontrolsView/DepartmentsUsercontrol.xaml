@@ -28,11 +28,9 @@
                   AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="DepartmentID" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding DepartmentID}"/>
                         <DataGridTextColumn Header="Name of Department" CanUserResize="False"  Binding="{Binding Name,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Created At" CanUserResize="False" Binding="{Binding CreatedAt,Mode=TwoWay}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
+                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">

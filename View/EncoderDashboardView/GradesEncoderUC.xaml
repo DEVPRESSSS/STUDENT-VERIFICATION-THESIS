@@ -28,7 +28,7 @@
                     <DataGrid.Columns>
 
                         <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Student.Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding SubjectID}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding Subject.CourseCode}" IsReadOnly="True" Width="*"/>
                         <DataGridTemplateColumn Header="Final Grade" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -65,7 +65,6 @@
 
 
 
-        <!--Search textbox-->
 
         <!--Search textbox-->
 

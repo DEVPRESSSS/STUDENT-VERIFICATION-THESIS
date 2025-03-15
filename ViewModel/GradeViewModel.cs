@@ -9,6 +9,7 @@ using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using DocumentFormat.OpenXml.InkML;
 using Notification.Wpf;
+using System;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -411,6 +412,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+
+        /// <summary>
+        /// Delete the grade
+        /// </summary>
+        /// <returns></returns>
         private async Task DeleteGrade()
         {
             MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -612,13 +618,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 foreach (var subject in SubjectsCollection) 
                 {
-                    /*if(subject.GradeValue >= 100 || subject.GradeValue < 70)
-                    {
-
-                        MessageBox.Show("Grade is invalid","Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                        return;
-                    }*/
+                   
 
                     var existingGrade = await context.Grades
                         .FirstOrDefaultAsync(g => g.StudentID == Selected_students.StudentID && g.SubjectID == subject.SubjectID);
@@ -863,7 +863,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
+        /// <summary>
+        /// Filter by SY
+        /// </summary>
+        /// <returns></returns>
         private async Task FilterBySchoolYear()
         {
             using (var context = new ApplicationDbContext())
@@ -893,7 +896,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        /// <summary>
+        /// Search the student
+        /// </summary>
         private async Task SearchStudentAndSubjects()
         {
             try
@@ -926,7 +931,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during search: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowNotification("Error", $"Error during search{ex}", NotificationType.Error);
             }
         }
 
@@ -987,7 +992,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        /// <summary>
+        /// Load all the subjects enrolled by the student
+        /// </summary>
 
         private void LoadSubjectsEnrolled()
         {
@@ -1001,12 +1008,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 var enrolled = context.SubjectsEnrolled
                     .Include(x => x.Subject)
                     .Include(x => x.Student)                    
-                    .Where(x=> x.SubjectID == Selected_subjects.SubjectID)                 
+                    .Where(x=> x.SubjectID == Selected_subjects.SubjectID && x.IsEnrolled == true)                 
                     .ToList();
 
                 if (!enrolled.Any())
                 {
-                    ShowNotification("Error", "There is no enrolled students to this subject yet", NotificationType.Information);
+                    ShowNotification("Warning", "There is no enrolled students to this subject yet", NotificationType.Warning);
                 }
 
                 SubjectEnrolledCollection.Clear();
@@ -1023,20 +1030,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 foreach (var subject in SubjectEnrolledCollection)
                 {
-                    // 🚨 Validate if GradeValue is null or empty
                     if (string.IsNullOrWhiteSpace(subject.GradeValue?.ToString()))
                     {
                         ShowNotification("Error", $"Grade value for Student {subject.StudentID} in Subject {subject.SubjectID} is required.", NotificationType.Error);
-                        return; // Stop execution if any GradeValue is invalid
+                        return;
                     }
 
-                    // Check if a grade already exists for this student and subject
+                    if (!(int.TryParse(subject.GradeValue, out int grade) && grade >= 70 && grade <= 100)
+                    && subject.GradeValue.ToUpper() != "INC")
+                    {
+                        ShowNotification("Error", "Oops! You entered an invalid grade.", NotificationType.Error);
+                        return;
+                    }
+
+
+
                     var existingGrade = context.Grades
                         .FirstOrDefault(g => g.StudentID == subject.StudentID && g.SubjectID == subject.SubjectID);
 
                     if (existingGrade != null)
                     {
-                        // Update existing grade
                         existingGrade.GradeValue = subject.GradeValue;
                         existingGrade.DateAssigned = DateTime.Now;
 
@@ -1052,11 +1065,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     {
                         if (string.IsNullOrWhiteSpace(Selected_syID))
                         {
-                            ShowNotification("Error", "Please select a school year ID", NotificationType.Error);
+                            ShowNotification("Error", "Please select a school year before inserting", NotificationType.Error);
                             return;
                         }
 
-                        // Generate a unique Grade ID
                         string ID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
                         var newGrade = new Grade
@@ -1076,9 +1088,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     }
                 }
 
-                // Save changes asynchronously
                 await context.SaveChangesAsync();
-                MessageBox.Show("Grades processed successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                ShowNotification("Success", "Grade inserted successfully", NotificationType.Success);
                 await LoadGradesAsync();
             }
         }
@@ -1096,15 +1108,34 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                   new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
 
             }
+            else
+            {
+                notificaficationManager.Show(
+                 new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
 
-            notificaficationManager.Show(
-                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
+
+            }
+
 
 
 
 
         }
         //Boolean method to flag if is valid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         private bool canAddGradement() => true;
 
         public event PropertyChangedEventHandler? PropertyChanged;

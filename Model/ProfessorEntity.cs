@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 {
@@ -40,6 +41,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [NotMapped]
+
+        public string? Character { get; set; }
+
+
+        [NotMapped]
+
+        public Brush? bgColor { get; set; }
 
     }
 }

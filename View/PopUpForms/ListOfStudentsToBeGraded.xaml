@@ -75,7 +75,7 @@
                         <DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate>
                                 <TextBox  Text="{Binding GradeValue, UpdateSourceTrigger=LostFocus}" IsReadOnly="False"
-                                                                  MaxLength="6" />
+                                                                  MaxLength="3" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellEditingTemplate>
                     </DataGridTemplateColumn>
@@ -93,9 +93,8 @@
             <ComboBox 
                             Margin="305,0,0,0" 
                             VerticalAlignment="Center"
-                            BorderBrush="#bab7b6"
-                            
-                            BorderThickness="1" Height="26"
+                            BorderBrush="#bab7b6"                           
+                            BorderThickness="0" Height="26"
                             ItemsSource="{Binding SchoolYearCollection}"
                             DisplayMemberPath="SY" 
                             SelectedValuePath="SchoolYearID"

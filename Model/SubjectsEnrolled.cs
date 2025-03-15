@@ -33,7 +33,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [NotMapped]
         public string? GradeValue { get;set; }
-
+        [NotMapped]
+    
+        public bool? IsSecondSem => Subject?.SemesterID == "SEM102";
 
     }
 }

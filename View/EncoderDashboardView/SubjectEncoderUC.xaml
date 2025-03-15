@@ -18,12 +18,12 @@
         CornerRadius="4" Margin="0,50,0,0">
 
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
-                   ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
-                   CellStyle="{DynamicResource DataGridCellStyle1}" 
-                   x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-                    ItemsSource="{Binding SubjectCollection}"
-                   SelectedItem="{Binding Selected_subjects,Mode=TwoWay}"
-                   AutoGenerateColumns="False">
+                       ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 
+                       CellStyle="{DynamicResource DataGridCellStyle1}" 
+                       x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                        ItemsSource="{Binding SubjectCollection}"
+                       SelectedItem="{Binding Selected_subjects,Mode=TwoWay}"
+                       AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
 
@@ -71,7 +71,6 @@
 
 
 
-        <!--Search textbox-->
         <!--Search textbox-->
 
         <TextBox x:Name="UsernameXZ"
