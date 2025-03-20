@@ -7,121 +7,262 @@
         xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel"
         d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
         mc:Ignorable="d"
-        Title="Add Grade"
+        Title="View Grade"
         Height="600"
-        Width="530"
-        
+        Width="400"       
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        Loaded="Window_Loaded"
         Background="Transparent"
         AllowsTransparency="True"
+        KeyDown="Window_KeyDown"
         ResizeMode="NoResize">
+    
+    <Border x:Name="MainBorder"  Background="White" Cursor="No" BorderBrush="LightGray" BorderThickness="0.5">
 
-    <Border x:Name="MainBorder" CornerRadius="10" Background="White" BorderBrush="Gray" BorderThickness="1" Padding="10">
         <Grid>
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <!-- Header -->
-                <RowDefinition Height="*" />
-                <!-- Content -->
+
+
+                <!-- Header-->
+                <RowDefinition Height="175"/>
+
+                <!--Grade Content-->
+                <RowDefinition Height="380"/>
+
+
+                <!--Footer-->
+                <RowDefinition/>
+
+
+
+
+
+
             </Grid.RowDefinitions>
 
-            <!-- Header Section -->
-            <Border x:Name="main" Grid.Row="0" Background="#3D7E35" CornerRadius="10,10,0,0" Padding="10">
-                <StackPanel Orientation="Horizontal" RenderTransformOrigin="0.853,0.559">
-                    <Icon:PackIconMaterial Kind="BookEducation" Foreground="White" Width="20" Height="20" VerticalAlignment="Center" />
-                    <TextBlock Text="The University Of Manila" Foreground="White" FontSize="16" FontWeight="Bold" Width="193" />
-                    <TextBlock Text="{Binding Semester}" Margin="40,0,5,0" Foreground="White" FontSize="16" FontWeight="Bold" Width="135" Height="31" RenderTransformOrigin="0.555,0.498" />
-                    <Button x:Name="Close"
-                      Click="Close_Click"
-                      Margin="33,0,0,0"
-                      Style="{StaticResource MinimizeButtonStyle}"
-                     Width="62" Height="30" >
 
-                        <Icon:PackIconMaterial 
-                         x:Name="CloseWindow"
-                         Kind="WindowClose" 
-                         Height="10" RenderTransformOrigin="0.803,0.533"
-                         Width="12"
-                          Style="{StaticResource WindowControlIcon}"
-                         Cursor="Hand" HorizontalAlignment="Center"
-                     />
+            <Border Grid.Row="0">
 
-                    </Button>
+
+                <!--Stackpanel that will hold the Image -->
+                <StackPanel HorizontalAlignment="Center" 
+                            Orientation="Vertical">
+
+
+                    <!--Logo UM-->
+                    <Image Source="pack://application:,,,/Resources/LogoUm.png"
+                            Width="60"
+                            Margin="0,6,0,0"/>
+
+                    <!--Address of the School-->
+
+                    <TextBlock  
+                        TextAlignment="Center" 
+                         FontSize="10"
+                        Text="546 Mariano V. delos Santos Street,"/>
+
+                    <TextBlock 
+                       Text="Sampaloc Manila, Philippines 1008"
+                       FontSize="10"
+                       TextAlignment="Center"
+                       TextWrapping="Wrap"/>
+
+
+                    <TextBlock TextAlignment="Center"
+                       FontSize="10"
+                       Text="Telephone No: 8735-5085"
+                       TextWrapping="Wrap"/>
+
+                    <!--Title of the Document-->
+
+                    <TextBlock TextAlignment="Center"
+                      FontSize="10"
+                      FontWeight="DemiBold"
+                      Margin="0,10,0,0"
+                      Text="REPORT OF FINAL GRADES"
+                      TextWrapping="Wrap"/>
+
+
+                    <!--School Year-->
+                    <TextBlock TextAlignment="Center"
+                        FontSize="10"    
+                        Text="{Binding SchoolYearName}"
+                        TextWrapping="Wrap"/>
+
+                    <!--Semester -->
+                    <TextBlock TextAlignment="Center"
+                         FontSize="10"
+                         Text="{Binding Semester}"
+                         TextWrapping="Wrap"/>
+
 
                 </StackPanel>
 
+
+
             </Border>
-            <!--Close button -->
 
 
-            <!-- Content Section -->
-            <Border Grid.Row="1" CornerRadius="0,0,10,10" Padding="10">
+
+            <!--Border in row 1-->
+
+            <Border Grid.Row="1">
+
                 <Grid>
+
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <!-- Separator -->
-                        <RowDefinition Height="*" />
-                        <!-- DataGrid -->
-                        <RowDefinition Height="Auto" />
-                        <!-- Button -->
+
+                        <RowDefinition Height="30"/>
+                        <RowDefinition/>
+
                     </Grid.RowDefinitions>
 
-                    <!-- Separator -->
-                    <Rectangle Grid.Row="0" Height="2" Fill="#E4E0E1" VerticalAlignment="Top" />
-                    <TextBlock Text="{Binding Selected_students.Name}" FontWeight="DemiBold" FontSize="14" Margin="10,0,200,444" Grid.RowSpan="2"/>
-                    <!-- DataGrid Section -->
-                    <DataGrid Grid.Row="1" x:Name="cashierDataGrid"
+
+                    <!--Border in the first row-->
+                    <Border Grid.Row="0" 
+                            BorderBrush="Gray">
+
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+
+
+                                <!--Column 1 that will hold the name-->
+                                <ColumnDefinition/>
+                                <!--Column 1 that will hold the Year-->
+                                <ColumnDefinition/>
+
+                            </Grid.ColumnDefinitions>
+
+                            <!--Border for the column 0 -->
+                            <Border Grid.Column="0">
+
+                                <StackPanel Orientation="Vertical" >
+
+                                    <TextBlock Text="{Binding Selected_students.Name}"
+                                                Margin="4,0,0,0"
+                                               FontSize="10"
+                                               FontWeight="DemiBold"
+                                               TextAlignment="Left"/>
+
+                                    <TextBlock Text="{Binding Selected_students.Program.Acronym}"
+                                               FontWeight="DemiBold"
+                                               Margin="4,0,0,0"
+                                               FontSize="10"
+                                               TextAlignment="Left"/>
+
+                                </StackPanel>
+
+                            </Border>
+
+
+                            <!--Border for the column 0 -->
+                            <Border Grid.Column="1">
+
+                                <StackPanel Orientation="Vertical" >
+
+                                    <TextBlock Text="{Binding Selected_students.YearLevel.Name}"
+                                        FontWeight="DemiBold"
+                                        Margin="0,0,4,0"
+                                        FontSize="10"
+                                        TextAlignment="Right"/>
+
+                                    <TextBlock Text="{Binding Selected_students.Scholarship.Name}"
+                                        Margin="0,0,4,0"
+                                        FontSize="10"
+                                        FontWeight="DemiBold"
+                                        TextAlignment="Right"/>
+
+                                </StackPanel>
+
+                            </Border>
+                        </Grid>
+
+                    </Border>
+
+
+
+                    <!--Border row 2 to hold the list of grades-->
+
+                    <Border Grid.Row="1">
+
+                        <DataGrid Grid.Row="1" x:Name="cashierDataGrid"
                               ItemsSource="{Binding SubjectGrades}"
                               AutoGenerateColumns="False"
+                              IsEnabled="True"
                               RowStyle="{DynamicResource DataGridRowStyle1}" 
                               ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                               CellStyle="{DynamicResource DataGridCellStyle1}"
                               FontSize="12"
                               CanUserResizeColumns="False"
-                              Style="{DynamicResource DataGridStyle1}" Margin="0,51,0,40" Grid.RowSpan="2">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="CourseCode"  IsReadOnly="True" Binding="{Binding CourseCode}" Width="*" />
-                            <DataGridTextColumn Header="Professor"  IsReadOnly="True" Binding="{Binding ProfessorName}"  Width="Auto" />
-                            <DataGridTemplateColumn Header="Sem" Width="Auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding SemesterName}" TextWrapping="Wrap" MaxWidth="120"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Sched"  IsReadOnly="True" Binding="{Binding Time}" Width="Auto" />
-                            <DataGridTextColumn Header="Grade" Binding="{Binding GradeValue, Mode=TwoWay,StringFormat={}{0:F0}}" Width="*" IsReadOnly="True" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                              Style="{DynamicResource DataGridStyle1}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Sub"  
+                                                    IsReadOnly="True" 
+                                                    Binding="{Binding CourseCode}"
+                                                    Width="*" />
 
-                    <!-- Save Button -->
-                    <Button x:Name="print" Grid.Row="2"  Width="100" Height="30" Margin="357,0,0,0" Click="Automation_Click" HorizontalAlignment="Left" Style="{StaticResource Automation}" VerticalAlignment="Center">
+                                <DataGridTemplateColumn Header="Prof" Width="*">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ProfessorName}" TextWrapping="Wrap" MaxWidth="120"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-                        <StackPanel Orientation="Horizontal" >
+                          
 
-                            <Icon:PackIconMaterial 
-                                 Kind="Printer" 
-                                 Height="12" RenderTransformOrigin="0.803,0.533"
-                                 Width="12"
-                                  Style="{StaticResource WindowControlIcon}"
-                                 Cursor="Hand" HorizontalAlignment="Left"/>
+                                <DataGridTextColumn Header="Time" 
+                                                    IsReadOnly="True" 
+                                                    Binding="{Binding Time}" 
+                                                    Width="*" />
+                                <DataGridTextColumn Header="Grade" 
+                                                    Binding="{Binding GradeValue, Mode=TwoWay,StringFormat={}{0:F0}}"
+                                                    Width="*" 
+                                                    IsReadOnly="True" />
+                            </DataGrid.Columns>
+                        </DataGrid>
 
-                            <TextBlock Text="Print" Width="23" Margin="5"/>
-                        </StackPanel>
 
-                    </Button>
-                    <TextBlock Text="{Binding Selected_students.IDnumber}" FontWeight="DemiBold" FontSize="14" Margin="0,0,0,444" Grid.RowSpan="2" HorizontalAlignment="Right" Width="119"/>
-                    <TextBlock Text="{Binding Selected_students.Program.Acronym}" FontWeight="DemiBold" FontSize="14" Margin="10,22,333,0" Grid.Row="1" Height="24" VerticalAlignment="Top"/>
-                    <TextBlock Text="{Binding Selected_students.YearLevel.Name}" FontWeight="DemiBold" FontSize="14" Margin="0,22,10,415" Grid.Row="1" HorizontalAlignment="Right" Width="147"/>
-                    <TextBlock Text="Verified by:" FontWeight="Bold" FontSize="14" Margin="132,3,249,5" Grid.Row="2"/>
-                    <TextBlock TextDecorations="Underline" Text="jerald" FontSize="14" Margin="214,3,157,5" Grid.Row="2"/>
-                    <TextBlock Text="2024-2025" Foreground="Black" FontSize="12" FontWeight="Bold" Width="63" Height="15" Margin="198,18,198,429" Grid.Row="1" />
+                    </Border>
+                    
+                    
+                    
+               
+
+
 
                 </Grid>
 
 
+
             </Border>
+
+
+            <!--Footer -->
+
+            <Border Grid.Row="2">
+
+
+                <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+
+                    <!--Name of the verifier-->
+                    
+                    <TextBlock Text="Verified By:"/>
+                    <TextBlock Text="{Binding EncoderName}"/>
+
+
+                </StackPanel>
+
+            </Border>
+
         </Grid>
+
+
     </Border>
 </Window>

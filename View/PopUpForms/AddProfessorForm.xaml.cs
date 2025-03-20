@@ -1,4 +1,5 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             this.DataContext = new ProfessorViewModel(_context);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+     
    
 
         private void CloseBtn_Click(object sender, RoutedEventArgs e)
@@ -43,11 +40,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             this.Close();
         }
 
-        private void Label_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
+    
         private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Space)
@@ -108,6 +101,35 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
                 {
                     e.Handled = true;
 
+                }
+            }
+        }
+
+        private void Gmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
+        }
+
+        private void Gmail_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string emailPattern = @"^[a-zA-Z0-9]+(\.{1}[a-zA-Z0-9]+)*@gmail\.com$";
+            string emailInput = Gmail.Text.Trim();
+            if (!Regex.IsMatch(emailInput, emailPattern) && !string.IsNullOrEmpty(emailInput))
+            {
+                MessageBox.Show("Invalid email address format. Email should only contain letters, numbers, dot (.) and at (@) symbols, and end with @gmail.com.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Gmail.Text = string.Empty;
+            }
+        }
+
+        private void Address_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
+            {
+                // Check if last character is already a space
+                if (textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true; // Block the space
                 }
             }
         }

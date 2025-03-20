@@ -14,8 +14,8 @@
 
             <!--Professor Table-->
             <Border 
-        Background="#FDFDFD"
-        CornerRadius="4" Margin="0,50,0,0">
+                Background="#FDFDFD"
+                CornerRadius="4" Margin="0,50,0,0">
 
                 <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                        ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" 

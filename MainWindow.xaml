@@ -247,16 +247,23 @@
 
                             <!--Departments-->
 
-                            <Button x:Name="DepartmentBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
-                                    Cursor="Hand" Width="48" Click="DepartmentBtn_Click">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                    <Icon:PackIconMaterial Kind="Domain" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock x:Name="DepartmentTxt" Text="Departments" 
-                                      Margin="5,0,0,0" 
-                                      Foreground="White"
-                                      Visibility="Collapsed" />
-                                </StackPanel>
-                            </Button>
+
+
+                            <!--  <Button x:Name="DepartmentBtn" Style="{StaticResource menuButton}"  Foreground="White" Margin="5"
+                                      Cursor="Hand" Width="48" Click="DepartmentBtn_Click">
+                                  <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                      <Icon:PackIconMaterial Kind="Domain" Style="{StaticResource menuButtonIcon}"/>
+                                      <TextBlock x:Name="DepartmentTxt" Text="Departments" 
+                                        Margin="5,0,0,0" 
+                                        Foreground="White"
+                                        Visibility="Collapsed" />
+                                  </StackPanel>
+                             </Button> -->
+                            
+                            
+                            
+                            
+                          
 
                             <!--Subjects-->
 

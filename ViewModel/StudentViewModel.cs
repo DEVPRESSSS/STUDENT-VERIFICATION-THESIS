@@ -1,7 +1,6 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Command;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model;
-
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -16,6 +15,7 @@ using OfficeOpenXml;
 using Notification.Wpf;
 using Microsoft.Data.SqlClient;
 using DocumentFormat.OpenXml.InkML;
+using System.Windows.Media;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -32,7 +32,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
        public ObservableCollection<SubjectsEntity> SubjectPerProgram { get; private set; }
        public ObservableCollection<SubjectsEnrolled> ListOfSubjectsEnrolled { get; private set; }
        public ObservableCollection<StudentsEntity> StudentBulkCollection { get; private set; }
-       //public ObservableCollection<SubjectsEnrolled> Subje { get; private set; }
 
 
 
@@ -461,6 +460,54 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+        private string _encoderName;
+
+
+
+        public string EncoderName
+        {
+
+            get => _encoderName;
+
+
+            set
+            {
+
+                _encoderName = value;
+
+                OnPropertyChanged();
+
+            }
+
+
+        }
+
+
+        private string _syName;
+
+
+
+        public string SchoolYearName
+        {
+
+            get => _syName;
+
+
+            set
+            {
+
+                _syName = value;
+
+                OnPropertyChanged();
+
+            }
+
+
+        }
+
+
+
+
         /// <summary>
         /// Search by program
         /// </summary>
@@ -821,11 +868,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         //Load all the students
+
+
+        private BrushConverter converter = new BrushConverter();
+        private string[] myArray = { "#1098AD", "#1E88E5", "#FF8F00", "#FF5252", "#6741D9", "#0CA678" };
+        private System.Windows.Media.Brush brush;
         private async Task LoadStudentAsync()
         {
 
            
-            var prof = await _context.Students
+            var student = await _context.Students
                  .Include(s => s.Program)
                  .Include(s => s.YearLevel)
                  .Include(s => s.Scholarship)
@@ -833,13 +885,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
             StudentsCollection.Clear();
-            foreach (var professor in prof)
-            {
 
-                StudentsCollection.Add(professor);
+            for (int i = 0; i < student.Count; i++)
+            {
+                var staff = student[i];
+                string colorString = myArray[i % myArray.Length];
+                brush = (System.Windows.Media.Brush)converter.ConvertFromString(colorString);
+
+                // Get first letter of name as Character
+                string name = staff.Name;
+                staff.Character = name.Length > 0 ? name.Substring(0, 1) : string.Empty;
+
+                // Set the background color
+                staff.bgColor = brush;
+
+                StudentsCollection.Add(staff);
+                OnPropertyChanged(nameof(StudentsCollection));
+
             }
-            
-            OnPropertyChanged(nameof(StudentsCollection));
+         
 
 
 
@@ -962,7 +1026,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                 SemesterName = context.Semesters
                                 .Where(s => s.SemesterID == gss.subject.SemesterID)
                                 .Select(s => s.SemesterName)
-                                .FirstOrDefault()
+                                .FirstOrDefault(),
+
+                                EncoderName = context.Staffs
+                                    .Where(s => s.StaffID == gss.grade.StaffID)
+                                    .Select(s => s.Name)
+                                    .FirstOrDefault(),
+                                SchoolYear = context.SchoolYear
+                                    .Where(sy => sy.SchoolYearID == gss.grade.SchoolYearID)
+                                    .Select(sy => sy.SY)
+                                    .FirstOrDefault()
+
+
                             }
                         )
                         .ToListAsync();
@@ -983,8 +1058,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             Time = item.Time,
                             SemesterID = item.SemesterID,
                             SemesterName= item.SemesterName,
-                           
+
+
                         });
+
+                        EncoderName = item.EncoderName;
+                        SchoolYearName = item.SchoolYear;
+                        Semester = item.SemesterName;
                     }
                 }
 
@@ -1004,6 +1084,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// Load all the subs enrolled by the student for viewing
         /// </summary>
         /// <returns></returns>
+        /// 
+
+
         private async Task LoadStudentSubAsync()
         {
            

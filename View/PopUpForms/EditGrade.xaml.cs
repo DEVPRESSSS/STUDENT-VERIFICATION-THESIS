@@ -45,5 +45,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
 
         }
+        //Validations
+        private void GradeTextBox_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+
+            if(e.Key == Key.Space)
+            {
+
+                e.Handled = true;
+
+            }
+
+        }
     }
 }

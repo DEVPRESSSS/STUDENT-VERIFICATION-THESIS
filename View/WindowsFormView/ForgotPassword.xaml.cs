@@ -26,38 +26,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
             InitializeComponent();
         }
 
+
+
+        //Validation for email
         private void Email_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            string currentText = (sender as TextBox)?.Text ?? string.Empty;
+           if(e.Key== Key.Space)
+            {
 
-            // Block space key
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true;
-            }
-            // Check if the key pressed is a dot (".") key
-            else if (e.Key == Key.OemPeriod) // Dot (.)
-            {
-                // Allow only one dot (".")
-                if (currentText.Contains("."))
-                {
-                    e.Handled = true; // Block additional dot
-                }
-            }
-            // Check if the key pressed is "@" key (Shift + 2)
-            else if (e.Key == Key.D2 && Keyboard.Modifiers == ModifierKeys.Shift) // "@" symbol
-            {
-                // Allow only one "@"
-                if (currentText.Contains("@"))
-                {
-                    e.Handled = true; // Block additional "@"
-                }
-            }
-            // Block whitespace, numbers (0-9), and numpad numbers
-            else if (char.IsWhiteSpace((char)e.Key) ||
-                     (e.Key >= Key.D0 && e.Key <= Key.D9) ||
-                     (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
-            {
                 e.Handled = true;
             }
         }
@@ -73,12 +49,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Email_LostFocus(object sender, RoutedEventArgs e)
         {
-            string emailPattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
+            string emailPattern = @"^[a-zA-Z0-9]+(\.{1}[a-zA-Z0-9]+)*@gmail\.com$";
             string emailInput = Email.Text.Trim();
-
             if (!Regex.IsMatch(emailInput, emailPattern) && !string.IsNullOrEmpty(emailInput))
             {
-                MessageBox.Show("Invalid email address format. Email should end with @gmail.com.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Invalid email address format. Email should only contain letters, numbers, dot (.) and at (@) symbols, and end with @gmail.com.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Email.Text = string.Empty;
             }
         }
@@ -93,13 +68,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
                 return;
             }
 
-            // Generate the OTP
             string otp = GenerateOTP();
 
-            // Store the OTP in Application properties for later verification
             Application.Current.Properties["OTP"] = otp;
 
-            // Send the OTP to the email
             SendOTPEmail(emailInput, otp);
         }
 
@@ -182,9 +154,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
 
         private void Code_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space) // Check if the spacebar is pressed
+            if (e.Key == Key.Space) 
             {
-                e.Handled = true; // Block the spacebar input
+                e.Handled = true; 
             }
         }
 

@@ -68,7 +68,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Address_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-           
+            var textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
+            {
+                // Check if last character is already a space
+                if (textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true; // Block the space
+                }
+            }
         }
 
         private void Age_PreviewKeyDown(object sender, KeyEventArgs e)
@@ -93,11 +101,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             return regex.IsMatch(text);
         }
 
-        private static bool IsTextAllowed(string text)
-        {
-            Regex regex = new Regex("^[a-zA-Z]+$"); // Only letters are allowed
-            return regex.IsMatch(text);
-        }
+       
 
         private void Name_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -110,6 +114,22 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
                     e.Handled = true; // Block the space
                 }
             }
+        }
+
+        private void Gmail_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string emailPattern = @"^[a-zA-Z0-9]+(\.{1}[a-zA-Z0-9]+)*@gmail\.com$";
+            string emailInput = Gmail.Text.Trim();
+            if (!Regex.IsMatch(emailInput, emailPattern) && !string.IsNullOrEmpty(emailInput))
+            {
+                MessageBox.Show("Invalid email address format. Email should only contain letters, numbers, dot (.) and at (@) symbols, and end with @gmail.com.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Gmail.Text = string.Empty;
+            }
+        }
+
+        private void Gmail_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+
         }
     }
 }

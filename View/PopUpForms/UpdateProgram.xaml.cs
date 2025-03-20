@@ -1,4 +1,5 @@
-﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+﻿using DocumentFormat.OpenXml.InkML;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -22,51 +23,46 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
     /// </summary>
     public partial class UpdateProgram : Window
     {
+        private readonly ApplicationDbContext _context;
+
         public UpdateProgram(ApplicationDbContext context)
         {
             InitializeComponent();
-            DataContext = new DepartmentViewModel(context);
+            _context = context;
+            DataContext = new ProgramsViewModel(_context);
         }
 
-        private void Close_Click(object sender, RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if(!string.IsNullOrEmpty(NameTxt.Text) && !string.IsNullOrEmpty(NameTxt_Copy.Text))
-            {
 
+            if(!string.IsNullOrWhiteSpace(Acronym.Text) && !string.IsNullOrWhiteSpace(NameTxt_Copy.Text))
+            {
                 this.Close();
 
 
             }
             else
             {
-                MessageBox.Show("You cant close it there is no value provided","Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            NameTxt.Text = "";
-            NameTxt_Copy.Text = "";
-        }
-
-        private void NameTxt_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-            {
-                e.Handled = true;
+                MessageBox.Show("You can't close the form unless you fill the fields",
+                                "Error", 
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Error);
             }
         }
 
         private void NameTxt_Copy_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            
-        }
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
+            {
+                if (string.IsNullOrEmpty(textBox.Text) || textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true;
 
-        private void NameTxt_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = !IsTextAllowed(e.Text);
-
+                }
+            }
         }
 
         private void NameTxt_Copy_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -74,11 +70,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             e.Handled = !IsTextAllowed(e.Text);
 
         }
-
-        // Validate input using a regex
         private static bool IsTextAllowed(string text)
         {
-            Regex regex = new Regex("^[a-zA-Z]+$"); // Only letters are allowed
+            Regex regex = new Regex("^[a-zA-Z]+$"); 
             return regex.IsMatch(text);
         }
     }

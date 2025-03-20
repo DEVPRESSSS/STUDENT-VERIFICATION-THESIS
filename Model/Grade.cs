@@ -94,5 +94,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [NotMapped]
         public string? SemesterName { get; set; }
+
+
+        [NotMapped]
+        public string? EncoderName { get; set; }
+
+        [NotMapped]
+        public string? SchoolYear { get; set; }
     }
 }

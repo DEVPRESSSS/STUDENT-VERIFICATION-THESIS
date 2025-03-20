@@ -157,7 +157,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
                 CollapseButton(DashboardOverview, DashboardTxt);
                 CollapseButton(ProfessorBtn, ProfessorTxt);
                 CollapseButton(StudentsBtn, StudentTxt);
-                CollapseButton(DepartmentBtn, DepartmentTxt);
+               // CollapseButton(DepartmentBtn, DepartmentTxt);
                 CollapseButton(ProgamBtn, ProgramTxt);
                 CollapseButton(Subjects, SubjectsTxt);
                 CollapseButton(Grades, GradesTxt);
@@ -176,7 +176,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
                 ExpandButton(DashboardOverview, DashboardTxt);
                 ExpandButton(ProfessorBtn, ProfessorTxt);
                 ExpandButton(StudentsBtn, StudentTxt);
-                ExpandButton(DepartmentBtn, DepartmentTxt);
+               //. ExpandButton(DepartmentBtn, DepartmentTxt);
                 ExpandButton(ProgamBtn, ProgramTxt);
                 ExpandButton(Subjects, SubjectsTxt);
                 ExpandButton(Grades, GradesTxt);

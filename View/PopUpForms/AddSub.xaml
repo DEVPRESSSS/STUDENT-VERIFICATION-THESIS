@@ -259,18 +259,6 @@
                         />
 
                     <!--Automation instructions-->
-                    <TextBlock TextWrapping="Wrap" 
-                          Foreground="White"
-                          Margin="0,45,0,0" 
-                          FontFamily="Helvetica Neue" 
-                          FontSize="14" Height="62" VerticalAlignment="Top" HorizontalAlignment="Right" Width="134"
-                              >
-                            Hi Admin! Please be 
-                            careful when adding subjects
-                            Thank you!
-
-
-                    </TextBlock>
 
                     <!--Maximize button-->
                     <!--Automation button-->

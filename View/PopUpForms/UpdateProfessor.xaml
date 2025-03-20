@@ -6,31 +6,30 @@
          xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ProfessorViewModel}"
         mc:Ignorable="d"
         Title="UpdateProfessor" 
-         Height="450" Width="800"
+        Height="450" Width="600"
          WindowStartupLocation="CenterScreen"
          WindowStyle="None"
          Background="Transparent"
          AllowsTransparency="True"
          ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="#f7f5f5">
 
-        <Grid>
+        <!--<Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <!-- Row 0 -->
-                <!-- Row 1 -->
+                --><!-- Row 0 -->
+                <!-- Row 1 --><!--
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="600" />
-                <!-- Column 0 -->
+                --><!-- Column 0 --><!--
                 <ColumnDefinition />
-                <!-- Column 1 -->
+                --><!-- Column 1 --><!--
             </Grid.ColumnDefinitions>
 
 
 
 
-            <!-- Content for Row 0, Column 0 -->
+            --><!-- Content for Row 0, Column 0 --><!--
             <Border Grid.Row="0" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10" Effect="{StaticResource formShadow}">
 
                 <Grid>
@@ -39,7 +38,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!-- Separator -->
+                    --><!-- Separator --><!--
                     <Border Grid.Row="0"
                      Height="2"
                      Background="#E4E0E1"
@@ -62,9 +61,9 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <!--Textboxes and buttons-->
+                            --><!--Textboxes and buttons-->
 
-                            <!--Name label-->
+                            <!--Name label--><!--
                             <Label Content="Name" FontWeight="Bold"  Margin="137,14,134,344"/>
 
 
@@ -77,7 +76,7 @@
                               PreviewTextInput="Professor_PreviewTextInput" Grid.ColumnSpan="2"
                            />
 
-                            <!--Gmail label-->
+                            --><!--Gmail label--><!--
                             <Label Content="Gmail" FontWeight="Bold"  Margin="135,72,135,286"/>
 
                             <TextBox x:Name="Gmail" Style="{StaticResource TextBoxesForm}" 
@@ -89,7 +88,7 @@
                              Grid.ColumnSpan="2"
                          />
 
-                            <!--Age-->
+                            --><!--Age--><!--
 
                             <Label Content="Age" FontWeight="Bold"  Margin="137,191,113,167"/>
 
@@ -103,7 +102,7 @@
 
 
 
-                            <!--Address-->
+                            --><!--Address--><!--
 
                             <Label Content="Address" FontWeight="Bold"  Margin="137,131,113,227"/>
 
@@ -116,7 +115,7 @@
 
 
 
-                            <!--Department-->
+                            --><!--Department--><!--
                             <Label Content="Department" FontWeight="Bold" Margin="137,245,102,113"/>
 
                             <ComboBox 
@@ -130,7 +129,7 @@
                                  SelectedValue="{Binding Selected_professor.DepartmentID, Mode=TwoWay}" Grid.ColumnSpan="2" />
 
 
-                            <!--Save Button-->
+                            --><!--Save Button--><!--
 
                             <Button Style="{StaticResource SubmitButton}"
                              Content="Save" Grid.Column="1" Margin="40,333,0,23" 
@@ -143,7 +142,7 @@
 
                              />
 
-                            <!--Clear Button-->
+                            --><!--Clear Button--><!--
 
                             <Button Style="{StaticResource ClearButton}"
                              Content="Clear" Margin="137,333,0,23" 
@@ -160,10 +159,10 @@
 
 
                     </Border>
-                    <!-- Icon -->
+                    --><!-- Icon --><!--
                     <Icon:PackIconMaterial Kind="BookEducation" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="10,0,0,0" />
 
-                    <!--Title-->
+                    --><!--Title--><!--
 
                     <TextBlock Text="Professor Details" FontWeight="Bold"  Margin="30,13,502,9" FontFamily="Helvetica Neue"/>
 
@@ -175,7 +174,7 @@
 
 
 
-            <!-- Content for Row 0, Column 1 -->
+            --><!-- Content for Row 0, Column 1 --><!--
             <Border Grid.Row="0"
              Grid.Column="1" Panel.ZIndex="-1"
              Background="#3D7E35"
@@ -185,7 +184,7 @@
 
                 <Grid>
 
-                    <!--Close button -->
+                    --><!--Close button --><!--
                     <Button x:Name="Close" 
                           Click="CloseBtn_Click"
                             Style="{StaticResource MinimizeButtonStyle}"
@@ -203,41 +202,250 @@
                     </Button>
 
 
-                    <!--Automation instructions-->
-                    <TextBlock TextWrapping="Wrap" 
-                    Foreground="White"
-                    Margin="64,52,10,331" 
-                    FontFamily="Helvetica Neue" 
-                    FontSize="14"
-                        >
-                      Hi Admin! Automate 
-                     the Professor data insertion 
-                     process effortlessly
+                    --><!--Automation instructions-->
 
 
-                    </TextBlock>
-
-
-                    <!--Automation button-->
-                    <Button x:Name="Automation"   
-                     Margin="57,150,0,275"
-                     Cursor="Hand" BorderBrush="#FFFF"
-                     Style="{StaticResource Automation}"
-                     BorderThickness="1"
-                     FontWeight="Bold"                     
-                     HorizontalAlignment="Left" Width="123">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="AutoMode" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Bulk Insert" FontFamily="Roboto" Width="62" VerticalAlignment="Center"/>
-                        </StackPanel>
-                    </Button>
+                    <!--Automation button--><!--
 
                 </Grid>
-                <!--Instructions -->
+                --><!--Instructions --><!--
 
 
             </Border>
 
+
+        </Grid>-->
+    <Border CornerRadius="10" Background="#FFFF" BorderThickness="0.5" BorderBrush="LightGray">
+
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#3D7E35" CornerRadius="10,10,0,0">
+                <Grid>
+                    <TextBlock  Text="Edit Professor" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" Margin="20,0,0,0"/>
+
+
+                    <!--Close button-->
+                    <Button x:Name="CloseButton" 
+                     Content="✕" FontSize="14"
+                     FontWeight="Bold"
+                     Foreground="White"
+                     Background="Transparent" 
+                     BorderThickness="0" 
+                     HorizontalAlignment="Right" 
+                     VerticalAlignment="Center" Margin="0,0,15,0" Cursor="Hand"
+                     Click="CloseBtn_Click"/>
+                </Grid>
+            </Border>
+
+
+            <!--Content -->
+            <Grid Grid.Row="1" Margin="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"  />
+                        <!-- First Column -->
+                        <ColumnDefinition Width="*" />
+                        <!-- Second Column -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- First Column Content -->
+                    <Grid Grid.Column="0" Margin="0,0,10,0">
+
+
+
+                        <StackPanel Orientation="Vertical">
+
+
+                            <!--Label for Name-->
+                            <TextBlock Text="Name:" 
+                                 FontSize="16"
+                                 Foreground="#31363F"
+                                 Margin="0,0,0,10"/>
+
+
+                            <!--Name Textbox-->
+                            <TextBox x:Name="Name" 
+                               Height="40" 
+                               FontSize="16" 
+                               Padding="10,5" 
+                               MaxLength="50"
+                               Text="{Binding Selected_professor.Name}"
+                               Background="#F8F8F8" 
+                               BorderBrush="#CCCCCC" 
+                               BorderThickness="1"
+                               PreviewKeyDown="Name_PreviewKeyDown"
+                               PreviewTextInput="Professor_PreviewTextInput"
+                               >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+                            <!--Label for Gmail-->
+                            <TextBlock Text="Gmail:" 
+                               FontSize="16"
+                               Foreground="#31363F"
+                               Margin="0,0,0,10"/>
+
+
+                            <!--Gmail Textbox-->
+                            <TextBox x:Name="Gmail" 
+                                 Height="40" 
+                                 FontSize="16" 
+                                 Padding="10,5" 
+                                 MaxLength="40"
+                                 Text="{Binding Selected_professor.Email}"
+                                 Background="#F8F8F8" 
+                                 BorderBrush="#CCCCCC" 
+                                 BorderThickness="1"
+                                 PreviewKeyDown="Gmail_PreviewKeyDown"
+                                 PreviewTextInput="Gmail_PreviewTextInput"
+                                 LostFocus="Gmail_LostFocus"
+                             >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+
+                            <!--Label for Age-->
+                            <TextBlock Text="Age:" 
+                               FontSize="16"
+                               Margin="0,0,0,10"
+                               Foreground="#31363F"/>
+
+
+                            <!--Age Textbox-->
+                            <TextBox x:Name="Age" 
+                                 Height="40" 
+                                 FontSize="16" 
+                                 Padding="10,5" 
+                                 MaxLength="2"
+                                 Text="{Binding Selected_professor.Age}"
+                                 Background="#F8F8F8" 
+                                 BorderBrush="#CCCCCC" 
+                                 BorderThickness="1"
+                                 PreviewKeyDown="Age_PreviewKeyDown"
+                                 PreviewTextInput="Age_PreviewTextInput"
+                             >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+
+                            <!--Label for Address-->
+                            <TextBlock Text="Address:" 
+                                FontSize="16"
+                                Foreground="#31363F"
+                                Margin="0,0,0,10"/>
+
+
+                            <!--Age Textbox-->
+                            <TextBox x:Name="Address" 
+                                  Height="40" 
+                                  FontSize="16" 
+                                  Padding="10,5" 
+                                  MaxLength="100"
+                                  Text="{Binding Selected_professor.Address}"
+                                  Background="#F8F8F8" 
+                                  BorderBrush="#CCCCCC" 
+                                  BorderThickness="1"
+                              >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!-- Second Column Content -->
+                    <Grid Grid.Column="1" >
+
+
+                        <StackPanel Orientation="Vertical">
+
+
+                            <!--Department label-->
+                            <TextBlock Text="Department:" 
+                              FontSize="16"
+                              Margin="0,0,0,10"/>
+
+
+                            <!--Department Combobox-->
+
+                            <ComboBox 
+                                  VerticalAlignment="Top"
+                                  BorderBrush="#bab7b6"
+                                  BorderThickness="1"
+                                  Height="40"
+                                  Background="Transparent"
+                                  FontSize="16"
+                                  ItemsSource="{Binding DepartmentCollection}"
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="DepartmentID"
+                                  SelectedValue="{Binding SelectedDepartmentID, Mode=TwoWay}">
+
+
+                                <ComboBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="20"/>
+                                    </Style>
+                                </ComboBox.Resources>
+
+                            </ComboBox>
+
+
+                        </StackPanel>
+
+
+                    </Grid>
+                </Grid>
+            </Grid>
+
+
+
+
+
+            <!--Footer-->
+
+            <Grid Grid.Row="2">
+
+                <Button Style="{StaticResource SubmitButton}"
+                  Content="Save" 
+                  Width="552" 
+                  HorizontalAlignment="Center"
+                  FontSize="16"
+                  Height="40"
+                  BorderThickness="0"    
+                  Command="{Binding UpdateProfessorrsCommand}" VerticalAlignment="Center"/>
+
+
+            </Grid>
 
         </Grid>
     </Border>

@@ -16,9 +16,6 @@
     <Compile Update="View\EncoderDashboardView\EncoderDashboardOverview.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\EncoderDashboardView\ExcelWordGradeUC.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\EncoderDashboardView\GradesEncoderUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -71,6 +68,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\ListOfSubjects.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\PrintPreviewWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\UpdateDepartment.xaml.cs">
@@ -142,9 +142,6 @@
     <Compile Update="View\WindowsFormView\ForgotPassword.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\WindowsFormView\LoginForm.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\WindowsFormView\LoginWD.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -160,9 +157,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EncoderDashboardView\EncoderDashboardOverview.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\EncoderDashboardView\ExcelWordGradeUC.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EncoderDashboardView\GradesEncoderUC.xaml">
@@ -217,6 +211,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\ListOfSubjects.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\PrintPreviewWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\UpdateDepartment.xaml">
@@ -286,9 +283,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WindowsFormView\ForgotPassword.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\WindowsFormView\LoginForm.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\WindowsFormView\LoginWD.xaml">

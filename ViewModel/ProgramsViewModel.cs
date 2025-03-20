@@ -207,7 +207,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Insert Method 
         private async Task AddProgramAsync()
         {
-            if (string.IsNullOrEmpty(Name)|| string.IsNullOrEmpty(Acronym))
+            if (string.IsNullOrWhiteSpace(Name)|| string.IsNullOrWhiteSpace(Acronym))
             {
                 MessageBox.Show("Please fill in all fields correctly.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 

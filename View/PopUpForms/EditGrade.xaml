@@ -52,7 +52,9 @@
                              Text="{Binding Selected_grades.GradeValue}"
                              Background="#F8F8F8" 
                              BorderBrush="#CCCCCC" 
-                             BorderThickness="1">
+                             BorderThickness="1"
+                             PreviewKeyDown="GradeTextBox_PreviewKeyDown"
+                             >
                         <TextBox.Resources>
                             <Style TargetType="{x:Type Border}">
                                 <Setter Property="CornerRadius" Value="5"/>

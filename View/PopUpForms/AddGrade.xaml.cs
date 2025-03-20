@@ -20,6 +20,7 @@ using System.Windows.Xps.Packaging;
 using System.Windows.Xps;
 using System.IO.Packaging;
 using System.Windows.Markup;
+using Notification.Wpf;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 {
@@ -47,102 +48,117 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Automation_Click(object sender, RoutedEventArgs e)
         {
-            PrintDialog printDialog = new PrintDialog();
 
-            if (printDialog.ShowDialog() == true)
+        }
+
+       
+
+        private void pRINTEST_Click(object sender, RoutedEventArgs e)
+        {
+            var mainBorder = MainBorder;
+
+            if (mainBorder == null)
             {
-                // Ensure the window is fully loaded and rendered
-                this.UpdateLayout();
+                MessageBox.Show("Could not find the main border control!");
+                return;
+            }
 
-                // Hide the scrollbars of the DataGrid temporarily
-                var dataGrid = cashierDataGrid;
-                if (dataGrid != null)
-                {
-                    // Save the current scrollbar visibility settings
-                    var horizontalScrollbarVisibility = dataGrid.HorizontalScrollBarVisibility;
-                    var verticalScrollbarVisibility = dataGrid.VerticalScrollBarVisibility;
+            // Create a fixed document for the preview
+            FixedDocument document = new FixedDocument();
 
-                    // Temporarily hide the scrollbars
-                    dataGrid.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
-                    dataGrid.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+            // Save current layout settings
+            Thickness originalMargin = mainBorder.Margin;
+            mainBorder.UpdateLayout();
 
-                    print.Visibility = Visibility.Hidden;
-                    Close.Visibility = Visibility.Hidden;
-                    MainBorder.BorderThickness = new Thickness(0);
-                    // Get the actual size of the window's layout
-                    var bounds = VisualTreeHelper.GetDescendantBounds(this);
+            // Create a page for the document
+            PageContent pageContent = new PageContent();
+            FixedPage fixedPage = new FixedPage();
 
-                    // Create a visual representation of the entire window
-                    var visual = new DrawingVisual();
-                    using (var context = visual.RenderOpen())
-                    {
-                        // Create a rectangle of the same size as the window's layout and render it
-                        context.DrawRectangle(new VisualBrush(this), null, new Rect(new Point(), bounds.Size));
-                    }
+            // Create a container for the entire UI visual
+            Canvas container = new Canvas();
+            container.Width = mainBorder.ActualWidth;
+            container.Height = mainBorder.ActualHeight;
 
-                    // Set the print document size to match the window layout's size
-                    printDialog.PrintTicket.PageMediaSize = new System.Printing.PageMediaSize(bounds.Width, bounds.Height);
+            // Use a visual brush to capture the entire UI
+            VisualBrush vb = new VisualBrush(mainBorder);
+            Rectangle rect = new Rectangle();
+            rect.Width = mainBorder.ActualWidth;
+            rect.Height = mainBorder.ActualHeight;
+            rect.Fill = vb;
+            container.Children.Add(rect);
 
-                    // Print the visual representation of the entire window
-                    printDialog.PrintVisual(visual, "Printing Window");
+            // Add the container to the page
+            fixedPage.Children.Add(container);
+            fixedPage.Width = mainBorder.ActualWidth;
+            fixedPage.Height = mainBorder.ActualHeight;
+            ((IAddChild)pageContent).AddChild(fixedPage);
+            document.Pages.Add(pageContent);
 
-                    // Restore the original scrollbar visibility settings
-                    dataGrid.HorizontalScrollBarVisibility = horizontalScrollbarVisibility;
-                    dataGrid.VerticalScrollBarVisibility = verticalScrollbarVisibility;
-                    this.Close();
-                }
+            // Create a window with document viewer
+            Window previewWindow = new Window();
+            previewWindow.Title = "Print Preview";
+            previewWindow.Width = 800;
+            previewWindow.Height = 600;
+            previewWindow.Owner = Window.GetWindow(this);
+            DocumentViewer viewer = new DocumentViewer();
+            viewer.Document = document;
+            previewWindow.Content = viewer;
+            previewWindow.ShowDialog();
+
+            // Restore the original settings
+            mainBorder.Margin = originalMargin;
+            mainBorder.UpdateLayout();
+
+        }
+
+
+
+
+        private void ShowNotification(string title, string message, NotificationType notificationType)
+        {
+
+            var notificaficationManager = new NotificationManager();
+
+            if (NotificationType.Success == notificationType)
+            {
+                notificaficationManager.Show(
+                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(5));
+
+            }
+            else
+            {
+                notificaficationManager.Show(
+                 new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(30));
+
+
+            }
+
+
+
+
+
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+            ShowNotification("Printing Information", "Press ESC if you want to close the form or press Enter to begin printing", NotificationType.Information);
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if(e.Key == Key.Enter)
+            {
+
+                pRINTEST_Click(sender, e);
+            }
+            else if(e.Key == Key.Escape)
+            {
+
+
+                this.Close();
             }
         }
-
-        private async Task GeneratePdfAsync(FrameworkElement wpf_Element)
-        {
-            //------------< WPF_Print_current_Window >------------
-            string ID = $"PRV-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
-
-            //--< create xps document >--
-
-            XpsDocument doc = new XpsDocument($"print_previw{ID}.xps", FileAccess.ReadWrite);
-
-            XpsDocumentWriter writer = XpsDocument.CreateXpsDocumentWriter(doc);
-
-            SerializerWriterCollator preview_Document = writer.CreateVisualsCollator();
-
-            preview_Document.BeginBatchWrite();
-
-            preview_Document.Write(wpf_Element);  //*this or wpf xaml control
-
-            preview_Document.EndBatchWrite();
-
-            //--</ create xps document >--
-
-
-
-            //var doc2 = new XpsDocument("Druckausgabe.xps", FileAccess.Read);
-
-
-
-            FixedDocumentSequence preview = doc.GetFixedDocumentSequence();
-
-
-
-            var window = new Window();
-
-            window.Content = new DocumentViewer { Document = preview };
-
-            window.ShowDialog();
-
-
-
-            doc.Close();
-
-            //------------</ WPF_Print_current_Window >------------
-
-
-
-
-        }
-
-
-
     }
 }

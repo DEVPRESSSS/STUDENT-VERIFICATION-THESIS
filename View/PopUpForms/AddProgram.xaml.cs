@@ -36,7 +36,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            NameTxt.Text = "";
+            //NameTxt.Text = "";
 
         }
 
@@ -52,16 +52,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         }
 
-        private void NameTxt_Copy_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-           
-        }
-
+       
         private void NameTxt_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Space)
+            TextBox textBox = sender as TextBox;
+            if (textBox != null && e.Key == Key.Space)
             {
-                e.Handled = true;
+                if (string.IsNullOrEmpty(textBox.Text) || textBox.Text.EndsWith(" "))
+                {
+                    e.Handled = true;
+
+                }
             }
         }
 
