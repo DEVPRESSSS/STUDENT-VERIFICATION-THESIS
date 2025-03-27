@@ -33,7 +33,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; }
         public ObservableCollection<SchoolYear> SchoolYearCollection { get; private set; }
         public ObservableCollection<ProfessorsEntity> ProfessorsCollection { get; private set; }
-
+        public ObservableCollection<string> Options { get; set; }
 
         private ProfessorsEntity _selected_professor;
 
@@ -69,6 +69,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 _selected_grade = value;
+               
                 OnPropertyChanged(nameof(Selected_grades));
             }
         }
@@ -341,6 +342,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+
+
+
+
         public ICommand LoadSubjectsCommand { get; }
         public ICommand DeleteGradeCommand { get; }
         public ICommand LoadStudentSubs { get; }
@@ -349,6 +355,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand InsertManualCommand { get; }
         public ICommand SearchCommand { get; }
         public ICommand SearchCommand2 { get; }
+        public ICommand UpdateGradeCommand { get; }
 
 
         public GradeViewModel(ApplicationDbContext context)
@@ -376,8 +383,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             InsertManualCommand = new RelayCommand(async _ => await InsertGradePerSub());
             ProfessorsCollection = new ObservableCollection<ProfessorsEntity>();
             SubjectEnrolledCollection = new ObservableCollection<SubjectsEnrolled>();
-
-
+            UpdateGradeCommand= new RelayCommand(async _ => await UpdateGrade());
             //Load students 
             _ = LoadStudentAsync();
 
@@ -409,7 +415,59 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             LoadProfessorAsync();
 
+            Options = new ObservableCollection<string>
+                {
+                    "FAILED",
+                    "INC",
+                    "NFE",
+                    "NGS",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "86",
+                    "87",
+                    "88",
+                    "89",
+                    "90",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "97",
+                    "98",
+                    "99",
 
+            };
+
+        }
+
+        private async Task UpdateGrade()
+        {
+
+
+            if (Selected_grades != null)
+            {
+
+                _context.Grades.Update(Selected_grades);
+                await _context.SaveChangesAsync();
+
+                
+                _ = LoadGradesAsync();
+                CloseCurrentActiveWindow();
+                ShowNotification("Success", $"{Selected_grades.StudentName} updated successfully", NotificationType.Success);
+
+            }
+            
         }
 
 
@@ -423,16 +481,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             if (confirmation == MessageBoxResult.Yes)
             {
-                using (var context = new ApplicationDbContext()) // New DbContext instance
+                using (var context = new ApplicationDbContext()) 
                 {
                     if (Selected_grades != null)
                     {
-                        // Attach the entity to the new context before removing
                         context.Attach(Selected_grades);
                         context.Grades.Remove(Selected_grades);
                         await context.SaveChangesAsync();
 
-                        // Remove from local collection
                         GradeCollection.Remove(Selected_grades);
                     }
                 }
@@ -451,25 +507,24 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         ///Load Grades per sub
         private async Task LoadGradesAsync()
         {
-    
-   
-            var subjects =  await _context.Grades.
-                Include(x=> x.Student).
-                 Include(x => x.Subject).
-                 Include(x => x.User).
-                 Include(x => x.SY).
-                ToListAsync();
+            var grades = await _context.Grades
+                .Include(g => g.Student)
+                .Include(g => g.Subject)
+                    .ThenInclude(s => s.Semester)
+                .Include(g => g.Subject)
+                    .ThenInclude(s => s.Year) 
+                .Include(g => g.User)
+                .Include(g => g.SY)
+                .ToListAsync();
 
             GradeCollection.Clear();
 
-            foreach (var subject in subjects)
-                    {
-
-                GradeCollection.Add(subject);    
-             }
-
-
+            foreach (var grade in grades)
+            {
+                GradeCollection.Add(grade);
+            }
         }
+
 
 
         /// <summary>
@@ -1036,14 +1091,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                         return;
                     }
 
-                    if (!(int.TryParse(subject.GradeValue, out int grade) && grade >= 70 && grade <= 100)
-                    && subject.GradeValue.ToUpper() != "INC")
-                    {
-                        ShowNotification("Error", "Oops! You entered an invalid grade.", NotificationType.Error);
-                        return;
-                    }
-
-
+                
 
                     var existingGrade = context.Grades
                         .FirstOrDefault(g => g.StudentID == subject.StudentID && g.SubjectID == subject.SubjectID);
@@ -1125,7 +1173,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+        //Close the Current Window
+        public void CloseCurrentActiveWindow()
+        {
+            var activeWindow = Application.Current.Windows
+                .OfType<Window>()
+                .FirstOrDefault(window => window.IsActive);
 
+            if (activeWindow != null)
+            {
+                activeWindow.Close();
+            }
+        }
 
 
 

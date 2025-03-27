@@ -16,6 +16,7 @@ using Notification.Wpf;
 using Microsoft.Data.SqlClient;
 using DocumentFormat.OpenXml.InkML;
 using System.Windows.Media;
+using DocumentFormat.OpenXml.Vml.Spreadsheet;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -51,6 +52,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand BulkInsertCommand { get; }
         public ICommand DeleteSubjectEnrolledCommand { get; }
         public ICommand EnrollSecondSemCommand { get; }
+        public ICommand AssignedProfCommand { get; }
 
         public StudentViewModel(ApplicationDbContext context)
         {
@@ -97,18 +99,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             EnrollSecondSemCommand = new RelayCommand(_ =>EnrollSecondSem());
 
 
+         
 
             _ = LoadProgramAsync();
             _ = LoadYearAsync();
             _ = LoadSubjectsAsync();
             _ = LoadSchoolar();
             _ = LoadStudentSubAsync();
-
+          
 
         }
 
-     
-
+        
         private StudentsEntity _selected_students;
 
         public StudentsEntity Selected_students
@@ -213,6 +215,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+
+
+
+
+
         //Program ID 
 
         private string _programID;
@@ -233,6 +240,24 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
+
+        private string _professorID;
+
+        public string ProfessorID
+        {
+
+            get => _professorID;
+
+
+            set
+            {
+
+                _professorID = value;
+
+                OnPropertyChanged(ProfessorID);
+            }
+
+        }
 
 
         private string _yearID;
@@ -451,7 +476,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 _semester = value;
 
-                OnPropertyChanged();
+                OnPropertyChanged(Semester);
 
             }
 
@@ -475,7 +500,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 _encoderName = value;
 
-                OnPropertyChanged();
+                OnPropertyChanged(EncoderName);
 
             }
 
@@ -498,7 +523,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 _syName = value;
 
-                OnPropertyChanged();
+                OnPropertyChanged(SchoolYearName);
 
             }
 
@@ -993,35 +1018,35 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var context = new ApplicationDbContext())
                 {
                     var results = await context.Grades
-                        .Where(g => g.StudentID == Selected_students.StudentID) 
+                        .Where(g => g.StudentID == Selected_students.StudentID)
                         .Join(
                             context.Subjects,
-                            grade => grade.SubjectID,       
-                            subject => subject.SubjectID,  
-                            (grade, subject) => new { grade, subject } 
+                            grade => grade.SubjectID,
+                            subject => subject.SubjectID,
+                            (grade, subject) => new { grade, subject }
                         )
                         .GroupJoin(
                             context.Schedule,
-                            gs => new { gs.subject.SubjectID, gs.subject.ProfessorID}, 
-                            schedule => new { schedule.SubjectID, schedule.ProfessorID }, 
-                            (gs, schedules) => new { gs.grade, gs.subject, schedules } 
+                            gs => new { gs.subject.SubjectID, gs.subject.ProfessorID },
+                            schedule => new { schedule.SubjectID, schedule.ProfessorID },
+                            (gs, schedules) => new { gs.grade, gs.subject, schedules }
                         )
                         .SelectMany(
-                            gss => gss.schedules.DefaultIfEmpty(), 
+                            gss => gss.schedules.DefaultIfEmpty(),
                             (gss, schedule) => new
                             {
                                 gss.grade.GradeID,
                                 gss.grade.GradeValue,
                                 gss.subject.SubjectID,
                                 gss.subject.SubjectName,
-                                gss.subject.CourseCode, 
-                                gss.subject.SemesterID, 
-                              
+                                gss.subject.CourseCode,
+                                gss.subject.SemesterID,
+
                                 Time = schedule != null ? schedule.Time : null,
                                 gss.subject.ProfessorID,
-                                ProfessorName = context.Professors 
+                                ProfessorName = context.Professors
                                     .Where(p => p.ProfessorID == gss.subject.ProfessorID)
-                                    .Select(p => p.Name) 
+                                    .Select(p => p.Name)
                                     .FirstOrDefault(),
                                 SemesterName = context.Semesters
                                 .Where(s => s.SemesterID == gss.subject.SemesterID)
@@ -1041,23 +1066,23 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             }
                         )
                         .ToListAsync();
-              
+
                     // Use the results, for example:
                     SubjectGrades.Clear();
                     foreach (var item in results)
                     {
-                        
+
                         SubjectGrades.Add(new Grade
                         {
                             GradeID = item.GradeID,
                             GradeValue = item.GradeValue,
                             SubjectID = item.SubjectID,
-                            CourseCode = item.CourseCode, 
+                            CourseCode = item.CourseCode,
                             ProfessorID = item.ProfessorID,
-                            ProfessorName = item.ProfessorName, 
+                            ProfessorName = item.ProfessorName,
                             Time = item.Time,
                             SemesterID = item.SemesterID,
-                            SemesterName= item.SemesterName,
+                            SemesterName = item.SemesterName,
 
 
                         });
@@ -1601,7 +1626,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-        //TracK if Subjects are second sem
+
+
+
+
+
+
+       
 
 
         //Show notications

@@ -163,7 +163,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
                 CollapseButton(Grades, GradesTxt);
                 CollapseButton(Schedule, SchedTxt);
                 CollapseButton(EncoderBtn, EncoderTxt);
-                CollapseButton(SettingsBtn, SettingsTxt);
+                //CollapseButton(SettingsBtn, SettingsTxt);
             }
             else
             {
@@ -182,7 +182,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
                 ExpandButton(Grades, GradesTxt);
                 ExpandButton(Schedule, SchedTxt);
                 ExpandButton(EncoderBtn, EncoderTxt);
-                ExpandButton(SettingsBtn, SettingsTxt);
+                //ExpandButton(SettingsBtn, SettingsTxt);
             }
 
          

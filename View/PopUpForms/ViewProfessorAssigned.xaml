@@ -1,0 +1,194 @@
+﻿<Window x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms.ViewProfessorAssigned"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:SubjectsViewModel}"
+        mc:Ignorable="d"
+        Title="ViewProfessorAssigned"
+        Height="450"
+        Width="800"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize">
+    <Border CornerRadius="10" 
+            Background="#FFFF"
+            BorderThickness="1" 
+            BorderBrush="LightGray">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" 
+                    Background="#3D7E35" CornerRadius="10,10,0,0">
+                <Grid>
+                    <TextBlock  Text="{Binding Selected_subjects.SubjectName}" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" Margin="20,0,0,0"/>
+
+
+                    <!--Close button-->
+                    <Button x:Name="CloseButton" 
+                        Content="✕" FontSize="14"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        Click="CloseButton_Click"
+                        HorizontalAlignment="Right" 
+                        VerticalAlignment="Center" Margin="0,0,15,0" Cursor="Hand"
+                        />
+                </Grid>
+            </Border>
+
+
+            <!--Content -->
+            <Border Grid.Row="1" 
+                    Margin="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"   />
+                        <!-- First Column -->
+                        <ColumnDefinition Width="*" />
+                        <!-- Second Column -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- First Column Content -->
+                    <Grid Grid.Column="0" Margin="0,0,20,0">
+
+                        <Border 
+                            Background="#FFFF"
+                             >
+
+
+
+
+                            <StackPanel Orientation="Vertical">
+
+                                <!--DatagridView that will hold the list of professors-->
+
+                                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                                           ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                           CellStyle="{DynamicResource DataGridCellStyle1}" 
+                                           x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                                           ItemsSource="{Binding ProfessorAssignedCollection}"
+                                          SelectedItem="{Binding Selected_Subject_Professor,UpdateSourceTrigger=PropertyChanged}"
+                                           AutoGenerateColumns="False" Margin="0,10,0,0"
+                                           Grid.Row="1" 
+                                           Height="353"
+                                           
+                                           VerticalAlignment="Top" 
+                                          >
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Professor" CanUserResize="False" IsReadOnly="True" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding bgColor}">
+                                                            <TextBlock Text="{Binding Character }" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                                        </Border>
+
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Name">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Professor.Name,UpdateSourceTrigger=PropertyChanged}" 
+                                                 TextWrapping="Wrap" 
+                                                 VerticalAlignment="Center" 
+                                                 HorizontalAlignment="Stretch" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+
+                                                        <Button Margin="5 0 0 0" 
+                                                                 Style="{StaticResource gridRemoveButton}"
+                                                                 Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.UnassignedProfCommand}"                                          >
+                                                            <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+
+
+                        </Border>
+
+
+
+                    </Grid>
+
+                    <!-- Second Column Content -->
+                    <Border Grid.Column="1" >
+
+
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+
+
+                            <!--Department label-->
+                            <TextBlock Text="Choose Professor:" 
+                                  FontSize="14"
+                                  Margin="0,0,0,10" Width="173"/>
+                            <ComboBox
+                                 BorderBrush="#bab7b6"
+                                 BorderThickness="1"
+                                 Height="40"
+                                 Background="Transparent"
+                                 FontSize="16"
+                                 ItemsSource="{Binding ProfessorCollection}"
+                                 DisplayMemberPath="Name" 
+                                 SelectedValuePath="ProfessorID"
+                                 SelectedValue="{Binding Selected_professorID, Mode=TwoWay}" Width="174">
+
+
+                                <ComboBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="20"/>
+                                    </Style>
+                                </ComboBox.Resources>
+
+                            </ComboBox>
+
+                            <Button Style="{StaticResource SubmitButton}"
+                                      Content="Save" 
+                                      HorizontalAlignment="Center"
+                                      FontSize="16"
+                                      Height="40"
+                                      Margin="0,10,0,0"
+                                      BorderThickness="0"    
+                                      Command="{Binding AssignedProfCommand}" 
+                                    Width="173"/>
+
+
+
+                        </StackPanel>
+
+
+                    </Border>
+                </Grid>
+            </Border>
+
+
+
+
+        </Grid>
+
+    </Border>
+
+</Window>

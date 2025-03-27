@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 {
@@ -64,7 +65,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [NotMapped]
 
-        public bool isGradeValueLow => Convert.ToInt32(GradeValue) <75;
+        public bool isGradeValueLow
+        {
+            get
+            {
+                if (int.TryParse(GradeValue, out int grade))
+                {
+                    return grade < 75;
+                }
+                return false; // Or handle special cases (e.g., return `true` for "INC")
+            }
+        }
 
 
         [NotMapped]
@@ -101,5 +112,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [NotMapped]
         public string? SchoolYear { get; set; }
+
+
+
+
+
     }
+
+    
 }

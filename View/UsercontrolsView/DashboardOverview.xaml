@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf" xmlns:sys="clr-namespace:System;assembly=netstandard" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="930" d:DesignWidth="850"
+             d:DesignHeight="700" d:DesignWidth="850"
              Background="#F2F8FC">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
 
@@ -383,10 +383,6 @@
                             </ListView>
                         </StackPanel>
                     </Border>
-
-
-
-                    <Border  Effect="{StaticResource dropShadow}" Style="{StaticResource DashboardCardStyle1}" Margin="10,402,10,10" Grid.ColumnSpan="2" />
                 </Grid>
 
 

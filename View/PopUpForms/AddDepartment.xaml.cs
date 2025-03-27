@@ -42,6 +42,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NameTxt.Text = "";
+
+           
         }
 
    

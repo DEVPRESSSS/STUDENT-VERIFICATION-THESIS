@@ -17,6 +17,8 @@ using System.IO;
 using Notification.Wpf;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using System.Windows.Media;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
@@ -31,6 +33,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<Year> YearCollection { get; private set; }
         public ObservableCollection<Grade> GradeSheetCollection { get; private set; }
         public ObservableCollection<SchoolYear> SchoolYearCollection { get; private set; }
+        public ObservableCollection<SubjectProfessor> ProfessorAssignedCollection { get; private set; }
 
 
         //Crud Commands
@@ -45,6 +48,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand? ExtractGradeCommand { get; }
         public ICommand? ExtractGradeCommandDocs { get; }
         public ICommand? AddGrade { get; }
+        public ICommand AssignedProfCommand { get; }
+        public ICommand UnassignedProfCommand { get; }
+
         public SubjectsViewModel(ApplicationDbContext context)
         {
 
@@ -63,22 +69,25 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             YearCollection = new ObservableCollection<Year>();
             SchoolYearCollection = new ObservableCollection<SchoolYear>();
             GradeSheetCollection = new ObservableCollection<Grade>();
+            ProfessorAssignedCollection = new ObservableCollection<SubjectProfessor>();
             ClearCommand = new RelayCommand(_ => Clear());
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
             UpsertCommand = new RelayCommand(async _ => await AddScheduleAsync());
             ExtractGradeCommand = new RelayCommand(_ =>  BullExtractGradePerSub());
             ExtractGradeCommandDocs =new RelayCommand(_ => ExtractGradeFromWord());
             AddGrade = new RelayCommand(async _ => await AddExtractedGrade());
+            //AssignedProfCommand = new RelayCommand(async _ => await AssignedProf());
+            //UnassignedProfCommand = new RelayCommand(async _ => await DeleteSubjectProfessor());
 
             _ = LoadProfessorsAsync();
             _= LoadProgramAsync();
             _ = LoadYearAsync();
             _ = LoadSchoolYearAsync();
-
+            //_ = LoadProfessorAssigned();
 
         }
 
-     
+
 
 
 
@@ -95,11 +104,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             set
             {
 
+                if (Selected_subjects != null)
+                {
+
+                    //_ = LoadProfessorAssigned();
+
+                }
+
                 _selected_subjects = value;
                 OnPropertyChanged(nameof(Selected_subjects));
             }
         }
 
+
+        private SubjectProfessor _selectedSubjectProfessor;
+
+
+        public SubjectProfessor Selected_Subject_Professor
+        {
+            get => _selectedSubjectProfessor;
+
+            set
+            {
+
+                _selectedSubjectProfessor = value;
+                OnPropertyChanged(nameof(Selected_Subject_Professor));
+            }
+        }
 
 
         /// <summary>
@@ -396,9 +427,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
 
                     var query = context.Subjects
-                     .Include(p => p.Program) 
-                     .Include(p => p.Year)    
-                     .Include(p => p.Professors)    
+                     .Include(p => p.Program)
+                     .Include(p => p.Year)
+                     .Include(p => p.Professors)
                      .AsQueryable();
 
                     query = query.Where(p =>
@@ -578,7 +609,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 MessageBox.Show("Subject updated successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
 
-
+                _= LoadSubjectsAsync();
                 CloseCurrentActiveWindow();
             }
             catch (Exception ex)
@@ -599,17 +630,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 if (Selected_subjects != null)
                 {
-                    // First, delete all the related records in SubjectsEnrolled
                     var enrolledSubjects = _context.SubjectsEnrolled.Where(se => se.SubjectID == Selected_subjects.SubjectID);
                     _context.SubjectsEnrolled.RemoveRange(enrolledSubjects);
 
-                    // Now delete the subject
                     _context.Subjects.Remove(Selected_subjects);
 
-                    // Save changes to the database
                     await _context.SaveChangesAsync();
 
-                    // Remove from the collection
                     SubjectCollection.Remove(Selected_subjects);
                 }
             }
@@ -790,7 +817,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
                 return;
             }
-            if(Selected_subjects.ProfessorID == null)
+            if (Selected_subjects.ProfessorID == null)
             {
 
                 MessageBox.Show("Please add professor first", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1117,6 +1144,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             return true;
         }
 
+
+
+
+
+
+
         //Show notications
         private void ShowNotification(string title, string message, NotificationType notificationType)
         {
@@ -1130,8 +1163,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
 
-            notificaficationManager.Show(
-                  new NotificationContent { Title = title, Message = message, Type = notificationType}, expirationTime: TimeSpan.FromSeconds(5));
+        
 
 
           

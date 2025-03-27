@@ -2,20 +2,10 @@
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
 {
@@ -60,10 +50,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
 
             if (textBox != null && e.Key == Key.Space)
             {
-                // Check if the last character is a space
                 if (textBox.Text.EndsWith(" "))
                 {
-                    e.Handled = true; // Prevent consecutive spaces
+                    e.Handled = true; 
                 }
             }
         }
@@ -78,6 +67,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
             };
           
             
+            obj.ShowDialog();
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ViewProfessorAssigned obj = new ViewProfessorAssigned(_context)
+            {
+
+                DataContext = DataContext
+
+            };
+
+
             obj.ShowDialog();
         }
     }

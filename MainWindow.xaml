@@ -77,7 +77,7 @@
 
                         </Grid.ColumnDefinitions>
 
-                        <!--Bell button-->
+                        <!--Bell button--><!--
                         <Button x:Name="Notif"
                            Style="{StaticResource MinimizeButtonStyle}" Margin="-46,0,46,0" Grid.RowSpan="2"
 
@@ -93,7 +93,7 @@
                             />
 
 
-                        </Button>
+                        </Button>-->
 
 
 
@@ -327,7 +327,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <!--Logout-->
+                            <!--Logout--><!--
 
                             <Button x:Name="SettingsBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
                                            Click="SettingsBtn_Click"       Cursor="Hand" Width="48" >
@@ -341,7 +341,7 @@
                                            Foreground="White"
                                            Visibility="Collapsed" />
                                 </StackPanel>
-                            </Button>
+                            </Button>-->
 
 
 

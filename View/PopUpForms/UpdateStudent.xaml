@@ -14,25 +14,25 @@
         ResizeMode="NoResize"
         >
 
-    <Border CornerRadius="10" Background="#f7f5f5">
+    <!--<Border CornerRadius="10" Background="#f7f5f5">
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <!-- Row 0 -->
-                <!-- Row 1 -->
+                --><!-- Row 0 -->
+                <!-- Row 1 --><!--
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="600" />
-                <!-- Column 0 -->
+                --><!-- Column 0 --><!--
                 <ColumnDefinition />
-                <!-- Column 1 -->
+                --><!-- Column 1 --><!--
             </Grid.ColumnDefinitions>
 
 
 
 
-            <!-- Content for Row 0, Column 0 -->
+            --><!-- Content for Row 0, Column 0 --><!--
             <Border Grid.Row="0" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10" Effect="{StaticResource formShadow}">
 
                 <Grid>
@@ -41,7 +41,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!-- Separator -->
+                    --><!-- Separator --><!--
                     <Border Grid.Row="0"
                             Height="2"
                             Background="#E4E0E1"
@@ -64,9 +64,9 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <!--Textboxes and buttons-->
+                            --><!--Textboxes and buttons-->
 
-                            <!--Name label-->
+                            <!--Name label--><!--
                             <Label Content="Name" Margin="61,30,210,328"/>
 
 
@@ -84,7 +84,7 @@
 
 
 
-                            <!--Age label-->
+                            --><!--Age label--><!--
                             <Label Content="Age" Margin="64,100,206,258"/>
 
                             <TextBox x:Name="Agetxt" Style="{StaticResource TextBoxesForm}" 
@@ -100,7 +100,7 @@
 
                             
                             
-                            <!--ID number -->
+                            --><!--ID number --><!--
                             <Label Content="ID number" Margin="64,159,186,199"/>
 
                             <TextBox x:Name="IDtxt" Style="{StaticResource TextBoxesForm}" 
@@ -114,7 +114,7 @@
 
 
                             
-                            <!--Contacts-->
+                            --><!--Contacts--><!--
                             <Label Content="Contact" Margin="63,225,186,133"/>
 
                             <TextBox x:Name="Contactxt" Style="{StaticResource TextBoxesForm}" 
@@ -129,7 +129,7 @@
                             
                             
                             
-                            <!--Gmail-->
+                            --><!--Gmail--><!--
 
                        
 
@@ -196,10 +196,10 @@
 
 
                     </Border>
-                    <!-- Icon -->
+                    --><!-- Icon --><!--
                     <Icon:PackIconMaterial Kind="BookEducation" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="10,0,0,0" />
 
-                    <!--Title-->
+                    --><!--Title--><!--
 
                     <TextBlock Text="Student Details" Margin="30,13,532,9" FontFamily="Helvetica Neue"/>
 
@@ -211,7 +211,7 @@
 
 
 
-            <!-- Content for Row 0, Column 1 -->
+            --><!-- Content for Row 0, Column 1 --><!--
             <Border Grid.Row="0"
                     Grid.Column="1" Panel.ZIndex="-1"
                     Background="#3D7E35"
@@ -221,7 +221,7 @@
 
                 <Grid>
 
-                    <!--Close button -->
+                    --><!--Close button --><!--
                     <Button x:Name="Close" 
                                   Command="{Binding CloseCommand}"
                                  Style="{StaticResource MinimizeButtonStyle}"
@@ -240,17 +240,301 @@
                     </Button>
 
 
-                    <!--Automation instructions-->
+                    --><!--Automation instructions--><!--
 
 
 
 
                 </Grid>
-                <!--Instructions -->
+                --><!--Instructions --><!--
 
 
             </Border>
 
+
+        </Grid>
+    </Border>-->
+
+
+
+
+
+
+
+    <Border CornerRadius="10" Background="#FFFF" BorderThickness="0.5" BorderBrush="LightGray">
+
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#3D7E35" CornerRadius="10,10,0,0">
+                <Grid>
+                    <TextBlock  Text="Edit Student" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" Margin="20,0,0,0"/>
+
+
+                    <!--Close button-->
+                    <Button x:Name="CloseButton" 
+                         Content="✕" FontSize="14"
+                         FontWeight="Bold"
+                         Foreground="White"
+                         Background="Transparent" 
+                         BorderThickness="0" 
+                         HorizontalAlignment="Right" 
+                         VerticalAlignment="Center" Margin="0,0,15,0" Cursor="Hand"
+                         Click="Close_Click"/>
+                </Grid>
+            </Border>
+
+
+            <!--Content -->
+            <Grid Grid.Row="1" Margin="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"  />
+                        <!-- First Column -->
+                        <ColumnDefinition Width="*" />
+                        <!-- Second Column -->
+                    </Grid.ColumnDefinitions>
+
+                    <!-- First Column Content -->
+                    <Grid Grid.Column="0" Margin="0,0,10,0">
+
+
+
+                        <StackPanel Orientation="Vertical">
+
+                            <!--Label for Name-->
+                            <TextBlock Text="Name:" 
+                                   FontSize="16"
+                                   Foreground="#31363F"
+                                   Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="NameTxt" 
+                                Height="40" 
+                                FontSize="16" 
+                                Padding="10,5" 
+                                MaxLength="50"
+                                Text="{Binding Selected_students.Name}"
+                                Background="#F8F8F8" 
+                                BorderBrush="#CCCCCC" 
+                                BorderThickness="1"
+                                PreviewKeyDown="NameTxt_PreviewKeyDown"
+                                PreviewTextInput="NameTxt_PreviewTextInput"
+                                >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+                            <TextBlock Text="Age:" 
+                               FontSize="16"
+                               Foreground="#31363F"
+                               Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="Agetxt" 
+                                 BorderThickness="1"
+                                 Text="{Binding Selected_students.Age, Mode=TwoWay}"
+                                 MaxLength="2"
+                                 Background="#F8F8F8" 
+                                 BorderBrush="#CCCCCC" 
+                                 FontSize="16" 
+                                 Padding="10,5" 
+                                 Height="40" 
+                                 PreviewTextInput="Contactxt_PreviewTextInput"
+                                 PreviewKeyDown="Agetxt_PreviewKeyDown"
+                                 >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+
+                            <TextBlock Text="ID number:" 
+                                  FontSize="16"
+                                  Foreground="#31363F"
+                                  Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="IDtxt" 
+                                  Background="#F8F8F8" 
+                                  BorderBrush="#CCCCCC" 
+                                  FontSize="16" 
+                                  Padding="10,5"                                  
+                                  BorderThickness="1"
+                                  Text="{Binding Selected_students.IDnumber, Mode=TwoWay}"
+                                  MaxLength="10"
+                                  Height="40" 
+                                  PreviewKeyDown="IDtxt_PreviewKeyDown"
+                                  PreviewTextInput="IDtxt_PreviewTextInput"
+                                   >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+                            <TextBlock Text="Contact:" 
+                                 FontSize="16"
+                                 Foreground="#31363F"
+                                 Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="Contact" 
+                                 BorderThickness="1"
+                                 Text="{Binding Selected_students.Contact, Mode=TwoWay}"
+                                 MaxLength="11"
+                                 Height="40" 
+                                 Background="#F8F8F8" 
+                                 BorderBrush="#CCCCCC" 
+                                 FontSize="16" 
+                                 Padding="10,5"  
+                                 PreviewKeyDown="Contactxt_PreviewKeyDown"
+                                 PreviewTextInput="Contactxt_PreviewTextInput"
+                                  >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!-- Second Column Content -->
+                    <Grid Grid.Column="1" >
+
+
+                        <StackPanel Orientation="Vertical">
+
+                            <TextBlock Text="Program:" 
+                               FontSize="16"
+                               Foreground="#31363F"
+                               Margin="0,0,0,10"/>
+
+
+                            <ComboBox Grid.Column="1" 
+                                 VerticalAlignment="Top"
+                                 Height="40"
+                                 BorderBrush="#bab7b6"
+                                 BorderThickness="1" 
+                                 ItemsSource="{Binding ProgramsCollection}"
+                                 DisplayMemberPath="Name" 
+                                 SelectedValuePath="ProgramID"
+                                 SelectedValue="{Binding Selected_students.ProgramID,Mode=TwoWay}"
+                                 FontSize="16"
+
+                                 />
+
+
+                            <TextBlock Text="Year Level:" 
+                                FontSize="16"
+                                Foreground="#31363F"
+                                Margin="0,0,0,10"/>
+
+
+                            <ComboBox   
+                               VerticalAlignment="Top"
+                               Height="40"
+                               BorderBrush="#bab7b6"
+                               BorderThickness="1"
+                               FontSize="16"
+                               DisplayMemberPath="Name" 
+                               SelectedValuePath="YearID"
+                               ItemsSource="{Binding YearCollection}"
+                               SelectedValue="{Binding Selected_students.YearID,Mode=TwoWay}" />
+
+
+
+                            <TextBlock Text="Scholarship Type:" 
+                               FontSize="16"
+                               Foreground="#31363F"
+                               Margin="0,0,0,10"/>
+
+
+                            <ComboBox   
+                                  VerticalAlignment="Top"
+                                  Height="40"
+                                  BorderBrush="#bab7b6"
+                                  BorderThickness="1"
+                                  FontSize="16"
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="ScholarshipID"
+                                  ItemsSource="{Binding ScholarshipsCollection}"
+                                  SelectedValue="{Binding Selected_students.ScholarshipID, Mode=TwoWay}" />
+
+                            <TextBlock Text="Address:" 
+                                  FontSize="16"
+                                  Foreground="#31363F"
+                                  Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="Address" 
+                                  BorderThickness="1"
+                                  Text="{Binding Selected_students.Address, Mode=TwoWay}"
+                                  Height="40" 
+                                  Background="#F8F8F8" 
+                                  BorderBrush="#CCCCCC" 
+                                  FontSize="16"
+                                  MaxLength="100"                            
+                                  Padding="10,5"  
+                            
+                               >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+                        </StackPanel>
+
+
+                    </Grid>
+                </Grid>
+            </Grid>
+
+
+
+
+
+            <!--Footer-->
+
+            <Grid Grid.Row="2">
+
+                <Button Style="{StaticResource SubmitButton}"
+                  Content="Save"  
+                  Width="756" 
+                  HorizontalAlignment="Center"
+                  FontSize="16"
+                  Height="40"
+                  BorderThickness="0"  
+                  Command="{Binding UpdateStudentsCommand}" Margin="0,5,0,5"
+
+          />
+
+            </Grid>
 
         </Grid>
     </Border>

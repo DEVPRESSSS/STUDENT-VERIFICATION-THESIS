@@ -278,6 +278,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 _context.Staffs.Add(newStaff);
                 await _context.SaveChangesAsync();
                 StaffCollection.Add(newStaff);
+                _ =LoadStaffAsync();
                 Clear();
                 MessageBox.Show("Staff added successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -442,6 +443,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             Username = string.Empty;
             Email= string.Empty;
             Password = string.Empty;
+            Selected_Role = null;
         }
         public void CloseCurrentActiveWindow()
         {

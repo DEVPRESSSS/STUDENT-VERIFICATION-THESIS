@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView.ListOfSubjectsOfProf"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
+             mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+             Background="#fff"
+              >
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="101*"/>
+        </Grid.ColumnDefinitions>
+
+        <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+               ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+               CellStyle="{DynamicResource DataGridCellStyle1}" 
+               Style="{DynamicResource DataGridStyle1}"
+               ItemsSource="{Binding SubjectPerProfCollection}"
+               SelectedItem="{Binding Selected_subjects, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               AutoGenerateColumns="False" 
+                Height="430" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,15,0,0">
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="Course Code" CanUserResize="False"  Binding="{Binding CourseCode}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding SubjectName}" IsReadOnly="True" Width="*"/>
+
+                <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Style="{StaticResource gridEditButton}" HorizontalContentAlignment="Center"  Click="Button_Click" >
+                                    <Icon:PackIconMaterial Kind="PencilBoxMultipleOutline" Style="{StaticResource gridButtonIcon}"/>
+                                </Button>
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+
+</UserControl>

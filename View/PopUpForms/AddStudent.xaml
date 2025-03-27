@@ -14,265 +14,287 @@
         >
 
 
-    <Border CornerRadius="10" Background="#f7f5f5">
+    
+
+    <Border CornerRadius="10" Background="#FFFF" BorderThickness="0.5" BorderBrush="LightGray">
+
+
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <!-- Row 0 -->
-                <!-- Row 1 -->
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="600" />
-                <!-- Column 0 -->
-                <ColumnDefinition />
-                <!-- Column 1 -->
-            </Grid.ColumnDefinitions>
 
-
-
-
-            <!-- Content for Row 0, Column 0 -->
-            <Border Grid.Row="0" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10" Effect="{StaticResource formShadow}">
-
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#3D7E35" CornerRadius="10,10,0,0">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <!-- Separator -->
-                    <Border Grid.Row="0"
-                            Height="2"
-                            Background="#E4E0E1"
-                            Margin="10,42,10,0"
-                            VerticalAlignment="Top" />
+                    <TextBlock  Text="Add Student" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" Margin="20,0,0,0"/>
 
 
-                    <Border Grid.Row="1" CornerRadius="20"
-                        Background="White">
+                    <!--Close button-->
+                    <Button x:Name="CloseButton" 
+                    Content="✕" FontSize="14"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    Background="Transparent" 
+                    BorderThickness="0" 
+                    HorizontalAlignment="Right" 
+                    VerticalAlignment="Center" Margin="0,0,15,0" Cursor="Hand"
+                    Click="Close_Click_1"/>
+                </Grid>
+            </Border>
 
 
-                        <Grid>
+            <!--Content -->
+            <Grid Grid.Row="1" Margin="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"  />
+                        <!-- First Column -->
+                        <ColumnDefinition Width="*" />
+                        <!-- Second Column -->
+                    </Grid.ColumnDefinitions>
 
-                            <Grid.ColumnDefinitions>
-
-                                <ColumnDefinition/>
-
-                                <ColumnDefinition/>
-
-                            </Grid.ColumnDefinitions>
+                    <!-- First Column Content -->
+                    <Grid Grid.Column="0" Margin="0,0,10,0">
 
 
-                            <!--Textboxes and buttons-->
-                            
-                            <!--Name label-->
-                            <Label Content="Name" Margin="61,30,210,328"/>
-                            
-                            
-                            <TextBox x:Name="Name" Style="{StaticResource TextBoxesForm}" 
-                                 BorderBrush="#bab7b6"
-                                 BorderThickness="1" Margin="63,61,90,300"  
-                                 Text="{Binding Name, Mode=TwoWay}"
-                                 MaxLength="50"
-                                 PreviewKeyDown="Name_PreviewKeyDown"
-                                 PreviewTextInput="Name_PreviewTextInput"
 
-                             />
+                        <StackPanel Orientation="Vertical">
 
-                            <!--Age label-->
-                            <Label Content="Age" Margin="64,91,206,267"/>
-                            
-                            <TextBox x:Name="Age" Style="{StaticResource TextBoxesForm}" 
-                                BorderBrush="#bab7b6"
-                                BorderThickness="1" Margin="64,120,90,241" 
+                            <!--Label for Name-->
+                            <TextBlock Text="Name:" 
+                              FontSize="16"
+                              Foreground="#31363F"
+                              Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="Name" 
+                                   Height="40" 
+                                   FontSize="16" 
+                                   Padding="10,5" 
+                                   MaxLength="50"
+                                   Text="{Binding Name}"
+                                   Background="#F8F8F8" 
+                                   BorderBrush="#CCCCCC" 
+                                   BorderThickness="1"
+                                   PreviewKeyDown="Name_PreviewKeyDown"
+                                   PreviewTextInput="Name_PreviewTextInput"
+                                   >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+                            <TextBlock Text="Age:" 
+                              FontSize="16"
+                              Foreground="#31363F"
+                              Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="Age" 
+                                BorderThickness="1"
                                 Text="{Binding Age, Mode=TwoWay}"
                                 MaxLength="2"
+                                Background="#F8F8F8" 
+                                BorderBrush="#CCCCCC" 
+                                FontSize="16" 
+                                Padding="10,5" 
+                                Height="40" 
+                                PreviewTextInput="Contact_PreviewTextInput"
                                 PreviewKeyDown="Age_PreviewKeyDown"
+                                >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+
+                            <TextBlock Text="ID number:" 
+                                 FontSize="16"
+                                 Foreground="#31363F"
+                                 Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="IDnumber" 
+                                 Background="#F8F8F8" 
+                                 BorderBrush="#CCCCCC" 
+                                 FontSize="16" 
+                                 Padding="10,5"                                  
+                                 BorderThickness="1"
+                                 Text="{Binding IDnumber, Mode=TwoWay}"
+                                 MaxLength="10"
+                                 Height="40" 
+                                 PreviewKeyDown="IDnumber_PreviewKeyDown"
+                                 PreviewTextInput="IDnumber_PreviewTextInput"
+                                  >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+                            <TextBlock Text="Contact:" 
+                                    FontSize="16"
+                                    Foreground="#31363F"
+                                    Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="Contact" 
+                                    BorderThickness="1"
+                                    Text="{Binding Contact, Mode=TwoWay}"
+                                    MaxLength="11"
+                                    Height="40" 
+                                    Background="#F8F8F8" 
+                                    BorderBrush="#CCCCCC" 
+                                    FontSize="16" 
+                                    Padding="10,5"  
+                                    PreviewKeyDown="Contact_PreviewKeyDown"
+                                    PreviewTextInput="Contact_PreviewTextInput"
+                                     >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <!-- Second Column Content -->
+                    <Grid Grid.Column="1" >
+
+
+                        <StackPanel Orientation="Vertical">
+
+                            <TextBlock Text="Program:" 
+                                  FontSize="16"
+                                  Foreground="#31363F"
+                                  Margin="0,0,0,10"/>
+
+
+                            <ComboBox Grid.Column="1" 
+                                VerticalAlignment="Top"
+                                Height="40"
+                                BorderBrush="#bab7b6"
+                                BorderThickness="1" 
+                                ItemsSource="{Binding ProgramsCollection}"
+                                DisplayMemberPath="Name" 
+                                SelectedValuePath="ProgramID"
+                                SelectedValue="{Binding Selected_programID,Mode=TwoWay}"
+                                FontSize="16"
+
                                 />
 
 
-
-                            <Label Content="ID number" Margin="64,150,186,208"/>
-
-                            <TextBox x:Name="IDnumber" Style="{StaticResource TextBoxesForm}" 
-                                BorderBrush="#bab7b6"
-                                 MaxLength="10"
-                                PreviewKeyDown="IDnumber_PreviewKeyDown"
-                                PreviewTextInput="IDnumber_PreviewTextInput"
-                                BorderThickness="1" Margin="63,179,90,182" 
-                               Text="{Binding IDnumber, Mode=TwoWay}"/>
+                            <TextBlock Text="Year Level:" 
+                                   FontSize="16"
+                                   Foreground="#31363F"
+                                   Margin="0,0,0,10"/>
 
 
-
-                            <Label Content="Contact" Margin="63,216,186,142"/>
-
-                            <TextBox x:Name="Contact" Style="{StaticResource TextBoxesForm}" 
-                                BorderBrush="#bab7b6"
-                                BorderThickness="1" Margin="64,244,90,117"
-                                Text="{Binding Contact, Mode=TwoWay}"
-                                PreviewKeyDown="Contact_PreviewKeyDown"
-                                PreviewTextInput="Contact_PreviewTextInput"
-                                MaxLength="12"
-    
-                                 />
+                            <ComboBox   
+                                  VerticalAlignment="Top"
+                                  Height="40"
+                                  BorderBrush="#bab7b6"
+                                  BorderThickness="1"
+                                  FontSize="16"
+                                  DisplayMemberPath="Name" 
+                                  SelectedValuePath="YearID"
+                                  ItemsSource="{Binding YearCollection}"
+                                  SelectedValue="{Binding Selected_yearID,Mode=TwoWay}" />
 
 
 
-                            <Label Content="Address" Margin="76,91,173,267" Grid.Column="1"/>
-
-                            <TextBox x:Name="Address" Style="{StaticResource TextBoxesForm}" 
-                                BorderBrush="#bab7b6"
-                                Text="{Binding Address, Mode=TwoWay}"
-                                MaxLength="100"
-                                PreviewKeyDown="Address_PreviewKeyDown"
-                                PreviewTextInput="Address_PreviewTextInput"
-                                BorderThickness="1" Margin="78,120,77,241" Grid.Column="1"  />
+                            <TextBlock Text="Scholarship Type:" 
+                                  FontSize="16"
+                                  Foreground="#31363F"
+                                  Margin="0,0,0,10"/>
 
 
-                            <Label Content="Program" Margin="76,150,173,208" Grid.Column="1"/>
-
-                            <ComboBox Grid.Column="1" 
-                                      Margin="78,179,78,0" 
-                                      VerticalAlignment="Top"
-                                      BorderBrush="#bab7b6"
-                                      BorderThickness="1" Height="25"
-                                      ItemsSource="{Binding ProgramsCollection}"
-                                      DisplayMemberPath="Name" 
-                                      SelectedValuePath="ProgramID"
-                                      SelectedValue="{Binding Selected_programID,Mode=TwoWay}"
-                                      
-                                      />
-
-
-                            <Label Content="Year Level" Margin="76,212,173,146" Grid.Column="1"/>
-
-                            <ComboBox  Grid.Column="1" 
-                                Margin="78,243,78,0" 
-                                VerticalAlignment="Top"
-                                BorderBrush="#bab7b6"
-                                BorderThickness="1" Height="26"
-                                DisplayMemberPath="Name" 
-                                SelectedValuePath="YearID"
-                                 ItemsSource="{Binding YearCollection}"
-                                 SelectedValue="{Binding Selected_yearID,Mode=TwoWay}" />
-
-
-                            <Button Style="{StaticResource SubmitButton}"
-                                    Content="Save" Grid.Column="1" Margin="0,345,0,11" 
-                                    Width="168" 
-                                    HorizontalAlignment="Center"
-                                    Height="30"
-                                    Command="{Binding AddStudentscommand}"
-
-                                    />
-                            <Button Style="{StaticResource ClearButton}"
-                                Content="Clear" Margin="63,347,0,9" 
-                                Width="168" 
-                                HorizontalAlignment="Left"
-                                Height="30"
-                                 Command="{Binding ClearCommand}"
-                                BorderBrush="#4CAF50"
-                                    />
-                            <ComboBox  Grid.Column="1" 
-                                Margin="80,300,78,0" 
-                                VerticalAlignment="Top"
-                                BorderBrush="#bab7b6"
-                                BorderThickness="1" Height="26"
+                            <ComboBox   
+                                 VerticalAlignment="Top"
+                                 Height="40"
+                                 BorderBrush="#bab7b6"
+                                 BorderThickness="1"
+                                 FontSize="16"
                                 DisplayMemberPath="Name" 
                                 SelectedValuePath="ScholarshipID"
                                 ItemsSource="{Binding ScholarshipsCollection}"
                                 SelectedValue="{Binding Selected_SchoolarID, Mode=TwoWay}" />
-                            <Label Content="SchoolarShip" Margin="76,272,162,88" Grid.Column="1"/>
 
-                        </Grid>
+                            <TextBlock Text="Address:" 
+                                 FontSize="16"
+                                 Foreground="#31363F"
+                                 Margin="0,0,0,10"/>
 
+                            <TextBox x:Name="Address" 
+                                 BorderThickness="1"
+                                 Text="{Binding Address, Mode=TwoWay}"
+                                 Height="40" 
+                                 Background="#F8F8F8" 
+                                 BorderBrush="#CCCCCC" 
+                                 FontSize="16"
+                                 MaxLength="100"
+                                 PreviewKeyDown="Address_PreviewKeyDown"
+                                 PreviewTextInput="Address_PreviewTextInput"
+                                 Padding="10,5"  
+                               
+                                  >
 
-
-                    </Border>
-                    <!-- Icon -->
-                    <Icon:PackIconMaterial Kind="BookEducation" Foreground="#3D7E35" Style="{StaticResource menuButtonIcon}" Margin="10,0,0,0" />
-
-                    <!--Title-->
-
-                    <TextBlock Text="Student Details" Margin="30,13,532,9" FontFamily="Helvetica Neue"/>
-
-
-
-                </Grid>
-
-            </Border>
-
-
-
-            <!-- Content for Row 0, Column 1 -->
-            <Border Grid.Row="0"
-                    Grid.Column="1" Panel.ZIndex="-1"
-                    Background="#3D7E35"
-                    Margin="10,0,0,0" 
-                    Effect="{StaticResource dropShadow}"
-                    CornerRadius="10">
-
-                <Grid>
-
-                    <!--Close button -->
-                    <Button x:Name="Close" 
-                                 Click="Close_Click_1"
-                                   Style="{StaticResource MinimizeButtonStyle}"
-                                Width="30" Height="30" Margin="150,10,10,410">
-
-                        <Icon:PackIconMaterial 
-                                    x:Name="CloseWindow"
-                                    Kind="WindowClose" 
-                                    Height="10" RenderTransformOrigin="0.803,0.533"
-                                    Width="12"
-                                     Style="{StaticResource WindowControlIcon}"
-                                    Cursor="Hand" HorizontalAlignment="Center"
-                                />
-
-                    </Button>
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
 
 
-                    <!--Automation instructions-->
-                    <TextBlock TextWrapping="Wrap" 
-                           Foreground="White"
-                           Margin="64,52,10,331" 
-                           FontFamily="Helvetica Neue" 
-                           FontSize="14"
-                               >
-                             Hi Admin! Automate 
-                            the student data insertion 
-                            process effortlessly
-
-
-                    </TextBlock>
-
-
-                    <!--Automation button-->
-                    <Button x:Name="Automation"   
-                            Margin="57,150,0,275"
-                            Cursor="Hand" BorderBrush="#FFFF"
-                            Style="{StaticResource Automation}"
-                            BorderThickness="1"
-                            Click="Automation_Click"
-                            HorizontalAlignment="Left" Width="123">
-                        <StackPanel Orientation="Horizontal">
-                            <Icon:PackIconMaterial Kind="AutoMode" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Bulk Insert" FontFamily="Roboto" Width="62" VerticalAlignment="Center"/>
                         </StackPanel>
-                    </Button>
 
+
+                    </Grid>
                 </Grid>
-                <!--Instructions -->
+            </Grid>
 
 
-            </Border>
 
+
+
+            <!--Footer-->
+
+            <Grid Grid.Row="2">
+
+                <Button Style="{StaticResource SubmitButton}"
+                     Content="Save"  
+                     Width="756" 
+                     HorizontalAlignment="Center"
+                     FontSize="16"
+                     Height="40"
+                     BorderThickness="0"  
+                     Command="{Binding AddStudentscommand}" Margin="0,5,0,5"
+
+             />
+
+            </Grid>
 
         </Grid>
     </Border>
-
-
 
 
 

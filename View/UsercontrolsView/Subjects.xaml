@@ -22,7 +22,7 @@
                           CellStyle="{DynamicResource DataGridCellStyle1}" 
                           x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
                            ItemsSource="{Binding SubjectCollection}"
-                          SelectedItem="{Binding Selected_subjects,Mode=TwoWay}"
+                          SelectedItem="{Binding Selected_subjects,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                           AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
@@ -40,7 +40,17 @@
                         <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding CourseCode}"  IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Unit" CanUserResize="False" Binding="{Binding Units}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Professor" CanUserResize="False" Binding="{Binding Professors.Name}" IsReadOnly="True" Width="*"/>
+
+                        <DataGridTemplateColumn Header="Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Professors.Name,UpdateSourceTrigger=PropertyChanged}" 
+                                         TextWrapping="Wrap" 
+                                         VerticalAlignment="Center" 
+                                         HorizontalAlignment="Stretch" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding Year.Name}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Sched" CanUserResize="False" IsReadOnly="True" Width="*">
@@ -50,7 +60,7 @@
                                         <Button Style="{StaticResource gridEditButton}" Click="Button_Click_1" >
                                             <Icon:PackIconMaterial Kind="Clock" Style="{StaticResource gridButtonIcon}" />
                                         </Button>
-                                       
+
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
@@ -62,7 +72,8 @@
                                         <Button Style="{StaticResource gridEditButton}" Click="Button_Click" >
                                             <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}" />
                                         </Button>
-                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"  Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSubjectCommand}">
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"  
+                                                Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteSubjectCommand}">
                                             <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
                                         </Button>
                                     </StackPanel>

@@ -34,15 +34,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!string.IsNullOrWhiteSpace(GradeTextBox.Text))
-            {
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Please enter a grade before closing.", "Grade Required", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-
+            this.Close();
 
         }
         //Validations

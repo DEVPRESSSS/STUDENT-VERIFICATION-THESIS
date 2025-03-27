@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -28,6 +29,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [Required]
         public string? Address { get; set; }
+
+        public string? Gender { get; set; } 
+
+
         public string? ProfilePath { get; set; }
 
 
@@ -50,6 +55,27 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [NotMapped]
 
         public Brush? bgColor { get; set; }
+
+
+
+
+        [NotMapped]
+
+
+        public ObservableCollection<string> GenderOptions = new ObservableCollection<string>();
+        public ProfessorsEntity()
+        {
+
+            GenderOptions = new ObservableCollection<string>()
+            {
+                "Male",
+                "Female"
+
+
+            };
+
+
+        }
 
     }
 }

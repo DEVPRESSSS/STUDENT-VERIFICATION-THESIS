@@ -8,51 +8,136 @@
              Background="#FDFDFD"
              d:DesignHeight="450" d:DesignWidth="800">
 
-        <Border CornerRadius="4" >
-            <Border 
+
+
+    <Grid>
+
+
+
+        <Grid.RowDefinitions>
+
+            <RowDefinition Height="50" />
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+
+        
+        <!--Border in Row 0-->
+        <Border Grid.Row="0"
+                Margin="0,0,0,5"
+                Background="#FDFDFD"
+
+                >
+
+
+        
+
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center" 
+                            HorizontalAlignment="Stretch" 
+                            >
+
+                   
+
+                </StackPanel>
+
+
+           
+
+
+            
+        </Border>
+        
+        
+        
+        
+        
+        <!--Border in ROW 1-->
+
+        <Border Grid.Row="1"
+
+                >
+
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    
+                </Grid.ColumnDefinitions>
+
+                
+                <!--DataGridViewBorder-->
+                <Border Grid.Column="0"
                   Background="#FDFDFD"
-                  Margin="10,47,10,10"
+                  Effect="{StaticResource dropShadow}"
+                  Margin="5"
                   CornerRadius="4">
 
 
 
-                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                    <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
                        ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
                        CellStyle="{DynamicResource DataGridCellStyle1}" 
                        x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
                        ItemsSource="{Binding ProfessorsCollection}"
                        SelectedItem="{Binding Selected_professor,Mode=TwoWay}"
                        AutoGenerateColumns="False">
-                    <DataGrid.Columns>
+                        <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
-                        <DataGridTextColumn Header="Gmail" CanUserResize="False"  Binding="{Binding Email}" IsReadOnly="True" Width="*"/>
+                            <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Name}" IsReadOnly="True" Width="*"/>
 
-                        <DataGridTemplateColumn Header="Subjects Assigned" CanUserResize="False" IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click"  >
-                                        <Icon:PackIconMaterial Kind="Bookshelf" Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
-                                      
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                            <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Style="{StaticResource gridEditButton}" Click="Button_Click"  >
+                                                <Icon:PackIconMaterial Kind="Bookshelf" Style="{StaticResource gridButtonIcon}"/>
+                                            </Button>
 
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
 
-            </Border>
 
+                </Border>
 
 
 
 
 
+                <!--DataGridViewBorder-->
+                <Border Grid.Column="1"
+                    Margin="5"
+                    Background="#FDFDFD"
+                    Effect="{StaticResource dropShadow}"
+                    CornerRadius="4">
+                    
+                    
+                    <ContentControl x:Name="SubjectsArea">
+
+                        
+
+                    </ContentControl>
+      
+                
+
+
+
+                </Border>
+
+            </Grid>
+            
         </Border>
+        
+        
+    </Grid>
 
 
 </UserControl>

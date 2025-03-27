@@ -1,4 +1,5 @@
 ﻿using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardView;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms;
 using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel;
 using System;
@@ -34,14 +35,23 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            InputRangeGrades inputRangeGrades = new InputRangeGrades(_context)
+            //InputRangeGrades inputRangeGrades = new InputRangeGrades(_context)
+            //{
+
+            //    DataContext= this.DataContext
+
+            //};
+
+            //inputRangeGrades.ShowDialog();
+
+            SubjectsArea.Content = new ListOfSubjectsOfProf(_context)
             {
 
                 DataContext= this.DataContext
 
             };
 
-            inputRangeGrades.ShowDialog();
+
         }
     }
 }

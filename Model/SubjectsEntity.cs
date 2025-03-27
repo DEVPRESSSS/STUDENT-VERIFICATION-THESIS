@@ -44,7 +44,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public string? ProfessorID { get; set; }
 
         [ForeignKey("ProfessorID")]
-        public ProfessorsEntity? Professors  { get; set; }
+        public ProfessorsEntity? Professors { get; set; }
 
 
         [Required]

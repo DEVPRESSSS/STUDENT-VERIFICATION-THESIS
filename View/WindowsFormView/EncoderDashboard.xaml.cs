@@ -30,7 +30,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.WindowsFormView
             InitializeComponent();
 
             _context = context;
-            usernametxt.Text = $"Welcome back {username}!";
+            //usernametxt.Text = $"Welcome back {username}!";
             MainContentArea.Content = new EncoderDashboardOverview(_context);
             var user = _context.Staffs.FirstOrDefault(x => x.Username == username);
             if (user != null)

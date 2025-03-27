@@ -27,8 +27,19 @@
                        AutoGenerateColumns="False">
                     <DataGrid.Columns>
 
-                        <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Student.Name}" IsReadOnly="True" Width="*"/>
+                        <DataGridTemplateColumn Header="Name">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Student.Name,UpdateSourceTrigger=PropertyChanged}" 
+                                             TextWrapping="Wrap" 
+                                             VerticalAlignment="Center" 
+                                             HorizontalAlignment="Stretch" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
                         <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding Subject.CourseCode}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Sem" CanUserResize="False" Binding="{Binding Subject.Semester.SemesterName}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding Subject.Year.Name}" IsReadOnly="True" Width="*"/>
                         <DataGridTemplateColumn Header="Final Grade" Width="*" IsReadOnly="True">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
@@ -44,10 +55,24 @@
 
                         </DataGridTemplateColumn>
 
-                        <DataGridTextColumn Header="Encoded" CanUserResize="False" Binding="{Binding DateAssigned}" IsReadOnly="True" Width="*"/>
+                        <DataGridTextColumn Header="Encoded" CanUserResize="False" Binding="{Binding DateAssigned, StringFormat='{}{0:yyyy-MM-dd}'}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="S.Y" CanUserResize="False" Binding="{Binding SY.SY}" IsReadOnly="True" Width="*"/>
                         <DataGridTextColumn Header="Encoder" CanUserResize="False" Binding="{Binding User.Name}" IsReadOnly="True" Width="*"/>
-
+                        <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridEditButton}" Click="Button_Click_2">
+                                            <Icon:PackIconMaterial Kind="PencilOutline"  Style="{StaticResource gridButtonIcon}" />
+                                        </Button>
+                                        <Button Margin="5 0 0 0" Style="{StaticResource gridRemoveButton}"
+                                                  Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteGradeCommand}">
+                                            <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
 
                     </DataGrid.Columns>
                 </DataGrid>

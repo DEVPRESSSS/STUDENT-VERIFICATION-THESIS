@@ -136,24 +136,6 @@
         </Button>
         <!--Add button-->
 
-        <Button Style="{StaticResource SubmitButton}" 
-            Margin="12,10,0,0" Width="56"
-            BorderThickness="0"
-            Height="25" 
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left"
-                
-            >
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="New" FontFamily="Roboto" VerticalAlignment="Center"/>
-                <Icon:PackIconMaterial Kind="Plus" 
-                       Width="10" 
-                       Height="10" 
-                       VerticalAlignment="Center" 
-                       Margin="5,0,0,0"/>
-            </StackPanel>
-        </Button>
-
 
 
         <!--Filter Grade-->

@@ -63,5 +63,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
                 }
             }
         }
+
+        private void Gmail_LostFocus(object sender, RoutedEventArgs e)
+        {
+            string emailPattern = @"^[a-zA-Z0-9]+(\.{1}[a-zA-Z0-9]+)*@gmail\.com$";
+            string emailInput = Gmail.Text.Trim();
+            if (!Regex.IsMatch(emailInput, emailPattern) && !string.IsNullOrEmpty(emailInput))
+            {
+                MessageBox.Show("Invalid email address format. Email should only contain letters, numbers, dot (.) and at (@) symbols, and end with @gmail.com.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Gmail.Text = string.Empty;
+            }
+        }
     }
 }

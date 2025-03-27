@@ -13,6 +13,7 @@
         AllowsTransparency="True"
         ResizeMode="NoResize"
         >
+    
     <Border CornerRadius="10" Background="#FFFF" BorderThickness="0.5" BorderBrush="LightGray">
 
        

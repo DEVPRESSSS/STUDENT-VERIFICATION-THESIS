@@ -47,17 +47,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
 
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if(Name.Text.Length < 0)
-            {
-                Save.IsEnabled = true;
-            }
-            else
-            {
-                Save.IsEnabled = false;
-            }
-        }
+      
 
         private void CourseCode_PreviewKeyDown(object sender, KeyEventArgs e)
         {

@@ -5,31 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SubjectsViewModel}"
         mc:Ignorable="d"
-        Title="UpsertSchedule"   Height="450" Width="800"
+        Title="UpsertSchedule"   Height="380"  Width="400"
        WindowStartupLocation="CenterScreen"
        WindowStyle="None"
        Background="Transparent"
        AllowsTransparency="True"
        ResizeMode="NoResize">
-    <Border CornerRadius="10" Background="#f7f5f5">
+    <!--<Border CornerRadius="10" Background="#f7f5f5">
 
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <!-- Row 0 -->
-                <!-- Row 1 -->
+                --><!-- Row 0 -->
+                <!-- Row 1 --><!--
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="600" />
-                <!-- Column 0 -->
+                --><!-- Column 0 --><!--
                 <ColumnDefinition />
-                <!-- Column 1 -->
+                --><!-- Column 1 --><!--
             </Grid.ColumnDefinitions>
 
 
 
 
-            <!-- Content for Row 0, Column 0 -->
+            --><!-- Content for Row 0, Column 0 --><!--
             <Border Grid.Row="0" CornerRadius="20,20,20,20" Grid.ColumnSpan="2" Grid.Column="0" Background="White" Margin="10,10,145,10" Effect="{StaticResource formShadow}">
 
                 <Grid>
@@ -38,7 +38,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <!-- Separator -->
+                    --><!-- Separator --><!--
                     <Border Grid.Row="0"
                     Height="2"
                     Background="#E4E0E1"
@@ -61,9 +61,9 @@
                             </Grid.ColumnDefinitions>
 
 
-                            <!--Textboxes and buttons-->
+                            --><!--Textboxes and buttons-->
 
-                            <!--Name label-->
+                            <!--Name label--><!--
                             <Label Content="Day" FontWeight="Bold"  Margin="137,14,134,344"/>
 
 
@@ -77,7 +77,7 @@
                                  Grid.ColumnSpan="2"
                           />
 
-                            <!--Gmail label-->
+                            --><!--Gmail label--><!--
                             <Label Content="Time" FontWeight="Bold"  Margin="135,72,135,286"/>
 
                             <TextBox x:Name="Time" Style="{StaticResource TextBoxesForm}" 
@@ -90,12 +90,12 @@
                                 Grid.ColumnSpan="2"
                            />
 
-                            <!--Age-->
+                            --><!--Age-->
 
 
 
 
-                            <!--Address-->
+                            <!--Address--><!--
 
                             <Label Content="Room" FontWeight="Bold"  Margin="137,131,113,227"/>
 
@@ -108,10 +108,10 @@
 
 
 
-                            <!--Department-->
+                            --><!--Department-->
 
 
-                            <!--Save Button-->
+                            <!--Save Button--><!--
 
                             <Button Style="{StaticResource SubmitButton}"
                                 Content="Save" Margin="135,333,0,23" 
@@ -124,7 +124,7 @@
 
                             />
 
-                            <!--Clear Button-->
+                            --><!--Clear Button-->
                             <!-- <ComboBox 
     
     Margin="138,219,114,0" 
@@ -136,7 +136,7 @@
     DisplayMemberPath="SubjectName" 
     SelectedValuePath="SubjectID"
     SelectedItem="{Binding SelectedSubject}"                                
-    Grid.ColumnSpan="2" />-->
+    Grid.ColumnSpan="2" />--><!--
                             
                                 
                         </Grid>
@@ -144,12 +144,12 @@
 
 
                     </Border>
-                    <!-- Icon -->
+                    --><!-- Icon --><!--
                     <Icon:PackIconMaterial Kind="BookEducation" 
                                            Foreground="#3D7E35"
                                            Style="{StaticResource menuButtonIcon}" Margin="10,0,0,0" />
 
-                    <!--Title-->
+                    --><!--Title--><!--
 
                     <TextBlock Text="Schedule Details" FontWeight="Bold"  Margin="30,13,502,9" FontFamily="Helvetica Neue"/>
 
@@ -161,7 +161,7 @@
 
 
 
-            <!-- Content for Row 0, Column 1 -->
+            --><!-- Content for Row 0, Column 1 --><!--
             <Border Grid.Row="0"
                 Grid.Column="1" Panel.ZIndex="-1"
                 Background="#3D7E35"
@@ -171,7 +171,7 @@
 
                 <Grid>
 
-                    <!--Close button -->
+                    --><!--Close button --><!--
                     <Button x:Name="Close" 
                             
                           Click="Close_Click"
@@ -191,17 +191,144 @@
                     </Button>
 
 
-                    <!--Automation instructions-->
+                    --><!--Automation instructions-->
 
 
-                    <!--Automation button-->
+                    <!--Automation button--><!--
 
                 </Grid>
-                <!--Instructions -->
+                --><!--Instructions --><!--
 
 
             </Border>
 
+
+        </Grid>
+    </Border>-->
+
+    <Border CornerRadius="10" BorderThickness="1" BorderBrush="#DDDDDD" Background="#FFFFFF">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <!-- Header -->
+            <Border Grid.Row="0" Background="#3D7E35" CornerRadius="10,10,0,0">
+                <Grid>
+                    <TextBlock x:Name="GradeTxt" Text="Add schedule" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                    <Button x:Name="CloseButton" 
+                         Content="✕" FontSize="14"
+                         FontWeight="Bold"
+                         Foreground="White"
+                         Background="Transparent" 
+                         BorderThickness="0" 
+                         HorizontalAlignment="Right" 
+                         VerticalAlignment="Center" Margin="0,0,15,0" Cursor="Hand"
+                         Click="Close_Click"/>
+                </Grid>
+            </Border>
+
+            <!-- Content -->
+            <Grid Grid.Row="1" Margin="20">
+                <StackPanel VerticalAlignment="Top">
+
+                    <TextBlock Text="Day:" 
+                        FontSize="16"
+                        Margin="0,0,0,10"/>
+
+                    <TextBox x:Name="Day" 
+                       Text="{Binding Day, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                    
+                       MaxLength="40"
+                       Height="40" 
+                       FontSize="16" 
+                       Padding="10,5" 
+                       Background="#F8F8F8" 
+                       BorderBrush="#CCCCCC" 
+                       BorderThickness="1"
+                       PreviewTextInput="Day_PreviewTextInput"
+                       PreviewKeyDown="Day_PreviewKeyDown"
+                       Grid.ColumnSpan="2">
+
+
+
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+
+
+
+                    <TextBlock Text="Time:" 
+                        FontSize="16"
+                        Margin="0,0,0,10"/>
+
+                    <TextBox x:Name="Time" 
+                       Text="{Binding Time, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                    
+                       MaxLength="40"
+                       Height="40" 
+                       FontSize="16" 
+                       Padding="10,5" 
+                       Background="#F8F8F8" 
+                       BorderBrush="#CCCCCC" 
+                       BorderThickness="1"
+                       PreviewTextInput="Time_PreviewTextInput"
+                       PreviewKeyDown="Time_PreviewKeyDown"
+                       Grid.ColumnSpan="2">
+
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+
+
+
+
+                    <TextBlock Text="Room:" 
+                           FontSize="16"
+                           Margin="0,0,0,10"/>
+
+                    <TextBox x:Name="Room" 
+                          Text="{Binding Room, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                    
+                          MaxLength="40"
+                          Height="40" 
+                          FontSize="16" 
+                          Padding="10,5" 
+                          Background="#F8F8F8" 
+                          BorderBrush="#CCCCCC" 
+                          BorderThickness="1"
+                         >
+
+                        <TextBox.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="5"/>
+                            </Style>
+                        </TextBox.Resources>
+                    </TextBox>
+
+
+
+                </StackPanel>
+            </Grid>
+
+            <Border Grid.Row="2">
+                <Button Style="{StaticResource SubmitButton}"
+                     Content="Save" 
+                     Width="348" 
+                     HorizontalAlignment="Center"
+                     FontSize="16"
+                     Height="40"
+                     BorderThickness="0"    
+                     Command="{Binding UpsertCommand}"
+                     VerticalAlignment="Center"/>
+            </Border>
 
         </Grid>
     </Border>

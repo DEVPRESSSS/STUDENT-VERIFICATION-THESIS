@@ -13,16 +13,13 @@
         AllowsTransparency="True"
         Width="500">
     <Border CornerRadius="10" 
-        Background="White" 
-        BorderBrush="#ccc" 
-        BorderThickness="1"
-        Padding="10">
+             Background="White" 
+             BorderBrush="#ccc" 
+             BorderThickness="1"
+             >
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="181*"/>
-                <ColumnDefinition Width="58*"/>
-            </Grid.ColumnDefinitions>
+           
             <!-- Corrected RowDefinitions -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -32,33 +29,45 @@
             </Grid.RowDefinitions>
 
             <!-- Window Title Bar -->
-            <Grid Background="Transparent" Height="40" Grid.Row="0" Grid.ColumnSpan="2">
-                <TextBlock Text="{Binding Selected_subjects.CourseCode}" 
-                       FontSize="16" 
-                       FontWeight="Bold"
-                       VerticalAlignment="Center" 
-                       Margin="10,0,0,0"/>
-                <!-- Close Button -->
-                <Button Width="30" Height="30" 
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0,5,5,5"
-                    Cursor="Hand"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Click="Button_Click">
-                    <Icon:PackIconMaterial Kind="WindowClose" Width="20" Height="20" Foreground="Black"/>
-                </Button>
-            </Grid>
+            <Border Background="#3D7E35"
+                  Height="40"
+                  Grid.Row="0"    
+                  CornerRadius="5,5,0,0"
+                  >
+
+                <Grid>
+
+                    <!--Subject-->
+                    <TextBlock Text="{Binding Selected_subjects.CourseCode}" 
+                            FontSize="16" 
+                            FontWeight="Bold"
+                            Foreground="White"
+                            VerticalAlignment="Center" 
+                            Margin="10,0,0,0"/>
+                    <!-- Close Button -->
+                    <Button Width="30" Height="30" 
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Center"
+                             Margin="0,5,5,5"
+                             Cursor="Hand"
+                             Background="Transparent"
+                             BorderBrush="Transparent"
+                             Click="Button_Click">
+                        <Icon:PackIconMaterial Kind="WindowClose" Width="20" Height="10" Foreground="White" HorizontalAlignment="Center"/>
+                    </Button>
+
+                </Grid>
+            
+            </Border>
 
 
 
             <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
-                   ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                   CellStyle="{DynamicResource DataGridCellStyle1}" 
-                   x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
-                   ItemsSource="{Binding SubjectEnrolledCollection}"
-                   AutoGenerateColumns="False" Margin="0,10,0,0" Grid.Row="1" Height="353" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                        ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                        CellStyle="{DynamicResource DataGridCellStyle1}" 
+                        x:Name="cashierDataGrid" Style="{DynamicResource DataGridStyle1}"
+                        ItemsSource="{Binding SubjectEnrolledCollection}"
+                        AutoGenerateColumns="False" Margin="0,10,0,0" Grid.Row="1" Height="353" VerticalAlignment="Top" Grid.ColumnSpan="2">
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Student.Name}" IsReadOnly="True" Width="*"/>
@@ -67,17 +76,28 @@
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="2">
 
-                                    <TextBlock Text="{Binding GradeValue}" />
+                                    <ComboBox 
+                                              VerticalAlignment="Top"
+                                              BorderBrush="#bab7b6"
+                                              BorderThickness="1"
+                                              Height="30"
+                                              FontSize="14"
+                                              ItemsSource="{Binding Options}"
+                                              SelectedItem="{Binding GradeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              >
 
+
+
+                                    </ComboBox>
                                 </Border>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <TextBox  Text="{Binding GradeValue, UpdateSourceTrigger=LostFocus}" IsReadOnly="False"
-                                                                  MaxLength="3" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
+                        <!--<DataGridTemplateColumn.CellEditingTemplate>
+                                 <DataTemplate>
+                                     <TextBox  Text="{Binding GradeValue, UpdateSourceTrigger=LostFocus}" IsReadOnly="False"
+                                                                       MaxLength="3" />
+                                 </DataTemplate>
+                             </DataGridTemplateColumn.CellEditingTemplate>-->
                     </DataGridTemplateColumn>
 
                 </DataGrid.Columns>
@@ -91,14 +111,14 @@
             </Button>
 
             <ComboBox 
-                            Margin="305,0,0,0" 
-                            VerticalAlignment="Center"
-                            BorderBrush="#bab7b6"                           
-                            BorderThickness="0" Height="26"
-                            ItemsSource="{Binding SchoolYearCollection}"
-                            DisplayMemberPath="SY" 
-                            SelectedValuePath="SchoolYearID"
-                            SelectedValue="{Binding Selected_syID, Mode=TwoWay}" HorizontalAlignment="Left" Width="116" Grid.ColumnSpan="2" />
+                                 Margin="305,0,0,0" 
+                                 VerticalAlignment="Center"
+                                 BorderBrush="#bab7b6"                           
+                                 BorderThickness="0" Height="26"
+                                 ItemsSource="{Binding SchoolYearCollection}"
+                                 DisplayMemberPath="SY" 
+                                 SelectedValuePath="SchoolYearID"
+                                 SelectedValue="{Binding Selected_syID, Mode=TwoWay}" HorizontalAlignment="Left" Width="116" Grid.ColumnSpan="2" />
 
         </Grid>
 

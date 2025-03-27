@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms"
+        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
         mc:Ignorable="d"
         Title="EditGrade"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Height="200"
+        Height="250"
         Width="400">
 
     <Border CornerRadius="10" BorderThickness="1" BorderBrush="#DDDDDD" Background="#FFFFFF">
@@ -18,7 +18,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
             <!-- Header -->
@@ -39,30 +39,37 @@
 
             <!-- Content -->
             <Grid Grid.Row="1" Margin="20">
-                <StackPanel VerticalAlignment="Center">
+                <StackPanel VerticalAlignment="Center" Height="100">
                     <TextBlock Text="Enter New Grade:" 
                                FontSize="16"
                                Margin="0,0,0,10"/>
-                    
-                    <TextBox x:Name="GradeTextBox" 
-                             Height="40" 
-                             FontSize="16" 
-                             Padding="10,5" 
-                             MaxLength="10"
-                             Text="{Binding Selected_grades.GradeValue}"
-                             Background="#F8F8F8" 
-                             BorderBrush="#CCCCCC" 
-                             BorderThickness="1"
-                             PreviewKeyDown="GradeTextBox_PreviewKeyDown"
-                             >
-                        <TextBox.Resources>
-                            <Style TargetType="{x:Type Border}">
-                                <Setter Property="CornerRadius" Value="5"/>
-                            </Style>
-                        </TextBox.Resources>
-                    </TextBox>
+
+                    <ComboBox
+                        BorderBrush="#bab7b6"
+                        BorderThickness="1"
+                        Height="40"
+                        FontSize="16"
+                        ItemsSource="{Binding Options}"
+                        SelectedItem="{Binding Selected_grades.GradeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.5" Width="345"
+                        >
+                       
+
+
+                    </ComboBox>
                 </StackPanel>
             </Grid>
+
+            <Border Grid.Row="2">
+                <Button Style="{StaticResource SubmitButton}"
+                    Content="Save" 
+                    Width="339" 
+                    HorizontalAlignment="Center"
+                    FontSize="16"
+                    Height="40"
+                    BorderThickness="0"    
+                    Command="{Binding UpdateGradeCommand}"
+                     VerticalAlignment="Center"/>
+            </Border>
 
         </Grid>
     </Border>

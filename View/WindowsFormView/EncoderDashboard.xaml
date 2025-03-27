@@ -85,11 +85,11 @@
                            FontWeight="DemiBold"
                            Foreground="White"
                            HorizontalAlignment="Left"
-                           Margin="-915,8,0,8" Width="173"/>
+                           Margin="-915,8,0,8" Width="173"/> 
 
 
 
-                        <!--Bell button-->
+                        <!--Bell button--><!--
                         <Button x:Name="Notif"
                            Style="{StaticResource MinimizeButtonStyle}" Margin="-46,0,46,0" Grid.RowSpan="2"
 
@@ -105,7 +105,7 @@
                             />
 
 
-                        </Button>
+                        </Button>-->
 
 
 
@@ -258,10 +258,7 @@
                               Cursor="Hand"  Click="Students_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="School"  Style="{StaticResource menuButtonIcon}"/>
-                                <!--
-                                   <TextBlock Text="Students "  FontFamily="Roboto"/>
-
-                                -->
+                             
 
                             </StackPanel>
                         </Button>
@@ -273,38 +270,30 @@
                               Cursor="Hand"  Click="Grade_Click">
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="ClipboardText"  Style="{StaticResource menuButtonIcon}"/>
-                                <!--
-                                     <TextBlock Text="Grades "  FontFamily="Roboto"/>
-
-                                -->
+                              
                             </StackPanel>
                         </Button>
 
 
                         <!--Settings-->
 
-                        <Button Style="{StaticResource menuButton2}" ToolTip="Settings"  Margin="5"
+                        <!--<Button Style="{StaticResource menuButton2}" ToolTip="Settings"  Margin="5"
                            Cursor="Hand"  >
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Cog"   Style="{StaticResource menuButtonIcon}"/>
 
-                                <!--
+                                --><!--
                                                                 <TextBlock Text="Settings"  FontFamily="Roboto"/>
 
-                                -->
+                                --><!--
                             </StackPanel>
-                        </Button>
+                        </Button>-->
 
 
                         <Button Style="{StaticResource menuButton2}" ToolTip="Logout"  Margin="5"
                           Cursor="Hand" Click="Button_Click_1" >
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout"   Style="{StaticResource menuButtonIcon}"/>
-
-                                <!--
-                                               <TextBlock Text="Settings"  FontFamily="Roboto"/>
-
-               -->
                             </StackPanel>
                         </Button>
 

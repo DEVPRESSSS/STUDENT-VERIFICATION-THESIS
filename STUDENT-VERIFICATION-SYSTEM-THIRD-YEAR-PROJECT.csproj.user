@@ -19,6 +19,9 @@
     <Compile Update="View\EncoderDashboardView\GradesEncoderUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\EncoderDashboardView\ListOfSubjectsOfProf.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EncoderDashboardView\StudentsEncoderUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -97,6 +100,9 @@
     <Compile Update="View\PopUpForms\UpsertSchedule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\ViewProfessorAssigned.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UsercontrolsView\DashboardOverview.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -160,6 +166,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EncoderDashboardView\GradesEncoderUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\EncoderDashboardView\ListOfSubjectsOfProf.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EncoderDashboardView\StudentsEncoderUC.xaml">
@@ -238,6 +247,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\UpsertSchedule.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\ViewProfessorAssigned.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\DashboardOverview.xaml">
