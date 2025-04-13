@@ -163,7 +163,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
                 CollapseButton(Grades, GradesTxt);
                 CollapseButton(Schedule, SchedTxt);
                 CollapseButton(EncoderBtn, EncoderTxt);
-                //CollapseButton(SettingsBtn, SettingsTxt);
+                CollapseButton(Settings, SettingsTxt);
             }
             else
             {
@@ -182,7 +182,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
                 ExpandButton(Grades, GradesTxt);
                 ExpandButton(Schedule, SchedTxt);
                 ExpandButton(EncoderBtn, EncoderTxt);
-                //ExpandButton(SettingsBtn, SettingsTxt);
+                ExpandButton(Settings, SettingsTxt);
             }
 
          
@@ -219,8 +219,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
             }
         }
 
-        private void SettingsBtn_Click(object sender, RoutedEventArgs e)
+        private void Settings_Click(object sender, RoutedEventArgs e)
         {
+            MainContentArea.Content = new Settings(_context);
 
         }
     }

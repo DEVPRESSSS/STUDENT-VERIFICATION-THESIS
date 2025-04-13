@@ -71,5 +71,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [NotMapped]
 
         public Brush? bgColor { get; set; }
+
+        [NotMapped]
+
+        public string? FirstName { get; set; }
+
+
+        [NotMapped]
+
+        public string? MiddleName { get; set; }
+
+        [NotMapped]
+
+        public string? LastName { get; set; }
     }
 }

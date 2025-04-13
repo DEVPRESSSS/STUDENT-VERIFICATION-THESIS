@@ -172,18 +172,26 @@
                 <Setter Property="CornerRadius" Value="8" />
                 <Setter Property="Padding" Value="4" />
                 <Setter Property="Margin" Value="2" />
-                <Setter Property="MaxWidth" Value="40" />
+                <Setter Property="MaxWidth" Value="50" />
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding isGradeValueLow}" Value="True">
-                        <Setter Property="Background" Value="#FF6969" />
-                    </DataTrigger>
+                   
+                   
                     <DataTrigger Binding="{Binding isGradeValueLow}" Value="False">
                         <Setter Property="Background" Value="#61B15A" />
                     </DataTrigger>
                         <DataTrigger Binding="{Binding IsGradeINC}" Value="True">
                             <Setter Property="Background" Value="#FFBC11" />
                         </DataTrigger>
-                    </Style.Triggers>
+                        <DataTrigger Binding="{Binding IsGradeNGS}" Value="True">
+                            <Setter Property="Background" Value="#FF6969" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsGradeNFE}" Value="True">
+                            <Setter Property="Background" Value="#FF6969" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsGradeFAILED}" Value="True">
+                            <Setter Property="Background" Value="#FF6969" />
+                        </DataTrigger>
+                </Style.Triggers>
             </Style>
 
             <Style TargetType="TextBlock" x:Key="GradeTextBlockStyle">
@@ -222,7 +230,22 @@
                 </Style.Triggers>
             </Style>
 
-                <Style TargetType="StackPanel" x:Key="EnrolledSecond">
+
+            <Style TargetType="Button" x:Key="Retrieve">
+                <!-- Default background -->
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding isDeleted}" Value="False">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding isDeleted}" Value="True">
+                        <Setter Property="Visibility" Value="Visible"/>
+                    </DataTrigger>
+                 
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="StackPanel" x:Key="EnrolledSecond">
                     <Setter Property="Visibility" Value="Visible"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsSecondSem}" Value="True">
@@ -863,6 +886,19 @@
             <!--grid remove button-->
 
             <Style x:Key="gridRemoveButton" TargetType="Button" BasedOn="{StaticResource gridEditButton}">
+                <Setter Property="Background" Value="#D32F2F" />
+                <Setter Property="BorderBrush" Value="#B71C1C" />
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#F44336" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+
+            <!--grid remove button-->
+
+            <Style x:Key="gridUndoButton" TargetType="Button" BasedOn="{StaticResource gridEditButton}">
                 <Setter Property="Background" Value="#D32F2F" />
                 <Setter Property="BorderBrush" Value="#B71C1C" />
                 <Style.Triggers>

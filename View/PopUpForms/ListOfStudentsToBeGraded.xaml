@@ -19,7 +19,7 @@
              >
 
         <Grid>
-           
+
             <!-- Corrected RowDefinitions -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -57,7 +57,7 @@
                     </Button>
 
                 </Grid>
-            
+
             </Border>
 
 
@@ -105,10 +105,7 @@
 
 
 
-            <Button Style="{StaticResource SubmitButton}" Command="{Binding InsertManualCommand}" BorderThickness="0" Content="Save" Margin="5,0,0,10" Grid.Row="1" Width="468" HorizontalAlignment="Left" Height="35" VerticalAlignment="Bottom" Grid.ColumnSpan="2">
-
-
-            </Button>
+            <Button Style="{StaticResource SubmitButton}" Command="{Binding InsertManualCommand}" BorderThickness="0" Content="Save" Margin="0,413,0,0" Grid.Row="1" Width="468" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top"/>
 
             <ComboBox 
                                  Margin="305,0,0,0" 

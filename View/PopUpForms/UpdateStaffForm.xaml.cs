@@ -37,11 +37,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
             //This will close the window
 
 
-            if(string.IsNullOrWhiteSpace(Username.Text) 
-                || string.IsNullOrWhiteSpace(Name.Text) 
-                || string.IsNullOrWhiteSpace(Gmail.Text)
-                || string.IsNullOrWhiteSpace(Password.Text) 
-                || string.IsNullOrWhiteSpace(Name.Text))
+            if(!string.IsNullOrWhiteSpace(Username.Text) 
+                || !string.IsNullOrWhiteSpace(Name.Text) 
+                || !string.IsNullOrWhiteSpace(Gmail.Text)
+                || !string.IsNullOrWhiteSpace(Password.Text) 
+                || !string.IsNullOrWhiteSpace(Name.Text))
             {
                 this.Close();
 

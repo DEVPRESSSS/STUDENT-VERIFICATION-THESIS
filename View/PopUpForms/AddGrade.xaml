@@ -186,7 +186,8 @@
 
 
                     <!--Border row 2 to hold the list of grades-->
-
+                    <!--ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"-->
+                    <!--CellStyle="{DynamicResource DataGridCellStyle1}"-->
                     <Border Grid.Row="1">
 
                         <DataGrid Grid.Row="1" x:Name="cashierDataGrid"
@@ -194,8 +195,7 @@
                               AutoGenerateColumns="False"
                               IsEnabled="True"
                               RowStyle="{DynamicResource DataGridRowStyle1}" 
-                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                              CellStyle="{DynamicResource DataGridCellStyle1}"
+                             
                               FontSize="12"
                               CanUserResizeColumns="False"
                               Style="{DynamicResource DataGridStyle1}">
@@ -247,21 +247,47 @@
             <Border Grid.Row="2">
 
 
-                <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center">
+                <Grid>
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal"
+                          HorizontalAlignment="Center">
 
 
-                    <!--Name of the verifier-->
-                    
-                    <TextBlock Text="Verified By:"/>
-                    <TextBlock Text="{Binding EncoderName}"/>
+                        <!--Name of the verifier-->
+
+                        <TextBlock Text="Verified By:" Width="131" Height="19"/>
+                        <TextBlock Text="{Binding EncoderName}"/>
 
 
-                </StackPanel>
+                    </StackPanel>
+
+
+                    <Border Grid.Row="0">
+                        <TextBlock HorizontalAlignment="Center" Text="Nothing Follows"/>
+
+                    </Border>
+
+
+                </Grid>
+
+
+
+
 
             </Border>
 
+            
+            
+          
+
         </Grid>
+
 
 
     </Border>

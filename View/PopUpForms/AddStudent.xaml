@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
         mc:Ignorable="d"
-        Title="AddStudent" Height="450" Width="800"
+        Title="AddStudent" Height="500" Width="800"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Background="Transparent"
@@ -65,7 +65,7 @@
                         <StackPanel Orientation="Vertical">
 
                             <!--Label for Name-->
-                            <TextBlock Text="Name:" 
+                            <TextBlock Text="FirstName:" 
                               FontSize="16"
                               Foreground="#31363F"
                               Margin="0,0,0,10"/>
@@ -75,7 +75,7 @@
                                    FontSize="16" 
                                    Padding="10,5" 
                                    MaxLength="50"
-                                   Text="{Binding Name}"
+                                   Text="{Binding FirstName}"
                                    Background="#F8F8F8" 
                                    BorderBrush="#CCCCCC" 
                                    BorderThickness="1"
@@ -89,6 +89,57 @@
                                 </TextBox.Resources>
                             </TextBox>
 
+                            <!--Label for Name-->
+                            <TextBlock Text="Middle Initial:" 
+                                 FontSize="16"
+                                 Foreground="#31363F"
+                                 Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="MiddleName" 
+                                   Height="40" 
+                                   FontSize="16" 
+                                   Padding="10,5" 
+                                   MaxLength="2"
+                                   Text="{Binding MiddleName}"
+                                   Background="#F8F8F8" 
+                                   BorderBrush="#CCCCCC" 
+                                   BorderThickness="1"
+                                   PreviewKeyDown="Name_PreviewKeyDown"
+                                   PreviewTextInput="Name_PreviewTextInput"
+                                   >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+
+
+
+                            <!--Label for Name-->
+                            <TextBlock Text="Lastname" 
+                                      FontSize="16"
+                                      Foreground="#31363F"
+                                      Margin="0,0,0,10"/>
+
+                            <TextBox x:Name="LastName" 
+                                    Height="40" 
+                                    FontSize="16" 
+                                    Padding="10,5" 
+                                    MaxLength="50"
+                                    Text="{Binding LastName}"
+                                    Background="#F8F8F8" 
+                                    BorderBrush="#CCCCCC" 
+                                    BorderThickness="1"
+                                    PreviewKeyDown="Name_PreviewKeyDown"
+                                    PreviewTextInput="Name_PreviewTextInput"
+                                    >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
 
                             <TextBlock Text="Age:" 
                               FontSize="16"
@@ -145,30 +196,7 @@
 
 
 
-                            <TextBlock Text="Contact:" 
-                                    FontSize="16"
-                                    Foreground="#31363F"
-                                    Margin="0,0,0,10"/>
-
-                            <TextBox x:Name="Contact" 
-                                    BorderThickness="1"
-                                    Text="{Binding Contact, Mode=TwoWay}"
-                                    MaxLength="11"
-                                    Height="40" 
-                                    Background="#F8F8F8" 
-                                    BorderBrush="#CCCCCC" 
-                                    FontSize="16" 
-                                    Padding="10,5"  
-                                    PreviewKeyDown="Contact_PreviewKeyDown"
-                                    PreviewTextInput="Contact_PreviewTextInput"
-                                     >
-
-                                <TextBox.Resources>
-                                    <Style TargetType="{x:Type Border}">
-                                        <Setter Property="CornerRadius" Value="5"/>
-                                    </Style>
-                                </TextBox.Resources>
-                            </TextBox>
+                        
 
 
 
@@ -264,7 +292,30 @@
                                 </TextBox.Resources>
                             </TextBox>
 
+                            <TextBlock Text="Contact:" 
+                                FontSize="16"
+                                Foreground="#31363F"
+                                Margin="0,0,0,10"/>
 
+                            <TextBox x:Name="Contact" 
+                                BorderThickness="1"
+                                Text="{Binding Contact, Mode=TwoWay}"
+                                MaxLength="11"
+                                Height="40" 
+                                Background="#F8F8F8" 
+                                BorderBrush="#CCCCCC" 
+                                FontSize="16" 
+                                Padding="10,5"  
+                                PreviewKeyDown="Contact_PreviewKeyDown"
+                                PreviewTextInput="Contact_PreviewTextInput"
+                                 >
+
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
                         </StackPanel>
 
 

@@ -7,12 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Border CornerRadius="4" >
+        <Border CornerRadius="4" Background="#FDFDFD"
+ >
 
-
-
-
-            <!--Professor Table-->
             <Border 
                 Background="#FDFDFD"
                 CornerRadius="4" Margin="0,50,0,0">

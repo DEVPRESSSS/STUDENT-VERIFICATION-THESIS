@@ -10,6 +10,9 @@
     <Compile Update="Cards\CardCounts.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Settings.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\EncoderDashboardView\BulkInsertGrade.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -59,6 +62,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\EditGrade.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\PopUpForms\GradeVersion.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\InputGrade.xaml.cs">
@@ -127,9 +133,6 @@
     <Compile Update="View\UsercontrolsView\Schedule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\UsercontrolsView\Settings.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="View\UsercontrolsView\Staff.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -157,6 +160,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Settings.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\EncoderDashboardView\BulkInsertGrade.xaml">
@@ -208,6 +214,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\EditGrade.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\PopUpForms\GradeVersion.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\InputGrade.xaml">
@@ -274,9 +283,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Schedule.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\UsercontrolsView\Settings.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\Staff.xaml">

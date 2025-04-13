@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using DocumentFormat.OpenXml.InkML;
 using Notification.Wpf;
 using System;
+using System.Printing;
 
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
@@ -18,10 +19,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
     {
 
         private readonly ApplicationDbContext _context;
-
-  
-
-
         public ObservableCollection<Grade> GradeCollection { get; private set; }
         public ObservableCollection<SubjectsEnrolled> SubjectEnrolledCollection { get; private set; }
         public ObservableCollection<StudentsEntity> StudentCollection { get; private set; }
@@ -33,6 +30,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; }
         public ObservableCollection<SchoolYear> SchoolYearCollection { get; private set; }
         public ObservableCollection<ProfessorsEntity> ProfessorsCollection { get; private set; }
+        public ObservableCollection<GradeHistory> GradeHistoryCollection { get; private set; }
         public ObservableCollection<string> Options { get; set; }
 
         private ProfessorsEntity _selected_professor;
@@ -69,6 +67,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 _selected_grade = value;
+
+
+                if(Selected_grades!= null)
+                {
+
+                    _ = ViewGradeHistory();
+                }
                
                 OnPropertyChanged(nameof(Selected_grades));
             }
@@ -356,6 +361,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand SearchCommand { get; }
         public ICommand SearchCommand2 { get; }
         public ICommand UpdateGradeCommand { get; }
+        public ICommand UndoGradeCommand { get; }
+        public ICommand LoadIsDeletedCommand { get; }
 
 
         public GradeViewModel(ApplicationDbContext context)
@@ -383,7 +390,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             InsertManualCommand = new RelayCommand(async _ => await InsertGradePerSub());
             ProfessorsCollection = new ObservableCollection<ProfessorsEntity>();
             SubjectEnrolledCollection = new ObservableCollection<SubjectsEnrolled>();
-            UpdateGradeCommand= new RelayCommand(async _ => await UpdateGrade());
+            GradeHistoryCollection = new ObservableCollection<GradeHistory>();
+            UpdateGradeCommand = new RelayCommand(async _ => await UpdateGrade());
+            UndoGradeCommand = new RelayCommand(async _ => await UndoGrade());
+            LoadIsDeletedCommand = new RelayCommand(async _ => await LoadGradeIsDeletedsAsync());
             //Load students 
             _ = LoadStudentAsync();
 
@@ -415,12 +425,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             LoadProfessorAsync();
 
+
             Options = new ObservableCollection<string>
                 {
                     "FAILED",
                     "INC",
                     "NFE",
                     "NGS",
+                    "DROP",
                     "75",
                     "76",
                     "77",
@@ -449,24 +461,89 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             };
 
+           // _ = ViewGradeHistory();
+
+
         }
+
+
+
+
+        private async Task ViewGradeHistory()
+        {
+            
+                var grades = await _context.GradeHistory
+                    .Where(x => x.GradeID == Selected_grades.GradeID)
+                    .ToListAsync();
+
+                GradeHistoryCollection.Clear();
+
+                foreach (var grade in grades)
+                {
+                    GradeHistoryCollection.Add(grade);
+                }
+            
+        }
+
+
+
+
 
         private async Task UpdateGrade()
         {
 
-
-            if (Selected_grades != null)
+            using  ( var context = new ApplicationDbContext())
             {
 
-                _context.Grades.Update(Selected_grades);
-                await _context.SaveChangesAsync();
+                if (Selected_grades != null)
+                {
+                    //Insert to GradeHistory
 
-                
-                _ = LoadGradesAsync();
-                CloseCurrentActiveWindow();
-                ShowNotification("Success", $"{Selected_grades.StudentName} updated successfully", NotificationType.Success);
+
+                    var gradeHistory = new GradeHistory
+                    {
+
+                        HistoryID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}",
+
+                        GradeID = Selected_grades.GradeID,
+                        DateAssigned = Selected_grades.DateAssigned,
+                        GradeValue = Selected_grades.GradeValue,
+                        StudentID = Selected_grades.StudentID,
+                        SubjectID = Selected_grades.SubjectID,
+                        ProfessorName = Selected_grades.ProfessorName,
+                        EnrollmentID = Selected_grades.EnrollmentID,
+                        StaffID = Selected_grades.StaffID,
+                        SchoolYearID = Selected_grades.SchoolYearID,
+                        isDeleted = Selected_grades.isDeleted,
+                        ModifiedAt = DateTime.Now,
+                        ModifiedBy = UserSessionService.Instance.LoggedInStaffID,
+
+
+
+
+                    };
+
+                    context.Add(gradeHistory);
+
+
+
+
+                    context.Grades.Update(Selected_grades);
+                    await context.SaveChangesAsync();
+
+                    _ = LoadGradesAsync();
+
+                    CloseCurrentActiveWindow();
+
+
+                    ShowNotification("Success", $"{Selected_grades.StudentName} updated successfully", NotificationType.Success);
+
+                }
+
 
             }
+
+      
             
         }
 
@@ -477,7 +554,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         /// <returns></returns>
         private async Task DeleteGrade()
         {
-            MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to delete this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to archive this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (confirmation == MessageBoxResult.Yes)
             {
@@ -486,7 +563,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     if (Selected_grades != null)
                     {
                         context.Attach(Selected_grades);
-                        context.Grades.Remove(Selected_grades);
+                        // context.Grades.Remove(Selected_grades);
+
+                        Selected_grades.isDeleted = true;
+
+                        _context.Update(Selected_grades);
                         await context.SaveChangesAsync();
 
                         GradeCollection.Remove(Selected_grades);
@@ -497,7 +578,29 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+        private async Task UndoGrade()
+        {
+            MessageBoxResult confirmation = MessageBox.Show("Are you sure you want to restore this record?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
+            if (confirmation == MessageBoxResult.Yes)
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    if (Selected_grades != null)
+                    {
+                        context.Attach(Selected_grades);
+                        // context.Grades.Remove(Selected_grades);
+
+                        Selected_grades.isDeleted = false;
+
+                        _context.Update(Selected_grades);
+                        await context.SaveChangesAsync();
+
+                        GradeCollection.Remove(Selected_grades);
+                    }
+                }
+            }
+        }
         /// <summary>
         /// list of methods
         /// </summary>
@@ -508,6 +611,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         private async Task LoadGradesAsync()
         {
             var grades = await _context.Grades
+                .Where(x =>x.isDeleted == false)
                 .Include(g => g.Student)
                 .Include(g => g.Subject)
                     .ThenInclude(s => s.Semester)
@@ -525,6 +629,28 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+
+
+        private async Task LoadGradeIsDeletedsAsync()
+        {
+            var grades = await _context.Grades
+                .Where(x => x.isDeleted == true)
+                .Include(g => g.Student)
+                .Include(g => g.Subject)
+                    .ThenInclude(s => s.Semester)
+                .Include(g => g.Subject)
+                    .ThenInclude(s => s.Year)
+                .Include(g => g.User)
+                .Include(g => g.SY)
+                .ToListAsync();
+
+            GradeCollection.Clear();
+
+            foreach (var grade in grades)
+            {
+                GradeCollection.Add(grade);
+            }
+        }
 
 
         /// <summary>
@@ -1128,6 +1254,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             SubjectID = subject.SubjectID,
                             EnrollmentID = subject.EnrollmentID,
                             SchoolYearID = Selected_syID,
+                            //ProfessorName= Selected_subjects.ProfessorID,
+                            ProfessorName= Selected_professor.Name,
+                            isDeleted= false,
                             StaffID = UserSessionService.Instance.LoggedInStaffID
                         };
 
@@ -1142,6 +1271,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 await LoadGradesAsync();
             }
         }
+
+
+
+
+        
+
+
 
 
 

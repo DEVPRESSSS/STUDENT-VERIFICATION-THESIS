@@ -323,6 +323,73 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
+
+        private string _firstName;
+
+
+        [Required(ErrorMessage = "Name is Required")]
+
+        public string FirstName
+        {
+
+            get => _firstName;
+
+
+            set
+            {
+
+                _firstName = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+
+
+        private string _middleName;
+
+
+        [Required(ErrorMessage = "Name is Required")]
+
+        public string MiddleName
+        {
+
+            get => _middleName;
+
+
+            set
+            {
+
+                _middleName = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+
+
+        private string _lastName;
+
+
+        [Required(ErrorMessage = "Name is Required")]
+
+        public string LastName
+        {
+
+            get => _lastName;
+
+
+            set
+            {
+
+                _lastName = value;
+                OnPropertyChanged();
+
+            }
+        }
+
+
+
         private int _age;
 
         [Required(ErrorMessage = "Age is Required")]
@@ -591,7 +658,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Insert Method 
         private async Task AddStudentAsync()
         {
-            if (string.IsNullOrEmpty(Name))
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(MiddleName)|| string.IsNullOrEmpty(LastName))
             {
                 MessageBox.Show("Name can't be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
@@ -629,7 +696,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
 
                     StudentID = ID,
-                    Name = Name,
+                    Name = LastName + " " + FirstName + " " + MiddleName ,
                     Age = Age,
                     IDnumber = IDnumber,
                     Contact= Contact,
@@ -986,6 +1053,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             Name = string.Empty;
+            FirstName = string.Empty;
+            MiddleName = string.Empty;
+            LastName = string.Empty;
             Age = 0;
             IDnumber = 0;
             Contact = 0;

@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Profile.jpg" />
     <None Remove="Resources\Fpass.png" />
     <None Remove="Resources\LogoUm.png" />
     <None Remove="Resources\Profile.jpg" />
@@ -43,6 +44,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Profile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Fpass.png">
       <CopyToOutputDirectory></CopyToOutputDirectory>
     </Resource>

@@ -45,5 +45,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
 
             editGrade.ShowDialog();
         }
+
+        private void VersionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GradeVersion editGrade = new GradeVersion(_context)
+            {
+               DataContext = this.DataContext,
+
+            };
+
+            editGrade.ShowDialog();
+        }
     }
 }

@@ -327,10 +327,10 @@
                                 </StackPanel>
                             </Button>
 
-                            <!--Logout--><!--
+                            <!--Settings-->
 
-                            <Button x:Name="SettingsBtn" Style="{StaticResource menuButton}" Foreground="White" Margin="5"
-                                           Click="SettingsBtn_Click"       Cursor="Hand" Width="48" >
+                            <Button x:Name="Settings"  Style="{StaticResource menuButton}" Foreground="White" Margin="5"
+                                           Click="Settings_Click"       Cursor="Hand" Width="48" >
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                    
                                     
@@ -341,7 +341,7 @@
                                            Foreground="White"
                                            Visibility="Collapsed" />
                                 </StackPanel>
-                            </Button>-->
+                            </Button>
 
 
 

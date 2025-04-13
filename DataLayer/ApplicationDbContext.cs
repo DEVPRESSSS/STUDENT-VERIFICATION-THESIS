@@ -127,6 +127,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer
         public DbSet<SubjectsEnrolled> SubjectsEnrolled { get; set; }
         public DbSet<ScheduleOfSubjects> Schedule { get; set; }
         public DbSet<SchoolYear> SchoolYear { get; set; }
+        public DbSet<GradeHistory> GradeHistory { get; set; }
         //public DbSet<SubjectProfessor> SubjectProfessor { get; set; }
 
 

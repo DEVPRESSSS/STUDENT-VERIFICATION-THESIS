@@ -13,7 +13,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
     {
 
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)] // Prevent auto-generation
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] 
 
         public string? GradeID { get; set; } = string.Empty;
 
@@ -36,6 +36,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [ForeignKey("SubjectID")]
         public SubjectsEntity? Subject { get; set; }
 
+
+
+        [Required]
+        public string? ProfessorName { get; set; }
+
+
+        [Required]
+        public bool isDeleted { get; set; } = false;
 
         [Required]
         public string? EnrollmentID { get; set; }
@@ -73,7 +81,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
                 {
                     return grade < 75;
                 }
-                return false; // Or handle special cases (e.g., return `true` for "INC")
+                return false; 
             }
         }
 
@@ -81,7 +89,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [NotMapped]
         public bool IsGradeINC => GradeValue?.ToUpper() == "INC";
 
+        [NotMapped]
+        public bool IsGradeNGS => GradeValue?.ToUpper() == "NGS";
 
+        [NotMapped]
+        public bool IsGradeNFE => GradeValue?.ToUpper() == "NFE";
+
+        [NotMapped]
+        public bool IsGradeFAILED => GradeValue?.ToUpper() == "FAILED";
         [NotMapped]
         public string? Time { get; set; }
 
@@ -93,8 +108,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public string? ProfessorID { get; set; }
 
 
-        [NotMapped]
-        public string? ProfessorName { get; set; }
+      
 
         [NotMapped]
         public string? StudentName { get; set; }
