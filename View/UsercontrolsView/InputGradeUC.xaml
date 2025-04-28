@@ -11,227 +11,210 @@
              Background="#F5F7FA"
              d:DesignHeight="650" d:DesignWidth="900">
 
-    <UserControl.Resources>
-        <!-- Improved styles -->
-        <Style x:Key="SectionTitle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Foreground" Value="#2D3748"/>
-            <Setter Property="Margin" Value="0,0,0,8"/>
-        </Style>
 
-        <Style x:Key="SearchBoxStyle" TargetType="TextBox">
-            <Setter Property="Height" Value="36"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="#E2E8F0"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Foreground" Value="#4A5568"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
-                            <ScrollViewer x:Name="PART_ContentHost" 
-                                         Margin="{TemplateBinding Padding}"
-                                         VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
 
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Border>
 
-        <!-- Header -->
-        <TextBlock Grid.Row="0" 
-                   Text="Grade Entry System" 
-                   FontSize="22" 
-                   FontWeight="Bold" 
-                   Foreground="#1A365D"
-                   Margin="0,0,0,20"/>
+        <Grid>
 
-        <!-- Search and Filter Section -->
-        <Grid Grid.Row="1" Margin="0,0,0,20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
 
-            <!-- Professor Search -->
-            <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                <TextBlock Text="Search Professors" Style="{StaticResource SectionTitle}"/>
+
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="500*"/>
+                <RowDefinition Height="60"/>
+
+            </Grid.RowDefinitions>
+
+
+            <Border 
+                Background="#F2F2F2"
+                BorderBrush="#DDDDDD"
+                BorderThickness="1"
+                Grid.Row="0">
+
+
+
+
+
+            </Border>
+
+
+
+
+            <!--Row 2 border-->
+
+            <Border 
+                Grid.Row="1">
+
+
 
                 <Grid>
-                    <TextBox Style="{StaticResource SearchBoxStyle}" 
-                             Name="ProfessorSearchBox" 
-                             Margin="0,0,0,10"
-                             Text="{Binding ProfessorSearchQuery, 
-                            UpdateSourceTrigger=PropertyChanged}">
-                    </TextBox>
 
-                    <Icon:PackIconMaterial Kind="Magnify" 
-                                          Foreground="#718096" 
-                                          Width="16" 
-                                          Height="16" 
-                                          VerticalAlignment="Center" 
-                                          Margin="10,0,0,10"
-                                          HorizontalAlignment="Left"/>
-                </Grid>
-            </StackPanel>
+                    <Grid.ColumnDefinitions>
 
-            <!-- Subject Search -->
-            <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                <TextBlock Text="Search Subjects" Style="{StaticResource SectionTitle}"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
 
-                <Grid>
-                    <TextBox Style="{StaticResource SearchBoxStyle}" 
-                             Name="SubjectSearchBox" 
-                             Margin="0,0,0,10"
-                             Text="{Binding SubjectSearchQuery, UpdateSourceTrigger=PropertyChanged}">
-                    </TextBox>
+                    </Grid.ColumnDefinitions>
 
-                    <Icon:PackIconMaterial Kind="Magnify" 
-                                          Foreground="#718096" 
-                                          Width="16" 
-                                          Height="16" 
-                                          VerticalAlignment="Center" 
-                                          Margin="10,0,0,10"
-                                          HorizontalAlignment="Left"/>
-                </Grid>
-            </StackPanel>
-        </Grid>
 
-        <!-- Main Content -->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+                    <!-- Column 0 border -->
+                    <Border 
+                        BorderThickness="1"
+                        BorderBrush="#DDDD"
+                        Grid.Column="0">
 
-            <!-- Professor List Panel -->
-            <Border Grid.Column="0" 
-                    Background="White" 
-                    CornerRadius="8" 
-                    Margin="0,0,10,0"
-                    BorderBrush="#E2E8F0"
-                    BorderThickness="1"
-                    Effect="{StaticResource dropShadow}">
+                        <Grid>
 
-                <Grid Margin="15">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition/>
 
-                    <TextBlock Grid.Row="0" 
-                               Text="Professors" 
-                               FontSize="16" 
-                               FontWeight="SemiBold" 
-                               Foreground="#2D3748"
-                               Margin="0,0,0,15"/>
+                            </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="1"
-                              RowStyle="{DynamicResource DataGridRowStyle1}" 
-                              ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                              CellStyle="{DynamicResource DataGridCellStyle1}" 
-                              x:Name="professorsDataGrid" 
-                              Style="{DynamicResource DataGridStyle1}"
-                              ItemsSource="{Binding ProfessorsCollection}"
-                              SelectedItem="{Binding Selected_professor, Mode=TwoWay}"
-                              AutoGenerateColumns="False"
-                              BorderThickness="0"
-                              Background="Transparent"
-                              RowHeight="50"
-                              GridLinesVisibility="None"
-                              IsReadOnly="True"
-                              SelectionMode="Single">
 
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Profile" Width="80">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Border Width="30" Height="30" CornerRadius="20" Background="#EBF4FF">
-                                            <Icon:PackIconMaterial Kind="Account" 
-                                                                  Width="20" 
-                                                                  Height="20" 
-                                                                  HorizontalAlignment="Center"
-                                                                  VerticalAlignment="Center"
-                                                                  Foreground="#4299E1"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <Border Grid.Row="0" Background="#F2F2F2">
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0">
+                                        <TextBox 
+                                            Style="{StaticResource TextBoxesForm}"
+                                            Width="141"
+                                            Background="White" 
+                                            Height="25"
+                                            MaxLength="50"
+                                            Margin="0,0,0,0"
+                                            Text="{Binding SearchTerm, UpdateSourceTrigger=PropertyChanged}" />
 
-                            <DataGridTextColumn Header="Name" 
-                                                Binding="{Binding Name}" 
-                                                Width="*"/>
-
-                            <DataGridTemplateColumn Header="View Subjects" Width="120" >
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Style="{StaticResource gridEditButton}" 
-                                                Click="Button_Click"
-                                                Padding="10,5">
-                                            <StackPanel Orientation="Horizontal">
-                                                <Icon:PackIconMaterial Kind="Bookshelf" 
-                                                                      Margin="0,0,5,0"
-                                                                      VerticalAlignment="Center"/>
-                                                <TextBlock Text="Subjects" VerticalAlignment="Center"/>
+                                        <Button x:Name="_new"
+                                                Style="{StaticResource SubmitButton}" 
+                                                Width="40"
+                                                Height="26"
+                                                BorderThickness="0"
+                                                Command="{Binding SearchCommand}">
+                                            
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Icon:PackIconMaterial Kind="Magnify" 
+                                                       Width="10" 
+                                                       Height="10" 
+                                                       VerticalAlignment="Center" />
                                             </StackPanel>
                                         </Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </Border>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
 
-            <!-- Subjects Panel -->
-            <Border Grid.Column="1" 
-                    Background="White" 
-                    CornerRadius="8" 
-                    Margin="10,0,0,0"
-                    BorderBrush="#E2E8F0"
-                    BorderThickness="1"
-                    Effect="{StaticResource dropShadow}">
 
-                <Grid Margin="15">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" 
-                               Text="Subjects" 
-                               FontSize="16" 
-                               FontWeight="SemiBold" 
-                               Foreground="#2D3748"
-                               Margin="0,0,0,15"/>
 
-                    <ContentControl Grid.Row="1" 
-                                    x:Name="SubjectsArea">
+                            <Border Grid.Row="1">
+
+                                <DataGrid Grid.Row="1"
+                                          RowStyle="{DynamicResource DataGridRowStyle1}" 
+                                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                                          x:Name="professorsDataGrid" 
+                                          Style="{DynamicResource DataGridStyle1}"
+                                          ItemsSource="{Binding ProfessorsCollection}"
+                                          SelectedItem="{Binding Selected_professor, Mode=TwoWay}"
+                                          AutoGenerateColumns="False"
+                                          BorderThickness="0"
+                                          RowHeight="50"
+                                          GridLinesVisibility="None"
+                                          IsReadOnly="True"
+                                          SelectionMode="Single">
+
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Profile" Width="*">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Width="30" Height="30" CornerRadius="20" Background="#EBF4FF">
+                                                        <Icon:PackIconMaterial Kind="Account" 
+                                                                      Width="20" 
+                                                                      Height="20" 
+                                                                      HorizontalAlignment="Center"
+                                                                      VerticalAlignment="Center"
+                                                                      Foreground="#4299E1"/>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTextColumn Header="Name" 
+                                                        Binding="{Binding Name}" 
+                                                        Width="*"/>
+
+                                        <DataGridTemplateColumn Header="Subjects" Width="120" >
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Style="{StaticResource gridEditButton}" 
+                                                            Click="Button_Click"
+                                                            Padding="10,5">
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <Icon:PackIconMaterial Kind="Bookshelf" 
+                                                                      Margin="0,0,5,0"
+                                                                      VerticalAlignment="Center"/>
+                                                            <TextBlock Text="Subjects" VerticalAlignment="Center"/>
+                                                        </StackPanel>
+                                                    </Button>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+
+                            </Border>
+
+
+                        </Grid>
+
+
+
+
+
+                    </Border>
+
+
+
+
+                    <!--Content Area Grid column 1-->
+                    <ContentControl Grid.Column="1" 
+                        Grid.Row="1" 
+                                x:Name="SubjectsArea">
                         <!-- This will be populated dynamically -->
                         <TextBlock Text="Select a professor to view their subjects" 
-                                  Foreground="#718096" 
-                                  VerticalAlignment="Center" 
-                                  HorizontalAlignment="Center"
-                                  FontSize="14"/>
+                              Foreground="#718096" 
+                              VerticalAlignment="Center" 
+                              HorizontalAlignment="Center"
+                              FontSize="14"/>
+
+
                     </ContentControl>
+
+
                 </Grid>
+
+
             </Border>
+
+
+
+
+
+            <!--Footer-->
+            <Border 
+                Background="#F2F2F2"
+                Grid.Row="2">
+
+
+
+            </Border>
+
+
         </Grid>
-    </Grid>
+
+
+    </Border>
+
+
 </UserControl>

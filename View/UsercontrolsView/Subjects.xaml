@@ -31,14 +31,17 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding SubjectName,UpdateSourceTrigger=PropertyChanged}" 
-                                TextWrapping="Wrap" 
-                                VerticalAlignment="Center" 
-                                HorizontalAlignment="Stretch" />
+                                    TextWrapping="Wrap" 
+                                    VerticalAlignment="Center" 
+                                    HorizontalAlignment="Stretch" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
+                        
                         <DataGridTextColumn Header="CourseCode" CanUserResize="False" Binding="{Binding CourseCode}"  IsReadOnly="True" Width="*"/>
+                        
                         <DataGridTextColumn Header="Unit" CanUserResize="False" Binding="{Binding Units}" IsReadOnly="True" Width="*"/>
+                        
                         <DataGridTextColumn Header="Program" CanUserResize="False" Binding="{Binding Program.Acronym}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Name">
@@ -50,7 +53,9 @@
                                          HorizontalAlignment="Stretch" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
+                      
                         </DataGridTemplateColumn>
+                       
                         <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding Year.Name}" IsReadOnly="True" Width="*"/>
 
                         <DataGridTemplateColumn Header="Sched" CanUserResize="False" IsReadOnly="True" Width="*">
@@ -64,7 +69,9 @@
                                     </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
+                        
                         </DataGridTemplateColumn>
+                        
                         <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

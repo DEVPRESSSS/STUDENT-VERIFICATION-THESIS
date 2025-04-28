@@ -23,7 +23,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ObservableCollection<SubjectsEnrolled> SubjectEnrolledCollection { get; private set; }
         public ObservableCollection<StudentsEntity> StudentCollection { get; private set; }
         public ObservableCollection<SubjectsEntity> SubjectsCollection { get; private set; }
-        public ObservableCollection<SubjectsEntity> SubjectPerProfCollection { get; private set; }
+        public ObservableCollection<SubjectsEnrolled > SubjectPerProfCollection { get; private set; }
         public ObservableCollection<Semester> SemesterCollection { get; private set; }
         public ObservableCollection<ProgramEntity> ProgramCollection { get; private set; }
         public ObservableCollection<Year> YearCollection { get; private set; }
@@ -94,7 +94,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 _selected_students = value;
                 OnPropertyChanged(nameof(Selected_students));
                 FilterSubjectsBasedOnSemesterAndStudentInfo();
-
+                _= LoadOnlyTheGradedSub();
             }
         }
 
@@ -135,12 +135,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 if (Selected_subjects != null)
                 {
                     _= LoadGradesAsync();
-                    LoadSubjectsEnrolled();
+                   // LoadSubjectsEnrolled();
                     OnPropertyChanged(nameof(Selected_subjects));
 
                 }
             }
         }
+
+        private SubjectsEnrolled _selected_subjectsEnrolled;
+
+
+        public SubjectsEnrolled Selected_subjectsEnrolled
+        {
+            get => _selected_subjectsEnrolled;
+
+            set
+            {
+
+                _selected_subjectsEnrolled = value;
+                if (Selected_subjectsEnrolled != null)
+                {
+                    LoadSubjectsEnrolled();
+                    OnPropertyChanged(nameof(Selected_subjectsEnrolled));
+
+                }
+            }
+        }
+
 
 
         private Semester _selected_semester;
@@ -320,7 +341,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     {
 
                         _ = FilterBySchoolYear();
-
+                        _ = FilterSubjectEnrolled();
 
                     }
                 }
@@ -363,6 +384,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand UpdateGradeCommand { get; }
         public ICommand UndoGradeCommand { get; }
         public ICommand LoadIsDeletedCommand { get; }
+        public ICommand CancelCommand { get; }
 
 
         public GradeViewModel(ApplicationDbContext context)
@@ -376,7 +398,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             LoadSubjectsCommand.Execute(null);
             StudentCollection = new ObservableCollection<StudentsEntity>();
             SubjectsCollection = new ObservableCollection<SubjectsEntity>();
-            SubjectPerProfCollection = new ObservableCollection<SubjectsEntity>();
+            SubjectPerProfCollection = new ObservableCollection<SubjectsEnrolled>();
             SemesterCollection = new ObservableCollection<Semester>();
             ProgramCollection = new ObservableCollection<ProgramEntity>();
             YearCollection = new ObservableCollection<Year>();
@@ -394,6 +416,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             UpdateGradeCommand = new RelayCommand(async _ => await UpdateGrade());
             UndoGradeCommand = new RelayCommand(async _ => await UndoGrade());
             LoadIsDeletedCommand = new RelayCommand(async _ => await LoadGradeIsDeletedsAsync());
+            CancelCommand = new RelayCommand(_ =>  CancelCommandAsync());
             //Load students 
             _ = LoadStudentAsync();
 
@@ -467,6 +490,31 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
 
+        //Cancel Command
+        private void CancelCommandAsync()
+        {
+
+
+            using( var context = new ApplicationDbContext())
+            {
+
+                var realValue = context.Grades.FirstOrDefault(x => x.GradeID == Selected_grades.GradeID);
+
+                if (realValue != null)
+                {
+
+                    Selected_grades.GradeValue = realValue.GradeValue;
+                   _=  LoadGradesAsync();
+                    ShowNotification("Cancelled", $"Updating of grade was cancelled", NotificationType.Warning);
+
+                }
+
+                CloseCurrentActiveWindow();
+
+            }
+
+           
+        }
 
 
         private async Task ViewGradeHistory()
@@ -488,64 +536,60 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-
+        //Update the grade
         private async Task UpdateGrade()
         {
-
-            using  ( var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext())
             {
-
                 if (Selected_grades != null)
                 {
-                    //Insert to GradeHistory
+                    // Fetch the current grade from the database before any changes
+                    var existingGrade = await context.Grades
+                        .FirstOrDefaultAsync(g => g.GradeID == Selected_grades.GradeID);
 
+                    if (existingGrade == null)
+                    {
+                        ShowNotification("Error", "Grade not found.", NotificationType.Error);
+                        return;
+                    }
+
+                    // Store the previous value
+                    var previousGrade = existingGrade.GradeValue;
 
                     var gradeHistory = new GradeHistory
                     {
-
-                        HistoryID = $"GRD-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}",
-
-                        GradeID = Selected_grades.GradeID,
-                        DateAssigned = Selected_grades.DateAssigned,
-                        GradeValue = Selected_grades.GradeValue,
-                        StudentID = Selected_grades.StudentID,
-                        SubjectID = Selected_grades.SubjectID,
-                        ProfessorName = Selected_grades.ProfessorName,
-                        EnrollmentID = Selected_grades.EnrollmentID,
-                        StaffID = Selected_grades.StaffID,
-                        SchoolYearID = Selected_grades.SchoolYearID,
-                        isDeleted = Selected_grades.isDeleted,
+                        HistoryID = $"History-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}",
+                        GradeID = existingGrade.GradeID,
+                        DateAssigned = existingGrade.DateAssigned,
+                        GradeValue = previousGrade, // ← actual previous grade value
+                        StudentID = existingGrade.StudentID,
+                        SubjectID = existingGrade.SubjectID,
+                        ProfessorName = existingGrade.ProfessorName,
+                        EnrollmentID = existingGrade.EnrollmentID,
+                        StaffID = UserSessionService.Instance.Username,
+                        SchoolYearID = existingGrade.SchoolYearID,
+                        isDeleted = existingGrade.isDeleted,
                         ModifiedAt = DateTime.Now,
-                        ModifiedBy = UserSessionService.Instance.LoggedInStaffID,
-
-
-
-
+                        ModifiedBy = UserSessionService.Instance.LoggedInStaffID
                     };
 
-                    context.Add(gradeHistory);
+                    // Add history record
+                    context.GradeHistory.Add(gradeHistory);
 
+                    // Now update the grade with the new values
+                    context.Entry(existingGrade).CurrentValues.SetValues(Selected_grades);
 
-
-
-                    context.Grades.Update(Selected_grades);
                     await context.SaveChangesAsync();
 
                     _ = LoadGradesAsync();
 
                     CloseCurrentActiveWindow();
 
-
                     ShowNotification("Success", $"{Selected_grades.StudentName} updated successfully", NotificationType.Success);
-
                 }
-
-
             }
-
-      
-            
         }
+
 
 
         /// <summary>
@@ -1153,7 +1197,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             using(var context = new ApplicationDbContext())
             {
 
-                var subs = await context.Subjects.Where(x => x.ProfessorID == Selected_professor.ProfessorID).ToListAsync();
+                var subs = await context.SubjectsEnrolled.
+                    Where(x => x.ProfessorName == Selected_professor.ProfessorID).
+                    Include(x=>x.Subject)
+                    .ToListAsync();
 
                 SubjectPerProfCollection.Clear();
                 foreach (var sub in subs)
@@ -1179,7 +1226,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         private void LoadSubjectsEnrolled()
         {
-            if (Selected_subjects == null)
+            if (Selected_subjectsEnrolled == null)
             {
                 return;
             }
@@ -1189,12 +1236,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 var enrolled = context.SubjectsEnrolled
                     .Include(x => x.Subject)
                     .Include(x => x.Student)                    
-                    .Where(x=> x.SubjectID == Selected_subjects.SubjectID && x.IsEnrolled == true)                 
+                    .Where(x=> x.SubjectID == Selected_subjectsEnrolled.SubjectID && x.IsEnrolled == true && x.IsMarkAsGraded == false)                 
                     .ToList();
 
                 if (!enrolled.Any())
                 {
-                    ShowNotification("Warning", "There is no enrolled students to this subject yet", NotificationType.Warning);
+                    ShowNotification("Warning", "There is no enrolled students to this subject according to the school year or they are already graded!", NotificationType.Information);
                 }
 
                 SubjectEnrolledCollection.Clear();
@@ -1254,20 +1301,35 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             SubjectID = subject.SubjectID,
                             EnrollmentID = subject.EnrollmentID,
                             SchoolYearID = Selected_syID,
-                            //ProfessorName= Selected_subjects.ProfessorID,
                             ProfessorName= Selected_professor.Name,
                             isDeleted= false,
+                         
                             StaffID = UserSessionService.Instance.LoggedInStaffID
                         };
 
                         context.Grades.Add(newGrade);
                         GradeCollection.Add(newGrade);
+
+
+                        //Update the Subject Enrolled as graded
+
+                        var subjectEnrolled = context.SubjectsEnrolled
+                            .FirstOrDefault(x => x.SubjectID == subject.SubjectID && x.StudentID == subject.StudentID && x.IsEnrolled == true);
+
+                        if (subjectEnrolled != null)
+                        {
+                            subjectEnrolled.IsMarkAsGraded = true;
+                            context.SubjectsEnrolled.Update(subjectEnrolled);
+                        }
+
                     }
                 }
 
                 await context.SaveChangesAsync();
 
                 ShowNotification("Success", "Grade inserted successfully", NotificationType.Success);
+
+
                 await LoadGradesAsync();
             }
         }
@@ -1275,7 +1337,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
 
-        
+        private async Task FilterSubjectEnrolled()
+        {
+
+
+            using (var context = new ApplicationDbContext())
+            {
+                var query = context.SubjectsEnrolled
+                 .Include(x => x.Student)
+                 .Include(x => x.Subject)
+                 .Where(x=>x.SubjectID == Selected_subjectsEnrolled.SubjectID && x.IsEnrolled == true && x.IsMarkAsGraded == false)
+                 .AsQueryable();
+
+                query = query.Where(p => p.SyID == Selected_syID);
+
+
+
+                var result = await query.ToListAsync();
+
+                // Update the ObservableCollection
+                SubjectEnrolledCollection.Clear();
+                foreach (var grade in result)
+                {
+                    SubjectEnrolledCollection.Add(grade);
+                }
+            }
+
+        }
 
 
 
@@ -1305,7 +1393,45 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
 
         }
-        //Boolean method to flag if is valid
+
+        //LoadOnly the grade of the selected student
+
+        private async Task LoadOnlyTheGradedSub()
+        {
+
+            try
+            {
+
+
+                using(var context  = new ApplicationDbContext())
+                {
+
+                    var fetchStudentGrade = await context.Grades
+                        .Where(x=>x.StudentID == Selected_students.StudentID)     
+                        .Include(x=>x.Student)
+                        .Include(x=>x.Subject)
+                        .ToListAsync();
+
+
+
+                    GradeCollection.Clear();
+
+                    foreach(var item in fetchStudentGrade)
+                    {
+
+
+                        GradeCollection.Add(item);
+
+                    }
+                }
+            }
+
+            catch(Exception e)
+            {
+
+
+            }
+        }
 
 
 

@@ -20,13 +20,13 @@
                CellStyle="{DynamicResource DataGridCellStyle1}" 
                Style="{DynamicResource DataGridStyle1}"
                ItemsSource="{Binding SubjectPerProfCollection}"
-               SelectedItem="{Binding Selected_subjects, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+               SelectedItem="{Binding Selected_subjectsEnrolled}"
                AutoGenerateColumns="False" 
                 Height="430" VerticalAlignment="Top" Grid.ColumnSpan="2" Margin="0,15,0,0">
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Course Code" CanUserResize="False"  Binding="{Binding CourseCode}" IsReadOnly="True" Width="*"/>
-                <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding SubjectName}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Course Code" CanUserResize="False"  Binding="{Binding Subject.CourseCode}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Name" CanUserResize="False"  Binding="{Binding Subject.SubjectName}" IsReadOnly="True" Width="*"/>
 
                 <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                     <DataGridTemplateColumn.CellTemplate>

@@ -128,6 +128,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public string? SchoolYear { get; set; }
 
 
+        public string? Remarks { get; set; }
+
+
 
 
 

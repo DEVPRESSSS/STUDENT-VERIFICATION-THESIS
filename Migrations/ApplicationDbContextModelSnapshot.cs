@@ -84,6 +84,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SchoolYearID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -378,12 +381,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfilePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleID")
@@ -410,17 +419,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
+                    b.Property<string>("Age")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("Contact")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Contact")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<long>("IDnumber")
-                        .HasColumnType("bigint");
+                    b.Property<string>("IDnumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -437,9 +449,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("YearID")
+                    b.Property<string>("Student_Type")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("YearID")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Year_Graduated")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StudentID");
 
@@ -461,6 +479,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                     b.Property<bool>("IsEnrolled")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsMarkAsGraded")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ProfessorName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("StudentID")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -469,11 +493,17 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("SyID")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("EnrollmentID");
 
                     b.HasIndex("StudentID");
 
                     b.HasIndex("SubjectID");
+
+                    b.HasIndex("SyID");
 
                     b.ToTable("SubjectsEnrolled");
                 });
@@ -650,9 +680,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
 
                     b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.Year", "YearLevel")
                         .WithMany()
-                        .HasForeignKey("YearID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("YearID");
 
                     b.Navigation("Program");
 
@@ -674,6 +702,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Migrations
                         .HasForeignKey("SubjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model.SchoolYear", "SchoolYearEnrolled")
+                        .WithMany()
+                        .HasForeignKey("SyID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SchoolYearEnrolled");
 
                     b.Navigation("Student");
 

@@ -46,13 +46,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardVi
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            BulkInsertGrade grade = new BulkInsertGrade(_context)
-            {
+            //BulkInsertGrade grade = new BulkInsertGrade(_context)
+            //{
 
-                DataContext= DataContext
-            };
+            //    DataContext= DataContext
+            //};
 
-            grade.ShowDialog();
+            //grade.ShowDialog();
         }
     }
 }

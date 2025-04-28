@@ -57,6 +57,14 @@
           }
         }
       },
+      "CommonWin32/2.1.0.3": {
+        "runtime": {
+          "lib/net35-Client/CommonWin32.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.1.0.3"
+          }
+        }
+      },
       "DocumentFormat.OpenXml/3.2.0": {
         "dependencies": {
           "DocumentFormat.OpenXml.Framework": "3.2.0"
@@ -1523,6 +1531,28 @@
           }
         }
       },
+      "ModernWPF/1.4.6": {
+        "dependencies": {
+          "CommonWin32": "2.1.0.3"
+        },
+        "runtime": {
+          "lib/net40-Client/ModernWPF.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.4.6.0"
+          }
+        },
+        "resources": {
+          "lib/net40-Client/ja/ModernWPF.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net40-Client/zh-Hans/ModernWPF.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net40-Client/zh-Hant/ModernWPF.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
       "Mono.TextTemplating/3.0.0": {
         "dependencies": {
           "System.CodeDom": "6.0.0"
@@ -2664,6 +2694,13 @@
       "path": "bouncycastle.cryptography/2.4.0",
       "hashPath": "bouncycastle.cryptography.2.4.0.nupkg.sha512"
     },
+    "CommonWin32/2.1.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-yNA2Udhv3SNzoHAjZXPW04LLQLIr652RWTN5oMHeDTcq5ml92tYMaJaZiwqIdLMWd6CXfLv5VQ+EAMMKeE4iJw==",
+      "path": "commonwin32/2.1.0.3",
+      "hashPath": "commonwin32.2.1.0.3.nupkg.sha512"
+    },
     "DocumentFormat.OpenXml/3.2.0": {
       "type": "package",
       "serviceable": true,
@@ -3391,6 +3428,13 @@
       "sha512": "sha512-8PZKqw9QOcu42xk8puY4P1+EXHL9YGOR9b7qhaYx5cILHul456H073tj99vyPcCt0W0781T9RwHqkx507ZyUpQ==",
       "path": "microsoft.xaml.behaviors.wpf/1.1.39",
       "hashPath": "microsoft.xaml.behaviors.wpf.1.1.39.nupkg.sha512"
+    },
+    "ModernWPF/1.4.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gEANBGhLAE5E9Q/2S5UGVdQHQT1OaoH12Qpy/cu0ebw1i828HC0cZqx3sq7YD9h9udfx4nTg3nYDRRpSH/hAnw==",
+      "path": "modernwpf/1.4.6",
+      "hashPath": "modernwpf.1.4.6.nupkg.sha512"
     },
     "Mono.TextTemplating/3.0.0": {
       "type": "package",

@@ -32,6 +32,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public bool IsEnrolled { get; set; } = false;
 
 
+
+        public bool IsMarkAsGraded { get; set; } = false;
+
+        [Required]
+        public string SyID { get; set; }
+
+        [ForeignKey("SyID")]
+
+        public SchoolYear? SchoolYearEnrolled { get; set; }
+
+
+        public string? ProfessorName { get; set; }
+
+
         [NotMapped]
         public string? GradeValue { get; set; }
         [NotMapped]
@@ -42,7 +56,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         [NotMapped]
 
         public ObservableCollection<string> Options { get; set; }
-
 
 
         public SubjectsEnrolled()
@@ -79,8 +92,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
                     "98",
                     "99",
 
-            };      
-          }
+            };
+        }
+
+
+
+
+
+
     }
        
 

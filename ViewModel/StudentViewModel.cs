@@ -17,42 +17,144 @@ using Microsoft.Data.SqlClient;
 using DocumentFormat.OpenXml.InkML;
 using System.Windows.Media;
 using DocumentFormat.OpenXml.Vml.Spreadsheet;
-
+using System.Windows.Media.Imaging;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 {
-    public class StudentViewModel:INotifyPropertyChanged
+    public class StudentViewModel : INotifyPropertyChanged
     {
         private readonly ApplicationDbContext _context;
 
-        public ObservableCollection<StudentsEntity> StudentsCollection { get; private set; }
-        public ObservableCollection<ProgramEntity> ProgramsCollection { get; private set; }
-        public ObservableCollection<Year> YearCollection { get; private set; }
-       public ObservableCollection<Grade> SubjectGrades { get; private set; } 
-       public ObservableCollection<Scholarship> ScholarshipsCollection { get; private set; } 
-       public ObservableCollection<SubjectsEntity> SubjectPerProgram { get; private set; }
-       public ObservableCollection<SubjectsEnrolled> ListOfSubjectsEnrolled { get; private set; }
-       public ObservableCollection<StudentsEntity> StudentBulkCollection { get; private set; }
-
-
+        public ObservableCollection<StudentsEntity> StudentsCollection
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<ProgramEntity> ProgramsCollection
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<Year> YearCollection
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<Grade> SubjectGrades
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<Scholarship> ScholarshipsCollection
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<SubjectsEntity> SubjectPerProgram
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<SubjectsEnrolled> ListOfSubjectsEnrolled
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<StudentsEntity> StudentBulkCollection
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<SchoolYear> SchoolYearCollection
+        {
+            get;
+            private set;
+        }
+        public ObservableCollection<ProfessorsEntity> ProfessorsCollection
+        {
+            get;
+            private set;
+        }
 
         //Crud Commands
-        public ICommand AddStudentscommand { get; }
-        public ICommand UpdateStudentsCommand { get; set; }
-        public ICommand DeleteStudentsCommand { get; }
-        public ICommand LoadStudentsCommand { get; }
-        public ICommand LoadGradeCommand { get; }
-        public ICommand ClearCommand { get; }
+        public ICommand AddStudentscommand
+        {
+            get;
+        }
+        public ICommand UpdateStudentsCommand
+        {
+            get;
+            set;
+        }
+        public ICommand DeleteStudentsCommand
+        {
+            get;
+        }
+        public ICommand LoadStudentsCommand
+        {
+            get;
+        }
+        public ICommand LoadGradeCommand
+        {
+            get;
+        }
+        public ICommand ClearCommand
+        {
+            get;
+        }
 
-        public ICommand InsertGradeCommand { get; }
-        public ICommand printGradeCommand { get; }
-        public ICommand SearchCommand { get; }
-        public ICommand AddSubjectCommand { get; }
-        public ICommand ChooseFileCommand { get; }
-        public ICommand BulkInsertCommand { get; }
-        public ICommand DeleteSubjectEnrolledCommand { get; }
-        public ICommand EnrollSecondSemCommand { get; }
-        public ICommand AssignedProfCommand { get; }
+        public ICommand InsertGradeCommand
+        {
+            get;
+        }
+        public ICommand printGradeCommand
+        {
+            get;
+        }
+        public ICommand SearchCommand
+        {
+            get;
+        }
+        public ICommand AddSubjectCommand
+        {
+            get;
+        }
+        public ICommand ChooseFileCommand
+        {
+            get;
+        }
+        public ICommand BulkInsertCommand
+        {
+            get;
+        }
+        public ICommand DeleteSubjectEnrolledCommand
+        {
+            get;
+        }
+        public ICommand EnrollSecondSemCommand
+        {
+            get;
+        }
+        public ICommand AssignedProfCommand
+        {
+            get;
+        }
+        public ICommand LoadStudentSub
+        {
+            get;
+        }
+        public ICommand EnrollmentHistory
+        {
+            get;
+        }
+        public ICommand ChoosePictureCommand
+        {
+            get;
+        }
+        public ICommand CloseCommand
+        {
+            get;
+        }
 
         public StudentViewModel(ApplicationDbContext context)
         {
@@ -76,7 +178,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             ClearCommand = new RelayCommand(_ => ClearAsync());
 
-            ProgramsCollection = new ObservableCollection<ProgramEntity>(); 
+            ProgramsCollection = new ObservableCollection<ProgramEntity>();
 
             YearCollection = new ObservableCollection<Year>();
 
@@ -88,29 +190,37 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             StudentBulkCollection = new ObservableCollection<StudentsEntity>();
 
+            SchoolYearCollection = new ObservableCollection<SchoolYear>();
+
+            ProfessorsCollection = new ObservableCollection<ProfessorsEntity>();
+
             LoadStudentsCommand.Execute(null);
 
             SearchCommand = new RelayCommand(async _ => await SearchProgramAsync(), _ => !string.IsNullOrWhiteSpace(SearchTerm));
 
             ChooseFileCommand = new RelayCommand(_ => ExtractStudent());
+
             BulkInsertCommand = new RelayCommand(_ => MultiInsertStudent());
 
+            EnrollSecondSemCommand = new RelayCommand(_ => EnrollSecondSem());
 
-            EnrollSecondSemCommand = new RelayCommand(_ =>EnrollSecondSem());
+            LoadStudentSub = new RelayCommand(async _ => await LoadStudentSubAsync());
 
+            // EnrollmentHistory= new RelayCommand(async _ => await LoadCurrentlyEnrolledSubAsync());
 
-         
+            ChoosePictureCommand = new RelayCommand(_ => ChoosePicture());
+            CloseCommand = new RelayCommand(_ => CloseCurrentActiveWindow());
 
             _ = LoadProgramAsync();
             _ = LoadYearAsync();
             _ = LoadSubjectsAsync();
             _ = LoadSchoolar();
             _ = LoadStudentSubAsync();
-          
+            _ = SchoolYear();
+            _ = LoadProfessorAsync();
 
         }
 
-        
         private StudentsEntity _selected_students;
 
         public StudentsEntity Selected_students
@@ -127,16 +237,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     _ = LoadSubjectsAsync();
                     _ = LoadSubjectsPerProgram();
                     _ = LoadStudentSubAsync();
-
+                    _ = LoadCurrentlyEnrolledSubAsync();
+                    _ = LoadEnrollmentHistory();
 
                 }
                 OnPropertyChanged(nameof(Selected_students));
 
-
             }
         }
-
-
 
         private SubjectsEnrolled _selected_subjectenrolled;
 
@@ -148,22 +256,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 _selected_subjectenrolled = value;
-            
-                OnPropertyChanged(nameof(_selected_subjectenrolled));
 
+                OnPropertyChanged(nameof(_selected_subjectenrolled));
 
             }
         }
 
-
-
-
-
-
-
-
         private Grade _selected_grade;
-
 
         public Grade Selected_grades
         {
@@ -177,10 +276,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
         private Scholarship _selected_schoolar;
-
 
         public Scholarship Selected_schoolar
         {
@@ -194,11 +290,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
-
         private SubjectsEntity _selected_Subjects;
-
 
         public SubjectsEntity Selected_Subjects
         {
@@ -212,15 +304,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
-
-
-
-
-
-
-        //Program ID 
+        //Program ID
 
         private string _programID;
 
@@ -228,7 +312,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             get => _programID;
-
 
             set
             {
@@ -240,14 +323,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-
         private string _professorID;
 
         public string ProfessorID
         {
 
             get => _professorID;
-
 
             set
             {
@@ -259,7 +340,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-
         private string _yearID;
 
         public string Selected_yearID
@@ -267,12 +347,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             get => _yearID;
 
-
             set
             {
 
                 _yearID = value;
-
 
                 OnPropertyChanged();
                 _ = SearchProgramAsync();
@@ -280,15 +358,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-
-
         private string _schoolarID;
 
         public string Selected_SchoolarID
         {
 
             get => _schoolarID;
-
 
             set
             {
@@ -303,14 +378,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         private string _name;
 
-
         [Required(ErrorMessage = "Name is Required")]
 
         public string Name
         {
 
             get => _name;
-
 
             set
             {
@@ -321,11 +394,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
-
         private string _firstName;
-
 
         [Required(ErrorMessage = "Name is Required")]
 
@@ -333,7 +402,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             get => _firstName;
-
 
             set
             {
@@ -344,10 +412,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
         private string _middleName;
-
 
         [Required(ErrorMessage = "Name is Required")]
 
@@ -355,7 +420,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             get => _middleName;
-
 
             set
             {
@@ -366,10 +430,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
         private string _lastName;
-
 
         [Required(ErrorMessage = "Name is Required")]
 
@@ -377,7 +438,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             get => _lastName;
-
 
             set
             {
@@ -388,18 +448,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
-        private int _age;
+        private string _age;
 
         [Required(ErrorMessage = "Age is Required")]
 
-
-        public int Age
+        public string Age
         {
 
             get => _age;
-
 
             set
             {
@@ -411,16 +467,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-        private long _IDnumber;
-
+        private string _IDnumber;
 
         [Required(ErrorMessage = "IDnumber is Required")]
 
-        public long IDnumber
+        public string IDnumber
         {
 
             get => _IDnumber;
-
 
             set
             {
@@ -432,31 +486,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-        private long _contact;
-
+        private string _contact;
 
         [Required(ErrorMessage = "Contact is Required")]
 
-        public long Contact
+        public string Contact
         {
 
             get => _contact;
-
 
             set
             {
 
                 _contact = value;
+                OnPropertyChanged();
 
             }
 
         }
 
-
-
-
         private string _gmail;
-
 
         [Required(ErrorMessage = "Gmail is Required")]
 
@@ -464,7 +513,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             get => _gmail;
-
 
             set
             {
@@ -474,13 +522,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
 
-
         }
 
-
-
         private string _address;
-
 
         [Required(ErrorMessage = "Address is Required")]
 
@@ -488,7 +532,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
 
             get => _address;
-
 
             set
             {
@@ -499,10 +542,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
 
-
         }
-
-
 
         private string _searchTerm;
 
@@ -527,16 +567,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
         private string _semester;
-
-
 
         public string Semester
         {
 
             get => _semester;
-
 
             set
             {
@@ -547,20 +583,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
 
-
         }
 
-
-
         private string _encoderName;
-
-
 
         public string EncoderName
         {
 
             get => _encoderName;
-
 
             set
             {
@@ -571,19 +601,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
 
-
         }
 
-
         private string _syName;
-
-
 
         public string SchoolYearName
         {
 
             get => _syName;
-
 
             set
             {
@@ -594,11 +619,171 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             }
 
+        }
+
+        private string syYear;
+
+        public string SchoolYearPerEnroll
+        {
+
+            get => syYear;
+
+            set
+            {
+
+                syYear = value;
+
+                OnPropertyChanged(SchoolYearPerEnroll);
+
+            }
 
         }
 
+        private string profName;
 
+        public string ProfessorName
+        {
 
+            get => profName;
+
+            set
+            {
+
+                profName = value;
+
+                OnPropertyChanged(ProfessorName);
+
+            }
+
+        }
+
+        private bool isFirstYear;
+        public bool IsFirstYear
+        {
+            get => isFirstYear;
+            set
+            {
+                if (isFirstYear != value)
+                {
+                    isFirstYear = value;
+                    OnPropertyChanged(nameof(IsFirstYear));
+                    SearchSubjects();
+
+                }
+
+            }
+        }
+
+        private bool isSecondYear;
+        public bool IsSecondYear
+        {
+            get => isSecondYear;
+            set
+            {
+                if (isSecondYear != value)
+                {
+                    isSecondYear = value;
+                    OnPropertyChanged(nameof(IsSecondYear));
+                    SearchSubjects();
+                }
+            }
+        }
+
+        private bool isThirdYear;
+        public bool IsThirdYear
+        {
+            get => isThirdYear;
+            set
+            {
+                if (isThirdYear != value)
+                {
+                    isThirdYear = value;
+                    OnPropertyChanged(nameof(IsThirdYear));
+                    SearchSubjects();
+                }
+            }
+        }
+
+        private bool isFourthYear;
+        public bool IsFourthYear
+        {
+            get => isFourthYear;
+            set
+            {
+                if (isFourthYear != value)
+                {
+                    isFourthYear = value;
+                    OnPropertyChanged(nameof(IsFourthYear));
+                    SearchSubjects();
+                }
+            }
+        }
+
+        private bool is1stSem;
+        public bool Is1stSem
+        {
+            get => is1stSem;
+            set
+            {
+                if (is1stSem != value)
+                {
+                    is1stSem = value;
+                    OnPropertyChanged(nameof(Is1stSem));
+                    SearchSubjects();
+                }
+            }
+        }
+
+        private bool is2ndSem;
+        public bool Is2ndSem
+        {
+            get => is2ndSem;
+            set
+            {
+                if (is2ndSem != value)
+                {
+                    is2ndSem = value;
+                    OnPropertyChanged(nameof(Is2ndSem));
+                    SearchSubjects();
+                }
+            }
+        }
+
+        private string _picture;
+        public string Picture
+        {
+            get => _picture;
+            set
+            {
+                _picture = value;
+                OnPropertyChanged(nameof(Picture));
+                // Also notify that PictureSource has changed when Picture changes
+                OnPropertyChanged(nameof(PictureSource));
+            }
+        }
+
+        public string PictureSource
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_picture))
+                    return null;
+
+                // Convert relative path to absolute URI
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string fullPath = Path.Combine(baseDirectory, _picture);
+
+                try
+                {
+                    return new Uri(fullPath).AbsoluteUri;
+                }
+                catch
+                {
+                    // Handle invalid paths
+                    return null;
+                }
+            }
+        }
 
         /// <summary>
         /// Search by program
@@ -611,28 +796,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var context = new ApplicationDbContext())
                 {
                     var query = context.Students
-                        .Include(s => s.YearLevel)
-                        .Include(s => s.Program)
-                        .Include(s => s.Scholarship)
-                        .AsQueryable();
+                      .Include(s => s.YearLevel)
+                      .Include(s => s.Program)
+                      .Include(s => s.Scholarship)
+                      .AsQueryable();
 
-                
                     // Apply general search term filter
                     if (!string.IsNullOrEmpty(SearchTerm))
                     {
                         query = query.Where(p =>
-                            EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
-                            EF.Functions.Like(p.Age.ToString(), $"%{SearchTerm}%") ||
-                            EF.Functions.Like(p.IDnumber.ToString(), $"%{SearchTerm}%") ||
-                            EF.Functions.Like(p.Address, $"%{SearchTerm}%") ||
-                            EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm}%") ||
-                            EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm}%") ||
-                            EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm}%")
+                          EF.Functions.Like(p.Name, $"%{SearchTerm}%") ||
+                          EF.Functions.Like(p.Age.ToString(), $"%{SearchTerm}%") ||
+                          EF.Functions.Like(p.IDnumber.ToString(), $"%{SearchTerm}%") ||
+                          EF.Functions.Like(p.Address, $"%{SearchTerm}%") ||
+                          EF.Functions.Like(p.YearLevel.Name, $"%{SearchTerm}%") ||
+                          EF.Functions.Like(p.Scholarship.Name, $"%{SearchTerm}%") ||
+                          EF.Functions.Like(p.Program.Acronym, $"%{SearchTerm}%")
                         );
                     }
 
                     // Apply year-specific filter
-                
 
                     var result = await query.ToListAsync();
 
@@ -647,128 +830,88 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             catch (Exception ex)
             {
                 MessageBox.Show($"Error during search: {ex.Message}", "Error",
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                  MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-
-
-
-
-        //Insert Method 
+        //Insert Method
         private async Task AddStudentAsync()
         {
-            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(MiddleName)|| string.IsNullOrEmpty(LastName))
+            if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(MiddleName) || string.IsNullOrEmpty(LastName) ||
+              string.IsNullOrEmpty(Age) || string.IsNullOrEmpty(Contact) || string.IsNullOrEmpty(IDnumber))
             {
                 MessageBox.Show("Name can't be empty.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
 
                 return;
             }
 
-            if (IDnumber <= 0)
-            {
-                MessageBox.Show("ID Number is required and cannot be null or zero.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-            if (Contact <= 0)
-            {
-                MessageBox.Show("Contact number is required and cannot be null or zero.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-
-
             try
             {
                 var exisitngStudent = await _context.Students
-                    .FirstOrDefaultAsync(s => s.Name == Name || s.IDnumber == IDnumber);
-
-
+                  .FirstOrDefaultAsync(s => s.Name == Name || s.IDnumber == IDnumber);
 
                 if (exisitngStudent != null)
                 {
-                    MessageBox.Show($"Student name or ID number or Gmail is already exists. Please use a different one.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Student name or ID number or Gmail is already exists. Please use a different one.", "Validation Error",
+                      MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
+                string selectedImagePath = Picture;
+
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\.."));
+
+                string targetFolder = Path.Combine(projectRoot, "Images");
+
+                if (!Directory.Exists(targetFolder))
+                {
+                    Directory.CreateDirectory(targetFolder);
+                }
+
+                string fileName = Path.GetFileName(selectedImagePath);
+                string destinationPath = Path.Combine(targetFolder, fileName);
+
+                File.Copy(selectedImagePath, destinationPath, true);
+
+                // Get the relative path
+                string relativePath = Path.Combine("Images", fileName).Replace("\\", "/");
+
                 string ID = $"STU-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
                 var obj = new StudentsEntity
                 {
-
                     StudentID = ID,
-                    Name = LastName + " " + FirstName + " " + MiddleName ,
+                    Name = LastName + " " + FirstName + " " + MiddleName,
                     Age = Age,
                     IDnumber = IDnumber,
-                    Contact= Contact,
+                    Contact = Contact,
                     Address = Address,
                     YearID = Selected_yearID,
+                    Picture = relativePath,
                     ProgramID = Selected_programID,
-                    ScholarshipID= Selected_SchoolarID
-
+                    ScholarshipID = Selected_SchoolarID,
                 };
-
-
 
                 _context.Students.Add(obj);
 
                 await _context.SaveChangesAsync();
 
-
                 StudentsCollection.Add(obj);
 
-                //Enrolled the scholar to its subjects
-                using (var db = new ApplicationDbContext())
-                {
-                    var fetchSubs = await db.Subjects
-                        .Where(x => x.ProgramID == Selected_programID && x.YearID == Selected_yearID && x.SemesterID == "SEM101")
-                        .ToListAsync(); 
+                _ = LoadStudentAsync();
 
-                    if (fetchSubs.Any()) 
-                    {
-                        foreach (var sub in fetchSubs)
-                        {
-                            string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
-
-                            var subjectEnrolled = new SubjectsEnrolled
-                            {
-                                EnrollmentID = enrollmentID,
-                                SubjectID = sub.SubjectID,
-                                StudentID = ID,
-                                IsEnrolled = true
-                            };
-
-                            db.SubjectsEnrolled.Add(subjectEnrolled); 
-                        }
-
-                        await db.SaveChangesAsync();
-                    }
-                    else
-                    {
-                        MessageBox.Show("No subjects found for the selected program and year.");
-                    }
-                }
-                
-
-
-
-
-
-
-
-                MessageBox.Show("Student added successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                ShowNotification("Success", "Student added successfully", NotificationType.Success);
 
                 ClearAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
                 MessageBox.Show($"Error{ex}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 ClearAsync();
 
             }
-
-
-
 
         }
 
@@ -786,28 +929,24 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             // Validate if any field contains only whitespace
             if (string.IsNullOrWhiteSpace(Selected_students.Name) ||
-                string.IsNullOrWhiteSpace(Selected_students.Address))
+              string.IsNullOrWhiteSpace(Selected_students.Address))
             {
                 MessageBox.Show("Fields cannot contain only whitespace. Please fill out all fields correctly.",
-                                "Validation Error",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Warning);
+                  "Validation Error",
+                  MessageBoxButton.OK,
+                  MessageBoxImage.Warning);
                 return;
             }
 
             // Check if Name or Gmail already exists for another student
             var duplicateName = await _context.Students
-                .AnyAsync(s => s.Name == Selected_students.Name && s.StudentID != Selected_students.StudentID);
-
-    
+              .AnyAsync(s => s.Name == Selected_students.Name && s.StudentID != Selected_students.StudentID);
 
             if (duplicateName)
             {
                 MessageBox.Show("The Name is already associated with another student.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-            
 
             try
             {
@@ -833,8 +972,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     if (isYearChanged == false)
                     {
                         var enrolledSubjects = await db.SubjectsEnrolled
-                            .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled)
-                            .ToListAsync();
+                          .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled)
+                          .ToListAsync();
 
                         if (enrolledSubjects.Any())
                         {
@@ -848,10 +987,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     }
 
                     var fetchSubs = await db.Subjects
-                        .Where(x => x.ProgramID == Selected_students.ProgramID &&
-                                    x.YearID == Selected_students.YearID &&
-                                    x.SemesterID == "SEM101")
-                        .ToListAsync();
+                      .Where(x => x.ProgramID == Selected_students.ProgramID &&
+                        x.YearID == Selected_students.YearID &&
+                        x.SemesterID == "SEM101")
+                      .ToListAsync();
 
                     if (fetchSubs.Any())
                     {
@@ -864,7 +1003,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                 EnrollmentID = enrollmentID,
                                 SubjectID = sub.SubjectID,
                                 StudentID = Selected_students.StudentID,
-                                IsEnrolled = true
+                                IsEnrolled = true,
+                                ProfessorName = "No information yet"
                             };
 
                             db.SubjectsEnrolled.Add(subjectEnrolled);
@@ -887,20 +1027,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-        //Close the Current Window
-        public void CloseCurrentActiveWindow()
-        {
-            var activeWindow = Application.Current.Windows
-                .OfType<Window>()
-                .FirstOrDefault(window => window.IsActive);
-
-            if (activeWindow != null)
-            {
-                activeWindow.Close();
-            }
-        }
-
         //Delete Student
         private async Task DeleteStudentAsync()
         {
@@ -914,7 +1040,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     {
                         // Check for related records in SubjectsEnrolled (or other dependent tables)
                         var relatedSubjects = await _context.SubjectsEnrolled
-                            .FirstOrDefaultAsync(x => x.StudentID == Selected_students.StudentID);
+                          .FirstOrDefaultAsync(x => x.StudentID == Selected_students.StudentID);
 
                         if (relatedSubjects != null)
                         {
@@ -958,23 +1084,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
         //Load all the students
 
-
         private BrushConverter converter = new BrushConverter();
-        private string[] myArray = { "#1098AD", "#1E88E5", "#FF8F00", "#FF5252", "#6741D9", "#0CA678" };
+        private string[] myArray = {
+          "#1098AD",
+          "#1E88E5",
+          "#FF8F00",
+          "#FF5252",
+          "#6741D9",
+          "#0CA678"
+        };
         private System.Windows.Media.Brush brush;
         private async Task LoadStudentAsync()
         {
 
-           
             var student = await _context.Students
-                 .Include(s => s.Program)
-                 .Include(s => s.YearLevel)
-                 .Include(s => s.Scholarship)
-                 .ToListAsync();
-
+              .Include(s => s.Program)
+              .Include(s => s.YearLevel)
+              .Include(s => s.Scholarship)
+              .ToListAsync();
 
             StudentsCollection.Clear();
 
@@ -995,9 +1124,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 OnPropertyChanged(nameof(StudentsCollection));
 
             }
-         
-
-
 
         }
 
@@ -1023,8 +1149,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-        //Method that load year 
+        //Method that load year
         private async Task LoadYearAsync()
         {
             try
@@ -1046,8 +1171,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
         //Clear textfields
         public void ClearAsync()
         {
@@ -1056,20 +1179,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             FirstName = string.Empty;
             MiddleName = string.Empty;
             LastName = string.Empty;
-            Age = 0;
-            IDnumber = 0;
-            Contact = 0;
+            Age = string.Empty;
+            IDnumber = string.Empty;
+            Contact = string.Empty;
             Gmail = string.Empty;
             Address = string.Empty;
-           
+
         }
-
-
-
-
-
-
-
 
         /// <summary>
         /// Load the Subjects with grade
@@ -1088,54 +1204,65 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var context = new ApplicationDbContext())
                 {
                     var results = await context.Grades
-                        .Where(g => g.StudentID == Selected_students.StudentID)
-                        .Join(
-                            context.Subjects,
-                            grade => grade.SubjectID,
-                            subject => subject.SubjectID,
-                            (grade, subject) => new { grade, subject }
-                        )
-                        .GroupJoin(
-                            context.Schedule,
-                            gs => new { gs.subject.SubjectID, gs.subject.ProfessorID },
-                            schedule => new { schedule.SubjectID, schedule.ProfessorID },
-                            (gs, schedules) => new { gs.grade, gs.subject, schedules }
-                        )
-                        .SelectMany(
-                            gss => gss.schedules.DefaultIfEmpty(),
-                            (gss, schedule) => new
-                            {
-                                gss.grade.GradeID,
-                                gss.grade.GradeValue,
-                                gss.subject.SubjectID,
-                                gss.subject.SubjectName,
-                                gss.subject.CourseCode,
-                                gss.subject.SemesterID,
+                      .Where(g => g.StudentID == Selected_students.StudentID)
+                      .Join(
+                        context.Subjects,
+                        grade => grade.SubjectID,
+                        subject => subject.SubjectID,
+                        (grade, subject) => new {
+                            grade,
+                            subject
+                        }
+                      )
+                      .GroupJoin(
+                        context.Schedule,
+                        gs => new {
+                            gs.subject.SubjectID,
+                            gs.subject.ProfessorID
+                        },
+                        schedule => new {
+                            schedule.SubjectID,
+                            schedule.ProfessorID
+                        },
+                        (gs, schedules) => new {
+                            gs.grade,
+                            gs.subject,
+                            schedules
+                        }
+                      )
+                      .SelectMany(
+                        gss => gss.schedules.DefaultIfEmpty(),
+                        (gss, schedule) => new {
+                            gss.grade.GradeID,
+                            gss.grade.GradeValue,
+                            gss.subject.SubjectID,
+                            gss.subject.SubjectName,
+                            gss.subject.CourseCode,
+                            gss.subject.SemesterID,
 
-                                Time = schedule != null ? schedule.Time : null,
-                                gss.subject.ProfessorID,
-                                ProfessorName = context.Professors
-                                    .Where(p => p.ProfessorID == gss.subject.ProfessorID)
-                                    .Select(p => p.Name)
-                                    .FirstOrDefault(),
-                                SemesterName = context.Semesters
-                                .Where(s => s.SemesterID == gss.subject.SemesterID)
-                                .Select(s => s.SemesterName)
-                                .FirstOrDefault(),
+                            Time = schedule != null ? schedule.Time : null,
+                            gss.subject.ProfessorID,
+                            ProfessorName = context.Professors
+                            .Where(p => p.ProfessorID == gss.subject.ProfessorID)
+                            .Select(p => p.Name)
+                            .FirstOrDefault(),
+                            SemesterName = context.Semesters
+                            .Where(s => s.SemesterID == gss.subject.SemesterID)
+                            .Select(s => s.SemesterName)
+                            .FirstOrDefault(),
 
-                                EncoderName = context.Staffs
-                                    .Where(s => s.StaffID == gss.grade.StaffID)
-                                    .Select(s => s.Name)
-                                    .FirstOrDefault(),
-                                SchoolYear = context.SchoolYear
-                                    .Where(sy => sy.SchoolYearID == gss.grade.SchoolYearID)
-                                    .Select(sy => sy.SY)
-                                    .FirstOrDefault()
+                            EncoderName = context.Staffs
+                            .Where(s => s.StaffID == gss.grade.StaffID)
+                            .Select(s => s.Name)
+                            .FirstOrDefault(),
+                            SchoolYear = context.SchoolYear
+                            .Where(sy => sy.SchoolYearID == gss.grade.SchoolYearID)
+                            .Select(sy => sy.SY)
+                            .FirstOrDefault()
 
-
-                            }
-                        )
-                        .ToListAsync();
+                        }
+                      )
+                      .ToListAsync();
 
                     // Use the results, for example:
                     SubjectGrades.Clear();
@@ -1154,7 +1281,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             SemesterID = item.SemesterID,
                             SemesterName = item.SemesterName,
 
-
                         });
 
                         EncoderName = item.EncoderName;
@@ -1163,7 +1289,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     }
                 }
 
-
             }
             catch (Exception ex)
             {
@@ -1171,47 +1296,36 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
-
-
         /// <summary>
         /// Load all the subs enrolled by the student for viewing
         /// </summary>
         /// <returns></returns>
-        /// 
-
+        ///
 
         private async Task LoadStudentSubAsync()
         {
-           
-                
+            if (Selected_students == null || string.IsNullOrWhiteSpace(Selected_students.StudentID))
+                return;
 
-                using (var context = new ApplicationDbContext())
+            using (var context = new ApplicationDbContext())
+            {
+                var enrolledSubjectIds = await context.SubjectsEnrolled
+                  .Where(se => se.StudentID == Selected_students.StudentID && se.IsEnrolled == true)
+                  .Select(se => se.SubjectID)
+                  .ToListAsync();
+
+                var notEnrolledSubjects = await context.Subjects
+                  .Where(s => !enrolledSubjectIds.Contains(s.SubjectID) && s.ProgramID == Selected_students.ProgramID)
+                  .Include(s => s.Semester)
+                  .ToListAsync();
+
+                SubjectPerProgram.Clear();
+                foreach (var subject in notEnrolledSubjects)
                 {
-
-                    var subs = await context.SubjectsEnrolled
-                        .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled == true)
-                        .Include(x=>x.Subject)
-                        .Include(x => x.Subject.Year)
-                        .Include(x => x.Subject.Semester)
-                        .ToListAsync();
-
-
-                    ListOfSubjectsEnrolled.Clear();
-                    foreach (var subject in subs)
-                    {
-                        ListOfSubjectsEnrolled.Add(subject);
-                    }
+                    SubjectPerProgram.Add(subject);
                 }
-            
-            
+            }
         }
-
-
-
-
-
 
         //Load all the subjects per program base on the student ProgramID
         private async Task LoadSubjectsPerProgram()
@@ -1227,15 +1341,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 using (var context = new ApplicationDbContext())
                 {
                     var enrolledSubjectIds = await context.SubjectsEnrolled
-                        .Where(e => e.StudentID == Selected_students.StudentID && e.IsEnrolled)
-                        .Select(e => e.SubjectID)
-                        .ToListAsync();
+                      .Where(e => e.StudentID == Selected_students.StudentID && e.IsEnrolled)
+                      .Select(e => e.SubjectID)
+                      .ToListAsync();
 
                     var subjectGradesList = await context.Subjects
-                        .Where(x => x.ProgramID == Selected_students.ProgramID && !enrolledSubjectIds.Contains(x.SubjectID))
-                        .Include(x => x.Year)
-                        .Include(x => x.Semester)
-                        .ToListAsync();
+                      .Where(x => x.ProgramID == Selected_students.ProgramID && !enrolledSubjectIds.Contains(x.SubjectID))
+                      .Include(x => x.Year)
+                      .Include(x => x.Semester)
+                      .ToListAsync();
 
                     SubjectPerProgram.Clear();
                     foreach (var subject in subjectGradesList)
@@ -1250,36 +1364,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
-
-
         /// <summary>
-        /// Load SchoolarShip 
+        /// Load SchoolarShip
         /// </summary>
         /// <returns></returns>
 
-
         private async Task LoadSchoolar()
         {
-            using(var context= new ApplicationDbContext())
+            using (var context = new ApplicationDbContext())
             {
-
 
                 var schoolar = await context.Scholarship.ToListAsync();
 
-
-                foreach(var item in schoolar)
+                foreach (var item in schoolar)
                 {
-
 
                     ScholarshipsCollection.Add(item);
                 }
 
             }
         }
-
-
-
 
         /// <summary>
         /// Mark as enrolled sub
@@ -1290,23 +1394,23 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
             try
             {
-                int totalUnits = ListOfSubjectsEnrolled.Sum(x => x.Subject.Units); 
+                int totalUnits = ListOfSubjectsEnrolled.Sum(x => x.Subject.Units);
 
                 using (var context = new ApplicationDbContext())
                 {
                     List<SubjectsEnrolled> newEnrollments = new List<SubjectsEnrolled>();
 
                     // Iterate over selected subjects
-                    foreach (var sub in SubjectPerProgram.Where(x => x.IsEnrolled==true))
+                    foreach (var sub in SubjectPerProgram.Where(x => x.IsEnrolled == true))
                     {
                         // Check if subject is already enrolled
                         var existingSubject = await context.SubjectsEnrolled
-                            .FirstOrDefaultAsync(x => x.SubjectID == sub.SubjectID && x.StudentID == Selected_students.StudentID);
+                          .FirstOrDefaultAsync(x => x.SubjectID == sub.SubjectID && x.StudentID == Selected_students.StudentID);
 
                         if (existingSubject != null)
                         {
                             ShowNotification("Error", "Oops! One of the subjects you selected is already enrolled!", NotificationType.Error);
-                            return; 
+                            return;
                         }
 
                         totalUnits += sub.Units;
@@ -1317,7 +1421,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             return;
                         }
 
-                        string ID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
+                        string ID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N ").Substring(0, 8).ToUpper()}";
 
                         // Add new subject enrollment to list
                         var subjectEnrolled = new SubjectsEnrolled
@@ -1350,7 +1454,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-
         /// <summary>
         /// Extract the student
         /// </summary>
@@ -1375,17 +1478,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     {
                         int rowCount = worksheet.Dimension.Rows;
 
-
-
-
-
                         for (int row = 1; row <= rowCount; row++)
                         {
-                            var firstCellText = worksheet.Cells[row, 1].Text?.Trim(); 
+                            var firstCellText = worksheet.Cells[row, 1].Text?.Trim();
                             if (string.Equals(firstCellText, "Name", StringComparison.OrdinalIgnoreCase) ||
-                                string.Equals(firstCellText, "name", StringComparison.OrdinalIgnoreCase))
+                              string.Equals(firstCellText, "name", StringComparison.OrdinalIgnoreCase))
                             {
-                                continue; 
+                                continue;
                             }
 
                             var name = worksheet.Cells[row, 1].Text?.Trim();
@@ -1395,23 +1494,19 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             var yearlevel = worksheet.Cells[row, 5].Text?.Trim();
                             var scholarship = worksheet.Cells[row, 6].Text?.Trim();
 
-                            long? idnum = null; 
-                            if (!string.IsNullOrEmpty(idnumTtext) && long.TryParse(idnumTtext, out long parsedId))
-                            {
-                                idnum = parsedId; 
-                            }
+                            string? idnum = null;
 
                             if (!string.IsNullOrEmpty(name) ||
-                                idnum.HasValue ||
-                                !string.IsNullOrEmpty(gmail) ||
-                                !string.IsNullOrEmpty(program) ||
-                                !string.IsNullOrEmpty(yearlevel) ||
-                                !string.IsNullOrEmpty(scholarship))
+                              !string.IsNullOrEmpty(idnum) ||
+                              !string.IsNullOrEmpty(gmail) ||
+                              !string.IsNullOrEmpty(program) ||
+                              !string.IsNullOrEmpty(yearlevel) ||
+                              !string.IsNullOrEmpty(scholarship))
                             {
                                 StudentBulkCollection.Add(new StudentsEntity
                                 {
                                     Name = name,
-                                    IDnumber = idnum ?? 0, 
+                                    IDnumber = idnum ?? "NO IDNUMBER",
                                     ProgramID = program,
                                     YearID = yearlevel,
                                     ScholarshipID = scholarship,
@@ -1419,24 +1514,16 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             }
                         }
 
-
-
                     }
 
-
-
                 }
-
 
             }
 
         }
 
-
-
-
         /// <summary>
-        /// Automation when adding student       
+        /// Automation when adding student
         /// </summary>
 
         private void MultiInsertStudent()
@@ -1446,8 +1533,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 try
                 {
                     var student = _context.Students
-                        .AsNoTracking() 
-                        .FirstOrDefault(x => x.Name.ToLower() == item.Name.ToLower());
+                      .AsNoTracking()
+                      .FirstOrDefault(x => x.Name.ToLower() == item.Name.ToLower());
 
                     if (student != null)
                     {
@@ -1456,25 +1543,34 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     }
 
                     var programExist = _context.Programs
-                        .FirstOrDefault(x => x.Acronym.ToLower() == item.ProgramID.ToLower());
+                      .FirstOrDefault(x => x.Acronym.ToLower() == item.ProgramID.ToLower());
                     if (programExist == null)
                     {
                         ShowNotification("Error", $"Program '{item.ProgramID}' does not exist.", NotificationType.Error);
                         continue;
                     }
 
-                    var yearMapping = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
-                    {
-                        { "4th Year", "Fourth Year" },
-                        { "3rd Year", "Third Year" },
-                        { "2nd Year", "Second Year" },
-                        { "1st Year", "First Year" },
-                    };
+                    var yearMapping = new Dictionary<string,
+                      string>(StringComparer.OrdinalIgnoreCase) {
+              {
+                "4th Year",
+                "Fourth Year"
+              }, {
+                "3rd Year",
+                "Third Year"
+              }, {
+                "2nd Year",
+                "Second Year"
+              }, {
+                "1st Year",
+                "First Year"
+              },
+            };
 
                     var normalizedYear = yearMapping.ContainsKey(item.YearID) ? yearMapping[item.YearID] : item.YearID;
 
                     var yearExist = _context.Year
-                        .FirstOrDefault(x => x.Name.ToLower() == normalizedYear.ToLower());
+                      .FirstOrDefault(x => x.Name.ToLower() == normalizedYear.ToLower());
 
                     if (yearExist == null)
                     {
@@ -1484,16 +1580,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                     // Normalize and trim both the database value and the extracted value
                     var scholarshipExist = _context.Scholarship
-                        .FirstOrDefault(x => x.Name.ToUpper() == item.ScholarshipID.ToUpper());
+                      .FirstOrDefault(x => x.Name.ToUpper() == item.ScholarshipID.ToUpper());
 
                     if (scholarshipExist == null)
                     {
                         ShowNotification("Error", $"Scholarship '{item.ScholarshipID}' does not exist.", NotificationType.Error);
                         continue;
                     }
-
-
-
 
                     // Add new student
 
@@ -1515,26 +1608,18 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     _context.SaveChanges();
                     StudentsCollection.Add(newStudent);
 
-
-
-
-
-
-
-
                     //Validate if the student is scholar
-                    if(scholarshipExist.ScholarshipID == "SCHO-1001")
+                    if (scholarshipExist.ScholarshipID == "SCHO-1001")
                     {
 
                         //Auto enrolled for scholar
                         using (var db = new ApplicationDbContext())
                         {
 
-
                             //Fetch all the subjects based on the Program and Year
                             var fetchSubs = db.Subjects
-                                .Where(x => x.ProgramID == programExist.ProgramID && x.YearID == yearExist.YearID && x.SemesterID == "SEM101")
-                                .ToList();
+                              .Where(x => x.ProgramID == programExist.ProgramID && x.YearID == yearExist.YearID && x.SemesterID == "SEM101")
+                              .ToList();
 
                             if (fetchSubs.Any())
                             {
@@ -1544,8 +1629,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                 {
 
                                     //EnrollmentID
-                                    string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
-
+                                    string enrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N ").Substring(0, 8).ToUpper()}";
 
                                     //Peforms insert to enroll the subs
                                     var subjectEnrolled = new SubjectsEnrolled
@@ -1556,11 +1640,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                         IsEnrolled = true
                                     };
 
-
                                     //Add to the collection
                                     db.SubjectsEnrolled.Add(subjectEnrolled);
                                 }
-
 
                                 //Save the changes
                                 db.SaveChanges();
@@ -1568,16 +1650,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             else
                             {
 
-
                                 ShowNotification("Error", $"Error: No subjects found", NotificationType.Error);
                             }
                         }
 
-
                     }
-
-                  
-
 
                     //Push notifications
                     ShowNotification("Success", $"Student '{item.Name}' successfully added.", NotificationType.Success);
@@ -1592,88 +1669,78 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             StudentBulkCollection.Clear();
 
             //Refresh the Students immediately
-             _= LoadStudentAsync();
+            _ = LoadStudentAsync();
         }
-
-
-
-
 
         /// <summary>
         /// Enroll the second Sem of the Student
         /// </summary>
         private void EnrollSecondSem()
         {
-            var confirmation = MessageBox.Show("Are you sure you want to enroll the second sem for this student?",
-                                                "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var confirmation = MessageBox.Show("Are you sure you want to this student?Please double check the school year",
+              "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (confirmation == MessageBoxResult.Yes)
             {
-                // Unenroll First Sem Subjects
-                var studentSubFirstSem = _context.SubjectsEnrolled
-                    .Where(x => x.StudentID == Selected_students.StudentID && x.Subject.SemesterID == "SEM101")
-                    .ToList();
 
-                foreach (var studentSub in studentSubFirstSem)
+                if (SchoolYearPerEnroll == null)
                 {
-                    studentSub.IsEnrolled = false;
-                    _context.SubjectsEnrolled.Update(studentSub);
+
+                    ShowNotification("Error", $"Oops school year is not selected", NotificationType.Error);
+                    return;
+                }
+
+                foreach (var subjects in SubjectPerProgram)
+                {
+
+                    var getYear = _context.SchoolYear
+                      .FirstOrDefault(x => x.SchoolYearID == SchoolYearPerEnroll);
+
+                    var EnrollSub = new SubjectsEnrolled
+                    {
+
+                        EnrollmentID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}",
+                        StudentID = Selected_students.StudentID,
+                        SubjectID = subjects.SubjectID,
+                        IsEnrolled = true,
+                        SyID = SchoolYearPerEnroll,
+                        ProfessorName = string.IsNullOrWhiteSpace(subjects.ProfessorName) ? "Unknown" : subjects.ProfessorName
+
+                    };
+
+                    _context.Add(EnrollSub);
+
                 }
 
                 _context.SaveChanges();
+                ShowNotification("Success", $"Subject enrolled successfully", NotificationType.Success);
 
-                var existingSecondSemSubjects = _context.SubjectsEnrolled
-                    .Where(x => x.StudentID == Selected_students.StudentID && x.Subject.SemesterID == "SEM102")
-                    .Select(x => x.SubjectID)
-                    .ToHashSet(); 
+                _ = LoadCurrentlyEnrolledSubAsync();
+                _ = LoadEnrollmentHistory();
 
-                var subjectsToEnroll = _context.Subjects
-                    .Where(se => se.ProgramID == Selected_students.ProgramID &&
-                                 se.YearID == Selected_students.YearID &&
-                                 se.SemesterID == "SEM102" &&
-                                 !existingSecondSemSubjects.Contains(se.SubjectID)) // Exclude already enrolled subjects
-                    .ToList();
+                CloseCurrentActiveWindow();
 
-                List<SubjectsEnrolled> newEnrollments = new List<SubjectsEnrolled>();
+            }
+        }
 
-                foreach (var subs in subjectsToEnroll)
+        private async Task LoadProfessorAsync()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var prof = await context.Professors
+                  .Include(p => p.Departments).ToListAsync();
+
+                foreach (var listOfProf in prof)
                 {
-                    string ID = $"SUB-ENROLLED-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
-                    var subjectEnrolled = new SubjectsEnrolled
-                    {
-                        EnrollmentID = ID,
-                        SubjectID = subs.SubjectID,
-                        StudentID = Selected_students.StudentID,
-                        IsEnrolled = true
-                    };
-
-                    newEnrollments.Add(subjectEnrolled);
-                }
-
-                if (newEnrollments.Count > 0)
-                {
-                    _context.SubjectsEnrolled.AddRange(newEnrollments);
-                    _context.SaveChangesAsync();
-                    ShowNotification("Success", "Subjects enrolled successfully. First sem subjects have been unenrolled.", NotificationType.Success);
-                    CloseCurrentActiveWindow();
-                }
-                else
-                {
-                    ShowNotification("Info", "No new subjects to enroll. The student is already enrolled in all available second-semester subjects.", NotificationType.Information);
+                    ProfessorsCollection.Add(listOfProf);
                 }
             }
         }
 
-
-
-
-
-
         /// <summary>
         /// Delete the subject enrolled by the student
         /// </summary>
-
 
         private async Task DeleteSubjectEnrolled()
         {
@@ -1688,7 +1755,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 ListOfSubjectsEnrolled.Remove(Selected_subjectEnrolled);
                 ShowNotification("Success", $"Subject unenrolled successfully", NotificationType.Success);
-                _= LoadSubjectsPerProgram();
+                _ = LoadSubjectsPerProgram();
             }
             catch (Exception ex)
             {
@@ -1696,14 +1763,189 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
+        private async Task SchoolYear()
+        {
+            try
+            {
 
+                using (var context = new ApplicationDbContext())
+                {
 
+                    var schoolYear = await context.SchoolYear.ToListAsync();
 
+                    foreach (var item in schoolYear)
+                    {
 
+                        SchoolYearCollection.Add(item);
+                    }
 
+                }
 
-       
+            }
+            catch (Exception ex)
+            {
+                ShowNotification("Error", $"Error: {ex.Message}", NotificationType.Error);
+            }
+        }
 
+        private async void SearchSubjects()
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var query = context.Subjects
+                      .Include(s => s.Program)
+                      .Include(s => s.Year)
+                      .Include(s => s.Semester)
+                      .Include(s => s.Professors)
+                      .AsQueryable();
+
+                    // Filter by program
+                    if (!string.IsNullOrWhiteSpace(Selected_students?.ProgramID))
+                    {
+                        query = query.Where(s => s.ProgramID == Selected_students.ProgramID);
+                    }
+
+                    // Filter by YearID
+                    var yearIds = new List<string>();
+                    if (IsFirstYear) yearIds.Add("YearID101");
+                    if (IsSecondYear) yearIds.Add("YearID102");
+                    if (IsThirdYear) yearIds.Add("YearID103");
+                    if (IsFourthYear) yearIds.Add("YearID104");
+
+                    if (yearIds.Any())
+                    {
+                        query = query.Where(s => yearIds.Contains(s.YearID));
+                    }
+                    else
+                    {
+                        SubjectPerProgram.Clear();
+                        return;
+                    }
+
+                    // Filter by SemesterID
+                    var semIds = new List<string>();
+                    if (Is1stSem) semIds.Add("SEM101");
+                    if (Is2ndSem) semIds.Add("SEM102");
+
+                    if (semIds.Any())
+                    {
+                        query = query.Where(s => semIds.Contains(s.SemesterID));
+                    }
+
+                    // Filter out subjects already enrolled by the student
+                    var studentId = Selected_students?.StudentID;
+                    if (!string.IsNullOrWhiteSpace(studentId))
+                    {
+                        query = query.Where(s =>
+                          !context.SubjectsEnrolled.Any(se =>
+                            se.StudentID == studentId &&
+                            se.SubjectID == s.SubjectID &&
+                            se.IsEnrolled == true
+                          ));
+                    }
+
+                    // Execute query
+                    var result = await query.ToListAsync();
+
+                    SubjectPerProgram.Clear();
+                    foreach (var subject in result)
+                    {
+                        SubjectPerProgram.Add(subject);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Search error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task LoadCurrentlyEnrolledSubAsync()
+        {
+
+            using (var context = new ApplicationDbContext())
+            {
+                var query = await context.SubjectsEnrolled
+                  .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled == true)
+                  .Include(x => x.Subject)
+                  .ThenInclude(x => x.Semester)
+                  .Include(x => x.Student)
+                  .Include(x => x.SchoolYearEnrolled)
+                  .ToListAsync();
+
+                ListOfSubjectsEnrolled.Clear();
+                foreach (var subject in query)
+                {
+                    ListOfSubjectsEnrolled.Add(subject);
+                }
+            }
+
+        }
+
+        private async Task LoadEnrollmentHistory()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var query = await context.SubjectsEnrolled
+                  .Where(x => x.StudentID == Selected_students.StudentID && x.IsEnrolled == true)
+                  .Include(x => x.Subject)
+                  .ThenInclude(s => s.Semester)
+                  .Include(x => x.Subject)
+                  .ThenInclude(s => s.Year)
+                  .Include(x => x.SchoolYearEnrolled)
+                  .Include(x => x.Student)
+                  .OrderBy(x =>
+                    x.Subject.YearID == "YEAR101" ? 1 :
+                    x.Subject.YearID == "YEAR102" ? 2 :
+                    x.Subject.YearID == "YEAR103" ? 3 :
+                    x.Subject.YearID == "YEAR104" ? 4 : 5)
+                  .ThenBy(x =>
+                    x.Subject.SemesterID == "SEM101" ? 1 :
+                    x.Subject.SemesterID == "SEM102" ? 2 : 3)
+                  .ToListAsync();
+
+                ListOfSubjectsEnrolled.Clear();
+                foreach (var subject in query)
+                {
+                    ListOfSubjectsEnrolled.Add(subject);
+                }
+            }
+        }
+
+        //Close the Current Window
+        public void CloseCurrentActiveWindow()
+        {
+            var activeWindow = Application.Current.Windows
+              .OfType<Window>()
+              .FirstOrDefault(window => window.IsActive);
+
+            if (activeWindow != null)
+            {
+                activeWindow.Close();
+            }
+        }
+
+        //Choose Picture
+
+        private void ChoosePicture()
+        {
+
+            var openFileDialog = new OpenFileDialog()
+            {
+
+                Title = "Choose profile picture",
+                Filter = "Image Files (*.png;*.jpg;*.jpeg)|*.png;*.jpg;*.jpeg"
+
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+
+                Picture = openFileDialog.FileName;
+            }
+        }
 
         //Show notications
         private void ShowNotification(string title, string message, NotificationType notificationType)
@@ -1714,21 +1956,31 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             if (NotificationType.Success == notificationType)
             {
                 notificaficationManager.Show(
-                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(10));
+                  new NotificationContent
+                  {
+                      Title = title,
+                      Message = message,
+                      Type = notificationType
+                  }, expirationTime: TimeSpan.FromSeconds(10));
                 return;
             }
             else
             {
                 notificaficationManager.Show(
-                  new NotificationContent { Title = title, Message = message, Type = notificationType }, expirationTime: TimeSpan.FromSeconds(10));
+                  new NotificationContent
+                  {
+                      Title = title,
+                      Message = message,
+                      Type = notificationType
+                  }, expirationTime: TimeSpan.FromSeconds(10));
             }
 
         }
+
         private bool CanExecuteInsertGrade()
         {
             return true;
         }
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -1737,8 +1989,5 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-       
-
-     
     }
 }

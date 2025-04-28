@@ -34,5 +34,26 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         {
             this.Close();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            if(studentGradeDataGrid.Items.Count > 0) {
+
+
+                    EmptyMessage.Visibility = Visibility.Collapsed;
+
+            }
+        }
+
+        private void DragBorder_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+
+            if(e.ChangedButton == MouseButton.Left)
+            {
+
+                DragMove();
+            }
+        }
     }
 }

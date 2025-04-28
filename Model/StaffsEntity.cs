@@ -35,6 +35,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [Required]
         public string? Password { get; set; }
+        public string? ProfilePath { get; set; }
+        public string? Gender { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

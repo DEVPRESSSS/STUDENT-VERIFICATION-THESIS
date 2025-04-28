@@ -49,6 +49,9 @@
     <Compile Update="View\PopUpForms\AddStudent.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\PopUpForms\AddStudentForm.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PopUpForms\AddSub.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -65,12 +68,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\GradeVersion.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\PopUpForms\InputGrade.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Update="View\PopUpForms\InputRangeGrades.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\ListOfStudentsToBeGraded.xaml.cs">
@@ -107,6 +104,24 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\PopUpForms\ViewProfessorAssigned.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Student\AddStudentUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Student\AllGrades.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Student\AlumniStudentUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Student\EnrollmentHistory.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Student\ListOfSubjectsEnrolled.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Student\StudentProfile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UsercontrolsView\DashboardOverview.xaml.cs">
@@ -201,6 +216,9 @@
     <Page Update="View\PopUpForms\AddStudent.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\PopUpForms\AddStudentForm.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\PopUpForms\AddSub.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -217,12 +235,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\GradeVersion.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\PopUpForms\InputGrade.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\PopUpForms\InputRangeGrades.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\ListOfStudentsToBeGraded.xaml">
@@ -259,6 +271,24 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PopUpForms\ViewProfessorAssigned.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Student\AddStudentUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Student\AllGrades.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Student\AlumniStudentUC.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Student\EnrollmentHistory.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Student\ListOfSubjectsEnrolled.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Student\StudentProfile.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UsercontrolsView\DashboardOverview.xaml">

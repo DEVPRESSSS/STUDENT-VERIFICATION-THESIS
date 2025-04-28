@@ -51,7 +51,7 @@
                     <DataGridTextColumn Header="Year" CanUserResize="False" Binding="{Binding YearLevel.Name}" IsReadOnly="True" Width="*"/>
                     <DataGridTextColumn Header="Grant" CanUserResize="False" Binding="{Binding Scholarship.Name}" IsReadOnly="True" Width="*"/>
 
-                    <DataGridTemplateColumn Header="Sub/Gr" CanUserResize="False" IsReadOnly="True" Width="*">
+                    <!--<DataGridTemplateColumn Header="Sub/Gr" CanUserResize="False" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -74,8 +74,8 @@
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Sub" CanUserResize="False" IsReadOnly="True" Width="*">
+                    </DataGridTemplateColumn>-->
+                    <!--<DataGridTemplateColumn Header="Sub" CanUserResize="False" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Style="{StaticResource ButtonHide}" Orientation="Horizontal">
@@ -88,12 +88,16 @@
                                 
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn>-->
                     <DataGridTemplateColumn Header="Action" CanUserResize="False" IsReadOnly="True" Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
 
+                                    <Button x:Name="Profile" Style="{StaticResource gridEditButton}" Click="Profile_Click_2">
+                                        <Icon:PackIconMaterial Kind="FaceManProfile" Style="{StaticResource gridButtonIcon}" />
+                                    </Button>   
+                                    
                                     <Button Style="{StaticResource gridEditButton}" Click="Button_Click">
                                         <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}" />
                                     </Button>

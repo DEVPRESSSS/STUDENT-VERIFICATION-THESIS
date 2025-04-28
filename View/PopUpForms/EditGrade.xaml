@@ -3,14 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
+        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" 
+        xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
         mc:Ignorable="d"
         Title="EditGrade"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Height="250"
+        Height="470"
         Width="400">
 
     <Border CornerRadius="10" BorderThickness="1" BorderBrush="#DDDDDD" Background="#FFFFFF">
@@ -22,55 +24,159 @@
             </Grid.RowDefinitions>
 
             <!-- Header -->
-            <Border Grid.Row="0" Background="#3D7E35" CornerRadius="10,10,0,0">
+            <Border Grid.Row="0" 
+                    Background="#3D7E35"
+                    CornerRadius="10,10,0,0">
                 <Grid>
-                    <TextBlock x:Name="GradeTxt" Text="Edit Grade" FontSize="18" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                    <TextBlock x:Name="GradeTxt" 
+                               Text="{Binding Selected_grades.Student.Name}"
+                               FontSize="18" 
+                               FontWeight="SemiBold" 
+                               Foreground="White" 
+                               VerticalAlignment="Center" 
+                               Margin="20,0,0,0"/>
+
                     <Button x:Name="CloseButton" 
-                            Content="✕" FontSize="14"
+                            Content="✕" 
+                            FontSize="14"
                             FontWeight="Bold"
                             Foreground="White"
                             Background="Transparent" 
                             BorderThickness="0" 
                             HorizontalAlignment="Right" 
-                            VerticalAlignment="Center" Margin="0,0,15,0" Cursor="Hand"
-                            Click="CloseButton_Click"/>
+                            VerticalAlignment="Center" 
+                            Margin="0,0,15,0" 
+                            Cursor="Hand"
+                            Click="CloseButton_Click"
+                            ToolTip="Close"/>
                 </Grid>
             </Border>
 
             <!-- Content -->
-            <Grid Grid.Row="1" Margin="20">
-                <StackPanel VerticalAlignment="Center" Height="100">
-                    <TextBlock Text="Enter New Grade:" 
-                               FontSize="16"
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="20">
+                    <!-- Student Information Section (Optional) -->
+                    <TextBlock Text="Current Student Grade Information" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
                                Margin="0,0,0,10"/>
 
-                    <ComboBox
-                        BorderBrush="#bab7b6"
-                        BorderThickness="1"
-                        Height="40"
-                        FontSize="16"
-                        ItemsSource="{Binding Options}"
-                        SelectedItem="{Binding Selected_grades.GradeValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.5" Width="345"
-                        >
-                       
+                    <Border Background="#F9F9F9" 
+                            BorderBrush="#EEEEEE" 
+                            BorderThickness="1" 
+                            CornerRadius="5" 
+                            Padding="10" 
+                            Margin="0,0,0,20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
+                            <TextBlock Text="Current Grade:" 
+                                       Grid.Row="0" 
+                                       Grid.Column="0"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,10,5"/>
+                            <TextBlock Text="{Binding Selected_grades.GradeValue}" 
+                                       Grid.Row="0" 
+                                       Grid.Column="1"
+                                       Margin="0,0,0,5"/>
 
-                    </ComboBox>
+                            <TextBlock Text="Course:" 
+                                       Grid.Row="1" 
+                                       Grid.Column="0"
+                                       FontWeight="SemiBold"
+                                       Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding Selected_grades.CourseCode}" 
+                                       Grid.Row="1" 
+                                       Grid.Column="1"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Grade Type Selection -->
+                    <TextBlock Text="Grade Type" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Margin="0,0,0,10"/>
+
+                    <Border Background="#F9F9F9" 
+                            BorderBrush="#EEEEEE" 
+                            BorderThickness="1" 
+                            CornerRadius="5" 
+                            Padding="10" 
+                            Margin="0,0,0,20">
+                        <StackPanel>
+                            <RadioButton x:Name="rbRegular" 
+                                         Content="Regular Assessment" 
+                                         GroupName="GradeType" 
+                                         IsChecked="True" 
+                                         Margin="0,0,0,8"/>
+                            <RadioButton x:Name="rbCompletion" 
+                                         Content="Completion" 
+                                         GroupName="GradeType" 
+                                         Margin="0,0,0,8"/>
+                            <RadioButton x:Name="rbSummer" 
+                                         Content="Summer Grade" 
+                                         GroupName="GradeType" 
+                                         Margin="0,0,0,8"/>
+                            <RadioButton x:Name="rbRetake" 
+                                         Content="Retake" 
+                                         GroupName="GradeType"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- New Grade Selection -->
+                    <TextBlock Text="New Grade" 
+                               FontSize="16" 
+                               FontWeight="SemiBold" 
+                               Margin="0,0,0,10"/>
+
+                    <ComboBox BorderBrush="#bab7b6"
+                              BorderThickness="1"
+                              Height="40"
+                              FontSize="16"
+                              Padding="10,5"
+                              ItemsSource="{Binding Options}"
+                              SelectedItem="{Binding Selected_grades.GradeValue, Mode=TwoWay, UpdateSourceTrigger=Default}" 
+                              Margin="0,0,0,5"/>
+
+                    <TextBlock Text="Note: This will replace the current grade for this course."
+                               Foreground="#777777" 
+                               TextWrapping="Wrap" 
+                               Margin="0,5,0,0"/>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Footer -->
+            <Grid Grid.Row="2" Background="#F5F5F5">
+                <StackPanel Orientation="Horizontal" 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" 
+                            Margin="10">
+                    <Button Content="Cancel" 
+                            Width="150" 
+                            Height="40"
+                            Margin="0,0,10,0"
+                            Background="White"
+                            BorderBrush="#DDDDDD"
+                            Command="{Binding CancelCommand}"
+                            />
+
+                    <Button Style="{StaticResource SubmitButton}"
+                            Content="Save Changes" 
+                            Width="150" 
+                            Height="40"
+                            Background="#3D7E35"
+                            Foreground="White"
+                            BorderThickness="0"    
+                            Command="{Binding UpdateGradeCommand}"/>
                 </StackPanel>
             </Grid>
-
-            <Border Grid.Row="2">
-                <Button Style="{StaticResource SubmitButton}"
-                    Content="Save" 
-                    Width="339" 
-                    HorizontalAlignment="Center"
-                    FontSize="16"
-                    Height="40"
-                    BorderThickness="0"    
-                    Command="{Binding UpdateGradeCommand}"
-                     VerticalAlignment="Center"/>
-            </Border>
-
         </Grid>
     </Border>
 </Window>

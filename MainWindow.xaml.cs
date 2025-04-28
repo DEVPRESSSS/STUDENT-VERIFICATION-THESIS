@@ -74,6 +74,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT
 
               WindowState=   WindowState.Maximized;
             }
+            else if(WindowState == WindowState.Maximized)
+            {
+
+                WindowState= WindowState.Normal;
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
             else
             {
                 WindowState = WindowState.Normal;

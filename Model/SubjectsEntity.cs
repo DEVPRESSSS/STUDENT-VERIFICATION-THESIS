@@ -5,6 +5,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.DataLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 {
@@ -13,7 +16,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string? SubjectID { get; set; } // Primary key
+        public string? SubjectID { get; set; } 
 
         [Required]
         public string SubjectName { get; set; } = string.Empty;
@@ -61,6 +64,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
 
 
+
         [NotMapped]
 
         public string? GradeValue { get; set; }
@@ -70,7 +74,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
         public bool? IsEnrolled { get; set; } = false;
 
 
-      
+        [NotMapped]
+
+        public string? ProfessorName { get; set; }
+
+  
+
+
+
+
 
 
     }

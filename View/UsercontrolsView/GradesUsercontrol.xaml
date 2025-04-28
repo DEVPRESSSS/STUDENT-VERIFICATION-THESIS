@@ -106,7 +106,7 @@
                                         
                                         
                                         
-                                        <Button  
+                                        <!--<Button  
                                             Margin="5 0 0 0" 
                                             Style="{StaticResource gridRemoveButton}"
                                              Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}, Path=DataContext.DeleteGradeCommand}">
@@ -114,10 +114,10 @@
                                             <Icon:PackIconMaterial 
                                                 Kind="DeleteOutline" 
                                                 Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
+                                        </Button>-->
                                         
 
-                                        <Button 
+                                        <!--<Button 
                                              Margin="5 0 0 0" 
                                              Style="{StaticResource Retrieve}" 
                                              Padding="5" 
@@ -130,7 +130,7 @@
                                             <Icon:PackIconMaterial
                                                 Kind="Undo" 
                                                 Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
+                                        </Button>-->
                                         
                                         
                                         
@@ -190,7 +190,7 @@
         </Button>
         <!--Add button-->
 
-        <!--Export button-->
+        <!--Export button--><!--
         <Button x:Name="Archive" Style="{StaticResource SubmitButton}" 
                 Margin="10,6,0,0" 
                 Width="60"
@@ -212,7 +212,7 @@
 
             </StackPanel>
         </Button>
-        <!--Add button-->
+        --><!--Add button-->
 
         <!--Filter Grade-->
         <ComboBox 

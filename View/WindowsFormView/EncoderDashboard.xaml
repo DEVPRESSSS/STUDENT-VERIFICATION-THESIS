@@ -8,6 +8,7 @@
         Title="EncoderDashboard"
         Height="650" Width="1120"
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         WindowStyle="None"
         ResizeMode="CanResize"
         Background="Transparent"
@@ -312,7 +313,7 @@
                                         Style="{StaticResource menuButtonIcon}"/>
                                     
                                      <TextBlock 
-                                         Text="View Subjects "  
+                                         Text="Subjects"  
                                          FontFamily="Roboto"
                                          Margin="5,0,0,0" 
 
@@ -339,7 +340,7 @@
                                              Style="{StaticResource menuButtonIcon}"/>
 
                                     <TextBlock 
-                                          Text="View Students "  
+                                          Text="Students "  
                                           FontFamily="Roboto"
                                           Margin="5,0,0,0" 
                                           />
@@ -364,7 +365,7 @@
                                         Style="{StaticResource menuButtonIcon}"/>
 
                                     <TextBlock 
-                                          Text="Manage Grades "  
+                                          Text="Grades "  
                                           FontFamily="Roboto"
                                           Margin="5,0,0,0" 
                                           />

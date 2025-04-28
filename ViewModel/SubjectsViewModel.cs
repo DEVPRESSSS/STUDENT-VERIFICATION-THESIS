@@ -76,14 +76,11 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             ExtractGradeCommand = new RelayCommand(_ =>  BullExtractGradePerSub());
             ExtractGradeCommandDocs =new RelayCommand(_ => ExtractGradeFromWord());
             AddGrade = new RelayCommand(async _ => await AddExtractedGrade());
-            //AssignedProfCommand = new RelayCommand(async _ => await AssignedProf());
-            //UnassignedProfCommand = new RelayCommand(async _ => await DeleteSubjectProfessor());
 
             _ = LoadProfessorsAsync();
             _= LoadProgramAsync();
             _ = LoadYearAsync();
             _ = LoadSchoolYearAsync();
-            //_ = LoadProfessorAssigned();
 
         }
 
@@ -896,7 +893,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                                 {
                                     StudentName = name,
                                     GradeValue = gradeText,
-                                    SchoolYearID = Selected_syID,
+                                    //SchoolYearID = Selected_syID,
 
                                 });
                             }
@@ -968,7 +965,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                             DateAssigned = DateTime.Now,
                             SubjectID = Selected_subjects.SubjectID,
                             EnrollmentID = enrollment.EnrollmentID,
-                            SchoolYearID= Selected_syID,
+                            //SchoolYearID= Selected_syID,
                             StaffID = UserSessionService.Instance.LoggedInStaffID
                         };
 

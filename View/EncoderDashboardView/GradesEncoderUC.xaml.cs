@@ -37,13 +37,13 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.EncoderDashboardVi
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
 
-            EditGrade editGrade = new EditGrade(_context)
-            {
-                DataContext = this.DataContext,
+            //EditGrade editGrade = new EditGrade(_context)
+            //{
+            //    DataContext = this.DataContext,
 
-            };
+            //};
 
-            editGrade.ShowDialog();
+            //editGrade.ShowDialog();
         }
     }
 }

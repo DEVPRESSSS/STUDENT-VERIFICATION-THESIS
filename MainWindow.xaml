@@ -11,6 +11,7 @@
         MinWidth="1120"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        WindowState="Maximized"
         ResizeMode="CanResizeWithGrip"
         Background="Transparent"
         AllowsTransparency="True"

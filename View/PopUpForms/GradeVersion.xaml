@@ -3,124 +3,195 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
+        xmlns:local="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms" 
+        xmlns:viewmodel="clr-namespace:STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel" 
+        xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:GradeViewModel}"
         mc:Ignorable="d"
-        Title="GradeVersion"
-        Height="450"
+        Title="Grade History"
+        Height="500"
         WindowStyle="None"
         AllowsTransparency="True"
         WindowStartupLocation="CenterScreen" 
-        Background="#F0F2F5"
+        Background="Transparent"
         Width="800">
 
+    <Border CornerRadius="10" 
+            Background="#FFFFFF"
+            BorderThickness="1"
+            BorderBrush="#DDDDDD">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!-- Header -->
-        <Border Grid.Row="0" Background="#3D7E35" Padding="20,15">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <TextBlock Text="Grade History Management" FontSize="22" FontWeight="Bold" Foreground="White" VerticalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Grid.Column="1" Orientation="Horizontal"/>
-            </Grid>
-        </Border>
-
-        <!-- Main Content -->
-        <Grid Grid.Row="1" Margin="20">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-
-            <!-- Right Panel - Data Grid -->
-            <Border Background="White" 
-                    CornerRadius="5" 
-                    Padding="15"
-                    BorderBrush="#DDDDDD"
-                    BorderThickness="1"
-                    Grid.ColumnSpan="2">
+            <!-- Header -->
+            <Border Grid.Row="0"
+                    CornerRadius="10,10,0,0"
+                    Background="#3D7E35" 
+                    Padding="20,15">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
-                        <TextBlock Text="{Binding Selected_grades.GradeID}" FontWeight="Bold" FontSize="16" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Column="0" Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="History" 
+                                               Width="24" 
+                                               Height="24" 
+                                               VerticalAlignment="Center" 
+                                               Foreground="White" 
+                                               Margin="0,0,10,0"/>
+                        <TextBlock Text="Grade History" 
+                                   FontSize="22" 
+                                   FontWeight="Bold" 
+                                   Foreground="White" 
+                                   VerticalAlignment="Center"/>
                     </StackPanel>
 
-                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0"/>
+                    <Button x:Name="CloseButton" 
+                            Grid.Column="1"
+                            Content="✕" 
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Foreground="White"
+                            Background="Transparent" 
+                            BorderThickness="0" 
+                            Cursor="Hand"
+                            Padding="8,0"
+                            ToolTip="Close"
+                            Click="CloseButton_Click"/>
                 </Grid>
             </Border>
 
+            <!-- Student Information Panel -->
+            <Border Grid.Row="1"
+                    Background="#F8F9FA" 
+                    Padding="20,15"
+                    BorderThickness="0,0,0,1"
+                    BorderBrush="#E9ECEF">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
 
-            <!--Close button-->
-            <Button x:Name="CloseButton" 
-              Content="✕" FontSize="14"
-              FontWeight="Bold"
-              Foreground="White"
-              Background="Transparent" 
-              BorderThickness="0" 
-              HorizontalAlignment="Right" 
-              VerticalAlignment="Top"
-              Margin="0,-60,0,0"
-              Cursor="Hand"
-              Click="CloseButton_Click" Grid.Column="1"/>
+                    <StackPanel Grid.Column="0" Orientation="Vertical">
+                        <TextBlock Text="Student:" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,0,0,5"/>
+                        <TextBlock Text="Course:" 
+                                   FontWeight="SemiBold" 
+                                   Margin="0,0,0,5"/>
+                        <TextBlock Text="Current Grade:" 
+                                   FontWeight="SemiBold"/>
+                    </StackPanel>
 
-            <DataGrid
-                 RowStyle="{DynamicResource DataGridRowStyle1}" 
-                 ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
-                 CellStyle="{DynamicResource DataGridCellStyle1}" 
-                 x:Name="gradesDataGrid" 
-                 Style="{DynamicResource DataGridStyle1}"
-                 ItemsSource="{Binding GradeHistoryCollection}"
-                 AutoGenerateColumns="False"
-                 BorderThickness="0"
-                 Background="Transparent"
-                 RowHeight="46"
-                 GridLinesVisibility="None"
-                 Grid.ColumnSpan="2" 
-                 Margin="0,52,0,0">
+                    <StackPanel Grid.Column="1" Orientation="Vertical" Margin="15,0,0,0">
+                        <TextBlock Text="{Binding Selected_grades.Student.Name}" 
+                                   FontWeight="Normal" 
+                                   Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Selected_grades.Subject.SubjectName}" 
+                                   FontWeight="Normal" 
+                                   Margin="0,0,0,5"/>
+                        <TextBlock Text="{Binding Selected_grades.GradeValue}" 
+                                   FontWeight="Normal"/>
+                    </StackPanel>
+
+                    <TextBlock Grid.Column="2" 
+                               Text="{Binding GradeHistoryCollection.Count, StringFormat='{}{0} revisions'}" 
+                               VerticalAlignment="Center" 
+                               Foreground="#6C757D"/>
+                </Grid>
+            </Border>
+
+            <!-- Main Content - Data Grid -->
+            <Grid Grid.Row="2" Margin="20,10,20,10">
+                <DataGrid RowStyle="{DynamicResource DataGridRowStyle1}" 
+                          ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                          CellStyle="{DynamicResource DataGridCellStyle1}" 
+                          x:Name="gradesDataGrid" 
+                          Style="{DynamicResource DataGridStyle1}"
+                          ItemsSource="{Binding GradeHistoryCollection}"
+                          AutoGenerateColumns="False"
+                          RowHeight="46"
+                          HeadersVisibility="Column"
+                          IsReadOnly="True"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Grade Value" 
+                                            Binding="{Binding GradeValue}" 
+                                            Width="0.8*">
+                           
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Modified By" 
+                                           Binding="{Binding StaffID}" 
+                                           Width="*">
+                          
+                        </DataGridTextColumn>
+
+                        <DataGridTextColumn Header="Date Modified" 
+                                           Binding="{Binding ModifiedAt, StringFormat='{}{0:MMM dd, yyyy hh:mm tt}'}" 
+                                           Width="1.2*">
+                        
+                        </DataGridTextColumn>
+
+                        <DataGridTemplateColumn Header="Type" Width="0.8*">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="4" 
+                                            Padding="8,3" 
+                                            Background="#E6F4EA" 
+                                            HorizontalAlignment="Left" 
+                                            VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding GradeType, FallbackValue=Regular}" 
+                                                   Foreground="#1E8E3E" 
+                                                   FontSize="12"/>
+                                    </Border>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+
+                    <!--<DataGrid.EmptyTemplate>
+                        <Border Background="#F8F9FA" 
+                                Padding="20"
+                                BorderThickness="1"
+                                BorderBrush="#DEE2E6">
+                            <StackPanel HorizontalAlignment="Center" 
+                                        VerticalAlignment="Center">
+                                <TextBlock Text="No grade history available" 
+                                           FontSize="16" 
+                                           Foreground="#6C757D" 
+                                           HorizontalAlignment="Center"/>
+                                <TextBlock Text="This grade has not been modified previously" 
+                                           Foreground="#6C757D" 
+                                           Margin="0,5,0,0" 
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Border>
+                    </DataGrid.EmptyTemplate>-->
+                </DataGrid>
+            </Grid>
+
+            <!-- Footer -->
+            <Border Grid.Row="3"
+                    Background="#F8F9FA"
+                    BorderBrush="#DEE2E6"
+                    BorderThickness="0,1,0,0"
+                    Padding="20,10">
+                <Grid>
                 
-                <DataGrid.Columns>
-
-                    <DataGridTextColumn 
-                        Header="Grade" 
-                        Binding="{Binding GradeValue}" 
-                        IsReadOnly="True" 
-                        Width="*"/>
-
-                    <DataGridTextColumn 
-                           Header="Modified by" 
-                           Binding="{Binding ModifiedBy}" 
-                           IsReadOnly="True" 
-                           Width="*"/>
-
-                    <DataGridTextColumn 
-                        Header="Last Edited" 
-                           Binding="{Binding ModifiedAt,StringFormat='{}{0:yyyy-MM-dd}'}" 
-                           IsReadOnly="True" 
-                           Width="*"/>
-
-
-                 
-
-
-                </DataGrid.Columns>
-            </DataGrid>
+                </Grid>
+            </Border>
         </Grid>
-    </Grid>
+    </Border>
 </Window>
