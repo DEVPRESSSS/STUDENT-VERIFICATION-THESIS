@@ -33,15 +33,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
           public ICommand? LoadSchedCommand { get; }
           public ICommand? CloseCommand { get; }
 
-
-
-      
-
-
-
-
-
-
           public SchedViewModel(ApplicationDbContext context)
           {
                  _context = context;

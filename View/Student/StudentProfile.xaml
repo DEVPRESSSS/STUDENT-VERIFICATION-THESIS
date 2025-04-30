@@ -110,18 +110,38 @@
                             Margin="0,0,0,0"
                             HorizontalAlignment="Center">
 
-                    <Border Width="100"
-                            Height="100"
-                            CornerRadius="50"
-                            BorderThickness="3"
-                            BorderBrush="#3D7E35"
-                            Background="White"
-                            Effect="{DynamicResource MaterialDropShadow}">
+                    <Border
+                        Margin="0,10,0,0">
+                        <StackPanel HorizontalAlignment="Center">
+                            <Border Width="100"
+                                    Height="100"
+                                    CornerRadius="60"
+                                    BorderThickness="3"
+                                    BorderBrush="{StaticResource PrimaryLightColor}"
+                                    Background="White"
+                                    >
+                                <Grid>
+                                    <!-- Placeholder when no image is selected -->
+                                    <TextBlock Text="&#xE13D;"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               FontSize="55"
+                                               Foreground="{StaticResource PrimaryLightColor}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               />
+
+                                    <!-- Actual photo -->
+                                    <Ellipse>
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding FullImagePath, UpdateSourceTrigger=PropertyChanged}"/>
+                                        </Ellipse.Fill>
+                                    </Ellipse>
+                                </Grid>
+                            </Border>
 
 
-                        <Image Source="{Binding PictureSource}"/>
+                        </StackPanel>
                     </Border>
-
                     <!-- Student Name -->
                     <TextBlock
                         Text="{Binding Selected_students.Name}"

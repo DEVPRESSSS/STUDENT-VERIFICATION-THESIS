@@ -84,7 +84,6 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         public ICommand UpdateStudentsCommand
         {
             get;
-            set;
         }
         public ICommand DeleteStudentsCommand
         {
@@ -750,40 +749,37 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         }
 
         private string _picture;
+
+        // Property for the relative picture path
         public string Picture
         {
             get => _picture;
             set
             {
-                _picture = value;
-                OnPropertyChanged(nameof(Picture));
-                // Also notify that PictureSource has changed when Picture changes
-                OnPropertyChanged(nameof(PictureSource));
+                if (_picture != value)
+                {
+                    _picture = value;
+                    OnPropertyChanged(nameof(Picture));
+                   // OnPropertyChanged(nameof(PictureSource));
+                }
             }
         }
 
-        public string PictureSource
+        public string FullImagePath
         {
             get
             {
-                if (string.IsNullOrEmpty(_picture))
+                if (string.IsNullOrEmpty(Selected_students?.Picture))
                     return null;
 
-                // Convert relative path to absolute URI
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string fullPath = Path.Combine(baseDirectory, _picture);
+                string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+                string fullPath = System.IO.Path.Combine(baseDir, Selected_students?.Picture).Replace("\\", "/");
 
-                try
-                {
-                    return new Uri(fullPath).AbsoluteUri;
-                }
-                catch
-                {
-                    // Handle invalid paths
-                    return null;
-                }
+                return new Uri(fullPath).AbsoluteUri; // WPF needs URI for ImageSource
             }
         }
+
+      
 
         /// <summary>
         /// Search by program
@@ -837,6 +833,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         //Insert Method
         private async Task AddStudentAsync()
         {
+
+            //Validation to chech if the fields have values
             if (string.IsNullOrEmpty(FirstName) || string.IsNullOrEmpty(MiddleName) || string.IsNullOrEmpty(LastName) ||
               string.IsNullOrEmpty(Age) || string.IsNullOrEmpty(Contact) || string.IsNullOrEmpty(IDnumber))
             {
@@ -845,6 +843,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 return;
             }
 
+
+
             try
             {
                 var exisitngStudent = await _context.Students
@@ -852,7 +852,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                 if (exisitngStudent != null)
                 {
-                    MessageBox.Show($"Student name or ID number or Gmail is already exists. Please use a different one.", "Validation Error",
+                    MessageBox.Show($"Student name or ID number or Gmail is " +
+                        $"already exists. Please use a different one.", "Validation Error",
                       MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
@@ -860,9 +861,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 string selectedImagePath = Picture;
 
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, @"..\..\.."));
-
-                string targetFolder = Path.Combine(projectRoot, "Images");
+                string targetFolder = Path.Combine(baseDirectory, "Images"); 
 
                 if (!Directory.Exists(targetFolder))
                 {
@@ -872,10 +871,12 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 string fileName = Path.GetFileName(selectedImagePath);
                 string destinationPath = Path.Combine(targetFolder, fileName);
 
+                // This now copies into bin\...\Images
                 File.Copy(selectedImagePath, destinationPath, true);
 
-                // Get the relative path
+                // Store only the relative path
                 string relativePath = Path.Combine("Images", fileName).Replace("\\", "/");
+
 
                 string ID = $"STU-{Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper()}";
 
@@ -909,7 +910,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 MessageBox.Show($"Error{ex}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                ClearAsync();
+                //ClearAsync();
 
             }
 
@@ -1038,46 +1039,37 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
                     try
                     {
-                        // Check for related records in SubjectsEnrolled (or other dependent tables)
                         var relatedSubjects = await _context.SubjectsEnrolled
                           .FirstOrDefaultAsync(x => x.StudentID == Selected_students.StudentID);
 
                         if (relatedSubjects != null)
                         {
-                            // If related records exist, inform the user and guide them to handle it first
                             MessageBox.Show("Cannot delete student as they are enrolled in one or more subjects. Please remove the student from their subjects first.", "Delete Failed", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                            // Reset the selected student to null after failure
                             Selected_students = null;
 
                             return;
                         }
 
-                        // Proceed with deleting the student if no related records exist
                         _context.Students.Remove(Selected_students);
                         await _context.SaveChangesAsync();
 
                         StudentsCollection.Remove(Selected_students);
 
-                        // Reset the selected student after successful deletion
                         Selected_students = null;
 
-                        MessageBox.Show("Student deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        ShowNotification("Success", "Student deleted successfully", NotificationType.Success);
                     }
                     catch (SqlException sqlEx)
                     {
-                        // Handle SQL errors (foreign key constraint violation, etc.)
                         MessageBox.Show($"Error while deleting student: {sqlEx.Message}", "Delete Failed", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                        // Optionally reset the selection if an error occurs
                         Selected_students = null;
                     }
                     catch (Exception ex)
                     {
-                        // General exception handling
                         MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-                        // Optionally reset the selection if an error occurs
                         Selected_students = null;
                     }
                 }
@@ -1106,6 +1098,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
               .ToListAsync();
 
             StudentsCollection.Clear();
+
+     
 
             for (int i = 0; i < student.Count; i++)
             {
