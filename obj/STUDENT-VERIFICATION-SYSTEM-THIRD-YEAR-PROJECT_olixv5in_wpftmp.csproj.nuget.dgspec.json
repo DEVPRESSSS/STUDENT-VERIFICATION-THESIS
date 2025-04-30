@@ -1,0 +1,147 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.csproj": {}
+  },
+  "projects": {
+    "D:\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.csproj",
+        "projectName": "STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT",
+        "projectPath": "D:\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT.csproj",
+        "packagesPath": "C:\\Users\\xmont\\.nuget\\packages\\",
+        "outputPath": "D:\\STUDENT-VERIFICATION-SYSTEM-THIRD-YEAR-PROJECT\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\xmont\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-windows7.0": {
+            "targetAlias": "net8.0-windows",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0-windows7.0": {
+          "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.5.3, )"
+            },
+            "LiveCharts.Wpf.Core": {
+              "target": "Package",
+              "version": "[0.9.8, )"
+            },
+            "MahApps.Metro.IconPacks": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
+            "MaterialDesignThemes": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
+            "Microsoft.CodeAnalysis.Common": {
+              "target": "Package",
+              "version": "[4.8.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.FileExtensions": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "ModernWpf": {
+              "target": "Package",
+              "version": "[1.4.6, )"
+            },
+            "Notification.Wpf": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.4, )"
+            },
+            "itext7": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

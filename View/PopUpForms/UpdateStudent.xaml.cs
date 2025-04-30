@@ -38,23 +38,23 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.PopUpForms
         private void Close_Click(object sender, RoutedEventArgs e)
         {
 
-            if (!string.IsNullOrWhiteSpace(NameTxt.Text) &&
-               !string.IsNullOrWhiteSpace(Agetxt.Text) &&
-               !string.IsNullOrWhiteSpace(IDtxt.Text) &&
-               !string.IsNullOrWhiteSpace(Address.Text) &&
-               !string.IsNullOrWhiteSpace(Contact.Text))
-            {
-                this.Close();
+            //if (!string.IsNullOrWhiteSpace(NameTxt.Text) &&
+            //   !string.IsNullOrWhiteSpace(Agetxt.Text) &&
+            //   !string.IsNullOrWhiteSpace(IDtxt.Text) &&
+            //   !string.IsNullOrWhiteSpace(Address.Text) &&
+            //   !string.IsNullOrWhiteSpace(Contact.Text))
+            //{
+            //    this.Close();
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
 
-                MessageBox.Show(" Please fill out all fields correctly.",
-                               "Validation Error",
-                               MessageBoxButton.OK,
-                               MessageBoxImage.Error);
-            }
+            //    MessageBox.Show(" Please fill out all fields correctly.",
+            //                   "Validation Error",
+            //                   MessageBoxButton.OK,
+            //                   MessageBoxImage.Error);
+            //}
         }
 
         private void Address_PreviewKeyDown(object sender, KeyEventArgs e)
