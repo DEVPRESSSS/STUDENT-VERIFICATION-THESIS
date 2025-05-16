@@ -154,7 +154,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
         {
             get;
         }
-
+        public ICommand KeyDown
+        {
+            get;
+        }
         public StudentViewModel(ApplicationDbContext context)
         {
 
@@ -760,7 +763,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 {
                     _picture = value;
                     OnPropertyChanged(nameof(Picture));
-                   // OnPropertyChanged(nameof(PictureSource));
+                    OnPropertyChanged(nameof(FullImagePath));
                 }
             }
         }
@@ -779,7 +782,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-      
+
 
         /// <summary>
         /// Search by program
@@ -861,14 +864,14 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 string selectedImagePath = Picture;
 
                 string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string targetFolder = Path.Combine(baseDirectory, "Images"); 
+                string targetFolder = Path.Combine(baseDirectory, "Images");
 
                 if (!Directory.Exists(targetFolder))
                 {
                     Directory.CreateDirectory(targetFolder);
                 }
 
-                string fileName = Path.GetFileName(selectedImagePath);
+                string fileName = $"{Guid.NewGuid().ToString("N").Substring(0, 8)}_{Path.GetFileName(selectedImagePath)}";
                 string destinationPath = Path.Combine(targetFolder, fileName);
 
                 // This now copies into bin\...\Images
@@ -889,8 +892,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                     Contact = Contact,
                     Address = Address,
                     YearID = Selected_yearID,
-                    Picture = relativePath,
+                    Picture = string.IsNullOrEmpty(relativePath) ? string.Empty : relativePath,
                     ProgramID = Selected_programID,
+                    Student_Type = string.IsNullOrEmpty(Selected_yearID) ? Student_Type.Alumni : Student_Type.Undergraduate,
                     ScholarshipID = Selected_SchoolarID,
                 };
 
@@ -910,7 +914,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 MessageBox.Show($"Error{ex}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                //ClearAsync();
+                ClearAsync();
 
             }
 
@@ -939,9 +943,22 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 return;
             }
 
+
+            //Populate the picture box
+
+
+            if (!string.IsNullOrWhiteSpace(Selected_students.Picture))
+            {
+
+                Selected_students.Picture = Picture;
+            }
+
+
+
+
             // Check if Name or Gmail already exists for another student
             var duplicateName = await _context.Students
-              .AnyAsync(s => s.Name == Selected_students.Name && s.StudentID != Selected_students.StudentID);
+              .AnyAsync(s => s.Name == Selected_students.Name && s.StudentID != Selected_students.IDnumber);
 
             if (duplicateName)
             {
@@ -962,11 +979,15 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 existing_student.ProgramID = Selected_students.ProgramID;
                 existing_student.YearID = Selected_students.YearID;
                 existing_student.Address = Selected_students.Address;
+                existing_student.Picture = Picture;
 
                 _context.Students.Update(existing_student);
                 await _context.SaveChangesAsync();
 
-                MessageBox.Show("Student updated successfully", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                //Notifacation
+
+                ShowNotification("Success", $"{Selected_students.Name} information updated successfully", NotificationType.Success);
 
                 using (var db = new ApplicationDbContext())
                 {
@@ -1027,6 +1048,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
                 MessageBox.Show($"Oops, there is an error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
         //Delete Student
         private async Task DeleteStudentAsync()
@@ -1099,7 +1121,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
             StudentsCollection.Clear();
 
-     
+
 
             for (int i = 0; i < student.Count; i++)
             {
@@ -1546,20 +1568,20 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
                     var yearMapping = new Dictionary<string,
                       string>(StringComparer.OrdinalIgnoreCase) {
-              {
-                "4th Year",
-                "Fourth Year"
-              }, {
-                "3rd Year",
-                "Third Year"
-              }, {
-                "2nd Year",
-                "Second Year"
-              }, {
-                "1st Year",
-                "First Year"
-              },
-            };
+                              {
+                                "4th Year",
+                                "Fourth Year"
+                              }, {
+                                "3rd Year",
+                                "Third Year"
+                              }, {
+                                "2nd Year",
+                                "Second Year"
+                              }, {
+                                "1st Year",
+                                "First Year"
+                              },
+                            };
 
                     var normalizedYear = yearMapping.ContainsKey(item.YearID) ? yearMapping[item.YearID] : item.YearID;
 
@@ -1921,7 +1943,7 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             }
         }
 
-        //Choose Picture
+        //Choose picture of the student
 
         private void ChoosePicture()
         {
@@ -1938,6 +1960,8 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
             {
 
                 Picture = openFileDialog.FileName;
+
+                OnPropertyChanged(nameof(FullImagePath));
             }
         }
 
@@ -1971,10 +1995,9 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.ViewModel
 
         }
 
-        private bool CanExecuteInsertGrade()
-        {
-            return true;
-        }
+
+
+      
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

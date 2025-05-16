@@ -73,33 +73,33 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.View.UsercontrolsView
            
         }
 
-        //private void Button_Click_3(object sender, RoutedEventArgs e)
-        //{
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
 
-        //    AddSub addSub = new AddSub(_context)
-        //    {
+            AddSub addSub = new AddSub(_context)
+            {
 
-        //        DataContext= this.DataContext
-        //    };
+                DataContext = this.DataContext
+            };
 
-        //    addSub.ShowDialog();
-        //}
+            addSub.ShowDialog();
+        }
 
-        //private void Button_Click_4(object sender, RoutedEventArgs e)
-        //{
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
 
-        //    ListOfSubjects obj = new ListOfSubjects(_context)
-        //    {
+            ListOfSubjects obj = new ListOfSubjects(_context)
+            {
 
-        //        DataContext = this.DataContext
+                DataContext = this.DataContext
 
-        //    };
+            };
 
 
-        //    obj.ShowDialog();
-        //}
+            obj.ShowDialog();
+        }
 
-       
+
 
         private void Profile_Click_2(object sender, RoutedEventArgs e)
         {

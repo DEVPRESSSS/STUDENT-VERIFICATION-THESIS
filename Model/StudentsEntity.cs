@@ -100,7 +100,10 @@ namespace STUDENT_VERIFICATION_SYSTEM_THIRD_YEAR_PROJECT.Model
 
         public string? LastName { get; set; }
 
-        
+
+
+      
+
 
         #endregion
     }
